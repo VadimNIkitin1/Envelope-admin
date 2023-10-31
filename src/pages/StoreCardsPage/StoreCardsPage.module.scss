@@ -1,0 +1,16 @@
+.page {
+  padding: 20px;
+  color: #fff;
+}
+
+.cardList {
+  display: flex;
+  column-gap: 20px;
+  flex-wrap: wrap;
+}
+
+.messageAddButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
