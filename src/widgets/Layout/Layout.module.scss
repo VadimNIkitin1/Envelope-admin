@@ -1,0 +1,25 @@
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  position: sticky;
+  left: 0;
+  top: 0;
+}
+
+.sidebar {
+}
+
+.content {
+  min-height: 100vh;
+  padding-left: 100px;
+}
+
+.footer {
+  position: sticky;
+  left: 0;
+  bottom: 0;
+}

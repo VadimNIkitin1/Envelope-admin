@@ -7,6 +7,7 @@ import { FC, PropsWithChildren } from 'react';
 
 interface Props {
   view: string;
+  type?: string;
   children: ReactNode;
   onClick?: () => void;
 }

@@ -1,0 +1,41 @@
+@import '../../app/variable.module.scss';
+
+.sidebar {
+  position: fixed;
+  bottom: 140px;
+  left: 10px;
+  width: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  color: #fff;
+  background-color: #212121;
+  padding: 5px;
+  border-radius: 20px;
+
+  -webkit-box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.8);
+  box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.8);
+  &.light {
+    background-color: #fff;
+  }
+}
+
+.button {
+  position: sticky;
+  bottom: 620px;
+  left: 10px;
+  width: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  color: #fff;
+  background-color: #212121;
+  padding: 5px;
+  border-radius: 20px;
+
+  -webkit-box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.8);
+  box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.8);
+  &.light {
+    background-color: #fff;
+  }
+}

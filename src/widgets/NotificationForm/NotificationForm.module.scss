@@ -1,0 +1,78 @@
+@import '../../app/variable.module.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.label {
+  color: #fff;
+  font-weight: 700;
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+
+.labelImage {
+  color: #fff;
+  font-weight: 700;
+}
+
+.titleNotification {
+  background-color: $black;
+  padding: 10px;
+  min-width: 350px;
+  border-radius: 10px;
+  border: 1px solid $orange;
+  color: #fff;
+  &.light {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+.textNotification {
+  background-color: $black;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid $orange;
+  min-width: 500px;
+  min-height: 200px;
+  resize: none;
+  outline: none;
+  &.light {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+.imageNotification {
+  display: none;
+}
+
+.imageInput {
+  padding: 10px 0;
+  text-align: center;
+  justify-items: center;
+  border-radius: 15px;
+  background-color: $violet;
+}
+
+.sendMeButton {
+  padding: 10px 0;
+  text-align: center;
+  justify-items: center;
+  border-radius: 15px;
+  background-color: $orange;
+}
+
+.sendButton {
+  padding: 10px 0;
+  font-weight: 700;
+  text-align: center;
+  justify-items: center;
+  border-radius: 15px;
+  background-color: $green;
+  color: #fff;
+}

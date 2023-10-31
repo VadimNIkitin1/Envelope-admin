@@ -1,0 +1,20 @@
+@import '../../app/variable.module.scss';
+
+.table {
+  position: relative;
+}
+
+.rowContainer {
+  display: flex;
+  align-items: baseline;
+}
+
+.messageAddButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message {
+  color: #fff;
+}

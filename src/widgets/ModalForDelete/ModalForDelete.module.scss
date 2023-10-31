@@ -1,0 +1,30 @@
+@import '../../app/variable.module.scss';
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+}
+
+.modal {
+  position: relative;
+  color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: $black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+}
+
+.modalTitle {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
