@@ -2,24 +2,23 @@ import { FC, useEffect } from 'react';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 
 import { getCategories } from '../../store/categorySlice';
-import { toggleModalCategories, toggleModalError } from '../../store/modalsSlice';
+import { toggleModalCategories } from '../../store/modalsSlice';
 
 import ModalCategories from '../../widgets/ModalCategories/ModalCategories';
 import ModalEditCategories from '../../widgets/ModalEditCategories/ModalEditCategories';
 import ModalForDelete from '../../widgets/ModalForDelete/ModalForDelete';
-import ModalError from '../../widgets/ModalError/ModalError';
+
 import Table from '../../widgets/Table/Table';
 
 import Button from '../../shared/Button/Button';
 
 import style from './CategoriesPage.module.scss';
-import Loader from '../../shared/Loader/Loader';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 const CategoriesPage: FC = () => {
   const dispatch = useAppDispatch();
-  const { categories, error, loading } = useAppSelector((state) => state.categories);
+  const { categories } = useAppSelector((state) => state.categories);
 
   const render = useAppSelector((state) => state.active.render);
 
@@ -27,7 +26,7 @@ const CategoriesPage: FC = () => {
 
   const modalEditCategories = useAppSelector((state) => state.modals.modalEditCategories);
   const modalForDelete = useAppSelector((state) => state.modals.modalForDelete);
-  const modalError = useAppSelector((state) => state.modals.modalError);
+  // const modalError = useAppSelector((state) => state.modals.modalError);
 
   const tableHeaderCategories = useAppSelector((state) => state.tableHeader.tableHeaderCategories);
 

@@ -1,14 +1,13 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { toggleModalProducts } from '../../store/modalsSlice';
 import { triggerRender } from '../../store/activeSlice';
 
-import InputFile from '../../shared/InputFile/InputFile';
+// import InputFile from '../../shared/InputFile/InputFile';
 import Button from '../../shared/Button/Button';
 
 import { addProduct, getUnits } from '../../store/productSlice';
-import Checkbox from '../../shared/Checkbox/Checkbox';
+
 import { useEffect } from 'react';
 import { getCategories } from '../../store/categorySlice';
 
@@ -16,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import style from './ModalProducts.module.scss';
 import clsx from 'clsx';
+import { IRequestProduct } from '../../types/products';
 
 const ModalProducts = () => {
   const dispatch = useAppDispatch();
@@ -33,20 +33,20 @@ const ModalProducts = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({ mode: 'onBlur' });
+  } = useForm<IRequestProduct>({ mode: 'onBlur' });
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<IRequestProduct> = (data: IRequestProduct) => {
     const requestData = {
       category_id: Number(data.category_id),
       name_rus: data.name_rus,
       description_rus: data.description_rus,
       price: Number(data.price),
       wt: Number(data.wt),
-      kilocalories: Number(data.calories),
+      kilocalories: Number(data.kilocalories),
       proteins: Number(data.proteins),
       fats: Number(data.fats),
       carbohydrates: Number(data.carbohydrates),
-      unit_id: Number(data.unit),
+      unit_id: Number(data.unit_id),
       availability: data.availability,
       popular: data.popular,
       delivery: data.delivery,
@@ -105,7 +105,6 @@ const ModalProducts = () => {
               <p className={style.productTitle}>Описание</p>
               <textarea
                 placeholder="Описание"
-                type="text"
                 className={style.modalDescription}
                 {...register('description_rus', { required: true })}
               />
@@ -114,7 +113,7 @@ const ModalProducts = () => {
                   placeholder="Ккал"
                   type="number"
                   className={style.modalInputSmall}
-                  {...register('calories', { required: true })}
+                  {...register('kilocalories', { required: true })}
                 />
                 <input
                   placeholder="Белки"
@@ -155,7 +154,7 @@ const ModalProducts = () => {
                     {...register('wt', { required: true })}
                   />
                   <select
-                    {...register('unit', { required: true })}
+                    {...register('unit_id', { required: true })}
                     name="unit"
                     className={style.modalSelect}
                   >
@@ -166,9 +165,11 @@ const ModalProducts = () => {
                     ))}
                   </select>
                 </div>
-                {errors.weight && <p className={style.errorMsg}>{errors.weight.message}</p>}
+                {errors.wt && <p className={style.errorMsg}>{errors.wt.message}</p>}
               </label>
-              {errors.description && <p className={style.errorMsg}>{errors.description.message}</p>}
+              {errors.description_rus && (
+                <p className={style.errorMsg}>{errors.description_rus.message}</p>
+              )}
             </label>
             <div
               style={{

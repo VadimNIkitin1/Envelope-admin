@@ -112,12 +112,12 @@ legend {
 
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url('../assets/pattern-monochrome-telegram-logo-cats-hd-wallpaper-preview.jpg');
+    url('../assets/pattern-monochrome-telegram-logo-cats-hd-wallpaper-preview.jpeg');
 }
 
 .App {
   background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url('../assets/pattern-monochrome-telegram-logo-cats-hd-wallpaper-preview.jpg');
+    url('../assets/pattern-monochrome-telegram-logo-cats-hd-wallpaper-preview.jpeg');
 
   &.light {
     background: linear-gradient(
@@ -126,6 +126,6 @@ body {
         rgba(56, 244, 5, 0.3) 50%,
         rgba(215, 238, 4, 0.3) 100%
       ),
-      url('../assets/pattern-monochrome-telegram-logo-cats-hd-wallpaper-preview.jpg');
+      url('../assets/pattern-monochrome-telegram-logo-cats-hd-wallpaper-preview.jpeg');
   }
 }

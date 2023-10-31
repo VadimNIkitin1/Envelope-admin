@@ -1,4 +1,3 @@
-import React from 'react';
 import NotificationForm from '../../widgets/NotificationForm/NotificationForm';
 import style from './NotificationPage.module.scss';
 

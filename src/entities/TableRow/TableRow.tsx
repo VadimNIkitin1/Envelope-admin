@@ -18,8 +18,7 @@ import Button from '../../shared/Button/Button';
 import clsx from 'clsx';
 import style from './TableRow.module.scss';
 import { IColumnTable } from '../../types/tableHeaders';
-import { ICategory } from '../../types/categories';
-import { IProduct } from '../../types/products';
+
 import { FC } from 'react';
 
 import { TDataForTable } from '../../types/data';
@@ -35,7 +34,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   const theme = useAppSelector((state) => state.active.theme);
   const company_id = useAppSelector((state) => state.auth.company_id);
 
-  const handleEdit = (data: ICategory | IProduct) => {
+  const handleEdit = (data: any) => {
     if (location.pathname === `/${company_id}/menu`) {
       dispatch(saveProduct(data));
       dispatch(toggleModalEditProducts(true));
@@ -47,7 +46,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
     }
   };
 
-  const handleDelete = (data: ICategory | IProduct) => {
+  const handleDelete = (data: any) => {
     if (location.pathname === `/${company_id}/menu`) {
       dispatch(saveProduct(data));
     }
