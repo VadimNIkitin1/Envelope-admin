@@ -20,7 +20,7 @@ export const getProducts = createAsyncThunk<IProduct[], undefined, { rejectValue
     try {
       const res = await axios.get(`product/`);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -32,7 +32,7 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
     try {
       const res = await axios.post(`product/`, data);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -44,7 +44,7 @@ export const deleteProduct = createAsyncThunk<IProduct, string, { rejectValue: s
     try {
       const res = await axios.delete(`product/?product_id=${id}`);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -56,7 +56,7 @@ export const editProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectV
     try {
       const res = await axios.put(`product/?product_id=${data.id}`, data);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -70,7 +70,7 @@ export const toggleCheckboxProduct = createAsyncThunk<
   try {
     const res = await axios.put(`product/${data.id}/checkbox/?checkbox=${data.code}`);
     return res.data;
-  } catch (error) {
+  } catch (error: any) {
     return rejectWithValue(error.response.data);
   }
 });
@@ -81,7 +81,7 @@ export const getUnits = createAsyncThunk<IUnit[], undefined, { rejectValue: stri
     try {
       const res = await axios.get(`product/unit/all/`);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }

@@ -1,10 +1,18 @@
-import React from 'react';
+import { FC } from 'react';
+
 import TableRow from '../../entities/TableRow/TableRow';
 import TableHeader from '../../entities/TableHeader/TableHeader';
 
-import style from './Table.module.scss';
+import { IColumnTable } from '../../types/tableHeaders';
+import { TData } from '../../types/data';
 
-const Table = ({ data, tableHeader }) => {
+import style from './Table.module.scss';
+interface Props {
+  data: TData;
+  tableHeader: IColumnTable[];
+}
+
+const Table: FC<Props> = ({ data, tableHeader }) => {
   return (
     <>
       <TableHeader tableHeader={tableHeader} />

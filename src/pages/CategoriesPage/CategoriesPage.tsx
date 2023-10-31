@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useEffect } from 'react';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 
 import { getCategories } from '../../store/categorySlice';
@@ -15,10 +14,10 @@ import Button from '../../shared/Button/Button';
 
 import style from './CategoriesPage.module.scss';
 import Loader from '../../shared/Loader/Loader';
-import React from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
-const CategoriesPage = () => {
+const CategoriesPage: FC = () => {
   const dispatch = useAppDispatch();
   const { categories, error, loading } = useAppSelector((state) => state.categories);
 

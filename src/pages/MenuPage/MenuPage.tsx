@@ -13,7 +13,7 @@ import Button from '../../shared/Button/Button';
 
 import style from './MenuPage.module.scss';
 import ModalForDelete from '../../widgets/ModalForDelete/ModalForDelete';
-import React from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 const MenuPage = () => {

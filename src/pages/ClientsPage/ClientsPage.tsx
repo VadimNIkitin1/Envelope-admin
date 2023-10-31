@@ -1,4 +1,3 @@
-import React from 'react';
 import { clients } from '../../assets/db';
 import Table from '../../widgets/Table/Table';
 import style from './ClientsPage.module.scss';

@@ -17,7 +17,7 @@ export interface IUnit {
 }
 
 export interface IRequestProduct {
-  id?: string;
+  id?: string | number;
   category_id?: number;
   name_rus?: string;
   description_rus?: string;

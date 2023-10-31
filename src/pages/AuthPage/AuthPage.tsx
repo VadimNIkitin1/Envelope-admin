@@ -1,4 +1,3 @@
-import React from 'react';
 import AuthForm from '../../widgets/AuthForm/AuthForm';
 import style from './AuthPage.module.scss';
 

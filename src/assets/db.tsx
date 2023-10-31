@@ -6,129 +6,61 @@
 //   "Магазин №5",
 // ];
 
-export const prices = ["2990", "8490", "16990", "29990"];
+export interface ITariff {
+  price: string;
+  id: number;
+}
 
-export const products = [
-  {
-    name: "Цезарь",
-    categories: "Салат",
-    price: 500,
-    quantity: 10,
-    availability: false,
-    popular: false,
-  },
-  {
-    name: "Оливье",
-    categories: "Салат",
-    price: 400,
-    quantity: 10,
-    availability: true,
-    popular: true,
-  },
-  {
-    name: "Греческий",
-    categories: "Салат",
-    price: 600,
-    quantity: 10,
-    availability: true,
-    popular: false,
-  },
-  {
-    name: "Борщ",
-    categories: "Супы",
-    price: 500,
-    quantity: 10,
-    availability: true,
-    popular: false,
-  },
-  {
-    name: "Уха",
-    categories: "Супы",
-    price: 500,
-    quantity: 10,
-    availability: true,
-    popular: false,
-  },
-  {
-    name: "Харчо",
-    categories: "Супы",
-    price: 500,
-    quantity: 10,
-    availability: true,
-    popular: false,
-  },
-  {
-    name: "Стейк",
-    categories: "Второе",
-    price: 1500,
-    quantity: 10,
-    availability: true,
-    popular: false,
-  },
-  {
-    name: "Шашлык",
-    categories: "Второе",
-    price: 1200,
-    quantity: 10,
-    availability: true,
-    popular: false,
-  },
-  {
-    name: "Азу",
-    categories: "Второе",
-    price: 900,
-    quantity: 10,
-    availability: true,
-    popular: false,
-  },
-  {
-    name: "4 сыра",
-    categories: "Пицца",
-    price: 1000,
-    quantity: 10,
-    availability: true,
-    popular: false,
-  },
-  {
-    name: "Мясная",
-    categories: "Пицца",
-    price: 1300,
-    quantity: 10,
-    availability: true,
-    popular: false,
-  },
-  {
-    name: "Грибная",
-    categories: "Пицца",
-    price: 1000,
-    quantity: 10,
-    availability: true,
-    popular: false,
-  },
+export const tariff: ITariff[] = [
+  { price: '2990', id: 1 },
+  { price: '8490', id: 2 },
+  { price: '16990', id: 3 },
+  { price: '29990', id: 4 },
 ];
 
-export const clients = [
-  { name: "VadimNikitin", userId: 1234 },
-  { name: "SwarowskyDmitry", userId: 1111 },
-  { name: "RyhlovNikita", userId: 4321 },
+export interface IClients {
+  name: string;
+  userId: number;
+  id: number;
+}
+
+export const clients: IClients[] = [
+  { name: 'VadimNikitin', userId: 1234, id: 1 },
+  { name: 'SwarowskyDmitry', userId: 1111, id: 2 },
+  { name: 'RyhlovNikita', userId: 4321, id: 3 },
 ];
 
-export const analytic = [
+export interface IAnalytic {
+  id: number;
+  name: string;
+  quantity: number;
+}
+
+export const analytic: IAnalytic[] = [
   {
-    name: "Выполнено заказов",
+    id: 1,
+    name: 'Выполнено заказов',
     quantity: 1234,
   },
   {
-    name: "Кол-во клиентов",
+    id: 2,
+    name: 'Кол-во клиентов',
     quantity: 1212,
   },
   {
-    name: "Заказов на сумму:",
+    id: 3,
+    name: 'Заказов на сумму:',
     quantity: 1234,
   },
 ];
 
-export const settings = [
-  { name: "График работы", values: "10:00-20:00" },
-  { name: "Язык", values: "Русский" },
+export interface ISettings {
+  id: number;
+  name: string;
+  values: string;
+}
+
+export const settings: ISettings[] = [
+  { name: 'График работы', values: '10:00-20:00', id: 1 },
+  { name: 'Язык', values: 'Русский', id: 2 },
 ];

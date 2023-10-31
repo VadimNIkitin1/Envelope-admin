@@ -1,11 +1,9 @@
 import errorImage from '../../assets/error.png';
 import { useRouteError } from 'react-router-dom';
 import style from './ErrorPage.module.scss';
-import React from 'react';
 
 const ErrorPage = () => {
-  const error = useRouteError();
-  console.error(error);
+  const error: any = useRouteError();
 
   return (
     <div id="error-page" className={style.container}>

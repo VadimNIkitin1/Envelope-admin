@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
 import { useAppDispatch } from '../../types/hooks';
 
@@ -16,7 +16,12 @@ import {
 } from 'react-icons/md';
 import { toggleSidebar } from '../../store/activeSlice';
 
-const SIDEBAR_LIST = [
+export interface ISideBarItem {
+  link: string;
+  icon: ReactNode;
+}
+
+const SIDEBAR_LIST: ISideBarItem[] = [
   { link: '/shops', icon: <MdStore /> },
   {
     link: '/prices',
@@ -47,7 +52,7 @@ const SideBarList = () => {
   return (
     <div>
       {SIDEBAR_LIST.map((el, idx) => (
-        <SideBarItem key={idx} item={el} />
+        <SideBarItem key={idx} {...el} />
       ))}
       {<BurgerButton onClick={() => dispatch(toggleSidebar(false))} />}
     </div>

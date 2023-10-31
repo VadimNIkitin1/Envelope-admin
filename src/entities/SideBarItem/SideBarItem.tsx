@@ -1,17 +1,16 @@
-import React from 'react';
+import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../types/hooks';
 import { Link } from 'react-router-dom';
 import style from './SideBarItem.module.scss';
 import { toggleTabs } from '../../store/activeSlice';
 import clsx from 'clsx';
+import { ISideBarItem } from '../SideBarList/SideBarList';
 
-const SideBarItem = ({ item }) => {
+const SideBarItem: FC<ISideBarItem> = ({ link, icon }) => {
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector((state) => state.active.active);
   const theme = useAppSelector((state) => state.active.theme);
   const company_id = useAppSelector((state) => state.auth.company_id);
-
-  const { link, icon } = item;
 
   return (
     <Link

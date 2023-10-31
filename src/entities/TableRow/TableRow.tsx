@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { MdOutlineEditCalendar, MdDeleteForever } from 'react-icons/md';
 
@@ -18,14 +17,25 @@ import Button from '../../shared/Button/Button';
 
 import clsx from 'clsx';
 import style from './TableRow.module.scss';
+import { IColumnTable } from '../../types/tableHeaders';
+import { ICategory } from '../../types/categories';
+import { IProduct } from '../../types/products';
+import { FC } from 'react';
 
-const TableRow = ({ cell, tableHeader }) => {
+import { TDataForTable } from '../../types/data';
+
+interface Props {
+  cell: TDataForTable;
+  tableHeader: IColumnTable[];
+}
+
+const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const theme = useAppSelector((state) => state.active.theme);
   const company_id = useAppSelector((state) => state.auth.company_id);
 
-  const handleEdit = (data) => {
+  const handleEdit = (data: ICategory | IProduct) => {
     if (location.pathname === `/${company_id}/menu`) {
       dispatch(saveProduct(data));
       dispatch(toggleModalEditProducts(true));
@@ -37,7 +47,7 @@ const TableRow = ({ cell, tableHeader }) => {
     }
   };
 
-  const handleDelete = (data) => {
+  const handleDelete = (data: ICategory | IProduct) => {
     if (location.pathname === `/${company_id}/menu`) {
       dispatch(saveProduct(data));
     }
@@ -49,7 +59,7 @@ const TableRow = ({ cell, tableHeader }) => {
     dispatch(toggleModalForDelete(true));
   };
 
-  const handleCheckbox = (id, code) => {
+  const handleCheckbox = (id: string | number, code: string) => {
     if (location.pathname === `/${company_id}/menu`) {
       dispatch(toggleCheckboxProduct({ id, code }));
     }
@@ -63,7 +73,7 @@ const TableRow = ({ cell, tableHeader }) => {
 
   return (
     <div className={clsx(style.tableRow, theme && style.light)}>
-      {tableHeader.map((column) => {
+      {tableHeader.map((column: IColumnTable) => {
         switch (column.type) {
           case 'checkbox':
             return (

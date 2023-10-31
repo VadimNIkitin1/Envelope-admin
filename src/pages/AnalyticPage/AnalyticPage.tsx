@@ -2,7 +2,7 @@ import Table from '../../widgets/Table/Table';
 
 import { analytic } from '../../assets/db';
 import style from './AnalyticPage.module.scss';
-import React from 'react';
+
 import { useAppSelector } from '../../types/hooks';
 
 const AnalyticPage = () => {

@@ -5,7 +5,7 @@ export interface ICategory {
 }
 
 export interface IRequestCategory {
-  id?: number;
+  id?: string | number;
   name_rus?: string;
   availability?: boolean;
   created_by?: number;

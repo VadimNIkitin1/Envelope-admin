@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import SideBarList from '../../entities/SideBarList/SideBarList';
 import BurgerButton from '../../shared/BurgerButton/BurgerButton';
 import { toggleSidebar } from '../../store/activeSlice';
-import React from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 const SideBar = () => {
