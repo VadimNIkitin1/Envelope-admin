@@ -1,0 +1,32 @@
+@import '../../app/variable.module.scss';
+
+.tableRow {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  column-gap: 20px;
+  background-color: $black;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  padding: 10px 20px;
+  &.light {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+.tableRow:nth-last-child(odd) {
+  background-color: $grey;
+  &.light {
+    background-color: $lightgreen;
+  }
+}
+
+.tableColumn:first-child {
+  width: 120px;
+}
+
+.tableColumn {
+  min-width: 90px;
+}

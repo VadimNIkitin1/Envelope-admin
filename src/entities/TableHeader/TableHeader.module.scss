@@ -1,0 +1,26 @@
+@import '../../app/variable.module.scss';
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  column-gap: 20px;
+  background-color: $black;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  padding: 10px 20px;
+
+  &.light {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+.tableColumn:first-child {
+  width: 120px;
+}
+
+.tableColumn {
+  min-width: 90px;
+}

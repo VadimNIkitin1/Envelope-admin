@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { useAppSelector } from '../../types/hooks';
 
 import clsx from 'clsx';
@@ -7,6 +7,8 @@ import { FC, PropsWithChildren } from 'react';
 
 interface Props {
   view: string;
+  children: ReactNode;
+  onClick?: () => void;
 }
 
 const Button: FC<Props> = ({ view, ...props }) => {
@@ -25,3 +27,5 @@ const Button: FC<Props> = ({ view, ...props }) => {
     />
   );
 };
+
+export default Button;
