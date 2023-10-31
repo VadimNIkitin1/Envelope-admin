@@ -19,7 +19,7 @@ export const getCategories = createAsyncThunk<ICategory[], undefined, { rejectVa
     try {
       const res = await axios.get(`category/`);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -31,7 +31,7 @@ export const addCategory = createAsyncThunk<ICategory, IRequestCategory, { rejec
     try {
       const res = await axios.post(`category/`, data);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -43,7 +43,7 @@ export const editCategory = createAsyncThunk<string, IRequestCategory, { rejectV
     try {
       const res = await axios.put(`category/?category_id=${data.id}`, data);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -55,7 +55,7 @@ export const deleteCategory = createAsyncThunk<string, string, { rejectValue: st
     try {
       const res = await axios.delete(`category/?category_id=${id}`);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -69,7 +69,7 @@ export const toggleCheckboxCategory = createAsyncThunk<
   try {
     const res = await axios.put(`category/${data.id}/checkbox/?checkbox=${data.code}`);
     return res.data;
-  } catch (error) {
+  } catch (error: any) {
     return rejectWithValue(error.response.data);
   }
 });
