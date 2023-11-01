@@ -31,13 +31,29 @@ export const authorization = createAsyncThunk<IResponse, IAuthRequest, { rejectV
     try {
       const res = await axios.post('user/register/', data);
       localStorage.setItem('token', res.data.schema_name);
-      console.log(res.data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
 );
+
+export const logIn = createAsyncThunk<IResponse, IAuthRequest, { rejectValue: string }>(
+  'auth/logIn',
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await axios.post('user/login', data);
+      localStorage.setItem('token', res.data.schema_name);
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const logOut = createAsyncThunk('auth/logOut', async () => {
+  localStorage.removeItem('token');
+});
 
 const isError = (action: AnyAction) => {
   return action.type.endsWith('rejected');
@@ -62,6 +78,18 @@ const slice = createSlice({
         state.isAuth = true;
         state.loading = false;
         state.error = null;
+      })
+      .addCase(logIn.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logIn.fulfilled, (state, action) => {
+        state.company_id = action.payload.schema_name;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(logOut.fulfilled, (state) => {
+        state.isAuth = false;
       })
       .addMatcher(isError, (state, action: PayloadAction<IError>) => {
         state.error = action.payload;

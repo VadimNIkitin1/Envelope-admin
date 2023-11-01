@@ -6,7 +6,7 @@ import style from './NavBar.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { clsx } from 'clsx';
 import Button from '../../shared/Button/Button';
-import { toggleAuth } from '../../store/authSlice';
+import { logOut } from '../../store/authSlice';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ const NavBar = () => {
       >
         ENVELOPE <GiEnvelope className={style.logo} />
       </Link>
-      <Button view={'delete'} onClick={() => dispatch(toggleAuth(false))}>
+      <Button view="delete" onClick={() => dispatch(logOut())}>
         Выйти
       </Button>
       <ThemeSwitches />

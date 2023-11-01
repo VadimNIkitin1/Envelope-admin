@@ -36,7 +36,6 @@ const AuthForm = () => {
       username: data.username,
       hashed_password: data.password,
     };
-    console.log(requestData);
 
     reset();
     dispatch(authorization(requestData));

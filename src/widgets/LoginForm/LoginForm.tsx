@@ -5,7 +5,7 @@ import type { ISubmitForm } from './types';
 import { Link, useNavigate } from 'react-router-dom';
 import { GiEnvelope } from 'react-icons/gi';
 
-import { toggleAuth } from '../../store/authSlice';
+import { logIn } from '../../store/authSlice';
 
 import { useAppSelector, useAppDispatch } from '../../types/hooks';
 
@@ -32,10 +32,13 @@ const LoginForm = () => {
   const PASSWORD_REGEXP = /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?()]).*$/iu;
 
   const onSubmit: SubmitHandler<ISubmitForm> = (data: ISubmitForm) => {
-    console.log(data);
-    dispatch(toggleAuth(true));
+    const requestData = {
+      username: data.username,
+      hashed_password: data.password,
+    };
 
     reset();
+    dispatch(logIn(requestData));
   };
 
   useEffect(() => {
@@ -56,7 +59,7 @@ const LoginForm = () => {
           <input
             type="email"
             className={style.input}
-            {...register('login', {
+            {...register('username', {
               required: 'Это поле обязательно для заполнения!',
               pattern: {
                 value: EMAIL_REGEXP,
@@ -64,7 +67,7 @@ const LoginForm = () => {
               },
             })}
           />
-          {errors.login && <p className={style.errorMsg}>{errors.login.message}</p>}
+          {errors.username && <p className={style.errorMsg}>{errors.username.message}</p>}
         </label>
         <label className={style.label}>
           <p>Пароль</p>
