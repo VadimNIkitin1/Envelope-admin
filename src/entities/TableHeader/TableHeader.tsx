@@ -3,7 +3,7 @@ import { useAppSelector } from '../../types/hooks';
 import { IColumnTable } from '../../types/tableHeaders';
 
 import style from './TableHeader.module.scss';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 
 interface Props {
   tableHeader: IColumnTable[];

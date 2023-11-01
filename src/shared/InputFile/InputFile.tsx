@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import style from './InputFile.module.scss';
 
 interface IUpload {
@@ -10,7 +10,7 @@ interface ISelectedFile {
 }
 
 const InputFile = () => {
-  const [selectedFile, setSelectedFile] = useState<ISelectedFile>();
+  const [selectedFile, setSelectedFile] = useState<any>();
   const [upload, setUpload] = useState<IUpload | null>(null);
   const filePicker: any = useRef(null);
 
@@ -18,7 +18,7 @@ const InputFile = () => {
     filePicker.current.click();
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     console.log(event.target.files[0]);
     setSelectedFile(event.target.files[0]);
   };

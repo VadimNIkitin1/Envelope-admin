@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { useAppSelector } from '../../types/hooks';
 
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import style from './Button.module.scss';
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
 
 interface Props {
   view: string;
@@ -12,7 +12,7 @@ interface Props {
   onClick?: () => void;
 }
 
-const Button: FC<Props> = ({ view, ...props }) => {
+const Button: FC<any> = ({ view, ...props }) => {
   const theme = useAppSelector((state) => state.active.theme);
 
   return (

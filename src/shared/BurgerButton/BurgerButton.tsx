@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppSelector } from '../../types/hooks';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { MdOutlineKeyboardDoubleArrowUp } from 'react-icons/md';

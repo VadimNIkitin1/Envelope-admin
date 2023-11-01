@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useAppSelector } from '../../types/hooks';
 
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import style from './StoreCard.module.scss';
 import { ITariff } from '../../assets/db';
 

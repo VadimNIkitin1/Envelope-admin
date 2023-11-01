@@ -11,7 +11,6 @@ import style from './ModalError.module.scss';
 const ModalError = () => {
   const dispatch = useAppDispatch();
   const { error } = useAppSelector((state) => state.categories);
-  console.log(error);
 
   return (
     <div className={style.wrapper} onClick={() => dispatch(toggleModalError(false))}>

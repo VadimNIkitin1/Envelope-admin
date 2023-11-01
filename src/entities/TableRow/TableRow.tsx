@@ -15,7 +15,7 @@ import { triggerRender } from '../../store/activeSlice';
 import Checkbox from '../../shared/Checkbox/Checkbox';
 import Button from '../../shared/Button/Button';
 
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import style from './TableRow.module.scss';
 import { IColumnTable } from '../../types/tableHeaders';
 

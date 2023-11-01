@@ -1,5 +1,5 @@
 import style from './SideBar.module.scss';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 
 import SideBarList from '../../entities/SideBarList/SideBarList';
 import BurgerButton from '../../shared/BurgerButton/BurgerButton';

@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../types/hooks';
 import { Link } from 'react-router-dom';
 import style from './SideBarItem.module.scss';
 import { toggleTabs } from '../../store/activeSlice';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { ISideBarItem } from '../SideBarList/SideBarList';
 
 const SideBarItem: FC<ISideBarItem> = ({ link, icon }) => {

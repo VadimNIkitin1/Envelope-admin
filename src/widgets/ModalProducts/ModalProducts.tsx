@@ -14,7 +14,7 @@ import { getCategories } from '../../store/categorySlice';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import style from './ModalProducts.module.scss';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { IRequestProduct } from '../../types/products';
 
 const ModalProducts = () => {

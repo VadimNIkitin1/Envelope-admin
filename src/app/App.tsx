@@ -3,7 +3,7 @@ import { useAppSelector } from '../types/hooks';
 
 import router from './router';
 
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import style from './App.module.scss';
 
 function App() {

@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
 import style from './NotificationForm.module.scss';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import InputFile from '../../shared/InputFile/InputFile';
 import Button from '../../shared/Button/Button';
-import React from 'react';
+
 import { useAppSelector } from '../../types/hooks';
 
 const NotificationForm = () => {

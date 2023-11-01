@@ -4,10 +4,9 @@ import { toggleTabs } from '../../store/activeSlice';
 import { GiEnvelope } from 'react-icons/gi';
 import style from './NavBar.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import Button from '../../shared/Button/Button';
 import { toggleAuth } from '../../store/authSlice';
-import React from 'react';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();

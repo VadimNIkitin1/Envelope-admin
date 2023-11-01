@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 
 import style from './ModalCategories.module.scss';
@@ -16,7 +15,7 @@ const ModalCategories = () => {
     formState: { errors },
   } = useForm({ mode: 'onBlur' });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     dispatch(addCategory(data));
     dispatch(triggerRender());
     dispatch(toggleModalCategories(false));

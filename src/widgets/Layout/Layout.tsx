@@ -3,9 +3,6 @@ import NavBar from '../NavBar/NavBar';
 import SideBar from '../SideBar/SideBar';
 import style from './Layout.module.scss';
 import Footer from '../Footer/Footer';
-import { useDispatch, useSelector } from 'react-redux';
-import BurgerButton from '../../shared/BurgerButton/BurgerButton';
-import React from 'react';
 
 const Layout = () => {
   return (

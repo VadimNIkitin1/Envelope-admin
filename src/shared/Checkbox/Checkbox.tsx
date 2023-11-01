@@ -1,9 +1,8 @@
-import React from 'react';
 import style from './Checkbox.module.scss';
 import { useAppSelector } from '../../types/hooks';
 import { clsx } from 'clsx';
 
-const Checkbox = (props) => {
+const Checkbox = (props: any) => {
   const theme = useAppSelector((state) => state.active.theme);
 
   return (

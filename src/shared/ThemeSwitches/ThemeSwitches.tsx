@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { toggleTheme } from '../../store/activeSlice';
 
 import { useAppSelector, useAppDispatch } from '../../types/hooks';

@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import { toggleModalEditProducts } from '../../store/modalsSlice';
@@ -8,12 +7,12 @@ import { triggerRender } from '../../store/activeSlice';
 import { getCategories } from '../../store/categorySlice';
 import { editProduct } from '../../store/productSlice';
 
-import InputFile from '../../shared/InputFile/InputFile';
+// import InputFile from '../../shared/InputFile/InputFile';
 import Button from '../../shared/Button/Button';
-import Checkbox from '../../shared/Checkbox/Checkbox';
+// import Checkbox from '../../shared/Checkbox/Checkbox';
 
 import style from './ModalEditProducts.module.scss';
-import clsx from 'clsx';
+// import { clsx } from 'clsx';
 
 const ModalEditProducts = () => {
   const dispatch = useAppDispatch();
