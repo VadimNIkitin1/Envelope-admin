@@ -1,4 +1,8 @@
+import { IError } from './categories';
+
 export interface IAuth {
-  auth: boolean;
-  company_id: number;
+  isAuth: boolean;
+  company_id: string;
+  loading: boolean;
+  error: IError | null;
 }

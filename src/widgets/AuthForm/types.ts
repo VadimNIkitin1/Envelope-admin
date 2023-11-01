@@ -1,5 +1,5 @@
-export interface ISubmitForm {
-  login: string;
+export interface IAuthForm {
+  username: string;
   password: string;
-  repeatPassword: string;
+  repeatPassword?: string;
 }

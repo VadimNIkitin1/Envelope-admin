@@ -14,7 +14,7 @@ import style from './LoginForm.module.scss';
 const LoginForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const auth = useAppSelector((state) => state.auth.auth);
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
   const company_id = useAppSelector((state) => state.auth.company_id);
 
   const {
@@ -39,10 +39,10 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (auth) {
+    if (isAuth) {
       navigate(`/${company_id}/shops`, { replace: true });
     }
-  }, [auth]);
+  }, [isAuth]);
 
   return (
     <div className={style.LoginForm}>

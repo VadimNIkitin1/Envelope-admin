@@ -1,28 +1,28 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
-import type { ISubmitForm } from './types';
+import type { IAuthForm } from './types';
 import { useNavigate, Link } from 'react-router-dom';
 import { GiEnvelope } from 'react-icons/gi';
-
-import { toggleAuth } from '../../store/authSlice';
 
 import { useAppSelector, useAppDispatch } from '../../types/hooks';
 
 import style from './AuthForm.module.scss';
+import { authorization } from '../../store/authSlice';
 
 const AuthForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const auth = useAppSelector((state) => state.auth.auth);
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
   const company_id = useAppSelector((state) => state.auth.company_id);
+
   const {
     register,
     handleSubmit,
     getValues,
     reset,
     formState: { errors, isValid },
-  } = useForm<ISubmitForm>({
+  } = useForm<IAuthForm>({
     mode: 'onBlur',
   });
 
@@ -31,18 +31,22 @@ const AuthForm = () => {
 
   const PASSWORD_REGEXP = /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?()]).*$/iu;
 
-  const onSubmit: SubmitHandler<ISubmitForm> = (data: ISubmitForm) => {
-    console.log(data);
-    dispatch(toggleAuth(true));
+  const onSubmit: SubmitHandler<IAuthForm> = (data: IAuthForm) => {
+    const requestData = {
+      username: data.username,
+      hashed_password: data.password,
+    };
+    console.log(requestData);
 
     reset();
+    dispatch(authorization(requestData));
   };
 
   useEffect(() => {
-    if (auth) {
+    if (isAuth) {
       navigate(`/${company_id}/shops`, { replace: true });
     }
-  }, [auth]);
+  }, [isAuth]);
 
   return (
     <div className={style.AuthForm}>
@@ -56,7 +60,7 @@ const AuthForm = () => {
           <input
             type="email"
             className={style.input}
-            {...register('login', {
+            {...register('username', {
               required: 'Это поле обязательно для заполнения!',
               pattern: {
                 value: EMAIL_REGEXP,
@@ -64,7 +68,7 @@ const AuthForm = () => {
               },
             })}
           />
-          {errors.login && <p className={style.errorMsg}>{errors.login.message}</p>}
+          {errors.username && <p className={style.errorMsg}>{errors.username.message}</p>}
         </label>
         <label className={style.label}>
           <p>Пароль</p>

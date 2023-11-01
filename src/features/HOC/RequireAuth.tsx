@@ -9,9 +9,9 @@ interface Props {
 
 const RequireAuth: FC<Props> = ({ children }) => {
   const location = useLocation();
-  const auth = useAppSelector((state) => state.auth.auth);
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
 
-  if (!auth) {
+  if (!isAuth) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
