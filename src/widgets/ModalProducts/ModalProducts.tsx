@@ -81,7 +81,7 @@ const ModalProducts = () => {
               >
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
-                    {cat.name_rus}
+                    {cat.name}
                   </option>
                 ))}
               </select>

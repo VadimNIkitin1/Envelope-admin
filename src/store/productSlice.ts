@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxj
 import { IProduct, IProductsInitialState, IUnit } from '../types/products';
 import type { IRequestProduct } from '../widgets/ModalProducts/types';
 
-axios.defaults.baseURL = 'https://swarovskidmitrii.ru/api/v1/';
+axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
 axios.defaults.headers['Content-Type'] = 'application/json';
 
@@ -36,7 +36,7 @@ export const getProducts = createAsyncThunk<IProduct[], undefined, { rejectValue
   'products/getProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`product/`);
+      const res = await axios.get(`product/?schema=zajigalka`);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

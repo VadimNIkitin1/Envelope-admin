@@ -3,11 +3,11 @@ import { ITableHeaders } from '../types/tableHeaders';
 
 const initialState: ITableHeaders = {
   tableHeaderCategories: [
-    { name: 'Наименование', code: 'name_rus', type: 'str' },
+    { name: 'Наименование', code: 'name', type: 'str' },
     { name: 'В наличии', code: 'availability', type: 'checkbox' },
   ],
   tableHeaderMenu: [
-    { name: 'Наименование', code: 'name_rus', type: 'str' },
+    { name: 'Наименование', code: 'name', type: 'str' },
     { name: 'Категория', code: 'category_id', type: 'str' },
     { name: 'Цена', code: 'price', type: 'str' },
     { name: 'В наличии', code: 'availability', type: 'checkbox' },

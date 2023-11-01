@@ -39,7 +39,7 @@ const ModalForDelete = () => {
           {location.pathname === `/${company_id}/menu` &&
             `Вы действительно хотите удалить ${product.name_rus} ?`}
           {location.pathname === `/${company_id}/categories` &&
-            `Вы действительно хотите удалить ${category.name_rus} ?`}
+            `Вы действительно хотите удалить ${category.name} ?`}
         </h1>
         <div style={{ display: 'flex', columnGap: '20px' }}>
           <Button view="add" onClick={() => handleDelete()}>

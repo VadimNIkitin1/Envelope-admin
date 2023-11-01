@@ -21,14 +21,16 @@ import { IColumnTable } from '../../types/tableHeaders';
 
 import { FC } from 'react';
 
-import { TDataForTable } from '../../types/data';
+// import { TDataForTable } from '../../types/data';
 
 interface Props {
-  cell: TDataForTable;
+  cell: any;
   tableHeader: IColumnTable[];
 }
 
 const TableRow: FC<Props> = ({ cell, tableHeader }) => {
+  console.log(cell);
+  console.log(tableHeader);
   const dispatch = useAppDispatch();
   const location = useLocation();
   const theme = useAppSelector((state) => state.active.theme);

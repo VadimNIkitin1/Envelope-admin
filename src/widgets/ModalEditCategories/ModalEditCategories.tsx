@@ -13,13 +13,13 @@ import { IRequestCategory } from '../ModalCategories/types';
 const ModalEditCategories = () => {
   const dispatch = useAppDispatch();
   const category = useAppSelector((state) => state.categories.category);
-  const { name_rus, id } = category;
+  const { name, id } = category;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IRequestCategory>({ mode: 'onBlur', defaultValues: { name_rus: name_rus } });
+  } = useForm<IRequestCategory>({ mode: 'onBlur', defaultValues: { name_rus: name } });
 
   const onSubmit: SubmitHandler<IRequestCategory> = (data: IRequestCategory) => {
     const requestData = {
