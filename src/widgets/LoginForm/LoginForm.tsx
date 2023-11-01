@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import type { ISubmitForm } from './types';
 import { Link, useNavigate } from 'react-router-dom';
 import { GiEnvelope } from 'react-icons/gi';
 
@@ -20,7 +22,7 @@ const LoginForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<ISubmitForm>({
     mode: 'onBlur',
   });
 
@@ -29,7 +31,8 @@ const LoginForm = () => {
 
   const PASSWORD_REGEXP = /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?()]).*$/iu;
 
-  const onSubmit = () => {
+  const onSubmit: SubmitHandler<ISubmitForm> = (data: ISubmitForm) => {
+    console.log(data);
     dispatch(toggleAuth(true));
 
     reset();

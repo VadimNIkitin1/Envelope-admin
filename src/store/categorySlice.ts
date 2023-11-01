@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import { ICategoriesInitialState, ICategory, IRequestCategory } from '../types/categories';
+import { ICategoriesInitialState, ICategory, IError } from '../types/categories';
+import { IRequestCategory } from '../widgets/ModalCategories/types';
 
 axios.defaults.baseURL = 'https://swarovskidmitrii.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -8,9 +9,15 @@ axios.defaults.headers['Content-Type'] = 'application/json';
 
 const initialState: ICategoriesInitialState = {
   categories: [],
-  category: null,
+  category: {
+    id: 0,
+    name_rus: '',
+    availability: false,
+  },
   loading: false,
-  error: null,
+  error: {
+    detail: '',
+  },
 };
 
 export const getCategories = createAsyncThunk<ICategory[], undefined, { rejectValue: string }>(
@@ -49,7 +56,7 @@ export const editCategory = createAsyncThunk<string, IRequestCategory, { rejectV
   }
 );
 
-export const deleteCategory = createAsyncThunk<string, string, { rejectValue: string }>(
+export const deleteCategory = createAsyncThunk<string, string | number, { rejectValue: string }>(
   'categories/deleteCategory',
   async (id, { rejectWithValue }) => {
     try {
@@ -65,7 +72,7 @@ export const toggleCheckboxCategory = createAsyncThunk<
   string,
   IRequestCategory,
   { rejectValue: string }
->('products/toggleCheckboxCategory', async (data, { rejectWithValue }) => {
+>('categories/toggleCheckboxCategory', async (data, { rejectWithValue }) => {
   try {
     const res = await axios.put(`category/${data.id}/checkbox/?checkbox=${data.code}`);
     return res.data;
@@ -129,7 +136,7 @@ const slice = createSlice({
         state.loading = false;
         state.error = null;
       })
-      .addMatcher(isError, (state, action: PayloadAction<string>) => {
+      .addMatcher(isError, (state, action: PayloadAction<IError>) => {
         state.error = action.payload;
         state.loading = false;
       });

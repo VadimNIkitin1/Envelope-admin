@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import { IProduct, IProductsInitialState, IRequestProduct, IUnit } from '../types/products';
+import { IProduct, IProductsInitialState, IUnit } from '../types/products';
+import type { IRequestProduct } from '../widgets/ModalProducts/types';
 
 axios.defaults.baseURL = 'https://swarovskidmitrii.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -8,7 +9,24 @@ axios.defaults.headers['Content-Type'] = 'application/json';
 
 const initialState: IProductsInitialState = {
   products: [],
-  product: null,
+  product: {
+    id: 0,
+    category_id: 0,
+    category_name: 'string',
+    name_rus: 'string',
+    price: 0,
+    wt: 0,
+    kilocalories: 0,
+    proteins: 0,
+    fats: 0,
+    carbohydrates: 0,
+    unit_id: 0,
+    availability: false,
+    popular: false,
+    delivery: false,
+    takeaway: false,
+    dinein: false,
+  },
   units: [],
   loading: false,
   error: null,
@@ -38,7 +56,7 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
   }
 );
 
-export const deleteProduct = createAsyncThunk<IProduct, string, { rejectValue: string }>(
+export const deleteProduct = createAsyncThunk<IProduct, string | number, { rejectValue: string }>(
   'products/deleteProduct',
   async (id, { rejectWithValue }) => {
     try {

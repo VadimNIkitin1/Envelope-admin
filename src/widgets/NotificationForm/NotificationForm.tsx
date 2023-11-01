@@ -1,7 +1,9 @@
 import { useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import type { INotification } from './types';
 import style from './NotificationForm.module.scss';
 import { clsx } from 'clsx';
-import InputFile from '../../shared/InputFile/InputFile';
+// import InputFile from '../../shared/InputFile/InputFile';
 import Button from '../../shared/Button/Button';
 
 import { useAppSelector } from '../../types/hooks';
@@ -13,15 +15,15 @@ const NotificationForm = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
-  } = useForm();
+    formState: { errors },
+  } = useForm<INotification>();
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<INotification> = (data: INotification) => {
     console.log(data);
     reset();
   };
 
-  const onSubmitMyself = (data) => {
+  const onSubmitMyself: SubmitHandler<INotification> = (data: INotification) => {
     console.log(data);
   };
 
@@ -45,12 +47,11 @@ const NotificationForm = () => {
             />
             {errors.text && <p className={style.errorMsg}>{errors.text.message}</p>}
           </label>
-          <InputFile {...register('file')} />
+          {/* <InputFile {...register('file')} /> */}
         </div>
         <label className={style.imageInput}>
           <p className={style.labelImage}>Выберите получателей рассылки</p>
           <input type="button" className={style.imageNotification} {...register('users')} />
-          {errors.sendMe && <p className={style.errorMsg}>{errors.sendMe.message}</p>}
         </label>
         <Button type="button" view="edit" onClick={handleSubmit(onSubmitMyself)}>
           Отправить себе

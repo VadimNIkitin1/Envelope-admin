@@ -1,22 +1,28 @@
 import { useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import type { IRequestCategory } from './types';
 
 import style from './ModalCategories.module.scss';
 import Button from '../../shared/Button/Button';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../types/hooks';
 import { triggerRender } from '../../store/activeSlice';
 import { toggleModalCategories } from '../../store/modalsSlice';
 import { addCategory } from '../../store/categorySlice';
 
 const ModalCategories = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: 'onBlur' });
+  } = useForm<IRequestCategory>({ mode: 'onBlur' });
 
-  const onSubmit = (data: any) => {
-    dispatch(addCategory(data));
+  const onSubmit: SubmitHandler<IRequestCategory> = (data: IRequestCategory) => {
+    const requestData = {
+      name_rus: data.name_rus,
+      availability: data.availability,
+    };
+    dispatch(addCategory(requestData));
     dispatch(triggerRender());
     dispatch(toggleModalCategories(false));
   };

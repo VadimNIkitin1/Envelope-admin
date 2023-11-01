@@ -1,16 +1,16 @@
-import { ReactNode } from 'react';
+// import { ReactNode } from 'react';
 import { useAppSelector } from '../../types/hooks';
 
 import { clsx } from 'clsx';
 import style from './Button.module.scss';
 import { FC } from 'react';
 
-interface Props {
-  view: string;
-  type?: string;
-  children: ReactNode;
-  onClick?: () => void;
-}
+// interface Props {
+//   view: string;
+//   type?: string;
+//   children: ReactNode;
+//   onClick?: () => void;
+// }
 
 const Button: FC<any> = ({ view, ...props }) => {
   const theme = useAppSelector((state) => state.active.theme);

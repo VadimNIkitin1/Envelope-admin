@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 import { useAppSelector, useAppDispatch } from '../../types/hooks';
 
 import style from './ModalEditCategories.module.scss';
@@ -7,6 +8,7 @@ import Button from '../../shared/Button/Button';
 import { triggerRender } from '../../store/activeSlice';
 import { toggleModalEditCategories } from '../../store/modalsSlice';
 import { editCategory } from '../../store/categorySlice';
+import { IRequestCategory } from '../ModalCategories/types';
 
 const ModalEditCategories = () => {
   const dispatch = useAppDispatch();
@@ -17,9 +19,9 @@ const ModalEditCategories = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: 'onBlur', defaultValues: { name_rus: name_rus } });
+  } = useForm<IRequestCategory>({ mode: 'onBlur', defaultValues: { name_rus: name_rus } });
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<IRequestCategory> = (data: IRequestCategory) => {
     const requestData = {
       name_rus: data.name_rus,
       id,

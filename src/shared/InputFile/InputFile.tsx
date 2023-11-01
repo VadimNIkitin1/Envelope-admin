@@ -5,33 +5,33 @@ interface IUpload {
   filePath: string;
 }
 
-interface ISelectedFile {
-  name: string;
-}
+// interface ISelectedFile {
+//   name: string;
+// }
 
 const InputFile = () => {
-  const [selectedFile, setSelectedFile] = useState<any>();
-  const [upload, setUpload] = useState<IUpload | null>(null);
+  const [selectedFile] = useState<any>();
+  const [upload] = useState<IUpload | null>(null);
   const filePicker: any = useRef(null);
 
   const handlePick = () => {
     filePicker.current.click();
   };
 
-  const handleChange = (event: any) => {
-    console.log(event.target.files[0]);
-    setSelectedFile(event.target.files[0]);
-  };
+  // const handleChange = (event: any) => {
+  //   console.log(event.target.files[0]);
+  //   setSelectedFile(event.target.files[0]);
+  // };
 
-  const handleUpload = async () => {
-    if (!selectedFile) {
-      alert('Выберите файл');
-      return;
-    }
+  // const handleUpload = async () => {
+  //   if (!selectedFile) {
+  //     alert('Выберите файл');
+  //     return;
+  //   }
 
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-  };
+  //   const formData = new FormData();
+  //   formData.append('file', selectedFile);
+  // };
 
   return (
     <div className={style.container} onClick={handlePick}>
@@ -86,7 +86,7 @@ const InputFile = () => {
       </label>
       <input
         ref={filePicker}
-        onChange={handleChange}
+        // onChange={handleChange}
         className={style.file}
         type="file"
         accept="/image/*,.png,.jpg,.jpeg,.gif,.web,.webp"

@@ -4,18 +4,13 @@ export interface ICategory {
   availability: boolean;
 }
 
-export interface IRequestCategory {
-  id?: string | number;
-  name_rus?: string;
-  availability?: boolean;
-  created_by?: number;
-  updated_by?: number;
-  code?: string;
+export interface IError {
+  detail: string;
 }
 
 export interface ICategoriesInitialState {
   categories: ICategory[];
-  category: ICategory | null;
+  category: ICategory;
   loading: boolean;
-  error: string | null;
+  error: IError | null;
 }

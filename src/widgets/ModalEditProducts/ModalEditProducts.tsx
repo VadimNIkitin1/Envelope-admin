@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import { toggleModalEditProducts } from '../../store/modalsSlice';
@@ -12,14 +13,30 @@ import Button from '../../shared/Button/Button';
 // import Checkbox from '../../shared/Checkbox/Checkbox';
 
 import style from './ModalEditProducts.module.scss';
+import { IRequestProduct } from '../ModalProducts/types';
 // import { clsx } from 'clsx';
 
 const ModalEditProducts = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories.categories);
-  const theme = useAppSelector((state) => state.active.theme);
+  // const theme = useAppSelector((state) => state.active.theme);
   const product = useAppSelector((state) => state.products.product);
-  const { name_rus, price, id, delivery, availability, dinein, popular, takeaway } = product;
+  const {
+    name_rus,
+    price,
+    id,
+    delivery,
+    availability,
+    dinein,
+    popular,
+    takeaway,
+    wt,
+    fats,
+    kilocalories,
+    proteins,
+    carbohydrates,
+    category_id,
+  } = product;
 
   useEffect(() => {
     dispatch(getCategories());
@@ -29,20 +46,26 @@ const ModalEditProducts = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IRequestProduct>({
     mode: 'onBlur',
     defaultValues: {
-      name_rus: name_rus,
-      price: price,
-      popular: popular,
-      availability: availability,
-      dinein: dinein,
-      delivery: delivery,
-      takeaway: takeaway,
+      name_rus,
+      price,
+      category_id,
+      wt,
+      fats,
+      kilocalories,
+      proteins,
+      carbohydrates,
+      popular,
+      availability,
+      dinein,
+      delivery,
+      takeaway,
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<IRequestProduct> = (data: IRequestProduct) => {
     const requestData = {
       id,
       name_rus: data.name_rus,
@@ -106,7 +129,6 @@ const ModalEditProducts = () => {
               <p className={style.productTitle}>Описание</p>
               <textarea
                 placeholder="Описание"
-                type="text"
                 className={style.modalDescription}
                 {...register('description_rus', { required: true })}
               />
@@ -115,19 +137,19 @@ const ModalEditProducts = () => {
                   placeholder="Ккал"
                   type="number"
                   className={style.modalInputSmall}
-                  {...register('calories')}
+                  {...register('kilocalories')}
                 />
                 <input
                   placeholder="Белки"
                   type="number"
                   className={style.modalInputSmall}
-                  {...register('protein')}
+                  {...register('proteins')}
                 />
                 <input
                   placeholder="Жиры"
                   type="number"
                   className={style.modalInputSmall}
-                  {...register('fat')}
+                  {...register('fats')}
                 />
                 <input
                   placeholder="Углеводы"
@@ -156,7 +178,7 @@ const ModalEditProducts = () => {
                     {...register('wt', { required: true })}
                   />
                   <select
-                    {...register('unit', { required: true })}
+                    {...register('unit_id', { required: true })}
                     name="unit"
                     className={style.modalSelect}
                   >
@@ -164,9 +186,11 @@ const ModalEditProducts = () => {
                     <option value="2">Порц.</option>
                   </select>
                 </div>
-                {errors.weight && <p className={style.errorMsg}>{errors.weight.message}</p>}
+                {errors.wt && <p className={style.errorMsg}>{errors.wt.message}</p>}
               </label>
-              {errors.description && <p className={style.errorMsg}>{errors.description.message}</p>}
+              {errors.description_rus && (
+                <p className={style.errorMsg}>{errors.description_rus.message}</p>
+              )}
             </label>
 
             {/* <InputFile {...register("image")} /> */}

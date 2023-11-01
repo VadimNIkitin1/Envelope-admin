@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import style from './ModalProducts.module.scss';
 import { clsx } from 'clsx';
-import { IRequestProduct } from '../../types/products';
+import { IRequestProduct } from './types';
 
 const ModalProducts = () => {
   const dispatch = useAppDispatch();
