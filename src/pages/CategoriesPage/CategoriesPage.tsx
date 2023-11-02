@@ -12,8 +12,6 @@ import Table from '../../widgets/Table/Table';
 
 import Button from '../../shared/Button/Button';
 
-import style from './CategoriesPage.module.scss';
-
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 const CategoriesPage: FC = () => {
@@ -37,7 +35,7 @@ const CategoriesPage: FC = () => {
   }, [render]);
 
   return (
-    <div className={style.page}>
+    <>
       <Button view="add" onClick={() => dispatch(toggleModalCategories(true))}>
         Добавить категорию <BsFillPlusSquareFill />
       </Button>
@@ -45,7 +43,7 @@ const CategoriesPage: FC = () => {
       {modalCategories && <ModalCategories />}
       {modalEditCategories && <ModalEditCategories />}
       {modalForDelete && <ModalForDelete />}
-    </div>
+    </>
   );
 };
 

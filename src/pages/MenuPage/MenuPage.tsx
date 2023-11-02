@@ -11,7 +11,6 @@ import ModalEditProducts from '../../widgets/ModalEditProducts/ModalEditProducts
 
 import Button from '../../shared/Button/Button';
 
-import style from './MenuPage.module.scss';
 import ModalForDelete from '../../widgets/ModalForDelete/ModalForDelete';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
@@ -32,7 +31,7 @@ const MenuPage = () => {
   }, [render]);
 
   return (
-    <div className={style.MenuPage}>
+    <>
       <div style={{ display: 'flex' }}>
         <Button view={'add'} onClick={() => dispatch(toggleModalProducts(true))}>
           Добавить продукт <BsFillPlusSquareFill />
@@ -42,7 +41,7 @@ const MenuPage = () => {
       {modalProducts && <ModalProducts />}
       {modalEditProducts && <ModalEditProducts />}
       {modalForDelete && <ModalForDelete />}
-    </div>
+    </>
   );
 };
 

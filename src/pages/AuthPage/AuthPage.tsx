@@ -3,7 +3,7 @@ import style from './AuthPage.module.scss';
 
 const LoginPage = () => {
   return (
-    <div className={style.AuthPage}>
+    <div className={style.page}>
       <AuthForm />
     </div>
   );

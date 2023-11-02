@@ -3,7 +3,7 @@ import style from './LoginPage.module.scss';
 
 const LoginPage = () => {
   return (
-    <div className={style.LoginPage}>
+    <div className={style.page}>
       <LoginForm />
     </div>
   );

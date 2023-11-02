@@ -4,7 +4,7 @@ import style from './PricesPage.module.scss';
 
 const PricesPage = () => {
   return (
-    <div className={style.PricesPage}>
+    <div className={style.page}>
       {tariff.map((card) => (
         <StoreCard key={card.id} {...card} />
       ))}
