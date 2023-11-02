@@ -1,8 +1,6 @@
-export type T = 'avalibility';
-
 export interface IColumnTable {
   name: string;
-  code: T;
+  code: string;
   type: string;
 }
 
