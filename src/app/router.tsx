@@ -19,7 +19,7 @@ import CategoriesPage from '../pages/CategoriesPage/CategoriesPage';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
+      <Route path="/:company_id" element={<Layout />} errorElement={<ErrorPage />}>
         <Route
           path={'/:company_id/shops'}
           element={

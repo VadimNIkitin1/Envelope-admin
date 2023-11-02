@@ -24,7 +24,8 @@ export const getCategories = createAsyncThunk<ICategory[], undefined, { rejectVa
   'categories/getCategories',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`category/?schema=zajigalka`);
+      const token = localStorage.getItem('token');
+      const res = await axios.get(`category/?schema=${token}`);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

@@ -8,10 +8,11 @@ interface Props {
 }
 
 const RequireAuth: FC<Props> = ({ children }) => {
+  const company_id = localStorage.getItem('token');
   const location = useLocation();
   const isAuth = useAppSelector((state) => state.auth.isAuth);
 
-  if (!isAuth) {
+  if (!isAuth || !company_id) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 

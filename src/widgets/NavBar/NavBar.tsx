@@ -11,7 +11,7 @@ import { logOut } from '../../store/authSlice';
 const NavBar = () => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.active.theme);
-  const company_id = useAppSelector((state) => state.auth.company_id);
+  const company_id = localStorage.getItem('token');
 
   return (
     <nav className={clsx(style.navbar, theme && style.light)}>

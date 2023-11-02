@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../../shared/Button/Button';
 
-import rykhlov from '../../assets/rykhlov.jpeg';
-import nikitin from '../../assets/nikitin.jpeg';
-import swarovskyi from '../../assets/swarovskyi.jpeg';
+import rykhlov from '../../assets/rykhlov.webp';
+import nikitin from '../../assets/nikitin.webp';
+import swarovskyi from '../../assets/swarovskyi.webp';
+import swarovskaya from '../../assets/swarovskaya.webp';
 
 import style from './AboutPage.module.scss';
 
@@ -23,6 +24,10 @@ const AboutPage = () => {
         <div className={style.cardContainer}>
           <img src={swarovskyi} alt="" className={style.image} />
           <p>Сваровский Дима</p>
+        </div>
+        <div className={style.cardContainer}>
+          <img src={swarovskaya} alt="" className={style.image} />
+          <p>Сваровская Маша</p>
         </div>
       </div>
       <Button view="edit" onClick={() => navigate(-1)}>

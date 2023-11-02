@@ -36,7 +36,8 @@ export const getProducts = createAsyncThunk<IProduct[], undefined, { rejectValue
   'products/getProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`product/?schema=zajigalka`);
+      const token = localStorage.getItem('token');
+      const res = await axios.get(`product/?schema=${token}`);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
