@@ -6,6 +6,7 @@ import { IError } from '../types/categories';
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
 const initialState: IAuth = {
   isAuth: false,
@@ -43,7 +44,6 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequest, { rejectValue: st
     try {
       const res = await axios.post('login/', data);
       localStorage.setItem('token', res.data.access_token);
-      console.log(res.data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

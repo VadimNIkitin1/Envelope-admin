@@ -20,12 +20,7 @@ export const getCategories = createAsyncThunk<ICategory[], undefined, { rejectVa
   'categories/getCategories',
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await axios.get(`category/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get(`category/`);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
