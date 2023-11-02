@@ -36,8 +36,10 @@ export const getCategories = createAsyncThunk<ICategory[], undefined, { rejectVa
 export const addCategory = createAsyncThunk<ICategory, IRequestCategory, { rejectValue: string }>(
   'categories/addCategory',
   async (data, { rejectWithValue }) => {
+    console.log(data);
     try {
-      const res = await axios.post(`category/`, data);
+      const token = localStorage.getItem('token');
+      const res = await axios.post(`category/?schema=${token}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

@@ -34,7 +34,7 @@ const AuthForm = () => {
   const onSubmit: SubmitHandler<IAuthForm> = (data: IAuthForm) => {
     const requestData = {
       username: data.username,
-      hashed_password: data.password,
+      password: data.password,
     };
 
     reset();
@@ -43,7 +43,7 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate(`/${company_id}/shops`, { replace: true });
+      navigate(`/${company_id}/`, { replace: true });
     }
   }, [isAuth]);
 

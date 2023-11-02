@@ -19,7 +19,16 @@ import CategoriesPage from '../pages/CategoriesPage/CategoriesPage';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/:company_id" element={<Layout />} errorElement={<ErrorPage />}>
+      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
+        <Route
+          path="/:company_id"
+          element={
+            <RequireAuth>
+              <h1 style={{ color: 'white' }}>Добро пожаловать в Envelope App</h1>
+            </RequireAuth>
+          }
+          errorElement={<ErrorPage />}
+        />
         <Route
           path={'/:company_id/shops'}
           element={

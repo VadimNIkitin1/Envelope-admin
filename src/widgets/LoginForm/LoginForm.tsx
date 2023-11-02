@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
-import type { ISubmitForm } from './types';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { GiEnvelope } from 'react-icons/gi';
 
@@ -10,6 +10,7 @@ import { logIn } from '../../store/authSlice';
 import { useAppSelector, useAppDispatch } from '../../types/hooks';
 
 import style from './LoginForm.module.scss';
+import { IAuthForm } from '../AuthForm/types';
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ const LoginForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isValid },
-  } = useForm<ISubmitForm>({
+  } = useForm<IAuthForm>({
     mode: 'onBlur',
   });
 
@@ -31,10 +32,10 @@ const LoginForm = () => {
 
   const PASSWORD_REGEXP = /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?()]).*$/iu;
 
-  const onSubmit: SubmitHandler<ISubmitForm> = (data: ISubmitForm) => {
+  const onSubmit: SubmitHandler<IAuthForm> = (data: IAuthForm) => {
     const requestData = {
       username: data.username,
-      hashed_password: data.password,
+      password: data.password,
     };
 
     reset();
@@ -43,7 +44,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate(`/${company_id}/shops`, { replace: true });
+      navigate(`/${company_id}/`, { replace: true });
     }
   }, [isAuth]);
 
