@@ -19,11 +19,11 @@ const ModalEditCategories = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IRequestCategory>({ mode: 'onBlur', defaultValues: { name_rus: name } });
+  } = useForm<IRequestCategory>({ mode: 'onBlur', defaultValues: { name: name } });
 
   const onSubmit: SubmitHandler<IRequestCategory> = (data: IRequestCategory) => {
     const requestData = {
-      name_rus: data.name_rus,
+      name_rus: data.name,
       id,
     };
     dispatch(editCategory(requestData));
@@ -41,11 +41,11 @@ const ModalEditCategories = () => {
             <input
               type="text"
               className={style.modalInput}
-              {...register('name_rus', {
+              {...register('name', {
                 maxLength: { value: 20, message: 'Не более 20 символов' },
               })}
             />
-            {errors.name_rus && <p className={style.errorMsg}>{errors.name_rus.message}</p>}
+            {errors.name && <p className={style.errorMsg}>{errors.name.message}</p>}
           </label>
           <div style={{ display: 'flex', columnGap: '20px' }}>
             <Button view="add" type={'submit'}>
