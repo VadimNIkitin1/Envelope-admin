@@ -3,10 +3,6 @@ import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxj
 import { ICategoriesInitialState, ICategory, IError } from '../types/categories';
 import { IRequestCategory } from '../widgets/ModalCategories/types';
 
-axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
-axios.defaults.withCredentials = true;
-axios.defaults.headers['Content-Type'] = 'application/json';
-
 const initialState: ICategoriesInitialState = {
   categories: [],
   category: {
@@ -25,7 +21,11 @@ export const getCategories = createAsyncThunk<ICategory[], undefined, { rejectVa
   async (_, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`category/?schema=${token}`);
+      const res = await axios.get(`category/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

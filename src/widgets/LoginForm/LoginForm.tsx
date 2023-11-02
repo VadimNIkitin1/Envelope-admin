@@ -44,7 +44,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate(`/${company_id}/`, { replace: true });
+      navigate(`/${company_id}`, { replace: true });
     }
   }, [isAuth]);
 

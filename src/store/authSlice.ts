@@ -1,22 +1,22 @@
+import axios from 'axios';
 import { AnyAction, PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IAuth } from '../types/auth';
-import axios from 'axios';
 import { IError } from '../types/categories';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const initialState: IAuth = {
-  isAuth: localStorage.getItem('token') ? true : false,
-  company_id: '',
+  isAuth: false,
+  company_id: null,
   loading: false,
   error: null,
 };
 
 interface IResponse {
-  status_code: number;
-  username: string;
-  schema_name: string;
+  access_token: string;
+  user_id: number;
 }
 
 interface IAuthRequest {
@@ -29,9 +29,7 @@ export const authorization = createAsyncThunk<IResponse, IAuthRequest, { rejectV
   async (data, { rejectWithValue }) => {
     try {
       const res = await axios.post('user/register/', data);
-      localStorage.setItem('token', res.data.schema_name);
-      localStorage.setItem('user_id', res.data.id);
-      console.log(res.data);
+      localStorage.setItem('token', res.data.access_token);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -43,12 +41,8 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequest, { rejectValue: st
   'auth/logIn',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post('login/', data, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-      localStorage.setItem('token', res.data.schema_name);
+      const res = await axios.post('login/', data);
+      localStorage.setItem('token', res.data.access_token);
       console.log(res.data);
       return res.data;
     } catch (error: any) {
@@ -80,7 +74,7 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(authorization.fulfilled, (state, action) => {
-        state.company_id = action.payload.schema_name;
+        state.company_id = action.payload.user_id;
         state.isAuth = true;
         state.loading = false;
         state.error = null;
@@ -90,7 +84,8 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        state.company_id = action.payload.schema_name;
+        state.company_id = action.payload.user_id;
+        state.isAuth = true;
         state.loading = false;
         state.error = null;
       })

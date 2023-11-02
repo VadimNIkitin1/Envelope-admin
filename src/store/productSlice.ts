@@ -3,10 +3,6 @@ import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxj
 import { IProduct, IProductsInitialState, IUnit } from '../types/products';
 import type { IRequestProduct } from '../widgets/ModalProducts/types';
 
-axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
-axios.defaults.withCredentials = true;
-axios.defaults.headers['Content-Type'] = 'application/json';
-
 const initialState: IProductsInitialState = {
   products: [],
   product: {
@@ -37,7 +33,11 @@ export const getProducts = createAsyncThunk<IProduct[], undefined, { rejectValue
   async (_, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`product/?schema=${token}`);
+      const res = await axios.get(`product/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
