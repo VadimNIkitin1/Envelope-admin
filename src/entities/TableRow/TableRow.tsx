@@ -21,10 +21,10 @@ import { IColumnTable } from '../../types/tableHeaders';
 
 import { FC } from 'react';
 
-// import { TDataForTable } from '../../types/data';
+import { TDataForTable } from '../../types/data';
 
 interface Props {
-  cell: any;
+  cell: TDataForTable;
   tableHeader: IColumnTable[];
 }
 
