@@ -17,6 +17,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const company_id = localStorage.getItem('company_id');
   const token = localStorage.getItem('token');
+  const username = localStorage.getItem('username');
 
   const {
     register,
@@ -43,10 +44,10 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (token) {
+    if (token && company_id && username) {
       navigate(`/${company_id}`, { replace: true });
     }
-  }, [!!token]);
+  }, [token, company_id, username]);
 
   return (
     <div className={style.LoginForm}>
