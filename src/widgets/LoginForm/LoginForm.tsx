@@ -7,7 +7,7 @@ import { GiEnvelope } from 'react-icons/gi';
 
 import { logIn } from '../../store/authSlice';
 
-import { useAppSelector, useAppDispatch } from '../../types/hooks';
+import { useAppDispatch } from '../../types/hooks';
 
 import style from './LoginForm.module.scss';
 import { IAuthForm } from '../AuthForm/types';
