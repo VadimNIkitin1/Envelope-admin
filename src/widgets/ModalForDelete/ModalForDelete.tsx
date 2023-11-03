@@ -17,7 +17,7 @@ const ModalForDelete = () => {
 
   const category = useAppSelector((state) => state.categories.category);
   const product = useAppSelector((state) => state.products.product);
-  const company_id = useAppSelector((state) => state.auth.company_id);
+  const company_id = useAppSelector((state) => state.auth.data.user_id);
 
   const handleDelete = () => {
     if (location.pathname === `/${company_id}/categories`) {
