@@ -12,6 +12,7 @@ const NavBar = () => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.active.theme);
   const company_id = localStorage.getItem('token');
+  const username = useAppSelector((state) => state.auth.data.username);
 
   return (
     <nav className={clsx(style.navbar, theme && style.light)}>
@@ -22,6 +23,7 @@ const NavBar = () => {
       >
         ENVELOPE <GiEnvelope className={style.logo} />
       </Link>
+      <h1 className={style.username}>{username}</h1>
       <Button view="delete" onClick={() => dispatch(logOut())}>
         Выйти
       </Button>

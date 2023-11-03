@@ -1,18 +1,20 @@
 import { FC, ReactElement } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 
-import { useAppSelector } from '../../types/hooks';
+import { useAppDispatch, useAppSelector } from '../../types/hooks';
+import { toggleAuth } from '../../store/authSlice';
 
 interface Props {
   children: ReactElement;
 }
 
 const RequireAuth: FC<Props> = ({ children }) => {
-  const company_id = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const isAuth = useAppSelector((state) => state.auth.isAuth);
 
-  if (!isAuth || !company_id) {
+  if (!isAuth) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 

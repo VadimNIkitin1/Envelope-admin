@@ -16,7 +16,7 @@ const LoginForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isAuth = useAppSelector((state) => state.auth.isAuth);
-  const company_id = useAppSelector((state) => state.auth.company_id);
+  const company_id = useAppSelector((state) => state.auth.data.user_id);
 
   const {
     register,

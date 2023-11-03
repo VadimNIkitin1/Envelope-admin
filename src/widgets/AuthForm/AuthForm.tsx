@@ -14,7 +14,7 @@ const AuthForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isAuth = useAppSelector((state) => state.auth.isAuth);
-  const company_id = useAppSelector((state) => state.auth.company_id);
+  const company_id = useAppSelector((state) => state.auth.data.user_id);
 
   const {
     register,
@@ -39,13 +39,8 @@ const AuthForm = () => {
 
     reset();
     dispatch(authorization(requestData));
+    navigate(`/${company_id}/`, { replace: true });
   };
-
-  useEffect(() => {
-    if (isAuth) {
-      navigate(`/${company_id}/`, { replace: true });
-    }
-  }, [isAuth]);
 
   return (
     <div className={style.AuthForm}>

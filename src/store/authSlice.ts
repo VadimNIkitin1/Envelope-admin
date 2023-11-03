@@ -10,14 +10,20 @@ axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem(
 
 const initialState: IAuth = {
   isAuth: false,
-  company_id: null,
+  data: {
+    username: '',
+    user_id: 0,
+  },
   loading: false,
   error: null,
 };
 
 interface IResponse {
   access_token: string;
-  user_id: number;
+  data: {
+    username: string;
+    user_id: number;
+  };
 }
 
 interface IAuthRequest {
@@ -63,8 +69,8 @@ const slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    toggleAuth(state, action) {
-      state.isAuth = action.payload;
+    toggleAuth(state) {
+      state.isAuth = true;
     },
   },
   extraReducers: (builder) => {
@@ -74,7 +80,7 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(authorization.fulfilled, (state, action) => {
-        state.company_id = action.payload.user_id;
+        state.data = action.payload.data;
         state.isAuth = true;
         state.loading = false;
         state.error = null;
@@ -84,7 +90,7 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        state.company_id = action.payload.user_id;
+        state.data = action.payload.data;
         state.isAuth = true;
         state.loading = false;
         state.error = null;
