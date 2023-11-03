@@ -78,7 +78,7 @@ const slice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(authorization.fulfilled, (state, action) => {
+      .addCase(authorization.fulfilled, (state) => {
         // state.data = action.payload.data;
         state.loading = false;
         state.error = null;
@@ -87,7 +87,7 @@ const slice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(logIn.fulfilled, (state, action) => {
+      .addCase(logIn.fulfilled, (state) => {
         // state.data = action.payload.data;
         state.loading = false;
         state.error = null;
