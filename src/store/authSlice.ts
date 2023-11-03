@@ -35,7 +35,7 @@ export const authorization = createAsyncThunk<IResponse, IAuthRequest, { rejectV
   async (data, { rejectWithValue }) => {
     try {
       const res = await axios.post('user/register/', data);
-      localStorage.setItem('token', res.data.access_token);
+      localStorage.setItem('data', JSON.stringify(res.data));
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -48,9 +48,7 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequest, { rejectValue: st
   async (data, { rejectWithValue }) => {
     try {
       const res = await axios.post('login/', data);
-      localStorage.setItem('token', res.data.access_token);
-      localStorage.setItem('username', res.data.data.username);
-      localStorage.setItem('company_id', res.data.data.user_id);
+      localStorage.setItem('data', JSON.stringify(res.data));
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -59,9 +57,7 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequest, { rejectValue: st
 );
 
 export const logOut = createAsyncThunk('auth/logOut', async () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('username');
-  localStorage.removeItem('company_id');
+  localStorage.removeItem('data');
 });
 
 const isError = (action: AnyAction) => {

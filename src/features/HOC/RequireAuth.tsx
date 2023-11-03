@@ -6,11 +6,10 @@ interface Props {
 }
 
 const RequireAuth: FC<Props> = ({ children }) => {
-  const token = localStorage.getItem('token');
+  const data = JSON.parse(localStorage.getItem('data') || '');
   const location = useLocation();
-  console.log(!!token);
 
-  if (!token) {
+  if (!data) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 

@@ -12,8 +12,9 @@ const NavBar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const theme = useAppSelector((state) => state.active.theme);
-  const company_id = localStorage.getItem('token');
-  const username = localStorage.getItem('username');
+  const data = JSON.parse(localStorage.getItem('data') || '');
+  const company_id = data.data.user_id;
+  // const username = localStorage.getItem('username');
   const handleLogOut = () => {
     dispatch(logOut());
     navigate('/login');
@@ -28,7 +29,7 @@ const NavBar = () => {
       >
         ENVELOPE <GiEnvelope className={style.logo} />
       </Link>
-      <h1 className={style.username}>{username}</h1>
+      <h1 className={style.username}>{data.data.username}</h1>
       <Button view="delete" onClick={() => handleLogOut()}>
         Выйти
       </Button>

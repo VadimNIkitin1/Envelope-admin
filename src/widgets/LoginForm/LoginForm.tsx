@@ -7,17 +7,17 @@ import { GiEnvelope } from 'react-icons/gi';
 
 import { logIn } from '../../store/authSlice';
 
-import { useAppDispatch } from '../../types/hooks';
+import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import style from './LoginForm.module.scss';
 import { IAuthForm } from '../AuthForm/types';
+import { triggerRender } from '../../store/activeSlice';
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const company_id = localStorage.getItem('company_id');
-  const token = localStorage.getItem('token');
-  const username = localStorage.getItem('username');
+  const responseData = localStorage.getItem('data') || '';
+  const render = useAppSelector((state) => state.active.render);
 
   const {
     register,
@@ -41,13 +41,17 @@ const LoginForm = () => {
 
     reset();
     dispatch(logIn(requestData));
+    setTimeout(() => {
+      dispatch(triggerRender());
+    }, 400);
   };
 
   useEffect(() => {
-    if (token && company_id && username) {
-      navigate(`/${company_id}`, { replace: true });
+    if (responseData) {
+      const parseData = JSON.parse(responseData);
+      navigate(`/${parseData.data.user_id}`, { replace: true });
     }
-  }, [token, company_id, username]);
+  }, [render]);
 
   return (
     <div className={style.LoginForm}>
