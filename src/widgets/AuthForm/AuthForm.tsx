@@ -39,8 +39,13 @@ const AuthForm = () => {
 
     reset();
     dispatch(authorization(requestData));
-    navigate(`/${company_id}/`, { replace: true });
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate(`/${company_id}/`, { replace: true });
+    }
+  }, [isAuth]);
 
   return (
     <div className={style.AuthForm}>
