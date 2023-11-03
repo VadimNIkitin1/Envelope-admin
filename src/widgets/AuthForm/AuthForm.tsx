@@ -13,8 +13,8 @@ import { authorization } from '../../store/authSlice';
 const AuthForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
   const company_id = useAppSelector((state) => state.auth.data.user_id);
+  const token = localStorage.getItem('token');
 
   const {
     register,
@@ -42,10 +42,10 @@ const AuthForm = () => {
   };
 
   useEffect(() => {
-    if (isAuth) {
+    if (token) {
       navigate(`/${company_id}/`, { replace: true });
     }
-  }, [isAuth]);
+  }, [token]);
 
   return (
     <div className={style.AuthForm}>

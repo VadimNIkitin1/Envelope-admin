@@ -9,7 +9,6 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
 const initialState: IAuth = {
-  isAuth: false,
   data: {
     username: '',
     user_id: 0,
@@ -50,6 +49,8 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequest, { rejectValue: st
     try {
       const res = await axios.post('login/', data);
       localStorage.setItem('token', res.data.access_token);
+      localStorage.setItem('username', res.data.data.username);
+      localStorage.setItem('company_id', res.data.data.user_id);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -59,6 +60,8 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequest, { rejectValue: st
 
 export const logOut = createAsyncThunk('auth/logOut', async () => {
   localStorage.removeItem('token');
+  localStorage.removeItem('username');
+  localStorage.removeItem('company_id');
 });
 
 const isError = (action: AnyAction) => {
@@ -68,11 +71,7 @@ const isError = (action: AnyAction) => {
 const slice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    toggleAuth(state) {
-      state.isAuth = true;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(authorization.pending, (state) => {
@@ -80,8 +79,7 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(authorization.fulfilled, (state, action) => {
-        state.data = action.payload.data;
-        state.isAuth = true;
+        // state.data = action.payload.data;
         state.loading = false;
         state.error = null;
       })
@@ -90,13 +88,9 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        state.data = action.payload.data;
-        state.isAuth = true;
+        // state.data = action.payload.data;
         state.loading = false;
         state.error = null;
-      })
-      .addCase(logOut.fulfilled, (state) => {
-        state.isAuth = false;
       })
       .addMatcher(isError, (state, action: PayloadAction<IError>) => {
         state.error = action.payload;
@@ -104,7 +98,5 @@ const slice = createSlice({
       });
   },
 });
-
-export const { toggleAuth } = slice.actions;
 
 export default slice.reducer;

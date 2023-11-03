@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ThemeSwitches from '../../shared/ThemeSwitches/ThemeSwitches';
 import { toggleTabs } from '../../store/activeSlice';
 import { GiEnvelope } from 'react-icons/gi';
@@ -10,9 +10,14 @@ import { logOut } from '../../store/authSlice';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const theme = useAppSelector((state) => state.active.theme);
   const company_id = localStorage.getItem('token');
-  const username = useAppSelector((state) => state.auth.data.username);
+  const username = localStorage.getItem('username');
+  const handleLogOut = () => {
+    dispatch(logOut());
+    navigate('/login');
+  };
 
   return (
     <nav className={clsx(style.navbar, theme && style.light)}>
@@ -24,7 +29,7 @@ const NavBar = () => {
         ENVELOPE <GiEnvelope className={style.logo} />
       </Link>
       <h1 className={style.username}>{username}</h1>
-      <Button view="delete" onClick={() => dispatch(logOut())}>
+      <Button view="delete" onClick={() => handleLogOut()}>
         Выйти
       </Button>
       <ThemeSwitches />

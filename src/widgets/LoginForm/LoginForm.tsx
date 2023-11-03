@@ -15,8 +15,8 @@ import { IAuthForm } from '../AuthForm/types';
 const LoginForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
-  const company_id = useAppSelector((state) => state.auth.data.user_id);
+  const company_id = localStorage.getItem('company_id');
+  const token = localStorage.getItem('token');
 
   const {
     register,
@@ -43,10 +43,10 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (isAuth) {
+    if (token) {
       navigate(`/${company_id}`, { replace: true });
     }
-  }, [isAuth]);
+  }, [!!token]);
 
   return (
     <div className={style.LoginForm}>
