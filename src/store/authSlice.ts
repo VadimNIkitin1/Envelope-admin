@@ -38,6 +38,9 @@ export const authorization = createAsyncThunk<
       },
     });
     localStorage.setItem('data', JSON.stringify(res.data));
+    localStorage.setItem('user_id', res.data.data.user_id);
+    localStorage.setItem('token', res.data.access_token);
+    localStorage.setItem('username', res.data.data.username);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);

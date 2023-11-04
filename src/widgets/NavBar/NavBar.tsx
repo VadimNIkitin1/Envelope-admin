@@ -14,8 +14,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const theme = useAppSelector((state) => state.active.theme);
   const [company_id] = useLocalStorage('user_id', '');
-  const username = localStorage.getItem('username');
-  // const [username] = useLocalStorage('username', 'username');
+  const [data] = useLocalStorage('data', '');
 
   const handleLogOut = () => {
     dispatch(logOut());
@@ -31,7 +30,7 @@ const NavBar = () => {
       >
         ENVELOPE <GiEnvelope className={style.logo} />
       </Link>
-      <h1 className={style.username}>{username}</h1>
+      <h1 className={style.username}>{data.data.username}</h1>
       <Button view="delete" onClick={() => handleLogOut()}>
         Выйти
       </Button>
