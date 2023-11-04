@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
 import { IProduct, IProductsInitialState, IUnit } from '../types/products';
 import type { IRequestProduct } from '../widgets/ModalProducts/types';
+import { useLocalStorage } from '../features/hooks/useLocalStorage';
 
 const initialState: IProductsInitialState = {
   products: [],
@@ -32,7 +33,12 @@ export const getProducts = createAsyncThunk<IProduct[], undefined, { rejectValue
   'products/getProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`product/`);
+      const [token] = useLocalStorage('data', '');
+      const res = await axios.get(`product/`, {
+        headers: {
+          Authorization: `Bearer ${token.acces_token}`,
+        },
+      });
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -44,7 +50,13 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
   'products/addProduct',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`product/`, data);
+      const [token] = useLocalStorage('data', '');
+      const res = await axios.post(`product/`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token.acces_token}`,
+        },
+      });
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -56,7 +68,13 @@ export const deleteProduct = createAsyncThunk<IProduct, string | number, { rejec
   'products/deleteProduct',
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`product/?product_id=${id}`);
+      const [token] = useLocalStorage('data', '');
+      const res = await axios.delete(`product/?product_id=${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token.acces_token}`,
+        },
+      });
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -68,7 +86,13 @@ export const editProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectV
   'products/editProduct',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`product/?product_id=${data.id}`, data);
+      const [token] = useLocalStorage('data', '');
+      const res = await axios.put(`product/?product_id=${data.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token.acces_token}`,
+        },
+      });
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -82,7 +106,13 @@ export const toggleCheckboxProduct = createAsyncThunk<
   { rejectValue: string }
 >('products/toggleCheckboxProduct', async (data, { rejectWithValue }) => {
   try {
-    const res = await axios.put(`product/${data.id}/checkbox/?checkbox=${data.code}`);
+    const [token] = useLocalStorage('data', '');
+    const res = await axios.patch(`product/${data.id}/checkbox/?checkbox=${data.code}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token.acces_token}`,
+      },
+    });
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);

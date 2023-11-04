@@ -13,8 +13,6 @@ import { clsx } from 'clsx';
 const ModalCategories = () => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.active.theme);
-  const user_id = localStorage.getItem('user_id');
-  console.log(user_id);
   const {
     register,
     handleSubmit,
@@ -25,7 +23,6 @@ const ModalCategories = () => {
     const requestData = {
       name: data.name,
       availability: data.availability,
-      created_by: Number(localStorage.getItem('user_id')),
     };
     dispatch(addCategory(requestData));
     dispatch(triggerRender());

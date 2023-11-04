@@ -7,8 +7,6 @@ import type { IAuthRequestLogIn } from '../widgets/LoginForm/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
 const initialState: IAuth = {
   data: {
@@ -50,7 +48,11 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequestLogIn, { rejectValu
   'auth/logIn',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post('login/', data);
+      const res = await axios.post('login/', data, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
       localStorage.setItem('data', JSON.stringify(res.data));
       return res.data;
     } catch (error: any) {
