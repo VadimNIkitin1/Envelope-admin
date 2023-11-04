@@ -12,8 +12,7 @@ const SideBarItem: FC<ISideBarItem> = ({ link, icon }) => {
   const location = useLocation();
   const activeTab = useAppSelector((state) => state.active.active);
   const theme = useAppSelector((state) => state.active.theme);
-  const [data] = useLocalStorage('data', '');
-  const company_id = data.data.user_id;
+  const [company_id] = useLocalStorage('user_id', '');
 
   if (!company_id) {
     return <Navigate to="/login" state={{ from: location }} />;

@@ -2,7 +2,9 @@ import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
 import { ICategoriesInitialState, ICategory, IError } from '../types/categories';
 import { IRequestCategory } from '../widgets/ModalCategories/types';
-import { useLocalStorage } from '../features/hooks/useLocalStorage';
+
+axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
+axios.defaults.withCredentials = true;
 
 const initialState: ICategoriesInitialState = {
   categories: [],
@@ -21,10 +23,11 @@ export const getCategories = createAsyncThunk<ICategory[], undefined, { rejectVa
   'categories/getCategories',
   async (_, { rejectWithValue }) => {
     try {
-      const [token] = useLocalStorage('data', '');
+      const token = localStorage.getItem('token') || '';
       const res = await axios.get(`category/`, {
         headers: {
-          Authorization: `Bearer ${token.acces_token}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
       return res.data;
@@ -38,11 +41,11 @@ export const addCategory = createAsyncThunk<ICategory, IRequestCategory, { rejec
   'categories/addCategory',
   async (data, { rejectWithValue }) => {
     try {
-      const [token] = useLocalStorage('data', '');
+      const token = localStorage.getItem('token') || '';
       const res = await axios.post(`category/`, data, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token.acces_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       return res.data;
@@ -56,11 +59,11 @@ export const editCategory = createAsyncThunk<string, IRequestCategory, { rejectV
   'categories/editCategory',
   async (data, { rejectWithValue }) => {
     try {
-      const [token] = useLocalStorage('data', '');
+      const token = localStorage.getItem('token') || '';
       const res = await axios.put(`category/?category_id=${data.id}`, data, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token.acces_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       return res.data;
@@ -74,11 +77,11 @@ export const deleteCategory = createAsyncThunk<string, string | number, { reject
   'categories/deleteCategory',
   async (id, { rejectWithValue }) => {
     try {
-      const [token] = useLocalStorage('data', '');
+      const token = localStorage.getItem('token') || '';
       const res = await axios.delete(`category/?category_id=${id}`, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token.acces_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       return res.data;
@@ -94,11 +97,11 @@ export const toggleCheckboxCategory = createAsyncThunk<
   { rejectValue: string }
 >('categories/toggleCheckboxCategory', async (data, { rejectWithValue }) => {
   try {
-    const [token] = useLocalStorage('data', '');
+    const token = localStorage.getItem('token') || '';
     const res = await axios.patch(`category/${data.id}/checkbox/?checkbox=${data.code}`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token.acces_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return res.data;
