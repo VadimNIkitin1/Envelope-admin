@@ -5,13 +5,14 @@ import style from './SideBarItem.module.scss';
 import { toggleTabs } from '../../store/activeSlice';
 import { clsx } from 'clsx';
 import { ISideBarItem } from '../SideBarList/SideBarList';
+import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 const SideBarItem: FC<ISideBarItem> = ({ link, icon }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const activeTab = useAppSelector((state) => state.active.active);
   const theme = useAppSelector((state) => state.active.theme);
-  const data = JSON.parse(localStorage.getItem('data') || '');
+  const [data] = useLocalStorage('data', '');
   const company_id = data.data.user_id;
 
   if (!company_id) {

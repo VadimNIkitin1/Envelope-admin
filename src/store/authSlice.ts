@@ -2,6 +2,8 @@ import axios from 'axios';
 import { AnyAction, PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IAuth } from '../types/auth';
 import { IError } from '../types/categories';
+import { IAuthRequestRegistration } from '../widgets/AuthForm/types';
+import type { IAuthRequestLogIn } from '../widgets/LoginForm/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -25,25 +27,26 @@ interface IResponse {
   };
 }
 
-interface IAuthRequest {
-  username: string;
-  password: string;
-}
-
-export const authorization = createAsyncThunk<IResponse, IAuthRequest, { rejectValue: string }>(
-  'auth/authorization',
-  async (data, { rejectWithValue }) => {
-    try {
-      const res = await axios.post('user/register/', data);
-      localStorage.setItem('data', JSON.stringify(res.data));
-      return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
+export const authorization = createAsyncThunk<
+  IResponse,
+  IAuthRequestRegistration,
+  { rejectValue: string }
+>('auth/authorization', async (data, { rejectWithValue }) => {
+  console.log(data);
+  try {
+    const res = await axios.post('user/register/', data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    localStorage.setItem('data', JSON.stringify(res.data));
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
   }
-);
+});
 
-export const logIn = createAsyncThunk<IResponse, IAuthRequest, { rejectValue: string }>(
+export const logIn = createAsyncThunk<IResponse, IAuthRequestLogIn, { rejectValue: string }>(
   'auth/logIn',
   async (data, { rejectWithValue }) => {
     try {

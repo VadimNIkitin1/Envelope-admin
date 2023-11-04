@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
-import type { IAuthForm } from './types';
+import type { IAuthRequestRegistration } from './types';
 import { useNavigate, Link } from 'react-router-dom';
 import { GiEnvelope } from 'react-icons/gi';
 
@@ -9,12 +9,13 @@ import { useAppSelector, useAppDispatch } from '../../types/hooks';
 
 import style from './AuthForm.module.scss';
 import { authorization } from '../../store/authSlice';
+import { triggerRender } from '../../store/activeSlice';
 
 const AuthForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const company_id = useAppSelector((state) => state.auth.data.user_id);
-  const token = localStorage.getItem('token');
+  const responseData = localStorage.getItem('data') || '';
+  const render = useAppSelector((state) => state.active.render);
 
   const {
     register,
@@ -22,7 +23,7 @@ const AuthForm = () => {
     getValues,
     reset,
     formState: { errors, isValid },
-  } = useForm<IAuthForm>({
+  } = useForm<IAuthRequestRegistration>({
     mode: 'onBlur',
   });
 
@@ -31,21 +32,25 @@ const AuthForm = () => {
 
   const PASSWORD_REGEXP = /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?()]).*$/iu;
 
-  const onSubmit: SubmitHandler<IAuthForm> = (data: IAuthForm) => {
+  const onSubmit: SubmitHandler<IAuthRequestRegistration> = (data: IAuthRequestRegistration) => {
     const requestData = {
       username: data.username,
-      password: data.password,
+      hashed_password: data.hashed_password,
     };
 
     reset();
     dispatch(authorization(requestData));
+    setTimeout(() => {
+      dispatch(triggerRender());
+    }, 1000);
   };
 
   useEffect(() => {
-    if (token) {
-      navigate(`/${company_id}/`, { replace: true });
+    if (responseData) {
+      const parseData = JSON.parse(responseData);
+      navigate(`/${parseData.data.user_id}/`, { replace: true });
     }
-  }, [token]);
+  }, [render]);
 
   return (
     <div className={style.AuthForm}>
@@ -74,7 +79,7 @@ const AuthForm = () => {
           <input
             className={style.input}
             type="password"
-            {...register('password', {
+            {...register('hashed_password', {
               required: 'Это поле обязательно для заполнения!',
               minLength: {
                 value: 8,
@@ -91,7 +96,9 @@ const AuthForm = () => {
               },
             })}
           />
-          {errors.password && <p className={style.errorMsg}>{errors.password.message}</p>}
+          {errors.hashed_password && (
+            <p className={style.errorMsg}>{errors.hashed_password.message}</p>
+          )}
         </label>
         <label className={style.label}>
           <p>Повторите пароль</p>
@@ -101,12 +108,12 @@ const AuthForm = () => {
             {...register('repeatPassword', {
               required: 'Это поле обязательно для заполнения!',
               validate: (value, allValues) => {
-                const { password } = allValues;
-                return password === value;
+                const { hashed_password } = allValues;
+                return hashed_password === value;
               },
             })}
           />
-          {getValues('repeatPassword') !== getValues('password') && (
+          {getValues('repeatPassword') !== getValues('hashed_password') && (
             <p className={style.errorMsg}>Пароль не совпадает!</p>
           )}
         </label>

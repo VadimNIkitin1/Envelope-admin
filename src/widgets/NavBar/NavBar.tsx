@@ -7,14 +7,14 @@ import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { clsx } from 'clsx';
 import Button from '../../shared/Button/Button';
 import { logOut } from '../../store/authSlice';
+import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const theme = useAppSelector((state) => state.active.theme);
-  const data = JSON.parse(localStorage.getItem('data') || '');
+  const [data] = useLocalStorage('data', '');
   const company_id = data.data.user_id;
-  // const username = localStorage.getItem('username');
   const handleLogOut = () => {
     dispatch(logOut());
     navigate('/login');

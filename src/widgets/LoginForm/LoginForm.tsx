@@ -10,7 +10,7 @@ import { logIn } from '../../store/authSlice';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import style from './LoginForm.module.scss';
-import { IAuthForm } from '../AuthForm/types';
+import type { IAuthRequestLogIn } from './types';
 import { triggerRender } from '../../store/activeSlice';
 
 const LoginForm = () => {
@@ -24,7 +24,7 @@ const LoginForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isValid },
-  } = useForm<IAuthForm>({
+  } = useForm<IAuthRequestLogIn>({
     mode: 'onBlur',
   });
 
@@ -33,7 +33,7 @@ const LoginForm = () => {
 
   const PASSWORD_REGEXP = /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?()]).*$/iu;
 
-  const onSubmit: SubmitHandler<IAuthForm> = (data: IAuthForm) => {
+  const onSubmit: SubmitHandler<IAuthRequestLogIn> = (data: IAuthRequestLogIn) => {
     const requestData = {
       username: data.username,
       password: data.password,
@@ -43,7 +43,7 @@ const LoginForm = () => {
     dispatch(logIn(requestData));
     setTimeout(() => {
       dispatch(triggerRender());
-    }, 400);
+    }, 500);
   };
 
   useEffect(() => {
