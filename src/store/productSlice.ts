@@ -35,6 +35,7 @@ export const getProducts = createAsyncThunk<IProduct[], undefined, { rejectValue
       const token = localStorage.getItem('token') || '';
       const res = await axios.get(`product/`, {
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
@@ -63,7 +64,7 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
   }
 );
 
-export const deleteProduct = createAsyncThunk<IProduct, string | number, { rejectValue: string }>(
+export const deleteProduct = createAsyncThunk<string, string | number, { rejectValue: string }>(
   'products/deleteProduct',
   async (id, { rejectWithValue }) => {
     try {
@@ -71,6 +72,23 @@ export const deleteProduct = createAsyncThunk<IProduct, string | number, { rejec
       const res = await axios.delete(`product/?product_id=${id}`, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteProductFlag = createAsyncThunk<string, string | number, { rejectValue: string }>(
+  'products/deleteProductFlag',
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.patch(`product/?product_id=${id}`, {
+        headers: {
           Authorization: `Bearer ${token}`,
         },
       });
