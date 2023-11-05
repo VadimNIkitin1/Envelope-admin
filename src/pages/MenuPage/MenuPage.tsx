@@ -27,7 +27,7 @@ const MenuPage = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(getProducts());
-    }, 100);
+    }, 200);
   }, [render]);
 
   return (

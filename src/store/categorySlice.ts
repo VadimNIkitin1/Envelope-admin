@@ -91,6 +91,24 @@ export const deleteCategory = createAsyncThunk<string, string | number, { reject
   }
 );
 
+export const deleteCategoryFlag = createAsyncThunk<
+  string,
+  string | number,
+  { rejectValue: string }
+>('categories/deleteCategoryFlag', async (id, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.patch(`category/delete/?category_id=${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
 export const toggleCheckboxCategory = createAsyncThunk<
   string,
   IRequestCategory,
@@ -100,7 +118,6 @@ export const toggleCheckboxCategory = createAsyncThunk<
     const token = localStorage.getItem('token') || '';
     const res = await axios.patch(`category/${data.id}/checkbox/?checkbox=${data.code}`, {
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
@@ -154,6 +171,14 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(deleteCategory.fulfilled, (state) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(deleteCategoryFlag.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteCategoryFlag.fulfilled, (state) => {
         state.loading = false;
         state.error = null;
       })

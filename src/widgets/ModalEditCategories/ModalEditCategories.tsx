@@ -9,10 +9,12 @@ import { triggerRender } from '../../store/activeSlice';
 import { toggleModalEditCategories } from '../../store/modalsSlice';
 import { editCategory } from '../../store/categorySlice';
 import { IRequestCategory } from '../ModalCategories/types';
+import { clsx } from 'clsx';
 
 const ModalEditCategories = () => {
   const dispatch = useAppDispatch();
   const category = useAppSelector((state) => state.categories.category);
+  const theme = useAppSelector((state) => state.active.theme);
   const { name, id } = category;
 
   const {
@@ -23,8 +25,9 @@ const ModalEditCategories = () => {
 
   const onSubmit: SubmitHandler<IRequestCategory> = (data: IRequestCategory) => {
     const requestData = {
-      name_rus: data.name,
       id,
+      name: data.name,
+      // availability: data.availability,
     };
     dispatch(editCategory(requestData));
     dispatch(triggerRender());
@@ -46,6 +49,17 @@ const ModalEditCategories = () => {
               })}
             />
             {errors.name && <p className={style.errorMsg}>{errors.name.message}</p>}
+          </label>
+          <label className={style.containerCheckbox}>
+            В наличии
+            <input type="checkbox" {...register('availability')} />
+            <svg viewBox="0 0 64 64" height="18px" width="18px">
+              <path
+                d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
+                pathLength="575.0541381835938"
+                className={clsx(style.path, theme && style.light)}
+              ></path>
+            </svg>
           </label>
           <div style={{ display: 'flex', columnGap: '20px' }}>
             <Button view="add" type={'submit'}>

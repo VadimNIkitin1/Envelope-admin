@@ -73,3 +73,42 @@
   line-height: 22px;
   width: 300px;
 }
+
+.containerCheckbox {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 40px;
+  margin-bottom: 20px;
+}
+
+.containerCheckbox input {
+  display: none;
+}
+
+.containerCheckbox svg {
+  overflow: visible;
+}
+
+.path {
+  fill: none;
+  stroke: white;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
+  stroke-dasharray: 241 9999999;
+  stroke-dashoffset: 0;
+  &.light {
+    stroke: #000;
+  }
+}
+
+.checked {
+  stroke: $green;
+}
+
+.containerCheckbox input:checked ~ svg .path {
+  stroke-dasharray: 70.5096664428711 9999999;
+  stroke-dashoffset: -262.2723388671875;
+}

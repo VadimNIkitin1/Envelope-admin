@@ -22,6 +22,7 @@ import { IColumnTable } from '../../types/tableHeaders';
 import { FC } from 'react';
 
 import { TDataForTable } from '../../types/data';
+import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 interface Props {
   cell: TDataForTable;
@@ -32,7 +33,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const theme = useAppSelector((state) => state.active.theme);
-  const company_id = useAppSelector((state) => state.auth.data.user_id);
+  const [company_id] = useLocalStorage('user_id', '');
 
   const handleEdit = (data: any) => {
     if (location.pathname === `/${company_id}/menu`) {

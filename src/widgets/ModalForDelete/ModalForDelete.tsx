@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 import { triggerRender } from '../../store/activeSlice';
 import { toggleModalForDelete } from '../../store/modalsSlice';
-import { deleteCategory } from '../../store/categorySlice';
+import { deleteCategoryFlag } from '../../store/categorySlice';
 import { deleteProduct } from '../../store/productSlice';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import Button from '../../shared/Button/Button';
 
 import style from './ModalForDelete.module.scss';
+import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 const ModalForDelete = () => {
   const dispatch = useAppDispatch();
@@ -17,11 +18,11 @@ const ModalForDelete = () => {
 
   const category = useAppSelector((state) => state.categories.category);
   const product = useAppSelector((state) => state.products.product);
-  const company_id = useAppSelector((state) => state.auth.data.user_id);
+  const [company_id] = useLocalStorage('user_id', '');
 
   const handleDelete = () => {
     if (location.pathname === `/${company_id}/categories`) {
-      dispatch(deleteCategory(category.id));
+      dispatch(deleteCategoryFlag(category.id));
     }
 
     if (location.pathname === `/${company_id}/menu`) {
