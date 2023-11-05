@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import ThemeSwitches from '../../shared/ThemeSwitches/ThemeSwitches';
 import { toggleTabs } from '../../store/activeSlice';
-import { GiEnvelope } from 'react-icons/gi';
+import { GiEnvelope, GiExitDoor } from 'react-icons/gi';
 import style from './NavBar.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { clsx } from 'clsx';
@@ -32,9 +31,8 @@ const NavBar = () => {
       </Link>
       <h1 className={style.username}>{data.data.username}</h1>
       <Button view="delete" onClick={() => handleLogOut()}>
-        Выйти
+        <GiExitDoor />
       </Button>
-      <ThemeSwitches />
     </nav>
   );
 };

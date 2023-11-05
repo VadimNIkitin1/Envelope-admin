@@ -1,6 +1,6 @@
 .toggle_switch {
   position: relative;
-  width: 100px;
+  width: 80px;
   height: 50px;
   margin: 10px;
   --light: #d8dbe0;
@@ -53,9 +53,9 @@
 }
 
 .checkbox:checked ~ .slider::before {
-  -webkit-transform: translateX(50px);
-  -ms-transform: translateX(50px);
-  transform: translateX(50px);
+  -webkit-transform: translateX(30px);
+  -ms-transform: translateX(30px);
+  transform: translateX(30px);
   background-color: var(--dark);
   -webkit-box-shadow: none;
   box-shadow: none;

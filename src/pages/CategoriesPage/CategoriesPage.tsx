@@ -14,6 +14,8 @@ import Button from '../../shared/Button/Button';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
+import style from './CategoriesPage.module.scss';
+
 const CategoriesPage: FC = () => {
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.categories);
@@ -35,15 +37,19 @@ const CategoriesPage: FC = () => {
   }, [render]);
 
   return (
-    <>
-      <Button view="add" onClick={() => dispatch(toggleModalCategories(true))}>
-        Добавить категорию <BsFillPlusSquareFill />
-      </Button>
-      <Table data={categories} tableHeader={tableHeaderCategories} />
+    <div className={style.page}>
+      <div className={style.button}>
+        <Button view="add" onClick={() => dispatch(toggleModalCategories(true))}>
+          Добавить категорию <BsFillPlusSquareFill />
+        </Button>
+      </div>
+      <div className={style.table}>
+        <Table data={categories} tableHeader={tableHeaderCategories} />
+      </div>
       {modalCategories && <ModalCategories />}
       {modalEditCategories && <ModalEditCategories />}
       {modalForDelete && <ModalForDelete />}
-    </>
+    </div>
   );
 };
 
