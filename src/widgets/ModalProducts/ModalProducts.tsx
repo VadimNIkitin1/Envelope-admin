@@ -14,14 +14,15 @@ import { getCategories } from '../../store/categorySlice';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import style from './ModalProducts.module.scss';
-import { clsx } from 'clsx';
+
 import { IRequestProduct } from './types';
+import { Checkbox } from '../../shared/Checkbox/Checkbox';
+import { InputText } from '../../shared/InputText/InputText';
 
 const ModalProducts = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories.categories);
   const units = useAppSelector((state) => state.products.units);
-  const theme = useAppSelector((state) => state.active.theme);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -88,16 +89,13 @@ const ModalProducts = () => {
               {errors.category_id && <p className={style.errorMsg}>{errors.category_id.message}</p>}
             </label>
             <label className={style.modalLabel}>
-              <p className={style.productTitle}>Наименование</p>
-              <input
+              <InputText
                 type="text"
-                className={style.modalInput}
                 placeholder="Наименование"
                 {...register('name_rus', {
                   maxLength: { value: 20, message: 'Не более 20 символов' },
                 })}
               />
-              {errors.name_rus && <p className={style.errorMsg}>{errors.name_rus.message}</p>}
             </label>
           </div>
           <div style={{ display: 'flex', columnGap: '20px', marginBottom: '30px' }}>
@@ -109,25 +107,25 @@ const ModalProducts = () => {
                 {...register('description_rus', { required: true })}
               />
               <div className={style.descGroup}>
-                <input
+                <InputText
                   placeholder="Ккал"
                   type="number"
                   className={style.modalInputSmall}
                   {...register('kilocalories', { required: true })}
                 />
-                <input
+                <InputText
                   placeholder="Белки"
                   type="number"
                   className={style.modalInputSmall}
                   {...register('proteins', { required: true })}
                 />
-                <input
+                <InputText
                   placeholder="Жиры"
                   type="number"
                   className={style.modalInputSmall}
                   {...register('fats', { required: true })}
                 />
-                <input
+                <InputText
                   placeholder="Углеводы"
                   type="number"
                   className={style.modalInputSmall}
@@ -136,7 +134,7 @@ const ModalProducts = () => {
               </div>
               <label className={style.modalLabel}>
                 <p className={style.productTitle}>Цена</p>
-                <input
+                <InputText
                   placeholder="Цена"
                   type="number"
                   className={style.modalInputSmall}
@@ -147,7 +145,7 @@ const ModalProducts = () => {
               <label className={style.modalLabel}>
                 <p className={style.productTitle}>Выход</p>
                 <div className={style.descGroup}>
-                  <input
+                  <InputText
                     placeholder="Выход"
                     type="number"
                     className={style.modalInputSmall}
@@ -177,63 +175,24 @@ const ModalProducts = () => {
               {/* <InputFile {...register("image")} /> */}
               <label className={style.containerCheckbox}>
                 В наличии
-                <input type="checkbox" {...register('availability')} />
-                <svg viewBox="0 0 64 64" height="18px" width="18px">
-                  <path
-                    d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
-                    pathLength="575.0541381835938"
-                    className={clsx(style.path, theme && style.light)}
-                  ></path>
-                </svg>
+                <Checkbox {...register('availability')} />
               </label>
               <label className={style.containerCheckbox}>
                 Популярное
-                <input type="checkbox" {...register('popular')} />
-                <svg viewBox="0 0 64 64" height="18px" width="18px">
-                  <path
-                    d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
-                    pathLength="575.0541381835938"
-                    className={clsx(style.path, theme && style.light)}
-                  ></path>
-                </svg>
+                <Checkbox {...register('popular')} />
               </label>
               <label className={style.containerCheckbox}>
                 Доставка
-                <input type="checkbox" {...register('delivery')} />
-                <svg viewBox="0 0 64 64" height="18px" width="18px">
-                  <path
-                    d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
-                    pathLength="575.0541381835938"
-                    className={clsx(style.path, theme && style.light)}
-                  ></path>
-                </svg>
+                <Checkbox {...register('delivery')} />
               </label>
               <label className={style.containerCheckbox}>
                 Самовывоз
-                <input type="checkbox" {...register('takeaway')} />
-                <svg viewBox="0 0 64 64" height="18px" width="18px">
-                  <path
-                    d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
-                    pathLength="575.0541381835938"
-                    className={clsx(style.path, theme && style.light)}
-                  ></path>
-                </svg>
+                <Checkbox {...register('takeaway')} />
               </label>
               <label className={style.containerCheckbox}>
                 Зал
-                <input type="checkbox" {...register('dinein')} />
-                <svg viewBox="0 0 64 64" height="18px" width="18px">
-                  <path
-                    d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
-                    pathLength="575.0541381835938"
-                    className={clsx(style.path, theme && style.light)}
-                  ></path>
-                </svg>
+                <Checkbox {...register('dinein')} />
               </label>
-              {/* <label className={style.labelCheckbox}>
-                В наличии
-                <Checkbox {...register("availability")} />
-              </label> */}
             </div>
           </div>
           <div style={{ display: 'flex', columnGap: '20px' }}>

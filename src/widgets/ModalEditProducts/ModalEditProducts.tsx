@@ -14,6 +14,7 @@ import Button from '../../shared/Button/Button';
 
 import style from './ModalEditProducts.module.scss';
 import { IRequestProduct } from '../ModalProducts/types';
+import { InputText } from '../../shared/InputText/InputText';
 // import { clsx } from 'clsx';
 
 const ModalEditProducts = () => {
@@ -113,9 +114,8 @@ const ModalEditProducts = () => {
             </label>
             <label className={style.modalLabel}>
               <p className={style.productTitle}>Наименование</p>
-              <input
+              <InputText
                 type="text"
-                className={style.modalInput}
                 placeholder="Наименование"
                 {...register('name_rus', {
                   maxLength: { value: 20, message: 'Не более 20 символов' },
@@ -133,25 +133,25 @@ const ModalEditProducts = () => {
                 {...register('description_rus', { required: true })}
               />
               <div className={style.descGroup}>
-                <input
+                <InputText
                   placeholder="Ккал"
                   type="number"
                   className={style.modalInputSmall}
                   {...register('kilocalories')}
                 />
-                <input
+                <InputText
                   placeholder="Белки"
                   type="number"
                   className={style.modalInputSmall}
                   {...register('proteins')}
                 />
-                <input
+                <InputText
                   placeholder="Жиры"
                   type="number"
                   className={style.modalInputSmall}
                   {...register('fats')}
                 />
-                <input
+                <InputText
                   placeholder="Углеводы"
                   type="number"
                   className={style.modalInputSmall}
@@ -160,7 +160,7 @@ const ModalEditProducts = () => {
               </div>
               <label className={style.modalLabel}>
                 <p className={style.productTitle}>Цена</p>
-                <input
+                <InputText
                   placeholder="Цена"
                   type="number"
                   className={style.modalInputSmall}
@@ -171,7 +171,7 @@ const ModalEditProducts = () => {
               <label className={style.modalLabel}>
                 <p className={style.productTitle}>Выход</p>
                 <div className={style.descGroup}>
-                  <input
+                  <InputText
                     placeholder="Выход"
                     type="number"
                     className={style.modalInputSmall}

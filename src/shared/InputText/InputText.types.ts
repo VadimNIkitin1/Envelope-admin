@@ -3,6 +3,7 @@ import { FieldError } from 'react-hook-form';
 
 export interface IProps {
   placeholder: string;
+  type: string;
   error?: FieldError;
 }
 

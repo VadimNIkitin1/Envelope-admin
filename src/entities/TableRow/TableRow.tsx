@@ -12,7 +12,7 @@ import {
 } from '../../store/modalsSlice';
 import { triggerRender } from '../../store/activeSlice';
 
-import Checkbox from '../../shared/Checkbox/Checkbox';
+import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
 import Button from '../../shared/Button/Button';
 
 import { clsx } from 'clsx';
@@ -77,7 +77,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
         switch (column.type) {
           case 'checkbox':
             return (
-              <Checkbox
+              <TableCheckbox
                 key={column.name}
                 checked={cell[column.code]}
                 className={style.tableColumn}

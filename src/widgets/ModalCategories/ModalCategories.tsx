@@ -5,20 +5,15 @@ import { InputText } from '../../shared/InputText/InputText';
 
 import style from './ModalCategories.module.scss';
 import Button from '../../shared/Button/Button';
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
+import { useAppDispatch } from '../../types/hooks';
 import { triggerRender } from '../../store/activeSlice';
 import { toggleModalCategories } from '../../store/modalsSlice';
 import { addCategory } from '../../store/categorySlice';
-import { clsx } from 'clsx';
+import { Checkbox } from '../../shared/Checkbox/Checkbox';
 
 const ModalCategories = () => {
   const dispatch = useAppDispatch();
-  const theme = useAppSelector((state) => state.active.theme);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IRequestCategory>({ mode: 'onBlur' });
+  const { register, handleSubmit } = useForm<IRequestCategory>({ mode: 'onBlur' });
 
   const onSubmit: SubmitHandler<IRequestCategory> = (data: IRequestCategory) => {
     const requestData = {
@@ -36,8 +31,8 @@ const ModalCategories = () => {
         <h1 className={style.modalTitle}>Добавить категорию</h1>
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
           <label className={style.modalLabel}>
-            <p>Наименование</p>
             <InputText
+              type="text"
               placeholder="Наименование"
               {...register('name', {
                 maxLength: { value: 20, message: 'Не более 20 символов' },
@@ -46,14 +41,7 @@ const ModalCategories = () => {
           </label>
           <label className={style.containerCheckbox}>
             В наличии
-            <input type="checkbox" {...register('availability')} />
-            <svg viewBox="0 0 64 64" height="18px" width="18px">
-              <path
-                d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
-                pathLength="575.0541381835938"
-                className={clsx(style.path, theme && style.light)}
-              ></path>
-            </svg>
+            <Checkbox {...register('availability')} />
           </label>
           <div style={{ display: 'flex', columnGap: '20px' }}>
             <Button view="add" type="submit">
