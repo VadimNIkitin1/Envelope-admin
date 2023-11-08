@@ -4,7 +4,7 @@ import { FieldError } from 'react-hook-form';
 export interface IProps {
   placeholder: string;
   view: string;
-  error: FieldError | undefined;
+  error: FieldError;
 }
 
 export type IInputProps = InputHTMLAttributes<HTMLInputElement> & IProps;
