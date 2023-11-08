@@ -38,7 +38,7 @@ const ModalForDelete = () => {
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>
           {location.pathname === `/${company_id}/menu` &&
-            `Вы действительно хотите удалить ${product.name_rus} ?`}
+            `Вы действительно хотите удалить ${product.name} ?`}
           {location.pathname === `/${company_id}/categories` &&
             `Вы действительно хотите удалить ${category.name} ?`}
         </h1>
