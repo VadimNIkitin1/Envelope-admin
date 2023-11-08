@@ -1,15 +1,14 @@
 import Table from '../../widgets/Table/Table';
 import { settings } from '../../assets/db';
 
-import { useAppSelector } from '../../types/hooks';
+import { TABLE_HEADER_SETTINGS } from './SettingsPage.data';
 import ThemeSwitches from '../../shared/ThemeSwitches/ThemeSwitches';
 import style from './SettingsPage.module.scss';
 
 const SettingsPage = () => {
-  const tableHeaderSettings = useAppSelector((state) => state.tableHeader.tableHeaderSettings);
   return (
     <>
-      <Table data={settings} tableHeader={tableHeaderSettings} />
+      <Table data={settings} tableHeader={TABLE_HEADER_SETTINGS} />
       <div className={style.themeSwitch}>
         <p>Тема</p>
         <ThemeSwitches />

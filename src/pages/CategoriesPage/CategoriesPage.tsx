@@ -3,6 +3,7 @@ import { BsFillPlusSquareFill } from 'react-icons/bs';
 
 import { getCategories } from '../../store/categorySlice';
 import { toggleModalCategories } from '../../store/modalsSlice';
+import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
 
 import ModalCategories from '../../widgets/ModalCategories/ModalCategories';
 import ModalEditCategories from '../../widgets/ModalEditCategories/ModalEditCategories';
@@ -28,8 +29,6 @@ const CategoriesPage: FC = () => {
   const modalForDelete = useAppSelector((state) => state.modals.modalForDelete);
   // const modalError = useAppSelector((state) => state.modals.modalError);
 
-  const tableHeaderCategories = useAppSelector((state) => state.tableHeader.tableHeaderCategories);
-
   useEffect(() => {
     setTimeout(() => {
       dispatch(getCategories());
@@ -44,7 +43,7 @@ const CategoriesPage: FC = () => {
         </Button>
       </div>
       <div className={style.table}>
-        <Table data={categories} tableHeader={tableHeaderCategories} />
+        <Table data={categories} tableHeader={TABLE_HEADER_CATEGORIES} />
       </div>
       {modalCategories && <ModalCategories />}
       {modalEditCategories && <ModalEditCategories />}

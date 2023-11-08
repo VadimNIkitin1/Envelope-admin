@@ -12,6 +12,7 @@ import ModalEditProducts from '../../widgets/ModalEditProducts/ModalEditProducts
 import Button from '../../shared/Button/Button';
 
 import ModalForDelete from '../../widgets/ModalForDelete/ModalForDelete';
+import { TABLE_HEADER_MENU } from './MenuPage.data';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
@@ -21,7 +22,6 @@ const MenuPage = () => {
   const modalProducts = useAppSelector((state) => state.modals.modalProducts);
   const render = useAppSelector((state) => state.active.render);
   const modalEditProducts = useAppSelector((state) => state.modals.modalEditProducts);
-  const tableHeaderMenu = useAppSelector((state) => state.tableHeader.tableHeaderMenu);
   const modalForDelete = useAppSelector((state) => state.modals.modalForDelete);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const MenuPage = () => {
           Добавить продукт <BsFillPlusSquareFill />
         </Button>
       </div>
-      <Table data={products} tableHeader={tableHeaderMenu} />
+      <Table data={products} tableHeader={TABLE_HEADER_MENU} />
       {modalProducts && <ModalProducts />}
       {modalEditProducts && <ModalEditProducts />}
       {modalForDelete && <ModalForDelete />}
