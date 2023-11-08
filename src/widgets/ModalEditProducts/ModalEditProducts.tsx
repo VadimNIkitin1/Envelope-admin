@@ -23,7 +23,7 @@ const ModalEditProducts = () => {
   // const theme = useAppSelector((state) => state.active.theme);
   const product = useAppSelector((state) => state.products.product);
   const {
-    name_rus,
+    name,
     price,
     id,
     delivery,
@@ -50,7 +50,7 @@ const ModalEditProducts = () => {
   } = useForm<IRequestProduct>({
     mode: 'onBlur',
     defaultValues: {
-      name_rus,
+      name,
       price,
       category_id,
       wt,
@@ -69,9 +69,9 @@ const ModalEditProducts = () => {
   const onSubmit: SubmitHandler<IRequestProduct> = (data: IRequestProduct) => {
     const requestData = {
       id,
-      name_rus: data.name_rus,
+      name_rus: data.name,
       category_id: Number(data.category_id),
-      description_rus: data.description_rus,
+      description: data.description,
       price: Number(data.price),
       availability: data.availability,
       popular: data.popular,
@@ -115,13 +115,13 @@ const ModalEditProducts = () => {
             <label className={style.modalLabel}>
               <p className={style.productTitle}>Наименование</p>
               <InputText
+                error={errors.name}
                 view="text"
                 placeholder="Наименование"
-                {...register('name_rus', {
+                {...register('name', {
                   maxLength: { value: 20, message: 'Не более 20 символов' },
                 })}
               />
-              {errors.name_rus && <p className={style.errorMsg}>{errors.name_rus.message}</p>}
             </label>
           </div>
           <div style={{ display: 'flex', columnGap: '20px', marginBottom: '30px' }}>
@@ -130,28 +130,32 @@ const ModalEditProducts = () => {
               <textarea
                 placeholder="Описание"
                 className={style.modalDescription}
-                {...register('description_rus', { required: true })}
+                {...register('description', { required: true })}
               />
               <div className={style.descGroup}>
                 <InputText
+                  error={errors.kilocalories}
                   placeholder="Ккал"
                   view="number"
                   className={style.modalInputSmall}
                   {...register('kilocalories')}
                 />
                 <InputText
+                  error={errors.proteins}
                   placeholder="Белки"
                   view="number"
                   className={style.modalInputSmall}
                   {...register('proteins')}
                 />
                 <InputText
+                  error={errors.fats}
                   placeholder="Жиры"
                   view="number"
                   className={style.modalInputSmall}
                   {...register('fats')}
                 />
                 <InputText
+                  error={errors.carbohydrates}
                   placeholder="Углеводы"
                   view="number"
                   className={style.modalInputSmall}
@@ -161,6 +165,7 @@ const ModalEditProducts = () => {
               <label className={style.modalLabel}>
                 <p className={style.productTitle}>Цена</p>
                 <InputText
+                  error={errors.price}
                   placeholder="Цена"
                   view="number"
                   className={style.modalInputSmall}
@@ -172,6 +177,7 @@ const ModalEditProducts = () => {
                 <p className={style.productTitle}>Выход</p>
                 <div className={style.descGroup}>
                   <InputText
+                    error={errors.wt}
                     placeholder="Выход"
                     view="number"
                     className={style.modalInputSmall}
@@ -188,11 +194,7 @@ const ModalEditProducts = () => {
                 </div>
                 {errors.wt && <p className={style.errorMsg}>{errors.wt.message}</p>}
               </label>
-              {errors.description_rus && (
-                <p className={style.errorMsg}>{errors.description_rus.message}</p>
-              )}
             </label>
-
             {/* <InputFile {...register("image")} /> */}
           </div>
           <div style={{ display: 'flex', columnGap: '20px' }}>

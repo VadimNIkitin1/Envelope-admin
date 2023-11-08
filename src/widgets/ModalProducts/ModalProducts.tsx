@@ -39,8 +39,8 @@ const ModalProducts = () => {
   const onSubmit: SubmitHandler<IRequestProduct> = (data: IRequestProduct) => {
     const requestData = {
       category_id: Number(data.category_id),
-      name_rus: data.name_rus,
-      description_rus: data.description_rus,
+      name_rus: data.name,
+      description_rus: data.description,
       price: Number(data.price),
       wt: Number(data.wt),
       kilocalories: Number(data.kilocalories),
@@ -90,9 +90,10 @@ const ModalProducts = () => {
             </label>
             <label className={style.modalLabel}>
               <InputText
+                error={errors.name}
                 view="text"
                 placeholder="Наименование"
-                {...register('name_rus', {
+                {...register('name', {
                   maxLength: { value: 20, message: 'Не более 20 символов' },
                 })}
               />
@@ -104,28 +105,32 @@ const ModalProducts = () => {
               <textarea
                 placeholder="Описание"
                 className={style.modalDescription}
-                {...register('description_rus', { required: true })}
+                {...register('description', { required: true })}
               />
               <div className={style.descGroup}>
                 <InputText
+                  error={errors.kilocalories}
                   placeholder="Ккал"
                   view="number"
                   className={style.modalInputSmall}
                   {...register('kilocalories', { required: true })}
                 />
                 <InputText
+                  error={errors.proteins}
                   placeholder="Белки"
                   view="number"
                   className={style.modalInputSmall}
                   {...register('proteins', { required: true })}
                 />
                 <InputText
+                  error={errors.fats}
                   placeholder="Жиры"
                   view="number"
                   className={style.modalInputSmall}
                   {...register('fats', { required: true })}
                 />
                 <InputText
+                  error={errors.carbohydrates}
                   placeholder="Углеводы"
                   view="number"
                   className={style.modalInputSmall}
@@ -135,6 +140,7 @@ const ModalProducts = () => {
               <label className={style.modalLabel}>
                 <p className={style.productTitle}>Цена</p>
                 <InputText
+                  error={errors.price}
                   placeholder="Цена"
                   view="number"
                   className={style.modalInputSmall}
@@ -146,6 +152,7 @@ const ModalProducts = () => {
                 <p className={style.productTitle}>Выход</p>
                 <div className={style.descGroup}>
                   <InputText
+                    error={errors.wt}
                     placeholder="Выход"
                     view="number"
                     className={style.modalInputSmall}
@@ -161,9 +168,6 @@ const ModalProducts = () => {
                 </div>
                 {errors.wt && <p className={style.errorMsg}>{errors.wt.message}</p>}
               </label>
-              {errors.description_rus && (
-                <p className={style.errorMsg}>{errors.description_rus.message}</p>
-              )}
             </label>
             <div
               style={{

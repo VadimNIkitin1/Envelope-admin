@@ -18,7 +18,11 @@ const ModalEditCategories = () => {
   const category = useAppSelector((state) => state.categories.category);
   const { name, id } = category;
 
-  const { register, handleSubmit } = useForm<IRequestCategory>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IRequestCategory>({
     mode: 'onBlur',
     defaultValues: { name: name },
   });
@@ -41,6 +45,7 @@ const ModalEditCategories = () => {
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
           <label className={style.modalLabel}>
             <InputText
+              error={errors.name}
               placeholder="Ниаменование"
               view="text"
               {...register('name', {

@@ -1,8 +1,8 @@
 export interface IRequestProduct {
   id?: string | number;
   category_id?: number;
-  name_rus?: string;
-  description_rus?: string;
+  name?: string;
+  description?: string;
   price?: number;
   wt?: number;
   kilocalories?: number;

@@ -2,7 +2,8 @@ export interface IProduct {
   id: number;
   category_id: number;
   category_name: string;
-  name_rus: string;
+  name: string;
+  description: string;
   price: number;
   wt: number;
   kilocalories: number;
