@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 import type { IRequestCategory } from './types';
+import { InputText } from '../../shared/InputText/InputText';
 
 import style from './ModalCategories.module.scss';
 import Button from '../../shared/Button/Button';
@@ -36,14 +37,12 @@ const ModalCategories = () => {
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
           <label className={style.modalLabel}>
             <p>Наименование</p>
-            <input
-              type="text"
-              className={style.modalInput}
+            <InputText
+              placeholder="Наименование"
               {...register('name', {
                 maxLength: { value: 20, message: 'Не более 20 символов' },
               })}
             />
-            {errors.name && <p className={style.errorMsg}>{errors.name.message}</p>}
           </label>
           <label className={style.containerCheckbox}>
             В наличии
