@@ -36,7 +36,7 @@ const ModalCategories = () => {
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
           <label className={style.modalLabel}>
             <InputText
-              error={errors.name}
+              error={errors?.name}
               view="text"
               placeholder="Наименование"
               {...register('name', {
