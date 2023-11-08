@@ -42,7 +42,7 @@ const ModalEditCategories = () => {
           <label className={style.modalLabel}>
             <InputText
               placeholder="Ниаменование"
-              type="text"
+              view="text"
               {...register('name', {
                 maxLength: { value: 20, message: 'Не более 20 символов' },
               })}

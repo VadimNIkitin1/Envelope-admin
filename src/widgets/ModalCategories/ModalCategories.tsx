@@ -13,7 +13,11 @@ import { Checkbox } from '../../shared/Checkbox/Checkbox';
 
 const ModalCategories = () => {
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm<IRequestCategory>({ mode: 'onBlur' });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IRequestCategory>({ mode: 'onBlur' });
 
   const onSubmit: SubmitHandler<IRequestCategory> = (data: IRequestCategory) => {
     const requestData = {
@@ -32,9 +36,11 @@ const ModalCategories = () => {
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
           <label className={style.modalLabel}>
             <InputText
-              type="text"
+              error={errors.name}
+              view="text"
               placeholder="Наименование"
               {...register('name', {
+                required: true,
                 maxLength: { value: 20, message: 'Не более 20 символов' },
               })}
             />

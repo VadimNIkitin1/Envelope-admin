@@ -90,7 +90,7 @@ const ModalProducts = () => {
             </label>
             <label className={style.modalLabel}>
               <InputText
-                type="text"
+                view="text"
                 placeholder="Наименование"
                 {...register('name_rus', {
                   maxLength: { value: 20, message: 'Не более 20 символов' },
@@ -109,25 +109,25 @@ const ModalProducts = () => {
               <div className={style.descGroup}>
                 <InputText
                   placeholder="Ккал"
-                  type="number"
+                  view="number"
                   className={style.modalInputSmall}
                   {...register('kilocalories', { required: true })}
                 />
                 <InputText
                   placeholder="Белки"
-                  type="number"
+                  view="number"
                   className={style.modalInputSmall}
                   {...register('proteins', { required: true })}
                 />
                 <InputText
                   placeholder="Жиры"
-                  type="number"
+                  view="number"
                   className={style.modalInputSmall}
                   {...register('fats', { required: true })}
                 />
                 <InputText
                   placeholder="Углеводы"
-                  type="number"
+                  view="number"
                   className={style.modalInputSmall}
                   {...register('carbohydrates', { required: true })}
                 />
@@ -136,7 +136,7 @@ const ModalProducts = () => {
                 <p className={style.productTitle}>Цена</p>
                 <InputText
                   placeholder="Цена"
-                  type="number"
+                  view="number"
                   className={style.modalInputSmall}
                   {...register('price', { required: true })}
                 />
@@ -147,7 +147,7 @@ const ModalProducts = () => {
                 <div className={style.descGroup}>
                   <InputText
                     placeholder="Выход"
-                    type="number"
+                    view="number"
                     className={style.modalInputSmall}
                     {...register('wt', { required: true })}
                   />
