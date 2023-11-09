@@ -8,7 +8,7 @@ import style from './App.module.scss';
 
 function App() {
   const theme = useAppSelector((state) => state.active.theme);
-  console.log(theme);
+
   return (
     <div className={clsx(style.App, theme && style.light)}>
       <RouterProvider router={router} />
