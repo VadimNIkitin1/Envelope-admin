@@ -50,6 +50,7 @@ const ModalEditCategories = () => {
               placeholder="Ниаменование"
               view="text"
               {...register('name', {
+                required: { value: true, message: 'Поле обязательно для заполненния' },
                 maxLength: { value: 20, message: 'Не более 20 символов' },
               })}
             />
