@@ -11,6 +11,7 @@ import { editCategory } from '../../store/categorySlice';
 import { IRequestCategory } from '../ModalCategories/types';
 
 import { InputText } from '../../shared/InputText/InputText';
+
 // import { Checkbox } from '../../shared/Checkbox/Checkbox';
 
 const ModalEditCategories = () => {

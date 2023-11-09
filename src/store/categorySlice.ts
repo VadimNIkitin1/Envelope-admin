@@ -98,8 +98,9 @@ export const deleteCategoryFlag = createAsyncThunk<
 >('categories/deleteCategoryFlag', async (id, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem('token') || '';
-    const res = await axios.patch(`category/delete/?category_id=${id}`, {
+    const res = await axios.put(`category/delete/?category_id=${id}`, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
@@ -118,6 +119,7 @@ export const toggleCheckboxCategory = createAsyncThunk<
     const token = localStorage.getItem('token') || '';
     const res = await axios.put(`category/${data.id}/checkbox/?checkbox=${data.code}`, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });

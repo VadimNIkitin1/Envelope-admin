@@ -24,6 +24,7 @@ const SideBarList = () => {
     <div>
       {SIDEBAR_LIST.map((el) => (
         <Link
+          key={el.link}
           className={clsx(
             style.item,
             activeTab === `/${company_id}/${el.link}` && style.active,

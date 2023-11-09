@@ -141,7 +141,12 @@ export const getUnits = createAsyncThunk<IUnit[], undefined, { rejectValue: stri
   'products/fetchUnits',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`product/unit/all/`);
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.get(`product/unit/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

@@ -43,7 +43,7 @@ export const authorization = createAsyncThunk<
     localStorage.setItem('username', res.data.data.username);
     const theme = localStorage.getItem('theme');
     if (!theme) {
-      localStorage.setItem('theme', 'true');
+      localStorage.setItem('theme', 'false');
     }
     return res.data;
   } catch (error: any) {
@@ -66,7 +66,7 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequestLogIn, { rejectValu
       localStorage.setItem('username', res.data.data.username);
       const theme = localStorage.getItem('theme');
       if (!theme) {
-        localStorage.setItem('theme', 'true');
+        localStorage.setItem('theme', 'false');
       }
       return res.data;
     } catch (error: any) {
