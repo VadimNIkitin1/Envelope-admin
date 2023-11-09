@@ -3,7 +3,7 @@ import { IActive } from '../types/active';
 
 const initialState: IActive = {
   active: '/shops',
-  theme: false,
+  theme: JSON.parse(localStorage.getItem('theme') || ''),
   render: false,
   sidebar: false,
 };
@@ -17,6 +17,7 @@ const slice = createSlice({
     },
     toggleTheme(state) {
       state.theme = !state.theme;
+      localStorage.setItem('theme', String(state.theme));
     },
     triggerRender(state) {
       state.render = !state.render;

@@ -41,6 +41,10 @@ export const authorization = createAsyncThunk<
     localStorage.setItem('user_id', res.data.data.user_id);
     localStorage.setItem('token', res.data.access_token);
     localStorage.setItem('username', res.data.data.username);
+    const theme = localStorage.getItem('theme');
+    if (!theme) {
+      localStorage.setItem('theme', 'true');
+    }
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -60,6 +64,10 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequestLogIn, { rejectValu
       localStorage.setItem('user_id', res.data.data.user_id);
       localStorage.setItem('token', res.data.access_token);
       localStorage.setItem('username', res.data.data.username);
+      const theme = localStorage.getItem('theme');
+      if (!theme) {
+        localStorage.setItem('theme', 'true');
+      }
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

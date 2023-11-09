@@ -116,7 +116,7 @@ export const toggleCheckboxCategory = createAsyncThunk<
 >('categories/toggleCheckboxCategory', async (data, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem('token') || '';
-    const res = await axios.patch(`category/${data.id}/checkbox/?checkbox=${data.code}`, {
+    const res = await axios.put(`category/${data.id}/checkbox/?checkbox=${data.code}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

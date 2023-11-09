@@ -8,4 +8,8 @@
   background-color: $black;
   border-radius: 10px;
   padding: 10px 20px;
+  &.light {
+    color: black;
+    background-color: white;
+  }
 }
