@@ -25,8 +25,8 @@ const ModalProducts = () => {
   const units = useAppSelector((state) => state.products.units);
 
   useEffect(() => {
-    dispatch(getCategories());
     dispatch(getUnits());
+    dispatch(getCategories());
   }, []);
 
   const {

@@ -3,6 +3,9 @@ import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxj
 import { IProduct, IProductsInitialState, IUnit } from '../types/products';
 import type { IRequestProduct } from '../widgets/ModalProducts/types';
 
+axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
+axios.defaults.withCredentials = true;
+
 const initialState: IProductsInitialState = {
   products: [],
   product: {
@@ -88,11 +91,15 @@ export const deleteProductFlag = createAsyncThunk<string, string | number, { rej
   async (id, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token') || '';
-      const res = await axios.patch(`product/?product_id=${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.put(
+        `product/?product_id=${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -125,12 +132,16 @@ export const toggleCheckboxProduct = createAsyncThunk<
 >('products/toggleCheckboxProduct', async (data, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem('token') || '';
-    const res = await axios.patch(`product/${data.id}/checkbox/?checkbox=${data.code}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.put(
+      `product/checkbox/?product_id=${data.id}&checkbox=${data.code}`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -138,12 +149,13 @@ export const toggleCheckboxProduct = createAsyncThunk<
 });
 
 export const getUnits = createAsyncThunk<IUnit[], undefined, { rejectValue: string }>(
-  'products/fetchUnits',
+  'products/getUnits',
   async (_, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token') || '';
-      const res = await axios.get(`product/unit/`, {
+      const res = await axios.get(`unit/`, {
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
