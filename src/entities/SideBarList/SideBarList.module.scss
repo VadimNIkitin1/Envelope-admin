@@ -13,12 +13,17 @@
     background-color: $violet;
     transition: all 0.3s ease-in-out;
     border-radius: 10px;
+    color: #000;
     &.light {
+      color: #fff;
       background-color: $blue;
     }
   }
   &.active:hover {
     background-color: $violet;
+    &.light {
+      background-color: $blue;
+    }
   }
   &.light {
     color: #000;

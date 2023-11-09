@@ -26,7 +26,7 @@ const SideBarList = () => {
         <Link
           className={clsx(
             style.item,
-            activeTab === `/${company_id}${el.link}` && style.active,
+            activeTab === `/${company_id}/${el.link}` && style.active,
             theme && style.light
           )}
           to={`/${company_id}${el.link}`}
