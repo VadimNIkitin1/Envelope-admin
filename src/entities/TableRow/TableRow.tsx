@@ -30,6 +30,7 @@ interface Props {
 }
 
 const TableRow: FC<Props> = ({ cell, tableHeader }) => {
+  console.log(cell);
   const dispatch = useAppDispatch();
   const location = useLocation();
   const theme = useAppSelector((state) => state.active.theme);

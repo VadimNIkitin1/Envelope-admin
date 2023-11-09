@@ -158,7 +158,7 @@ const ModalProducts = () => {
                     className={style.modalInputSmall}
                     {...register('wt', { required: true })}
                   />
-                  <select {...register('unit_id')} name="unit" className={style.modalSelect}>
+                  <select {...register('unit_id')} className={style.modalSelect}>
                     {units.map((unit) => (
                       <option key={unit.id} value={unit.id}>
                         {unit.name}
