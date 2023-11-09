@@ -54,7 +54,6 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
   'products/addProduct',
   async (data, { rejectWithValue }) => {
     try {
-      console.log(data);
       const token = localStorage.getItem('token') || '';
       const res = await axios.post(`product/`, data, {
         headers: {

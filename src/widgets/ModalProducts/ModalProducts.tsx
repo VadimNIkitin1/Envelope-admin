@@ -25,8 +25,8 @@ const ModalProducts = () => {
   const units = useAppSelector((state) => state.products.units);
 
   useEffect(() => {
-    dispatch(getUnits());
     dispatch(getCategories());
+    dispatch(getUnits());
   }, []);
 
   const {
@@ -76,7 +76,9 @@ const ModalProducts = () => {
             <label className={style.modalLabel}>
               <p className={style.productTitle}>Категория</p>
               <select
-                {...register('category_id', { required: true })}
+                {...register('category_id', {
+                  required: { value: true, message: 'Выберите категорию' },
+                })}
                 name="category_id"
                 className={style.modalSelect}
               >
@@ -94,6 +96,7 @@ const ModalProducts = () => {
                 view="text"
                 placeholder="Наименование"
                 {...register('name', {
+                  required: { value: true, message: 'Поле обязательно для заполнения' },
                   maxLength: { value: 20, message: 'Не более 20 символов' },
                 })}
               />
@@ -105,7 +108,10 @@ const ModalProducts = () => {
               <textarea
                 placeholder="Описание"
                 className={style.modalDescription}
-                {...register('description', { required: true })}
+                {...register('description', {
+                  required: { value: true, message: 'Поле обязательно для заполнения' },
+                  minLength: { value: 10, message: 'Не менее 10 символов' },
+                })}
               />
               <div className={style.descGroup}>
                 <InputText
@@ -113,28 +119,36 @@ const ModalProducts = () => {
                   placeholder="Ккал"
                   view="number"
                   className={style.modalInputSmall}
-                  {...register('kilocalories', { required: true })}
+                  {...register('kilocalories', {
+                    required: { value: true, message: 'Поле обязательно для заполнения' },
+                  })}
                 />
                 <InputText
                   error={errors.proteins}
                   placeholder="Белки"
                   view="number"
                   className={style.modalInputSmall}
-                  {...register('proteins', { required: true })}
+                  {...register('proteins', {
+                    required: { value: true, message: 'Поле обязательно для заполнения' },
+                  })}
                 />
                 <InputText
                   error={errors.fats}
                   placeholder="Жиры"
                   view="number"
                   className={style.modalInputSmall}
-                  {...register('fats', { required: true })}
+                  {...register('fats', {
+                    required: { value: true, message: 'Поле обязательно для заполнения' },
+                  })}
                 />
                 <InputText
                   error={errors.carbohydrates}
                   placeholder="Углеводы"
                   view="number"
                   className={style.modalInputSmall}
-                  {...register('carbohydrates', { required: true })}
+                  {...register('carbohydrates', {
+                    required: { value: true, message: 'Поле обязательно для заполнения' },
+                  })}
                 />
               </div>
               <label className={style.modalLabel}>
@@ -144,9 +158,10 @@ const ModalProducts = () => {
                   placeholder="Цена"
                   view="number"
                   className={style.modalInputSmall}
-                  {...register('price', { required: true })}
+                  {...register('price', {
+                    required: { value: true, message: 'Поле обязательно для заполнения' },
+                  })}
                 />
-                {errors.price && <p className={style.errorMsg}>{errors.price.message}</p>}
               </label>
               <label className={style.modalLabel}>
                 <p className={style.productTitle}>Выход</p>
@@ -156,10 +171,14 @@ const ModalProducts = () => {
                     placeholder="Выход"
                     view="number"
                     className={style.modalInputSmall}
-                    {...register('wt', { required: true })}
+                    {...register('wt', {
+                      required: { value: true, message: 'Поле обязательно для заполнения' },
+                    })}
                   />
                   <select
-                    {...register('unit_id', { required: true })}
+                    {...register('unit_id', {
+                      required: { value: true, message: 'Выберите единицу изм.' },
+                    })}
                     className={style.modalSelect}
                   >
                     {units.map((unit) => (
@@ -168,8 +187,8 @@ const ModalProducts = () => {
                       </option>
                     ))}
                   </select>
+                  {errors.unit_id && <p className={style.errorMsg}>{errors.unit_id.message}</p>}
                 </div>
-                {errors.wt && <p className={style.errorMsg}>{errors.wt.message}</p>}
               </label>
             </label>
             <div

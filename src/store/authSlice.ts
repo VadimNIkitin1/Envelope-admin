@@ -30,7 +30,6 @@ export const authorization = createAsyncThunk<
   IAuthRequestRegistration,
   { rejectValue: string }
 >('auth/authorization', async (data, { rejectWithValue }) => {
-  console.log(data);
   try {
     const res = await axios.post('user/register/', data, {
       headers: {
