@@ -98,12 +98,16 @@ export const deleteCategoryFlag = createAsyncThunk<
 >('categories/deleteCategoryFlag', async (id, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem('token') || '';
-    const res = await axios.put(`category/delete/?category_id=${id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.put(
+      `category/delete/?category_id=${id}`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -117,12 +121,15 @@ export const toggleCheckboxCategory = createAsyncThunk<
 >('categories/toggleCheckboxCategory', async (data, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem('token') || '';
-    const res = await axios.put(`category/checkbox/?category_id=${data.id}&checkbox=${data.code}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.put(
+      `category/checkbox/?category_id=${data.id}&checkbox=${data.code}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
