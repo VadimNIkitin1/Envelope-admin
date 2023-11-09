@@ -122,11 +122,11 @@ body {
 
   &.light {
     background: linear-gradient(
-        125deg,
-        rgba(215, 238, 4, 0.3) 0%,
-        rgba(56, 244, 5, 0.3) 50%,
-        rgba(215, 238, 4, 0.3) 100%
+        123deg,
+        rgb(224 234 128 / 60%) 0%,
+        rgb(132 254 98 / 27%) 50%,
+        rgb(226 238 126 / 60%) 100%
       ),
-      url('../assets/background-img.webp');
+      url(/src/assets/background-img.webp);
   }
 }
