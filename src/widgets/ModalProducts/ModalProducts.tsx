@@ -39,8 +39,8 @@ const ModalProducts = () => {
   const onSubmit: SubmitHandler<IRequestProduct> = (data: IRequestProduct) => {
     const requestData = {
       category_id: Number(data.category_id),
-      name_rus: data.name,
-      description_rus: data.description,
+      name: data.name,
+      description: data.description,
       price: Number(data.price),
       wt: Number(data.wt),
       kilocalories: Number(data.kilocalories),
