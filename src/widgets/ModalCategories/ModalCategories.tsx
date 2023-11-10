@@ -10,9 +10,11 @@ import { triggerRender } from '../../store/activeSlice';
 import { toggleModalCategories } from '../../store/modalsSlice';
 import { addCategory } from '../../store/categorySlice';
 import { Checkbox } from '../../shared/Checkbox/Checkbox';
+import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 const ModalCategories = () => {
   const dispatch = useAppDispatch();
+  const [store_id] = useLocalStorage('store_id', '');
   const {
     register,
     handleSubmit,
@@ -20,7 +22,12 @@ const ModalCategories = () => {
   } = useForm<IRequestCategory>({ mode: 'onBlur' });
 
   const onSubmit: SubmitHandler<IRequestCategory> = (data: IRequestCategory) => {
-    dispatch(addCategory(data));
+    const requestData = {
+      id: store_id,
+      name: data.name,
+      availability: data.availability,
+    };
+    dispatch(addCategory(requestData));
     dispatch(triggerRender());
     dispatch(toggleModalCategories(false));
   };

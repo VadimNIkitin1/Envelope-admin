@@ -19,30 +19,31 @@ const initialState: ICategoriesInitialState = {
   },
 };
 
-export const getCategories = createAsyncThunk<ICategory[], undefined, { rejectValue: string }>(
-  'categories/getCategories',
-  async (id, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.get(`category/?store_id=${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
+export const getCategories = createAsyncThunk<
+  ICategory[],
+  number | string,
+  { rejectValue: string }
+>('categories/getCategories', async (id, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.get(`category/?store_id=${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
   }
-);
+});
 
 export const addCategory = createAsyncThunk<ICategory, IRequestCategory, { rejectValue: string }>(
   'categories/addCategory',
   async (data, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token') || '';
-      const res = await axios.post(`category/`, data, {
+      const res = await axios.post(`category/?store_id=${data.id}`, data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,

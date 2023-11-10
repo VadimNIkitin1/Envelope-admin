@@ -46,7 +46,6 @@ const ModalStores = () => {
               placeholder="Токен Бота"
               {...register('token_bot', {
                 required: true,
-                maxLength: { value: 20, message: 'Не более 20 символов' },
               })}
             />
           </label>

@@ -5,6 +5,7 @@ export interface IStore {
 
 export interface IStoreInitialState {
   stores: IStore[];
+  store_id: number;
   loading: boolean;
   error: string | null;
 }

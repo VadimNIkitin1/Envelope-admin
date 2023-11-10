@@ -16,10 +16,12 @@ import Button from '../../shared/Button/Button';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import style from './CategoriesPage.module.scss';
+import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 const CategoriesPage: FC = () => {
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.categories);
+  const [store_id] = useLocalStorage('store_id', '');
 
   const render = useAppSelector((state) => state.active.render);
 
@@ -31,7 +33,7 @@ const CategoriesPage: FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(getCategories());
+      dispatch(getCategories(store_id));
     }, 200);
   }, [render]);
 

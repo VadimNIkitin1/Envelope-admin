@@ -19,13 +19,14 @@ const ModalForDelete = () => {
   const category = useAppSelector((state) => state.categories.category);
   const product = useAppSelector((state) => state.products.product);
   const [company_id] = useLocalStorage('user_id', '');
+  const [store_id] = useLocalStorage('store_id', '');
 
   const handleDelete = () => {
-    if (location.pathname === `/${company_id}/categories`) {
+    if (location.pathname === `/${company_id}/${store_id}/categories`) {
       dispatch(deleteCategoryFlag(category.id));
     }
 
-    if (location.pathname === `/${company_id}/menu`) {
+    if (location.pathname === `/${company_id}/${store_id}/menu`) {
       dispatch(deleteProduct(product.id));
     }
 
@@ -37,9 +38,9 @@ const ModalForDelete = () => {
     <div className={style.wrapper} onClick={() => dispatch(toggleModalForDelete(false))}>
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>
-          {location.pathname === `/${company_id}/menu` &&
+          {location.pathname === `/${company_id}/${store_id}/menu` &&
             `Вы действительно хотите удалить ${product.name} ?`}
-          {location.pathname === `/${company_id}/categories` &&
+          {location.pathname === `/${company_id}/${store_id}/categories` &&
             `Вы действительно хотите удалить ${category.name} ?`}
         </h1>
         <div style={{ display: 'flex', columnGap: '20px' }}>

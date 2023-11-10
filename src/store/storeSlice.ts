@@ -8,6 +8,7 @@ axios.defaults.withCredentials = true;
 
 const initialState: IStoreInitialState = {
   stores: [],
+  store_id: 0,
   loading: false,
   error: null,
 };
@@ -34,7 +35,6 @@ export const addStore = createAsyncThunk<IStore, IRequestStores, { rejectValue: 
   'store/addStore',
   async (data, { rejectWithValue }) => {
     try {
-      console.log(data);
       const token = localStorage.getItem('token') || '';
       const res = await axios.post('store/', data, {
         headers: {

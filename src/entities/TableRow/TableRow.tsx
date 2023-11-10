@@ -34,25 +34,26 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   const location = useLocation();
   const theme = useAppSelector((state) => state.active.theme);
   const [company_id] = useLocalStorage('user_id', '');
+  const [store_id] = useLocalStorage('store_id', '');
 
   const handleEdit = (data: any) => {
-    if (location.pathname === `/${company_id}/menu`) {
+    if (location.pathname === `/${company_id}/${store_id}/menu`) {
       dispatch(saveProduct(data));
       dispatch(toggleModalEditProducts(true));
     }
 
-    if (location.pathname === `/${company_id}/categories`) {
+    if (location.pathname === `/${company_id}/${store_id}/categories`) {
       dispatch(saveCategory(data));
       dispatch(toggleModalEditCategories(true));
     }
   };
 
   const handleDelete = (data: any) => {
-    if (location.pathname === `/${company_id}/menu`) {
+    if (location.pathname === `/${company_id}/${store_id}/menu`) {
       dispatch(saveProduct(data));
     }
 
-    if (location.pathname === `/${company_id}/categories`) {
+    if (location.pathname === `/${company_id}/${store_id}/categories`) {
       dispatch(saveCategory(data));
     }
 
@@ -60,11 +61,11 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   };
 
   const handleCheckbox = (id: string | number, code: string) => {
-    if (location.pathname === `/${company_id}/menu`) {
+    if (location.pathname === `/${company_id}/${store_id}/menu`) {
       dispatch(toggleCheckboxProduct({ id, code }));
     }
 
-    if (location.pathname === `/${company_id}/categories`) {
+    if (location.pathname === `/${company_id}/${store_id}/categories`) {
       dispatch(toggleCheckboxCategory({ id, code }));
     }
 
@@ -93,7 +94,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
             break;
         }
       })}
-      {location.pathname === `/${company_id}/categories` ? (
+      {location.pathname === `/${company_id}/${store_id}/categories` ? (
         <>
           <Button view="edit" onClick={() => handleEdit(cell)}>
             <MdOutlineEditCalendar />
@@ -103,7 +104,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
           </Button>
         </>
       ) : null}
-      {location.pathname === `/${company_id}/menu` ? (
+      {location.pathname === `/${company_id}/${store_id}/menu` ? (
         <>
           <Button view="edit" onClick={() => handleEdit(cell)}>
             <MdOutlineEditCalendar />
@@ -113,7 +114,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
           </Button>
         </>
       ) : null}
-      {location.pathname === `/${company_id}/settings` ? (
+      {location.pathname === `/${company_id}/${store_id}/settings` ? (
         <>
           <Button view="edit">
             <MdOutlineEditCalendar />
