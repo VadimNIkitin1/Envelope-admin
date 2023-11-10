@@ -30,7 +30,7 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />
         <Route
-          path={'/:company_id/shops'}
+          path={'/:company_id/stores'}
           element={
             <RequireAuth>
               <StoreCardsPage />
@@ -39,7 +39,7 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />
         <Route
-          path={'/:company_id/menu'}
+          path={'/:company_id/:store_id/menu'}
           element={
             <RequireAuth>
               <MenuPage />
@@ -48,7 +48,7 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />
         <Route
-          path={'/:company_id/categories'}
+          path={'/:company_id/:store_id/categories'}
           element={
             <RequireAuth>
               <CategoriesPage />
@@ -57,7 +57,7 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />
         <Route
-          path={'/:company_id/clients'}
+          path={'/:company_id/:store_id/clients'}
           element={
             <RequireAuth>
               <ClientsPage />
@@ -66,7 +66,7 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />
         <Route
-          path={'/:company_id/notification'}
+          path={'/:company_id/:store_id/notification'}
           element={
             <RequireAuth>
               <NotificationPage />
@@ -93,7 +93,7 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />
         <Route
-          path={'/:company_id/prices'}
+          path={'/:company_id/tariffs'}
           element={
             <RequireAuth>
               <PricesPage />

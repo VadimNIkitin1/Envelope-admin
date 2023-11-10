@@ -1,7 +1,12 @@
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import BurgerButton from '../../shared/BurgerButton/BurgerButton';
-import { SIDEBAR_LIST } from './SideBarList.data';
+import {
+  SIDEBAR_LIST_USER,
+  USER_PATHNAME,
+  SIDEBAR_LIST_STORE,
+  STORE_PATHNAME,
+} from './SideBarList.data';
 import style from './SideBarList.module.scss';
 
 import { toggleSidebar, toggleTabs } from '../../store/activeSlice';
@@ -22,20 +27,45 @@ const SideBarList = () => {
 
   return (
     <div>
-      {SIDEBAR_LIST.map((el) => (
-        <Link
-          key={el.link}
-          className={clsx(
-            style.item,
-            activeTab === `/${company_id}/${el.link}` && style.active,
-            theme && style.light
-          )}
-          to={`/${company_id}${el.link}`}
-          onClick={() => dispatch(toggleTabs(`/${company_id}/${el.link}`))}
-        >
-          <el.icon />
-        </Link>
-      ))}
+      {location.pathname === USER_PATHNAME.STORES ||
+      location.pathname === USER_PATHNAME.TARRIFS ||
+      location.pathname === USER_PATHNAME.ANALYTIC ||
+      location.pathname === USER_PATHNAME.SETTINGS
+        ? SIDEBAR_LIST_USER.map((el) => (
+            <Link
+              key={el.link}
+              className={clsx(
+                style.item,
+                activeTab === `/${company_id}/${el.link}` && style.active,
+                theme && style.light
+              )}
+              to={`/${company_id}${el.link}`}
+              onClick={() => dispatch(toggleTabs(`/${company_id}/${el.link}`))}
+            >
+              <el.icon />
+            </Link>
+          ))
+        : null}
+      {location.pathname === STORE_PATHNAME.CATEGORIES ||
+      location.pathname === STORE_PATHNAME.MENU ||
+      location.pathname === STORE_PATHNAME.CLIENTS ||
+      location.pathname === STORE_PATHNAME.NOTIFICATION ||
+      location.pathname === STORE_PATHNAME.SETTINGS
+        ? SIDEBAR_LIST_STORE.map((el) => (
+            <Link
+              key={el.link}
+              className={clsx(
+                style.item,
+                activeTab === `/${company_id}${el.link}` && style.active,
+                theme && style.light
+              )}
+              to={`/${company_id}${el.link}`}
+              onClick={() => dispatch(toggleTabs(`/${company_id}/${el.link}`))}
+            >
+              <el.icon />
+            </Link>
+          ))
+        : null}
       {<BurgerButton onClick={() => dispatch(toggleSidebar(false))} />}
     </div>
   );
