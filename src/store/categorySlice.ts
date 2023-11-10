@@ -21,10 +21,10 @@ const initialState: ICategoriesInitialState = {
 
 export const getCategories = createAsyncThunk<ICategory[], undefined, { rejectValue: string }>(
   'categories/getCategories',
-  async (_, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token') || '';
-      const res = await axios.get(`category/`, {
+      const res = await axios.get(`category/?store_id=${id}`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,

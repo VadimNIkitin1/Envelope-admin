@@ -5,7 +5,7 @@ import { getCategories } from '../../store/categorySlice';
 import { toggleModalCategories } from '../../store/modalsSlice';
 import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
 
-import ModalCategories from '../../widgets/ModalCategories/ModalCategories';
+import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
 import ModalEditCategories from '../../widgets/ModalEditCategories/ModalEditCategories';
 import ModalForDelete from '../../widgets/ModalForDelete/ModalForDelete';
 

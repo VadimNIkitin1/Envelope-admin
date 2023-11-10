@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
 import { IStore, IStoreInitialState } from '../types/stores';
+import { IRequestStores } from '../widgets/ModalStores/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -17,6 +18,25 @@ export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: st
     try {
       const token = localStorage.getItem('token') || '';
       const res = await axios.get('store/', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const addStore = createAsyncThunk<IStore, IRequestStores, { rejectValue: string }>(
+  'store/addStore',
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log(data);
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.post('store/', data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,

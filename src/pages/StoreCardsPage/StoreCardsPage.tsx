@@ -5,11 +5,14 @@ import style from './StoreCardsPage.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { getStores } from '../../store/storeSlice';
 import { useEffect } from 'react';
+import { toggleModalStores } from '../../store/modalsSlice';
+import ModalStores from '../../widgets/ModalStores/ModalStores';
 
 const StoreCardsPage = () => {
   const dispatch = useAppDispatch();
   const { stores } = useAppSelector((state) => state.store);
   const render = useAppSelector((state) => state.active.render);
+  const modalStores = useAppSelector((state) => state.modals.modalStores);
 
   useEffect(() => {
     setTimeout(() => {
@@ -19,7 +22,7 @@ const StoreCardsPage = () => {
 
   return (
     <div className={style.page}>
-      <Button view="add">
+      <Button view="add" onClick={() => dispatch(toggleModalStores(true))}>
         Создать магазин <BsFillPlusSquareFill />
       </Button>
       {stores === undefined || stores.length === 0 ? (
@@ -33,6 +36,7 @@ const StoreCardsPage = () => {
           ))}
         </div>
       )}
+      {modalStores && <ModalStores />}
     </div>
   );
 };

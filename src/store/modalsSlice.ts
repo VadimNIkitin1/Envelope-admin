@@ -8,6 +8,7 @@ const initialState: IModals = {
   modalEditProducts: false,
   modalForDelete: false,
   modalError: false,
+  modalStores: false,
 };
 
 const slice = createSlice({
@@ -32,6 +33,9 @@ const slice = createSlice({
     toggleModalError(state, action) {
       state.modalError = action.payload;
     },
+    toggleModalStores(state, action) {
+      state.modalStores = action.payload;
+    },
   },
 });
 
@@ -42,6 +46,7 @@ export const {
   toggleModalEditProducts,
   toggleModalForDelete,
   toggleModalError,
+  toggleModalStores,
 } = slice.actions;
 
 export default slice.reducer;

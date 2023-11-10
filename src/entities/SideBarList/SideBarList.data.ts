@@ -41,16 +41,16 @@ export const SIDEBAR_LIST = [
 export const SIDEBAR_LIST_USER = [
   { link: '/stores', icon: MdStore },
   {
-    link: '/tariffs',
-    icon: MdPriceChange,
-  },
-  {
     link: '/analytic',
     icon: MdAnalytics,
   },
   {
     link: '/settings',
     icon: MdOutlineSettings,
+  },
+  {
+    link: '/tariffs',
+    icon: MdPriceChange,
   },
 ];
 
