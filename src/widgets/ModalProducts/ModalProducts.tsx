@@ -18,14 +18,16 @@ import style from './ModalProducts.module.scss';
 import { IRequestProduct } from './types';
 import { Checkbox } from '../../shared/Checkbox/Checkbox';
 import { InputText } from '../../shared/InputText/InputText';
+import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 const ModalProducts = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories.categories);
   const units = useAppSelector((state) => state.products.units);
+  const [store_id] = useLocalStorage('store_id', '');
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getCategories(store_id));
     dispatch(getUnits());
   }, []);
 
