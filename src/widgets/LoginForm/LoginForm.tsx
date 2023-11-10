@@ -49,7 +49,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (responseData) {
       const parseData = JSON.parse(responseData);
-      navigate(`/${parseData.data.user_id}`, { replace: true });
+      navigate(`/${parseData.data.user_id}/stores`, { replace: true });
     }
   }, [render]);
 
