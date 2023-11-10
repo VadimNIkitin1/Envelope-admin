@@ -15,6 +15,7 @@ import Button from '../../shared/Button/Button';
 import style from './ModalEditProducts.module.scss';
 import { IRequestProduct } from '../ModalProducts/types';
 import { InputText } from '../../shared/InputText/InputText';
+import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 // import { clsx } from 'clsx';
 
 const ModalEditProducts = () => {
@@ -23,6 +24,7 @@ const ModalEditProducts = () => {
   // const theme = useAppSelector((state) => state.active.theme);
   const product = useAppSelector((state) => state.products.product);
   const units = useAppSelector((state) => state.products.units);
+  const [store_id] = useLocalStorage('store_id', '');
 
   const {
     name,
@@ -43,7 +45,7 @@ const ModalEditProducts = () => {
   } = product;
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getCategories(store_id));
   }, []);
 
   const {
