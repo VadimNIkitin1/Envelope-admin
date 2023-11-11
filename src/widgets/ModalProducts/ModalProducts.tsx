@@ -40,6 +40,7 @@ const ModalProducts = () => {
 
   const onSubmit: SubmitHandler<IRequestProduct> = (data: IRequestProduct) => {
     const requestData = {
+      id: store_id,
       category_id: Number(data.category_id),
       name: data.name,
       description: data.description,

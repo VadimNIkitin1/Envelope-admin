@@ -32,12 +32,12 @@ const initialState: IProductsInitialState = {
   error: null,
 };
 
-export const getProducts = createAsyncThunk<IProduct[], undefined, { rejectValue: string }>(
+export const getProducts = createAsyncThunk<IProduct[], number | string, { rejectValue: string }>(
   'products/getProducts',
-  async (_, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token') || '';
-      const res = await axios.get(`product/`, {
+      const res = await axios.get(`product/?store_id=${id}`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -55,7 +55,7 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
   async (data, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token') || '';
-      const res = await axios.post(`product/`, data, {
+      const res = await axios.post(`product/?store_id=${data.id}`, data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,

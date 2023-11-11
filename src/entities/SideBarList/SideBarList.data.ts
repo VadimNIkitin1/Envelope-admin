@@ -9,34 +9,19 @@ import {
   MdList,
 } from 'react-icons/md';
 
-const company_id = localStorage.getItem('user_id');
-const store_id = 1;
+enum PATHNAME {
+  STORES = `/stores`,
+  TARRIFS = '/tariffs',
+  CATEGORIES = '/categories',
+  MENU = '/menu',
+  CLIENTS = '/clients',
+  NOTIFICATION = '/notification',
+  ANALYTIC = '/analytic',
+  SETTINGS = '/settings',
+}
 
-export const SIDEBAR_LIST = [
-  { link: `/stores`, icon: MdStore },
-  {
-    link: '/tariffs',
-    icon: MdPriceChange,
-  },
-  { link: `/categories`, icon: MdList },
-  { link: `/menu`, icon: MdOutlineMenuBook },
-  {
-    link: `/clients`,
-    icon: MdPeopleAlt,
-  },
-  {
-    link: `/notification`,
-    icon: MdMessage,
-  },
-  {
-    link: '/analytic',
-    icon: MdAnalytics,
-  },
-  {
-    link: '/settings',
-    icon: MdOutlineSettings,
-  },
-];
+const company_id = localStorage.getItem('user_id');
+const store_id = localStorage.getItem('store_id');
 
 export const SIDEBAR_LIST_USER = [
   { link: '/stores', icon: MdStore },
@@ -55,33 +40,33 @@ export const SIDEBAR_LIST_USER = [
 ];
 
 export const USER_PATHNAME = {
-  STORES: `/${company_id}/stores`,
-  TARRIFS: `/${company_id}/tariffs`,
-  ANALYTIC: `/${company_id}/analytic`,
-  SETTINGS: `/${company_id}/settings`,
+  STORES: `/${company_id}${PATHNAME.STORES}`,
+  TARRIFS: `/${company_id}${PATHNAME.TARRIFS}`,
+  ANALYTIC: `/${company_id}${PATHNAME.ANALYTIC}`,
+  SETTINGS: `/${company_id}${PATHNAME.SETTINGS}`,
 };
 
 export const SIDEBAR_LIST_STORE = [
-  { link: `/${store_id}/categories`, icon: MdList },
-  { link: `/${store_id}/menu`, icon: MdOutlineMenuBook },
+  { link: `/${store_id}${PATHNAME.CATEGORIES}`, icon: MdList },
+  { link: `/${store_id}${PATHNAME.MENU}`, icon: MdOutlineMenuBook },
   {
-    link: `/${store_id}/clients`,
+    link: `/${store_id}${PATHNAME.CLIENTS}`,
     icon: MdPeopleAlt,
   },
   {
-    link: `/${store_id}/notification`,
+    link: `/${store_id}${PATHNAME.NOTIFICATION}`,
     icon: MdMessage,
   },
   {
-    link: `/${store_id}/settings`,
+    link: `/${store_id}${PATHNAME.SETTINGS}`,
     icon: MdOutlineSettings,
   },
 ];
 
 export const STORE_PATHNAME = {
-  CATEGORIES: `/${company_id}/${store_id}/categories`,
-  MENU: `/${company_id}/${store_id}/menu`,
-  CLIENTS: `/${company_id}/${store_id}/clients`,
-  NOTIFICATION: `/${company_id}/${store_id}/notification`,
-  SETTINGS: `/${company_id}/${store_id}/settings`,
+  CATEGORIES: `/${company_id}/${store_id}${PATHNAME.CATEGORIES}`,
+  MENU: `/${company_id}/${store_id}${PATHNAME.MENU}`,
+  CLIENTS: `/${company_id}/${store_id}${PATHNAME.CLIENTS}`,
+  NOTIFICATION: `/${company_id}/${store_id}${PATHNAME.NOTIFICATION}`,
+  SETTINGS: `/${company_id}/${store_id}${PATHNAME.SETTINGS}`,
 };

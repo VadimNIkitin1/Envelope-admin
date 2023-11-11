@@ -10,7 +10,6 @@ import { editProduct } from '../../store/productSlice';
 
 // import InputFile from '../../shared/InputFile/InputFile';
 import Button from '../../shared/Button/Button';
-// import Checkbox from '../../shared/Checkbox/Checkbox';
 
 import style from './ModalEditProducts.module.scss';
 import { IRequestProduct } from '../ModalProducts/types';
@@ -21,7 +20,6 @@ import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 const ModalEditProducts = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories.categories);
-  // const theme = useAppSelector((state) => state.active.theme);
   const product = useAppSelector((state) => state.products.product);
   const units = useAppSelector((state) => state.products.units);
   const [store_id] = useLocalStorage('store_id', '');
@@ -85,6 +83,7 @@ const ModalEditProducts = () => {
       takeaway: data.takeaway,
       dinein: data.dinein,
     };
+    console.log(requestData);
 
     dispatch(editProduct(requestData));
     dispatch(toggleModalEditProducts(false));

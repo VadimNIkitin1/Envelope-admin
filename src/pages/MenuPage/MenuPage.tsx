@@ -15,6 +15,7 @@ import ModalForDelete from '../../widgets/ModalForDelete/ModalForDelete';
 import { TABLE_HEADER_MENU } from './MenuPage.data';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
+import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 const MenuPage = () => {
   const dispatch = useAppDispatch();
@@ -23,10 +24,11 @@ const MenuPage = () => {
   const render = useAppSelector((state) => state.active.render);
   const modalEditProducts = useAppSelector((state) => state.modals.modalEditProducts);
   const modalForDelete = useAppSelector((state) => state.modals.modalForDelete);
+  const [store_id] = useLocalStorage('store_id', '');
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(getProducts());
+      dispatch(getProducts(store_id));
     }, 200);
   }, [render]);
 

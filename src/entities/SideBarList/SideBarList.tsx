@@ -60,7 +60,7 @@ const SideBarList = () => {
                 theme && style.light
               )}
               to={`/${company_id}${el.link}`}
-              onClick={() => dispatch(toggleTabs(`/${company_id}/${el.link}`))}
+              onClick={() => dispatch(toggleTabs(`/${company_id}${el.link}`))}
             >
               <el.icon />
             </Link>
