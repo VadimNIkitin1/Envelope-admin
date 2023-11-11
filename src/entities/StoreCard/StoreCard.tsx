@@ -7,7 +7,7 @@ import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 const StoreCard = (props) => {
   const theme = useAppSelector((state) => state.active.theme);
-  const [company_id] = useLocalStorage('user_id', '');
+  const [company_id] = useLocalStorage('company_id', '');
 
   return (
     <Link

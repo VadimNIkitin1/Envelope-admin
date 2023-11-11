@@ -9,7 +9,7 @@ import {
   MdList,
 } from 'react-icons/md';
 
-const company_id = localStorage.getItem('user_id');
+const company_id = localStorage.getItem('company_id');
 const store_id = localStorage.getItem('store_id');
 
 enum PATHNAME {

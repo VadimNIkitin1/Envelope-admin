@@ -37,7 +37,7 @@ export const authorization = createAsyncThunk<
       },
     });
     localStorage.setItem('data', JSON.stringify(res.data));
-    localStorage.setItem('user_id', res.data.data.user_id);
+    localStorage.setItem('company_id', res.data.data.user_id);
     localStorage.setItem('token', res.data.access_token);
     localStorage.setItem('username', res.data.data.username);
     const theme = localStorage.getItem('theme');
@@ -60,7 +60,7 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequestLogIn, { rejectValu
         },
       });
       localStorage.setItem('data', JSON.stringify(res.data));
-      localStorage.setItem('user_id', res.data.data.user_id);
+      localStorage.setItem('company_id', res.data.data.user_id);
       localStorage.setItem('token', res.data.access_token);
       localStorage.setItem('username', res.data.data.username);
       const theme = localStorage.getItem('theme');
@@ -76,7 +76,7 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequestLogIn, { rejectValu
 
 export const logOut = createAsyncThunk('auth/logOut', async () => {
   localStorage.removeItem('data');
-  localStorage.removeItem('user_id');
+  localStorage.removeItem('company_id');
   localStorage.removeItem('token');
   localStorage.removeItem('username');
   localStorage.removeItem('store_id');

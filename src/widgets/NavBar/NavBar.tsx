@@ -12,7 +12,7 @@ const NavBar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const theme = useAppSelector((state) => state.active.theme);
-  const [company_id] = useLocalStorage('user_id', '');
+  const [company_id] = useLocalStorage('company_id', '');
   const [data] = useLocalStorage('data', '');
 
   const handleLogOut = () => {

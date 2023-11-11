@@ -18,7 +18,7 @@ const ModalForDelete = () => {
 
   const category = useAppSelector((state) => state.categories.category);
   const product = useAppSelector((state) => state.products.product);
-  const [company_id] = useLocalStorage('user_id', '');
+  const [company_id] = useLocalStorage('company_id', '');
   const [store_id] = useLocalStorage('store_id', '');
 
   const handleDelete = () => {
