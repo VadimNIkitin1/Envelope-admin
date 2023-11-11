@@ -34,7 +34,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   const location = useLocation();
   const theme = useAppSelector((state) => state.active.theme);
   const [company_id] = useLocalStorage('company_id', '');
-  const [store_id] = useLocalStorage('store_id', '');
+  const store_id = localStorage.getItem('store_id');
 
   const handleEdit = (data: any) => {
     if (location.pathname === `/${company_id}/${store_id}/menu`) {

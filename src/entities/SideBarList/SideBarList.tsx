@@ -1,8 +1,18 @@
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import BurgerButton from '../../shared/BurgerButton/BurgerButton';
-import { SIDEBAR_LIST_USER, SIDEBAR_LIST_STORE, PATHNAME } from './SideBarList.data';
+
 import style from './SideBarList.module.scss';
+import {
+  MdOutlineMenuBook,
+  MdMessage,
+  MdAnalytics,
+  MdOutlineSettings,
+  MdPriceChange,
+  MdPeopleAlt,
+  MdStore,
+  MdList,
+} from 'react-icons/md';
 
 import { toggleSidebar, toggleTabs } from '../../store/activeSlice';
 import { Link, Navigate, useLocation } from 'react-router-dom';
@@ -21,6 +31,17 @@ const SideBarList = () => {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
+  enum PATHNAME {
+    STORES = `/stores`,
+    TARRIFS = '/tariffs',
+    CATEGORIES = '/categories',
+    MENU = '/menu',
+    CLIENTS = '/clients',
+    NOTIFICATION = '/notification',
+    ANALYTIC = '/analytic',
+    SETTINGS = '/settings',
+  }
+
   const USER_PATHNAME = {
     STORES: `/${company_id}${PATHNAME.STORES}`,
     TARRIFS: `/${company_id}${PATHNAME.TARRIFS}`,
@@ -35,6 +56,39 @@ const SideBarList = () => {
     NOTIFICATION: `/${company_id}/${store_id}${PATHNAME.NOTIFICATION}`,
     SETTINGS: `/${company_id}/${store_id}${PATHNAME.SETTINGS}`,
   };
+
+  const SIDEBAR_LIST_USER = [
+    { link: PATHNAME.STORES, icon: MdStore },
+    {
+      link: PATHNAME.ANALYTIC,
+      icon: MdAnalytics,
+    },
+    {
+      link: PATHNAME.SETTINGS,
+      icon: MdOutlineSettings,
+    },
+    {
+      link: PATHNAME.TARRIFS,
+      icon: MdPriceChange,
+    },
+  ];
+
+  const SIDEBAR_LIST_STORE = [
+    { link: `/${store_id}${PATHNAME.CATEGORIES}`, icon: MdList },
+    { link: `/${store_id}${PATHNAME.MENU}`, icon: MdOutlineMenuBook },
+    {
+      link: `/${store_id}${PATHNAME.CLIENTS}`,
+      icon: MdPeopleAlt,
+    },
+    {
+      link: `/${store_id}${PATHNAME.NOTIFICATION}`,
+      icon: MdMessage,
+    },
+    {
+      link: `/${store_id}${PATHNAME.SETTINGS}`,
+      icon: MdOutlineSettings,
+    },
+  ];
 
   return (
     <div>
