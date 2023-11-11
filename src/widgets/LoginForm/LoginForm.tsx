@@ -43,7 +43,7 @@ const LoginForm = () => {
     dispatch(logIn(requestData));
     setTimeout(() => {
       dispatch(triggerRender());
-    }, 1000);
+    }, 1500);
   };
 
   useEffect(() => {
