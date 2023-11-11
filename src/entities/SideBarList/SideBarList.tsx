@@ -13,6 +13,7 @@ import {
   MdStore,
   MdList,
 } from 'react-icons/md';
+import { PATHNAME } from './SideBarList.data';
 
 import { toggleSidebar, toggleTabs } from '../../store/activeSlice';
 import { Link, Navigate, useLocation } from 'react-router-dom';
@@ -29,17 +30,6 @@ const SideBarList = () => {
 
   if (!company_id) {
     return <Navigate to="/login" state={{ from: location }} />;
-  }
-
-  enum PATHNAME {
-    STORES = `/stores`,
-    TARRIFS = '/tariffs',
-    CATEGORIES = '/categories',
-    MENU = '/menu',
-    CLIENTS = '/clients',
-    NOTIFICATION = '/notification',
-    ANALYTIC = '/analytic',
-    SETTINGS = '/settings',
   }
 
   const USER_PATHNAME = {
