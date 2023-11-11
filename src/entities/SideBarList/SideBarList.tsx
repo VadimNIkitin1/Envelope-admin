@@ -15,8 +15,7 @@ const SideBarList = () => {
   const activeTab = useAppSelector((state) => state.active.active);
   const theme = useAppSelector((state) => state.active.theme);
   const [company_id] = useLocalStorage('company_id', '');
-  const [store_id] = useLocalStorage('store_id', 'null');
-  console.log(store_id);
+  const store_id = localStorage.getItem('store_id');
 
   if (!company_id) {
     return <Navigate to="/login" state={{ from: location }} />;
