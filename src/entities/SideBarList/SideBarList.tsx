@@ -1,12 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import BurgerButton from '../../shared/BurgerButton/BurgerButton';
-import {
-  SIDEBAR_LIST_USER,
-  USER_PATHNAME,
-  SIDEBAR_LIST_STORE,
-  STORE_PATHNAME,
-} from './SideBarList.data';
+import { SIDEBAR_LIST_USER, SIDEBAR_LIST_STORE, PATHNAME } from './SideBarList.data';
 import style from './SideBarList.module.scss';
 
 import { toggleSidebar, toggleTabs } from '../../store/activeSlice';
@@ -20,10 +15,27 @@ const SideBarList = () => {
   const activeTab = useAppSelector((state) => state.active.active);
   const theme = useAppSelector((state) => state.active.theme);
   const [company_id] = useLocalStorage('company_id', '');
+  const [store_id] = useLocalStorage('store_id', 'null');
+  console.log(store_id);
 
   if (!company_id) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
+
+  const USER_PATHNAME = {
+    STORES: `/${company_id}${PATHNAME.STORES}`,
+    TARRIFS: `/${company_id}${PATHNAME.TARRIFS}`,
+    ANALYTIC: `/${company_id}${PATHNAME.ANALYTIC}`,
+    SETTINGS: `/${company_id}${PATHNAME.SETTINGS}`,
+  };
+
+  const STORE_PATHNAME = {
+    CATEGORIES: `/${company_id}/${store_id}${PATHNAME.CATEGORIES}`,
+    MENU: `/${company_id}/${store_id}${PATHNAME.MENU}`,
+    CLIENTS: `/${company_id}/${store_id}${PATHNAME.CLIENTS}`,
+    NOTIFICATION: `/${company_id}/${store_id}${PATHNAME.NOTIFICATION}`,
+    SETTINGS: `/${company_id}/${store_id}${PATHNAME.SETTINGS}`,
+  };
 
   return (
     <div>

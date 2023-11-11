@@ -9,10 +9,9 @@ import {
   MdList,
 } from 'react-icons/md';
 
-const company_id = localStorage.getItem('company_id');
 const store_id = localStorage.getItem('store_id');
 
-enum PATHNAME {
+export enum PATHNAME {
   STORES = `/stores`,
   TARRIFS = '/tariffs',
   CATEGORIES = '/categories',
@@ -39,13 +38,6 @@ export const SIDEBAR_LIST_USER = [
   },
 ];
 
-export const USER_PATHNAME = {
-  STORES: `/${company_id}${PATHNAME.STORES}`,
-  TARRIFS: `/${company_id}${PATHNAME.TARRIFS}`,
-  ANALYTIC: `/${company_id}${PATHNAME.ANALYTIC}`,
-  SETTINGS: `/${company_id}${PATHNAME.SETTINGS}`,
-};
-
 export const SIDEBAR_LIST_STORE = [
   { link: `/${store_id}${PATHNAME.CATEGORIES}`, icon: MdList },
   { link: `/${store_id}${PATHNAME.MENU}`, icon: MdOutlineMenuBook },
@@ -62,11 +54,3 @@ export const SIDEBAR_LIST_STORE = [
     icon: MdOutlineSettings,
   },
 ];
-
-export const STORE_PATHNAME = {
-  CATEGORIES: `/${company_id}/${store_id}${PATHNAME.CATEGORIES}`,
-  MENU: `/${company_id}/${store_id}${PATHNAME.MENU}`,
-  CLIENTS: `/${company_id}/${store_id}${PATHNAME.CLIENTS}`,
-  NOTIFICATION: `/${company_id}/${store_id}${PATHNAME.NOTIFICATION}`,
-  SETTINGS: `/${company_id}/${store_id}${PATHNAME.SETTINGS}`,
-};
