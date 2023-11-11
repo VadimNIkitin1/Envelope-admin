@@ -25,14 +25,9 @@ const ModalEditProducts = () => {
   const [store_id] = useLocalStorage('store_id', '');
 
   const {
+    id,
     name,
     price,
-    id,
-    delivery,
-    availability,
-    dinein,
-    popular,
-    takeaway,
     wt,
     fats,
     kilocalories,
@@ -61,11 +56,6 @@ const ModalEditProducts = () => {
       kilocalories,
       proteins,
       carbohydrates,
-      popular,
-      availability,
-      dinein,
-      delivery,
-      takeaway,
       description,
     },
   });
@@ -73,17 +63,17 @@ const ModalEditProducts = () => {
   const onSubmit: SubmitHandler<IRequestProduct> = (data: IRequestProduct) => {
     const requestData = {
       id,
-      name_rus: data.name,
+      name: data.name,
       category_id: Number(data.category_id),
       description: data.description,
       price: Number(data.price),
-      availability: data.availability,
-      popular: data.popular,
-      delivery: data.delivery,
-      takeaway: data.takeaway,
-      dinein: data.dinein,
+      kilocalories: Number(data.kilocalories),
+      proteins: Number(data.proteins),
+      carbohydrates: Number(data.carbohydrates),
+      fats: Number(data.fats),
+      wt: Number(data.wt),
+      unit_id: Number(data.unit_id),
     };
-    console.log(requestData);
 
     dispatch(editProduct(requestData));
     dispatch(toggleModalEditProducts(false));
@@ -208,7 +198,6 @@ const ModalEditProducts = () => {
                     {...register('unit_id', {
                       required: { value: true, message: 'Выберите единицу изм.' },
                     })}
-                    name="unit"
                     className={style.modalSelect}
                   >
                     {units.map((unit) => (
