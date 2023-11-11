@@ -25,6 +25,8 @@ const SideBarList = () => {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
+  console.log(USER_PATHNAME.STORES);
+
   return (
     <div>
       {location.pathname === USER_PATHNAME.STORES ||

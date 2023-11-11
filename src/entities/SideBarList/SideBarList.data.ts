@@ -9,6 +9,9 @@ import {
   MdList,
 } from 'react-icons/md';
 
+const company_id = localStorage.getItem('user_id');
+const store_id = localStorage.getItem('store_id');
+
 enum PATHNAME {
   STORES = `/stores`,
   TARRIFS = '/tariffs',
@@ -20,21 +23,18 @@ enum PATHNAME {
   SETTINGS = '/settings',
 }
 
-const company_id = localStorage.getItem('user_id');
-const store_id = localStorage.getItem('store_id');
-
 export const SIDEBAR_LIST_USER = [
-  { link: '/stores', icon: MdStore },
+  { link: PATHNAME.STORES, icon: MdStore },
   {
-    link: '/analytic',
+    link: PATHNAME.ANALYTIC,
     icon: MdAnalytics,
   },
   {
-    link: '/settings',
+    link: PATHNAME.SETTINGS,
     icon: MdOutlineSettings,
   },
   {
-    link: '/tariffs',
+    link: PATHNAME.TARRIFS,
     icon: MdPriceChange,
   },
 ];

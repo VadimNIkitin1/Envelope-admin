@@ -79,6 +79,7 @@ export const logOut = createAsyncThunk('auth/logOut', async () => {
   localStorage.removeItem('user_id');
   localStorage.removeItem('token');
   localStorage.removeItem('username');
+  localStorage.removeItem('store_id');
 });
 
 const isError = (action: AnyAction) => {
