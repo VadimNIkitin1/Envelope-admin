@@ -19,7 +19,7 @@ import { FC } from 'react';
 
 import { TDataForTable } from '../../types/data';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import { Tooltip } from '@chakra-ui/react';
+import { Tooltip } from '@mui/material';
 
 interface Props {
   cell: TDataForTable;
@@ -94,14 +94,14 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
       {location.pathname === `/${company_id}/${store_id}/categories` ||
       location.pathname === `/${company_id}/${store_id}/menu` ? (
         <>
-          <Tooltip label="Редактировать" placement="top">
+          <Tooltip title="Редактировать" placement="top">
             <span>
               <Button view="edit" onClick={() => handleEdit(cell)}>
                 <MdOutlineEditCalendar />
               </Button>
             </span>
           </Tooltip>
-          <Tooltip label="Удалить" placement="top">
+          <Tooltip title="Удалить" placement="top">
             <span>
               <Button view="delete" onClick={() => handleDelete(cell)}>
                 <MdDeleteForever />

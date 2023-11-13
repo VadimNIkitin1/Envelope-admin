@@ -16,7 +16,7 @@ import style from './MenuPage.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
-import { Alert, AlertIcon, AlertTitle, Skeleton, Stack } from '@chakra-ui/react';
+import { Alert, Skeleton } from '@mui/material';
 
 const MenuPage = () => {
   const dispatch = useAppDispatch();
@@ -44,23 +44,18 @@ const MenuPage = () => {
         </Button>
       </div>
       {loading ? (
-        <Stack>
-          <Skeleton height="45px" borderRadius={'10px'} />
-          <Skeleton height="75px" borderRadius={'10px'} />
-          <Skeleton height="75px" borderRadius={'10px'} />
-          <Skeleton height="75px" borderRadius={'10px'} />
-        </Stack>
+        <>
+          <Skeleton variant="text" height={45} />
+          <Skeleton variant="rounded" height={75} />
+          <Skeleton variant="rounded" height={75} />
+          <Skeleton variant="rounded" height={75} />
+        </>
       ) : (
         <div className={style.table}>
           <Table data={products} tableHeader={TABLE_HEADER_MENU} />
         </div>
       )}
-      {error && (
-        <Alert status="error" borderRadius={'10px'} variant={'solid'}>
-          <AlertIcon />
-          <AlertTitle>Ошибка!!!</AlertTitle>
-        </Alert>
-      )}
+      {error && <Alert severity="error">Ошибка!!!</Alert>}
       {modalProducts && <ModalProducts type={ModalType.PRODUCTS} />}
       {modalEditProducts && <ModalProducts type={ModalType.EDIT_PRODUCTS} />}
       {modalForDelete && <ModalCategories type={ModalType.DELETE} />}

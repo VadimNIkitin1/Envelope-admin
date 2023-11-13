@@ -28,7 +28,7 @@
     ]
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.8.2",
+    "@mui/material": "^5.14.17",
     "@reduxjs/toolkit": "^1.9.7",
     "@types/node": "^16.18.11",
     "@types/react-dom": "^18.0.10",

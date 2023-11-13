@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 
-import { Alert, AlertIcon, AlertTitle, Skeleton, Stack } from '@chakra-ui/react';
+import { Alert, Skeleton } from '@mui/material';
 
 import { getCategories } from '../../store/categorySlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
@@ -47,23 +47,18 @@ const CategoriesPage: FC = () => {
         </Button>
       </div>
       {loading ? (
-        <Stack>
-          <Skeleton height="45px" borderRadius={'10px'} />
-          <Skeleton height="75px" borderRadius={'10px'} />
-          <Skeleton height="75px" borderRadius={'10px'} />
-          <Skeleton height="75px" borderRadius={'10px'} />
-        </Stack>
+        <>
+          <Skeleton variant="text" height={45} />
+          <Skeleton variant="rounded" height={75} />
+          <Skeleton variant="rounded" height={75} />
+          <Skeleton variant="rounded" height={75} />
+        </>
       ) : (
         <div className={style.table}>
           <Table data={categories} tableHeader={TABLE_HEADER_CATEGORIES} />
         </div>
       )}
-      {error && (
-        <Alert status="error" borderRadius={'10px'} variant={'solid'}>
-          <AlertIcon />
-          <AlertTitle>Ошибка!!!</AlertTitle>
-        </Alert>
-      )}
+      {error && <Alert severity="error">Ошибка!!!</Alert>}
       {modalCategories && <ModalCategories type={ModalType.CATEGORIES} />}
       {modalEditCategories && <ModalCategories type={ModalType.EDIT_CATEGORIES} />}
       {modalForDelete && <ModalCategories type={ModalType.DELETE} />}

@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import BurgerButton from '../../shared/BurgerButton/BurgerButton';
-import { Tooltip } from '@chakra-ui/react';
 
 import style from './SideBarList.module.scss';
 import {
@@ -20,6 +19,7 @@ import { toggleSidebar, toggleTabs } from '../../store/activeSlice';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+import Tooltip from '@mui/material/Tooltip';
 
 const SideBarList = () => {
   const dispatch = useAppDispatch();
@@ -76,7 +76,7 @@ const SideBarList = () => {
     <div>
       {!store_id
         ? SIDEBAR_LIST_USER.map((el) => (
-            <Tooltip label={el.name} placement="auto-start" key={el.link}>
+            <Tooltip title={el.name}>
               <Link
                 className={clsx(
                   style.item,
@@ -91,7 +91,7 @@ const SideBarList = () => {
             </Tooltip>
           ))
         : SIDEBAR_LIST_STORE.map((el) => (
-            <Tooltip label={el.name} placement="auto-start" key={el.link}>
+            <Tooltip title={el.name}>
               <Link
                 className={clsx(
                   style.item,
