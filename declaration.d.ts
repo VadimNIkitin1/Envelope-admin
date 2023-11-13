@@ -18,4 +18,7 @@ declare module '*.jpeg' {
   export default value;
 }
 
-declare module '@chakra-ui/react';
+declare module '@chakra-ui/react' {
+  const value: any;
+  export default value;
+}
