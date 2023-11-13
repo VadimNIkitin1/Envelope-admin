@@ -2,11 +2,16 @@ import axios from 'axios';
 import { AnyAction, PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IAuth } from '../types/auth';
 import { IError } from '../types/categories';
-import { IAuthRequestRegistration } from '../widgets/AuthForm/types';
+import { IAuthRequestRegistration } from '../pages/AuthPage/AuthPage.types';
 import type { IAuthRequestLogIn } from '../widgets/LoginForm/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
+
+export enum AuthType {
+  REGISTER = 'register',
+  LOGIN = 'login',
+}
 
 const initialState: IAuth = {
   data: {
@@ -25,11 +30,11 @@ interface IResponse {
   };
 }
 
-export const authorization = createAsyncThunk<
+export const registration = createAsyncThunk<
   IResponse,
   IAuthRequestRegistration,
   { rejectValue: string }
->('auth/authorization', async (data, { rejectWithValue }) => {
+>('auth/registration', async (data, { rejectWithValue }) => {
   try {
     const res = await axios.post('user/register/', data, {
       headers: {
@@ -92,11 +97,11 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(authorization.pending, (state) => {
+      .addCase(registration.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(authorization.fulfilled, (state) => {
+      .addCase(registration.fulfilled, (state) => {
         // state.data = action.payload.data;
         state.loading = false;
         state.error = null;

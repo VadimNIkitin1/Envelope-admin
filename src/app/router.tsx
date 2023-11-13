@@ -5,7 +5,6 @@ import AboutPage from '../pages/AboutPage/AboutPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import AuthPage from '../pages/AuthPage/AuthPage';
 import Layout from '../widgets/Layout/Layout';
-import LoginPage from '../pages/LoginPage/LoginPage';
 import PricesPage from '../pages/PricesPage/PricesPage';
 import MenuPage from '../pages/MenuPage/MenuPage';
 import ClientsPage from '../pages/ClientsPage/ClientsPage';
@@ -15,6 +14,7 @@ import SettingsPage from '../pages/SettingsPage/SettingsPage';
 import RequireAuth from '../features/HOC/RequireAuth';
 import StoreCardsPage from '../pages/StoreCardsPage/StoreCardsPage';
 import CategoriesPage from '../pages/CategoriesPage/CategoriesPage';
+import { AuthType } from '../store/authSlice';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -104,8 +104,16 @@ const router = createBrowserRouter(
         <Route path={'*'} element={<NotFoundPage />} errorElement={<ErrorPage />} />
       </Route>
       <Route path={'/about'} element={<AboutPage />} errorElement={<ErrorPage />} />
-      <Route path={'/auth'} element={<AuthPage />} errorElement={<ErrorPage />} />
-      <Route path={'/login'} element={<LoginPage />} errorElement={<ErrorPage />} />
+      <Route
+        path={'/auth'}
+        element={<AuthPage type={AuthType.REGISTER} />}
+        errorElement={<ErrorPage />}
+      />
+      <Route
+        path={'/login'}
+        element={<AuthPage type={AuthType.LOGIN} />}
+        errorElement={<ErrorPage />}
+      />
     </>
   )
 );
