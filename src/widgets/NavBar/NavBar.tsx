@@ -7,7 +7,7 @@ import { clsx } from 'clsx';
 import Button from '../../shared/Button/Button';
 import { logOut } from '../../store/authSlice';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import { Tooltip } from '@mui/material';
+import { Tooltip } from '@chakra-ui/react';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
@@ -38,7 +38,7 @@ const NavBar = () => {
         ENVELOPE <GiEnvelope className={style.logo} />
       </Link>
       <h1 className={style.username}>{data.data.username}</h1>
-      <Tooltip title={store_id ? 'Выйти из магазина' : 'Выйти из профиля'} placement="bottom">
+      <Tooltip label={store_id ? 'Выйти из магазина' : 'Выйти из профиля'} placement="bottom">
         <span>
           <Button view="delete" onClick={() => handleLogOut()}>
             <GiExitDoor />

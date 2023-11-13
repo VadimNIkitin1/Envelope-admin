@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 
-import { Alert, Skeleton } from '@mui/material';
+import { AlertIcon, AlertTitle, Skeleton, Stack, Alert } from '@chakra-ui/react';
 
 import { getCategories } from '../../store/categorySlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
@@ -20,7 +20,7 @@ import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 const CategoriesPage: FC = () => {
   const dispatch = useAppDispatch();
-  const { categories, loading, error } = useAppSelector((state) => state.categories);
+  const { categories } = useAppSelector((state) => state.categories);
   const [store_id] = useLocalStorage('store_id', '');
 
   const render = useAppSelector((state) => state.active.render);
@@ -29,7 +29,8 @@ const CategoriesPage: FC = () => {
 
   const modalEditCategories = useAppSelector((state) => state.modals.modalEditCategories);
   const modalForDelete = useAppSelector((state) => state.modals.modalForDelete);
-
+  const loading = true;
+  const error = true;
   useEffect(() => {
     setTimeout(() => {
       dispatch(getCategories(store_id));
@@ -47,18 +48,23 @@ const CategoriesPage: FC = () => {
         </Button>
       </div>
       {loading ? (
-        <>
-          <Skeleton variant="text" height={45} />
-          <Skeleton variant="rounded" height={75} />
-          <Skeleton variant="rounded" height={75} />
-          <Skeleton variant="rounded" height={75} />
-        </>
+        <Stack>
+          <Skeleton height="45px" borderRadius={'10px'} />
+          <Skeleton height="75px" borderRadius={'10px'} />
+          <Skeleton height="75px" borderRadius={'10px'} />
+          <Skeleton height="75px" borderRadius={'10px'} />
+        </Stack>
       ) : (
         <div className={style.table}>
           <Table data={categories} tableHeader={TABLE_HEADER_CATEGORIES} />
         </div>
       )}
-      {error && <Alert severity="error">Ошибка!!!</Alert>}
+      {error && (
+        <Alert status="error" variant={'solid'} borderRadius={'10px'}>
+          <AlertIcon />
+          <AlertTitle>Ошибка!!!</AlertTitle>
+        </Alert>
+      )}
       {modalCategories && <ModalCategories type={ModalType.CATEGORIES} />}
       {modalEditCategories && <ModalCategories type={ModalType.EDIT_CATEGORIES} />}
       {modalForDelete && <ModalCategories type={ModalType.DELETE} />}

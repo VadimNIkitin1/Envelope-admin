@@ -4,7 +4,7 @@ import { MdOutlineKeyboardDoubleArrowUp } from 'react-icons/md';
 
 import style from './BurgerButton.module.scss';
 import { clsx } from 'clsx';
-import { Tooltip } from '@mui/material';
+import { Tooltip } from '@chakra-ui/react';
 
 interface Props {
   onClick: () => void;
@@ -16,13 +16,13 @@ const BurgerButton = (props: Props) => {
   return (
     <button {...props} className={clsx(style.button, theme && style.light)}>
       {sidebar ? (
-        <Tooltip title={'Меню'} placement="bottom">
+        <Tooltip label={'Меню'} placement="bottom">
           <span>
             <MdOutlineKeyboardDoubleArrowUp />
           </span>
         </Tooltip>
       ) : (
-        <Tooltip title={'Меню'} placement="bottom">
+        <Tooltip label={'Меню'} placement="bottom">
           <span>
             <GiHamburgerMenu />
           </span>

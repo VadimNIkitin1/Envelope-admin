@@ -19,7 +19,7 @@ import { toggleSidebar, toggleTabs } from '../../store/activeSlice';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import Tooltip from '@mui/material/Tooltip';
+import { Tooltip } from '@chakra-ui/react';
 
 const SideBarList = () => {
   const dispatch = useAppDispatch();
@@ -76,7 +76,7 @@ const SideBarList = () => {
     <div>
       {!store_id
         ? SIDEBAR_LIST_USER.map((el) => (
-            <Tooltip title={el.name} key={el.name}>
+            <Tooltip label={el.name} key={el.name}>
               <Link
                 className={clsx(
                   style.item,
@@ -91,7 +91,7 @@ const SideBarList = () => {
             </Tooltip>
           ))
         : SIDEBAR_LIST_STORE.map((el) => (
-            <Tooltip title={el.name} key={el.name}>
+            <Tooltip label={el.name} key={el.name}>
               <Link
                 className={clsx(
                   style.item,
