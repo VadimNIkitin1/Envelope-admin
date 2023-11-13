@@ -1,6 +1,5 @@
 import { RouterProvider } from 'react-router-dom';
 import { useAppSelector } from '../types/hooks';
-import { ChakraProvider } from '@chakra-ui/react';
 
 import router from './router';
 
@@ -12,9 +11,7 @@ function App() {
 
   return (
     <div className={clsx(style.App, theme && style.light)}>
-      <ChakraProvider>
-        <RouterProvider router={router} />
-      </ChakraProvider>
+      <RouterProvider router={router} />
     </div>
   );
 }
