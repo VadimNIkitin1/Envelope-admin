@@ -60,37 +60,22 @@ const ModalCategories = ({ type }) => {
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>Добавить категорию</h1>
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
+          <label className={style.modalLabel}>
+            <InputText
+              defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
+              error={errors.name}
+              view="text"
+              placeholder="Наименование"
+              {...register('name', {
+                required: true,
+                maxLength: { value: 20, message: 'Не более 20 символов' },
+              })}
+            />
+          </label>
           {type === ModalType.CATEGORIES && (
-            <>
-              <label className={style.modalLabel}>
-                <InputText
-                  error={errors.name}
-                  view="text"
-                  placeholder="Наименование"
-                  {...register('name', {
-                    required: true,
-                    maxLength: { value: 20, message: 'Не более 20 символов' },
-                  })}
-                />
-              </label>
-              <label className={style.containerCheckbox}>
-                В наличии
-                <Checkbox {...register('availability')} />
-              </label>
-            </>
-          )}
-          {type === ModalType.EDIT_CATEGORIES && (
-            <label className={style.modalLabel}>
-              <InputText
-                defaultValue={name}
-                error={errors.name}
-                view="text"
-                placeholder="Наименование"
-                {...register('name', {
-                  required: true,
-                  maxLength: { value: 20, message: 'Не более 20 символов' },
-                })}
-              />
+            <label className={style.containerCheckbox}>
+              В наличии
+              <Checkbox {...register('availability')} />
             </label>
           )}
           <div style={{ display: 'flex', columnGap: '20px' }}>

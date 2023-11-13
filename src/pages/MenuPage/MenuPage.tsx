@@ -7,7 +7,6 @@ import { getProducts } from '../../store/productSlice';
 
 import Table from '../../widgets/Table/Table';
 import ModalProducts from '../../widgets/ModalProducts/ModalProducts';
-import ModalEditProducts from '../../widgets/ModalEditProducts/ModalEditProducts';
 
 import Button from '../../shared/Button/Button';
 
@@ -43,8 +42,8 @@ const MenuPage = () => {
         </Button>
       </div>
       <Table data={products} tableHeader={TABLE_HEADER_MENU} />
-      {modalProducts && <ModalProducts />}
-      {modalEditProducts && <ModalEditProducts />}
+      {modalProducts && <ModalProducts type={ModalType.PRODUCTS} />}
+      {modalEditProducts && <ModalProducts type={ModalType.EDIT_PRODUCTS} />}
       {modalForDelete && <ModalForDelete />}
     </>
   );

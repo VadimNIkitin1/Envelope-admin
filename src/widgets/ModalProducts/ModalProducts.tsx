@@ -6,7 +6,7 @@ import { triggerRender } from '../../store/activeSlice';
 // import InputFile from '../../shared/InputFile/InputFile';
 import Button from '../../shared/Button/Button';
 
-import { addProduct, getUnits } from '../../store/productSlice';
+import { addProduct, editProduct, getUnits } from '../../store/productSlice';
 
 import { useEffect } from 'react';
 import { getCategories } from '../../store/categorySlice';
@@ -20,11 +20,26 @@ import { Checkbox } from '../../shared/Checkbox/Checkbox';
 import { InputText } from '../../shared/InputText/InputText';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
-const ModalProducts = () => {
+const ModalProducts = ({ type }) => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories.categories);
+  const product = useAppSelector((state) => state.products.product);
   const units = useAppSelector((state) => state.products.units);
   const [store_id] = useLocalStorage('store_id', '');
+
+  const {
+    id,
+    name,
+    price,
+    wt,
+    fats,
+    kilocalories,
+    proteins,
+    carbohydrates,
+    category_id,
+    description,
+    unit_id,
+  } = product;
 
   useEffect(() => {
     dispatch(getCategories(store_id));
@@ -34,41 +49,34 @@ const ModalProducts = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<IRequestProduct>({ mode: 'onBlur' });
 
   const onSubmit: SubmitHandler<IRequestProduct> = (data: IRequestProduct) => {
-    const requestData = {
-      id: store_id,
-      category_id: Number(data.category_id),
-      name: data.name,
-      description: data.description,
-      price: Number(data.price),
-      wt: Number(data.wt),
-      kilocalories: Number(data.kilocalories),
-      proteins: Number(data.proteins),
-      fats: Number(data.fats),
-      carbohydrates: Number(data.carbohydrates),
-      unit_id: Number(data.unit_id),
-      availability: data.availability,
-      popular: data.popular,
-      delivery: data.delivery,
-      takeaway: data.takeaway,
-      dinein: data.dinein,
-    };
+    if (type === ModalType.PRODUCTS) {
+      const requestData = {
+        id: store_id,
+        ...data,
+      };
 
-    dispatch(addProduct(requestData));
+      dispatch(addProduct(requestData));
+    }
+
+    if (type === ModalType.EDIT_PRODUCTS) {
+      const requestData = {
+        id,
+        ...data,
+      };
+
+      dispatch(editProduct(requestData));
+    }
+
     dispatch(triggerRender());
-    dispatch(toggleModal({ action: false, type: ModalType.PRODUCTS }));
-    reset();
+    dispatch(toggleModal({ action: false, type }));
   };
 
   return (
-    <div
-      className={style.wrapper}
-      onClick={() => dispatch(toggleModal({ action: false, type: ModalType.PRODUCTS }))}
-    >
+    <div className={style.wrapper} onClick={() => dispatch(toggleModal({ action: false, type }))}>
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>Добавить продукт</h1>
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
@@ -82,6 +90,7 @@ const ModalProducts = () => {
             <label className={style.modalLabel}>
               <p className={style.productTitle}>Категория</p>
               <select
+                defaultValue={type === ModalType.EDIT_PRODUCTS ? category_id : undefined}
                 {...register('category_id', {
                   required: { value: true, message: 'Выберите категорию' },
                 })}
@@ -98,6 +107,7 @@ const ModalProducts = () => {
             </label>
             <label className={style.modalLabel}>
               <InputText
+                defaultValue={type === ModalType.EDIT_PRODUCTS ? name : undefined}
                 error={errors.name}
                 view="text"
                 placeholder="Наименование"
@@ -112,6 +122,7 @@ const ModalProducts = () => {
             <label className={style.modalLabel}>
               <p className={style.productTitle}>Описание</p>
               <textarea
+                defaultValue={type === ModalType.EDIT_PRODUCTS ? description : undefined}
                 placeholder="Описание"
                 className={style.modalDescription}
                 {...register('description', {
@@ -121,6 +132,7 @@ const ModalProducts = () => {
               />
               <div className={style.descGroup}>
                 <InputText
+                  defaultValue={type === ModalType.EDIT_PRODUCTS ? kilocalories : undefined}
                   error={errors.kilocalories}
                   placeholder="Ккал"
                   view="number"
@@ -130,6 +142,7 @@ const ModalProducts = () => {
                   })}
                 />
                 <InputText
+                  defaultValue={type === ModalType.EDIT_PRODUCTS ? proteins : undefined}
                   error={errors.proteins}
                   placeholder="Белки"
                   view="number"
@@ -139,6 +152,7 @@ const ModalProducts = () => {
                   })}
                 />
                 <InputText
+                  defaultValue={type === ModalType.EDIT_PRODUCTS ? fats : undefined}
                   error={errors.fats}
                   placeholder="Жиры"
                   view="number"
@@ -148,6 +162,7 @@ const ModalProducts = () => {
                   })}
                 />
                 <InputText
+                  defaultValue={type === ModalType.EDIT_PRODUCTS ? carbohydrates : undefined}
                   error={errors.carbohydrates}
                   placeholder="Углеводы"
                   view="number"
@@ -160,6 +175,7 @@ const ModalProducts = () => {
               <label className={style.modalLabel}>
                 <p className={style.productTitle}>Цена</p>
                 <InputText
+                  defaultValue={type === ModalType.EDIT_PRODUCTS ? price : undefined}
                   error={errors.price}
                   placeholder="Цена"
                   view="number"
@@ -173,6 +189,7 @@ const ModalProducts = () => {
                 <p className={style.productTitle}>Выход</p>
                 <div className={style.descGroup}>
                   <InputText
+                    defaultValue={type === ModalType.EDIT_PRODUCTS ? wt : undefined}
                     error={errors.wt}
                     placeholder="Выход"
                     view="number"
@@ -182,6 +199,7 @@ const ModalProducts = () => {
                     })}
                   />
                   <select
+                    defaultValue={type === ModalType.EDIT_PRODUCTS ? unit_id : undefined}
                     {...register('unit_id', {
                       required: { value: true, message: 'Выберите единицу изм.' },
                     })}
@@ -205,36 +223,37 @@ const ModalProducts = () => {
               }}
             >
               {/* <InputFile {...register("image")} /> */}
-              <label className={style.containerCheckbox}>
-                В наличии
-                <Checkbox {...register('availability')} />
-              </label>
-              <label className={style.containerCheckbox}>
-                Популярное
-                <Checkbox {...register('popular')} />
-              </label>
-              <label className={style.containerCheckbox}>
-                Доставка
-                <Checkbox {...register('delivery')} />
-              </label>
-              <label className={style.containerCheckbox}>
-                Самовывоз
-                <Checkbox {...register('takeaway')} />
-              </label>
-              <label className={style.containerCheckbox}>
-                Зал
-                <Checkbox {...register('dinein')} />
-              </label>
+              {type === ModalType.PRODUCTS && (
+                <>
+                  <label className={style.containerCheckbox}>
+                    В наличии
+                    <Checkbox {...register('availability')} />
+                  </label>
+                  <label className={style.containerCheckbox}>
+                    Популярное
+                    <Checkbox {...register('popular')} />
+                  </label>
+                  <label className={style.containerCheckbox}>
+                    Доставка
+                    <Checkbox {...register('delivery')} />
+                  </label>
+                  <label className={style.containerCheckbox}>
+                    Самовывоз
+                    <Checkbox {...register('takeaway')} />
+                  </label>
+                  <label className={style.containerCheckbox}>
+                    Зал
+                    <Checkbox {...register('dinein')} />
+                  </label>
+                </>
+              )}
             </div>
           </div>
           <div style={{ display: 'flex', columnGap: '20px' }}>
             <Button view="add" type={'submit'}>
               Добавить
             </Button>
-            <Button
-              view="delete"
-              onClick={() => dispatch(toggleModal({ action: false, type: ModalType.PRODUCTS }))}
-            >
+            <Button view="delete" onClick={() => dispatch(toggleModal({ action: false, type }))}>
               Закрыть
             </Button>
           </div>
