@@ -19,7 +19,7 @@ import { toggleSidebar, toggleTabs } from '../../store/activeSlice';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import { Tooltip } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 
 const SideBarList = () => {
   const dispatch = useAppDispatch();
