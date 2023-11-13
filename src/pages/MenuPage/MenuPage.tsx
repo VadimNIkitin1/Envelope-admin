@@ -10,11 +10,11 @@ import ModalProducts from '../../widgets/ModalProducts/ModalProducts';
 
 import Button from '../../shared/Button/Button';
 
-import ModalForDelete from '../../widgets/ModalForDelete/ModalForDelete';
 import { TABLE_HEADER_MENU } from './MenuPage.data';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
 
 const MenuPage = () => {
   const dispatch = useAppDispatch();
@@ -44,7 +44,7 @@ const MenuPage = () => {
       <Table data={products} tableHeader={TABLE_HEADER_MENU} />
       {modalProducts && <ModalProducts type={ModalType.PRODUCTS} />}
       {modalEditProducts && <ModalProducts type={ModalType.EDIT_PRODUCTS} />}
-      {modalForDelete && <ModalForDelete />}
+      {modalForDelete && <ModalCategories type={ModalType.DELETE} />}
     </>
   );
 };
