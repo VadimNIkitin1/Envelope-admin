@@ -5,7 +5,7 @@ import style from './StoreCardsPage.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { getStores } from '../../store/storeSlice';
 import { useEffect } from 'react';
-import { toggleModalStores } from '../../store/modalsSlice';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
 import ModalStores from '../../widgets/ModalStores/ModalStores';
 
 const StoreCardsPage = () => {
@@ -22,7 +22,10 @@ const StoreCardsPage = () => {
 
   return (
     <div className={style.page}>
-      <Button view="add" onClick={() => dispatch(toggleModalStores(true))}>
+      <Button
+        view="add"
+        onClick={() => dispatch(toggleModal({ action: true, type: ModalType.STORES }))}
+      >
         Создать магазин <BsFillPlusSquareFill />
       </Button>
       {stores === undefined || stores.length === 0 ? (

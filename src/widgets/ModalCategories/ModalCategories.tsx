@@ -7,7 +7,7 @@ import style from './ModalCategories.module.scss';
 import Button from '../../shared/Button/Button';
 import { useAppDispatch } from '../../types/hooks';
 import { triggerRender } from '../../store/activeSlice';
-import { toggleModalCategories } from '../../store/modalsSlice';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { addCategory } from '../../store/categorySlice';
 import { Checkbox } from '../../shared/Checkbox/Checkbox';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
@@ -29,11 +29,14 @@ const ModalCategories = () => {
     };
     dispatch(addCategory(requestData));
     dispatch(triggerRender());
-    dispatch(toggleModalCategories(false));
+    dispatch(toggleModal({ action: false, type: ModalType.CATEGORIES }));
   };
 
   return (
-    <div className={style.wrapper} onClick={() => dispatch(toggleModalCategories(false))}>
+    <div
+      className={style.wrapper}
+      onClick={() => dispatch(toggleModal({ action: false, type: ModalType.CATEGORIES }))}
+    >
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>Добавить категорию</h1>
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
@@ -56,7 +59,10 @@ const ModalCategories = () => {
             <Button view="add" type="submit">
               Добавить
             </Button>
-            <Button view="delete" onClick={() => dispatch(toggleModalCategories(false))}>
+            <Button
+              view="delete"
+              onClick={() => dispatch(toggleModal({ action: false, type: ModalType.CATEGORIES }))}
+            >
               Закрыть
             </Button>
           </div>

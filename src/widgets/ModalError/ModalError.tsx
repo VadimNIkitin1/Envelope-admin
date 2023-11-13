@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { toggleModalError } from '../../store/modalsSlice';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
 
 import Button from '../../shared/Button/Button';
 
@@ -13,10 +13,16 @@ const ModalError = () => {
   const { error } = useAppSelector((state) => state.categories);
 
   return (
-    <div className={style.wrapper} onClick={() => dispatch(toggleModalError(false))}>
+    <div
+      className={style.wrapper}
+      onClick={() => dispatch(toggleModal({ action: false, type: ModalType.ERROR }))}
+    >
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         {error && <h1 className={style.modalTitle}>{error.detail}</h1>}
-        <Button view="delete" onClick={() => dispatch(toggleModalError(false))}>
+        <Button
+          view="delete"
+          onClick={() => dispatch(toggleModal({ action: false, type: ModalType.ERROR }))}
+        >
           Закрыть
         </Button>
       </div>

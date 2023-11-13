@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 
-import { toggleModalProducts } from '../../store/modalsSlice';
+import { toggleModal, ModalType } from '../../store/modalsSlice';
 import { getProducts } from '../../store/productSlice';
 
 import Table from '../../widgets/Table/Table';
@@ -35,7 +35,10 @@ const MenuPage = () => {
   return (
     <>
       <div style={{ display: 'flex' }}>
-        <Button view={'add'} onClick={() => dispatch(toggleModalProducts(true))}>
+        <Button
+          view={'add'}
+          onClick={() => dispatch(toggleModal({ action: true, type: ModalType.PRODUCTS }))}
+        >
           Добавить продукт <BsFillPlusSquareFill />
         </Button>
       </div>

@@ -5,11 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../types/hooks';
 
 import { saveCategory, toggleCheckboxCategory } from '../../store/categorySlice';
 import { saveProduct, toggleCheckboxProduct } from '../../store/productSlice';
-import {
-  toggleModalEditCategories,
-  toggleModalEditProducts,
-  toggleModalForDelete,
-} from '../../store/modalsSlice';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { triggerRender } from '../../store/activeSlice';
 
 import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
@@ -39,12 +35,12 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   const handleEdit = (data: any) => {
     if (location.pathname === `/${company_id}/${store_id}/menu`) {
       dispatch(saveProduct(data));
-      dispatch(toggleModalEditProducts(true));
+      dispatch(toggleModal({ action: true, type: ModalType.EDIT_PRODUCTS }));
     }
 
     if (location.pathname === `/${company_id}/${store_id}/categories`) {
       dispatch(saveCategory(data));
-      dispatch(toggleModalEditCategories(true));
+      dispatch(toggleModal({ action: true, type: ModalType.EDIT_CATEGORIES }));
     }
   };
 
@@ -57,7 +53,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
       dispatch(saveCategory(data));
     }
 
-    dispatch(toggleModalForDelete(true));
+    dispatch(toggleModal({ action: true, type: ModalType.DELETE }));
   };
 
   const handleCheckbox = (id: string | number, code: string) => {

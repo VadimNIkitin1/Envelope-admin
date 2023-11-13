@@ -5,7 +5,7 @@ import { IRequestStores } from './types';
 import { InputText } from '../../shared/InputText/InputText';
 import Button from '../../shared/Button/Button';
 import style from './ModalStores.module.scss';
-import { toggleModalStores } from '../../store/modalsSlice';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { addStore } from '../../store/storeSlice';
 import { triggerRender } from '../../store/activeSlice';
 
@@ -20,11 +20,14 @@ const ModalStores = () => {
   const onSubmit: SubmitHandler<IRequestStores> = (data: IRequestStores) => {
     dispatch(addStore(data));
     dispatch(triggerRender());
-    dispatch(toggleModalStores(false));
+    dispatch(toggleModal({ action: false, type: ModalType.STORES }));
   };
 
   return (
-    <div className={style.wrapper} onClick={() => dispatch(toggleModalStores(false))}>
+    <div
+      className={style.wrapper}
+      onClick={() => dispatch(toggleModal({ action: false, type: ModalType.STORES }))}
+    >
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>Добавить магазин</h1>
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
@@ -53,7 +56,10 @@ const ModalStores = () => {
             <Button view="add" type="submit">
               Добавить
             </Button>
-            <Button view="delete" onClick={() => dispatch(toggleModalStores(false))}>
+            <Button
+              view="delete"
+              onClick={() => dispatch(toggleModal({ action: false, type: ModalType.STORES }))}
+            >
               Закрыть
             </Button>
           </div>

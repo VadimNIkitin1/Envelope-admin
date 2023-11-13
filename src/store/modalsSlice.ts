@@ -11,42 +11,52 @@ const initialState: IModals = {
   modalStores: false,
 };
 
+export enum ModalType {
+  CATEGORIES = 'categories',
+  EDIT_CATEGORIES = 'edit_categories',
+  PRODUCTS = 'products',
+  EDIT_PRODUCTS = 'edit_products',
+  DELETE = 'delete',
+  ERROR = 'error',
+  STORES = 'stores',
+}
+
 const slice = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    toggleModalProducts(state, action) {
-      state.modalProducts = action.payload;
-    },
-    toggleModalCategories(state, action) {
-      state.modalCategories = action.payload;
-    },
-    toggleModalEditCategories(state, action) {
-      state.modalEditCategories = action.payload;
-    },
-    toggleModalEditProducts(state, action) {
-      state.modalEditProducts = action.payload;
-    },
-    toggleModalForDelete(state, action) {
-      state.modalForDelete = action.payload;
-    },
-    toggleModalError(state, action) {
-      state.modalError = action.payload;
-    },
-    toggleModalStores(state, action) {
-      state.modalStores = action.payload;
+    toggleModal(state, action) {
+      if (action.payload.type === ModalType.CATEGORIES) {
+        state.modalCategories = action.payload.action;
+      }
+
+      if (action.payload.type === ModalType.EDIT_CATEGORIES) {
+        state.modalEditCategories = action.payload.action;
+      }
+
+      if (action.payload.type === ModalType.PRODUCTS) {
+        state.modalProducts = action.payload.action;
+      }
+
+      if (action.payload.type === ModalType.EDIT_PRODUCTS) {
+        state.modalEditProducts = action.payload.action;
+      }
+
+      if (action.payload.type === ModalType.DELETE) {
+        state.modalForDelete = action.payload.action;
+      }
+
+      if (action.payload.type === ModalType.ERROR) {
+        state.modalError = action.payload.action;
+      }
+
+      if (action.payload.type === ModalType.STORES) {
+        state.modalStores = action.payload.action;
+      }
     },
   },
 });
 
-export const {
-  toggleModalProducts,
-  toggleModalCategories,
-  toggleModalEditCategories,
-  toggleModalEditProducts,
-  toggleModalForDelete,
-  toggleModalError,
-  toggleModalStores,
-} = slice.actions;
+export const { toggleModal } = slice.actions;
 
 export default slice.reducer;

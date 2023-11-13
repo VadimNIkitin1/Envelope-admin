@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 import { triggerRender } from '../../store/activeSlice';
-import { toggleModalForDelete } from '../../store/modalsSlice';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { deleteCategoryFlag } from '../../store/categorySlice';
 import { deleteProduct } from '../../store/productSlice';
 
@@ -30,12 +30,15 @@ const ModalForDelete = () => {
       dispatch(deleteProduct(product.id));
     }
 
-    dispatch(toggleModalForDelete(false));
+    dispatch(toggleModal({ action: false, type: ModalType.DELETE }));
     dispatch(triggerRender());
   };
 
   return (
-    <div className={style.wrapper} onClick={() => dispatch(toggleModalForDelete(false))}>
+    <div
+      className={style.wrapper}
+      onClick={() => dispatch(toggleModal({ action: false, type: ModalType.DELETE }))}
+    >
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>
           {location.pathname === `/${company_id}/${store_id}/menu` &&
@@ -47,7 +50,10 @@ const ModalForDelete = () => {
           <Button view="add" onClick={() => handleDelete()}>
             Да
           </Button>
-          <Button view="delete" onClick={() => dispatch(toggleModalForDelete(false))}>
+          <Button
+            view="delete"
+            onClick={() => dispatch(toggleModal({ action: false, type: ModalType.DELETE }))}
+          >
             Закрыть
           </Button>
         </div>

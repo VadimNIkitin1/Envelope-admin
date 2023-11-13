@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 
 import { getCategories } from '../../store/categorySlice';
-import { toggleModalCategories } from '../../store/modalsSlice';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
 
 import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
@@ -40,7 +40,10 @@ const CategoriesPage: FC = () => {
   return (
     <div className={style.page}>
       <div className={style.button}>
-        <Button view="add" onClick={() => dispatch(toggleModalCategories(true))}>
+        <Button
+          view="add"
+          onClick={() => dispatch(toggleModal({ action: true, type: ModalType.CATEGORIES }))}
+        >
           Добавить категорию <BsFillPlusSquareFill />
         </Button>
       </div>

@@ -6,7 +6,7 @@ import style from './ModalEditCategories.module.scss';
 import Button from '../../shared/Button/Button';
 
 import { triggerRender } from '../../store/activeSlice';
-import { toggleModalEditCategories } from '../../store/modalsSlice';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { editCategory } from '../../store/categorySlice';
 import { IRequestCategory } from '../ModalCategories/types';
 
@@ -36,11 +36,14 @@ const ModalEditCategories = () => {
     };
     dispatch(editCategory(requestData));
     dispatch(triggerRender());
-    dispatch(toggleModalEditCategories(false));
+    dispatch(toggleModal({ action: false, type: ModalType.EDIT_CATEGORIES }));
   };
 
   return (
-    <div className={style.wrapper} onClick={() => dispatch(toggleModalEditCategories(false))}>
+    <div
+      className={style.wrapper}
+      onClick={() => dispatch(toggleModal({ action: false, type: ModalType.EDIT_CATEGORIES }))}
+    >
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>Редактирование</h1>
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
@@ -63,7 +66,12 @@ const ModalEditCategories = () => {
             <Button view="add" type={'submit'}>
               Изменить
             </Button>
-            <Button view="delete" onClick={() => dispatch(toggleModalEditCategories(false))}>
+            <Button
+              view="delete"
+              onClick={() =>
+                dispatch(toggleModal({ action: false, type: ModalType.EDIT_CATEGORIES }))
+              }
+            >
               Закрыть
             </Button>
           </div>

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
-import { toggleModalEditProducts } from '../../store/modalsSlice';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { triggerRender } from '../../store/activeSlice';
 import { getCategories } from '../../store/categorySlice';
 import { editProduct } from '../../store/productSlice';
@@ -76,12 +76,15 @@ const ModalEditProducts = () => {
     };
 
     dispatch(editProduct(requestData));
-    dispatch(toggleModalEditProducts(false));
+    dispatch(toggleModal({ action: false, type: ModalType.EDIT_PRODUCTS }));
     dispatch(triggerRender());
   };
 
   return (
-    <div className={style.wrapper} onClick={() => dispatch(toggleModalEditProducts(false))}>
+    <div
+      className={style.wrapper}
+      onClick={() => dispatch(toggleModal({ action: false, type: ModalType.EDIT_PRODUCTS }))}
+    >
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>Редактирование</h1>
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
@@ -215,7 +218,12 @@ const ModalEditProducts = () => {
             <Button view="add" type={'submit'}>
               Изменить
             </Button>
-            <Button view="delete" onClick={() => dispatch(toggleModalEditProducts(false))}>
+            <Button
+              view="delete"
+              onClick={() =>
+                dispatch(toggleModal({ action: false, type: ModalType.EDIT_PRODUCTS }))
+              }
+            >
               Закрыть
             </Button>
           </div>

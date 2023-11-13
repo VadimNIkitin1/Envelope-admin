@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import { toggleModalProducts } from '../../store/modalsSlice';
+import { toggleModal, ModalType } from '../../store/modalsSlice';
 import { triggerRender } from '../../store/activeSlice';
 
 // import InputFile from '../../shared/InputFile/InputFile';
@@ -60,12 +60,15 @@ const ModalProducts = () => {
 
     dispatch(addProduct(requestData));
     dispatch(triggerRender());
-    dispatch(toggleModalProducts(false));
+    dispatch(toggleModal({ action: false, type: ModalType.PRODUCTS }));
     reset();
   };
 
   return (
-    <div className={style.wrapper} onClick={() => dispatch(toggleModalProducts(false))}>
+    <div
+      className={style.wrapper}
+      onClick={() => dispatch(toggleModal({ action: false, type: ModalType.PRODUCTS }))}
+    >
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>Добавить продукт</h1>
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
@@ -228,7 +231,10 @@ const ModalProducts = () => {
             <Button view="add" type={'submit'}>
               Добавить
             </Button>
-            <Button view="delete" onClick={() => dispatch(toggleModalProducts(false))}>
+            <Button
+              view="delete"
+              onClick={() => dispatch(toggleModal({ action: false, type: ModalType.PRODUCTS }))}
+            >
               Закрыть
             </Button>
           </div>
