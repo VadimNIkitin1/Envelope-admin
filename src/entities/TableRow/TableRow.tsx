@@ -19,7 +19,7 @@ import { FC } from 'react';
 
 import { TDataForTable } from '../../types/data';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import { Tooltip } from '@chakra-ui/react';
+import Tooltip from '@chakra-ui/react';
 
 interface Props {
   cell: TDataForTable;

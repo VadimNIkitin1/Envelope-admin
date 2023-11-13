@@ -4,7 +4,7 @@ import { MdOutlineKeyboardDoubleArrowUp } from 'react-icons/md';
 
 import style from './BurgerButton.module.scss';
 import { clsx } from 'clsx';
-import { Tooltip } from '@chakra-ui/react';
+import Tooltip from '@chakra-ui/react';
 
 interface Props {
   onClick: () => void;

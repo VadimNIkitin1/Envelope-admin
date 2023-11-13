@@ -7,7 +7,7 @@ import { clsx } from 'clsx';
 import Button from '../../shared/Button/Button';
 import { logOut } from '../../store/authSlice';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import { Tooltip } from '@chakra-ui/react';
+import Tooltip from '@chakra-ui/react';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();

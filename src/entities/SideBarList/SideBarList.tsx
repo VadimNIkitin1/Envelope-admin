@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import BurgerButton from '../../shared/BurgerButton/BurgerButton';
-import { Tooltip } from '@chakra-ui/react';
+import Tooltip from '@chakra-ui/react';
 
 import style from './SideBarList.module.scss';
 import {
