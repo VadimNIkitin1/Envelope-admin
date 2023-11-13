@@ -7,7 +7,6 @@ const initialState: IModals = {
   modalEditCategories: false,
   modalEditProducts: false,
   modalForDelete: false,
-  modalError: false,
   modalStores: false,
 };
 
@@ -44,10 +43,6 @@ const slice = createSlice({
 
       if (action.payload.type === ModalType.DELETE) {
         state.modalForDelete = action.payload.action;
-      }
-
-      if (action.payload.type === ModalType.ERROR) {
-        state.modalError = action.payload.action;
       }
 
       if (action.payload.type === ModalType.STORES) {

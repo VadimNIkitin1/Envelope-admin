@@ -22,6 +22,8 @@
   color: white;
   font-size: 28px;
   margin-right: auto;
+  display: flex;
+  column-gap: 10px;
   &.light {
     color: #000;
   }

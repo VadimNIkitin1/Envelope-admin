@@ -18,10 +18,10 @@ import { deleteProductFlag } from '../../store/productSlice';
 const ModalCategories = ({ type }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const category = useAppSelector((state) => state.categories.category);
+  const { category } = useAppSelector((state) => state.categories);
   const product = useAppSelector((state) => state.products.product);
   const [company_id] = useLocalStorage('company_id', '');
-  const [store_id] = useLocalStorage('store_id', '');
+  const store_id = localStorage.getItem('store_id');
   const { name, id } = category;
 
   const {

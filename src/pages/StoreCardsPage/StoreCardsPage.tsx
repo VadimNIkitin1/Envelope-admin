@@ -36,7 +36,7 @@ const StoreCardsPage = () => {
       ) : (
         <div className={style.cardList}>
           {stores.map((card: any) => (
-            <StoreCard key={card} {...card} />
+            <StoreCard key={card.name} {...card} />
           ))}
         </div>
       )}

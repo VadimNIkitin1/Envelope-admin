@@ -4,6 +4,5 @@ export interface IModals {
   modalEditCategories: boolean;
   modalEditProducts: boolean;
   modalForDelete: boolean;
-  modalError: boolean;
   modalStores: boolean;
 }

@@ -14,9 +14,7 @@ const initialState: ICategoriesInitialState = {
     availability: false,
   },
   loading: false,
-  error: {
-    detail: '',
-  },
+  error: null,
 };
 
 const TOKEN = localStorage.getItem('token') || '';

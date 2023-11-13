@@ -19,6 +19,7 @@ import { FC } from 'react';
 
 import { TDataForTable } from '../../types/data';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+import { Tooltip } from '@chakra-ui/react';
 
 interface Props {
   cell: TDataForTable;
@@ -90,24 +91,23 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
             break;
         }
       })}
-      {location.pathname === `/${company_id}/${store_id}/categories` ? (
+      {location.pathname === `/${company_id}/${store_id}/categories` ||
+      location.pathname === `/${company_id}/${store_id}/menu` ? (
         <>
-          <Button view="edit" onClick={() => handleEdit(cell)}>
-            <MdOutlineEditCalendar />
-          </Button>
-          <Button view="delete" onClick={() => handleDelete(cell)}>
-            <MdDeleteForever />
-          </Button>
-        </>
-      ) : null}
-      {location.pathname === `/${company_id}/${store_id}/menu` ? (
-        <>
-          <Button view="edit" onClick={() => handleEdit(cell)}>
-            <MdOutlineEditCalendar />
-          </Button>
-          <Button view="delete" onClick={() => handleDelete(cell)}>
-            <MdDeleteForever />
-          </Button>
+          <Tooltip label="Редактировать" placement="top">
+            <span>
+              <Button view="edit" onClick={() => handleEdit(cell)}>
+                <MdOutlineEditCalendar />
+              </Button>
+            </span>
+          </Tooltip>
+          <Tooltip label="Удалить" placement="top">
+            <span>
+              <Button view="delete" onClick={() => handleDelete(cell)}>
+                <MdDeleteForever />
+              </Button>
+            </span>
+          </Tooltip>
         </>
       ) : null}
       {location.pathname === `/${company_id}/${store_id}/settings` ? (

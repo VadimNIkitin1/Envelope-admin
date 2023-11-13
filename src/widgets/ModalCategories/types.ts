@@ -1,5 +1,5 @@
 export interface IRequestCategory {
-  id?: string | number;
+  id?: string | number | null;
   name: string;
   availability?: boolean;
   code?: string;

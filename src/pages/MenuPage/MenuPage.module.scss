@@ -1,9 +1,11 @@
-.messageAddButton {
+.page {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  row-gap: 30px;
 }
 
-.message {
-  color: #fff;
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

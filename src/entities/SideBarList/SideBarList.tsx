@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import BurgerButton from '../../shared/BurgerButton/BurgerButton';
+import { Tooltip } from '@chakra-ui/react';
 
 import style from './SideBarList.module.scss';
 import {
@@ -33,35 +34,41 @@ const SideBarList = () => {
   }
 
   const SIDEBAR_LIST_USER = [
-    { link: PATHNAME.STORES, icon: MdStore },
+    { link: PATHNAME.STORES, icon: MdStore, name: 'Магазины' },
     {
       link: PATHNAME.ANALYTIC,
       icon: MdAnalytics,
+      name: 'Аналитика',
     },
     {
       link: PATHNAME.SETTINGS,
       icon: MdOutlineSettings,
+      name: 'Настройки профиля',
     },
     {
       link: PATHNAME.TARRIFS,
       icon: MdPriceChange,
+      name: 'Тарифы',
     },
   ];
 
   const SIDEBAR_LIST_STORE = [
-    { link: `/${store_id}${PATHNAME.CATEGORIES}`, icon: MdList },
-    { link: `/${store_id}${PATHNAME.MENU}`, icon: MdOutlineMenuBook },
+    { link: `/${store_id}${PATHNAME.CATEGORIES}`, icon: MdList, name: 'Категории' },
+    { link: `/${store_id}${PATHNAME.MENU}`, icon: MdOutlineMenuBook, name: 'Продукты' },
     {
       link: `/${store_id}${PATHNAME.CLIENTS}`,
       icon: MdPeopleAlt,
+      name: 'Клиенты',
     },
     {
       link: `/${store_id}${PATHNAME.NOTIFICATION}`,
       icon: MdMessage,
+      name: 'Рассылка',
     },
     {
       link: `/${store_id}${PATHNAME.SETTINGS}`,
       icon: MdOutlineSettings,
+      name: 'Настройки магазина',
     },
   ];
 
@@ -69,32 +76,34 @@ const SideBarList = () => {
     <div>
       {!store_id
         ? SIDEBAR_LIST_USER.map((el) => (
-            <Link
-              key={el.link}
-              className={clsx(
-                style.item,
-                activeTab === `/${company_id}/${el.link}` && style.active,
-                theme && style.light
-              )}
-              to={`/${company_id}${el.link}`}
-              onClick={() => dispatch(toggleTabs(`/${company_id}/${el.link}`))}
-            >
-              <el.icon />
-            </Link>
+            <Tooltip label={el.name} placement="auto-start" key={el.link}>
+              <Link
+                className={clsx(
+                  style.item,
+                  activeTab === `/${company_id}/${el.link}` && style.active,
+                  theme && style.light
+                )}
+                to={`/${company_id}${el.link}`}
+                onClick={() => dispatch(toggleTabs(`/${company_id}/${el.link}`))}
+              >
+                <el.icon />
+              </Link>
+            </Tooltip>
           ))
         : SIDEBAR_LIST_STORE.map((el) => (
-            <Link
-              key={el.link}
-              className={clsx(
-                style.item,
-                activeTab === `/${company_id}${el.link}` && style.active,
-                theme && style.light
-              )}
-              to={`/${company_id}${el.link}`}
-              onClick={() => dispatch(toggleTabs(`/${company_id}${el.link}`))}
-            >
-              <el.icon />
-            </Link>
+            <Tooltip label={el.name} placement="auto-start" key={el.link}>
+              <Link
+                className={clsx(
+                  style.item,
+                  activeTab === `/${company_id}${el.link}` && style.active,
+                  theme && style.light
+                )}
+                to={`/${company_id}${el.link}`}
+                onClick={() => dispatch(toggleTabs(`/${company_id}${el.link}`))}
+              >
+                <el.icon />
+              </Link>
+            </Tooltip>
           ))}
       {<BurgerButton onClick={() => dispatch(toggleSidebar(false))} />}
     </div>
