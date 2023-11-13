@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import { ICategoriesInitialState, ICategory, IError } from '../types/categories';
+import { ICategoriesInitialState, ICategory, IError, IRequestCheckbox } from '../types/categories';
 import { IRequestCategory } from '../widgets/ModalCategories/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
@@ -114,7 +114,7 @@ export const deleteCategoryFlag = createAsyncThunk<
 
 export const toggleCheckboxCategory = createAsyncThunk<
   string,
-  IRequestCategory,
+  IRequestCheckbox,
   { rejectValue: string }
 >('categories/toggleCheckboxCategory', async (data, { rejectWithValue }) => {
   try {

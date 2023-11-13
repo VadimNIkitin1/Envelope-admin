@@ -14,3 +14,8 @@ export interface ICategoriesInitialState {
   loading: boolean;
   error: IError | null;
 }
+
+export interface IRequestCheckbox {
+  id: string | number;
+  code: string;
+}
