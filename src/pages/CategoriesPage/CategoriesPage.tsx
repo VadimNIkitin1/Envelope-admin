@@ -6,7 +6,7 @@ import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
 
 import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
-import ModalEditCategories from '../../widgets/ModalEditCategories/ModalEditCategories';
+
 import ModalForDelete from '../../widgets/ModalForDelete/ModalForDelete';
 
 import Table from '../../widgets/Table/Table';
@@ -50,8 +50,8 @@ const CategoriesPage: FC = () => {
       <div className={style.table}>
         <Table data={categories} tableHeader={TABLE_HEADER_CATEGORIES} />
       </div>
-      {modalCategories && <ModalCategories />}
-      {modalEditCategories && <ModalEditCategories />}
+      {modalCategories && <ModalCategories type={ModalType.CATEGORIES} />}
+      {modalEditCategories && <ModalCategories type={ModalType.EDIT_CATEGORIES} />}
       {modalForDelete && <ModalForDelete />}
     </div>
   );

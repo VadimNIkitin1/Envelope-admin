@@ -32,7 +32,6 @@ const ModalEditCategories = () => {
     const requestData = {
       id,
       name: data.name,
-      // availability: data.availability,
     };
     dispatch(editCategory(requestData));
     dispatch(triggerRender());
