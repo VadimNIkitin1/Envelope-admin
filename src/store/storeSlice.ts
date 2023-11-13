@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
 import { IStore, IStoreInitialState } from '../types/stores';
-import { IRequestStores } from '../widgets/ModalStores/types';
+import { IRequestCategory } from '../widgets/ModalCategories/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -31,7 +31,7 @@ export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: st
   }
 );
 
-export const addStore = createAsyncThunk<IStore, IRequestStores, { rejectValue: string }>(
+export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue: string }>(
   'store/addStore',
   async (data, { rejectWithValue }) => {
     try {
