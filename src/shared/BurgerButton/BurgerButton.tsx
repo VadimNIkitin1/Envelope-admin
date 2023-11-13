@@ -16,12 +16,16 @@ const BurgerButton = (props: Props) => {
   return (
     <button {...props} className={clsx(style.button, theme && style.light)}>
       {sidebar ? (
-        <Tooltip title="Меню">
-          <MdOutlineKeyboardDoubleArrowUp />
+        <Tooltip title={'Меню'} placement="bottom">
+          <span>
+            <MdOutlineKeyboardDoubleArrowUp />
+          </span>
         </Tooltip>
       ) : (
-        <Tooltip title="Меню" placement="bottom">
-          <GiHamburgerMenu />
+        <Tooltip title={'Меню'} placement="bottom">
+          <span>
+            <GiHamburgerMenu />
+          </span>
         </Tooltip>
       )}
     </button>

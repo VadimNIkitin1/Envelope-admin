@@ -76,7 +76,7 @@ const SideBarList = () => {
     <div>
       {!store_id
         ? SIDEBAR_LIST_USER.map((el) => (
-            <Tooltip title={el.name}>
+            <Tooltip title={el.name} key={el.name}>
               <Link
                 className={clsx(
                   style.item,
@@ -91,7 +91,7 @@ const SideBarList = () => {
             </Tooltip>
           ))
         : SIDEBAR_LIST_STORE.map((el) => (
-            <Tooltip title={el.name}>
+            <Tooltip title={el.name} key={el.name}>
               <Link
                 className={clsx(
                   style.item,
