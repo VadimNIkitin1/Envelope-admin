@@ -1,10 +1,7 @@
 import { FC, useEffect } from 'react';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
-import Alert from '@chakra-ui/react';
-import AlertIcon from '@chakra-ui/react';
-import AlertTitle from '@chakra-ui/react';
-import Skeleton from '@chakra-ui/react';
-import Stack from '@chakra-ui/react';
+
+import { Alert, AlertIcon, AlertTitle, Skeleton, Stack } from '@chakra-ui/react';
 
 import { getCategories } from '../../store/categorySlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
