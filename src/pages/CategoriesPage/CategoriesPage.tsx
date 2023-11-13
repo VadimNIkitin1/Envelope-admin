@@ -20,7 +20,7 @@ import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 const CategoriesPage: FC = () => {
   const dispatch = useAppDispatch();
-  const { categories } = useAppSelector((state) => state.categories);
+  const { categories, loading, error } = useAppSelector((state) => state.categories);
   const [store_id] = useLocalStorage('store_id', '');
 
   const render = useAppSelector((state) => state.active.render);
@@ -29,8 +29,7 @@ const CategoriesPage: FC = () => {
 
   const modalEditCategories = useAppSelector((state) => state.modals.modalEditCategories);
   const modalForDelete = useAppSelector((state) => state.modals.modalForDelete);
-  const loading = true;
-  const error = true;
+
   useEffect(() => {
     setTimeout(() => {
       dispatch(getCategories(store_id));
