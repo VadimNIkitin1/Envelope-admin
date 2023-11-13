@@ -8,15 +8,20 @@ import Button from '../../shared/Button/Button';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { triggerRender } from '../../store/activeSlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
-import { addCategory, editCategory } from '../../store/categorySlice';
+import { addCategory, deleteCategoryFlag, editCategory } from '../../store/categorySlice';
 import { Checkbox } from '../../shared/Checkbox/Checkbox';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { addStore } from '../../store/storeSlice';
+import { useLocation } from 'react-router';
+import { deleteProductFlag } from '../../store/productSlice';
 
 const ModalCategories = ({ type }) => {
   const dispatch = useAppDispatch();
-  const [store_id] = useLocalStorage('store_id', '');
+  const location = useLocation();
   const category = useAppSelector((state) => state.categories.category);
+  const product = useAppSelector((state) => state.products.product);
+  const [company_id] = useLocalStorage('company_id', '');
+  const [store_id] = useLocalStorage('store_id', '');
   const { name, id } = category;
 
   const {
@@ -51,6 +56,16 @@ const ModalCategories = ({ type }) => {
       dispatch(addStore(requestData));
     }
 
+    if (type === ModalType.DELETE) {
+      if (location.pathname === `/${company_id}/${store_id}/categories`) {
+        dispatch(deleteCategoryFlag(category.id));
+      }
+
+      if (location.pathname === `/${company_id}/${store_id}/menu`) {
+        dispatch(deleteProductFlag(product.id));
+      }
+    }
+
     dispatch(triggerRender());
     dispatch(toggleModal({ action: false, type }));
   };
@@ -59,23 +74,31 @@ const ModalCategories = ({ type }) => {
     <div className={style.wrapper} onClick={() => dispatch(toggleModal({ action: false, type }))}>
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
         <h1 className={style.modalTitle}>
-          {type === ModalType.CATEGORIES ? 'Добавить категорию' : undefined}
-          {type === ModalType.EDIT_CATEGORIES ? 'Редактировать категорию' : undefined}
-          {type === ModalType.STORES ? 'Добавить магазин' : undefined}
+          {type === ModalType.CATEGORIES && 'Добавить категорию'}
+          {type === ModalType.EDIT_CATEGORIES && 'Редактировать категорию'}
+          {type === ModalType.STORES && 'Добавить магазин'}
+          {type === ModalType.DELETE &&
+            location.pathname === `/${company_id}/${store_id}/menu` &&
+            `Вы действительно хотите удалить ${product.name} ?`}
+          {type === ModalType.DELETE &&
+            location.pathname === `/${company_id}/${store_id}/categories` &&
+            `Вы действительно хотите удалить ${category.name} ?`}
         </h1>
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
-          <label className={style.modalLabel}>
-            <InputText
-              defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
-              error={errors.name}
-              view="text"
-              placeholder="Наименование"
-              {...register('name', {
-                required: true,
-                maxLength: { value: 20, message: 'Не более 20 символов' },
-              })}
-            />
-          </label>
+          {type !== ModalType.DELETE && (
+            <label className={style.modalLabel}>
+              <InputText
+                defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
+                error={errors.name}
+                view="text"
+                placeholder="Наименование"
+                {...register('name', {
+                  required: true,
+                  maxLength: { value: 20, message: 'Не более 20 символов' },
+                })}
+              />
+            </label>
+          )}
           {type === ModalType.STORES && (
             <InputText
               defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}

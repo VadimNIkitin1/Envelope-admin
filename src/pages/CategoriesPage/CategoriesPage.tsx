@@ -7,8 +7,6 @@ import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
 
 import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
 
-import ModalForDelete from '../../widgets/ModalForDelete/ModalForDelete';
-
 import Table from '../../widgets/Table/Table';
 
 import Button from '../../shared/Button/Button';
@@ -52,7 +50,7 @@ const CategoriesPage: FC = () => {
       </div>
       {modalCategories && <ModalCategories type={ModalType.CATEGORIES} />}
       {modalEditCategories && <ModalCategories type={ModalType.EDIT_CATEGORIES} />}
-      {modalForDelete && <ModalForDelete />}
+      {modalForDelete && <ModalCategories type={ModalType.DELETE} />}
     </div>
   );
 };

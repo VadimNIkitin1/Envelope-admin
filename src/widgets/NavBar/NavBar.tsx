@@ -16,7 +16,6 @@ const NavBar = () => {
   const [company_id] = useLocalStorage('company_id', '');
   const [data] = useLocalStorage('data', '');
   const store_id = localStorage.getItem('store_id');
-  console.log(store_id);
 
   const handleLogOut = () => {
     if (!store_id) {
