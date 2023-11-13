@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import BurgerButton from '../../shared/BurgerButton/BurgerButton';
