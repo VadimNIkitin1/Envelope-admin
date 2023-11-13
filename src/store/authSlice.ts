@@ -3,7 +3,6 @@ import { AnyAction, PayloadAction, createAsyncThunk, createSlice } from '@reduxj
 import { IAuth } from '../types/auth';
 import { IError } from '../types/categories';
 import { IAuthRequestRegistration } from '../pages/AuthPage/AuthPage.types';
-import type { IAuthRequestLogIn } from '../widgets/LoginForm/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -55,7 +54,7 @@ export const registration = createAsyncThunk<
   }
 });
 
-export const logIn = createAsyncThunk<IResponse, IAuthRequestLogIn, { rejectValue: string }>(
+export const logIn = createAsyncThunk<IResponse, IAuthRequestRegistration, { rejectValue: string }>(
   'auth/logIn',
   async (data, { rejectWithValue }) => {
     try {

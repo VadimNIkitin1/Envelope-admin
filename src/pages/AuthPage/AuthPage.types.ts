@@ -1,5 +1,5 @@
 export interface IAuthRequestRegistration {
   username: string;
-  hashed_password: string;
+  hashed_password?: string;
   repeatPassword?: string;
 }
