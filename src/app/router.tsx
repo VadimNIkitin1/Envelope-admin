@@ -39,6 +39,33 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />
         <Route
+          path={'/:company_id/analytic'}
+          element={
+            <RequireAuth>
+              <AnalyticPage />
+            </RequireAuth>
+          }
+          errorElement={<ErrorPage />}
+        />
+        <Route
+          path={'/:company_id/settings'}
+          element={
+            <RequireAuth>
+              <SettingsPage />
+            </RequireAuth>
+          }
+          errorElement={<ErrorPage />}
+        />
+        <Route
+          path={'/:company_id/tariffs'}
+          element={
+            <RequireAuth>
+              <PricesPage />
+            </RequireAuth>
+          }
+          errorElement={<ErrorPage />}
+        />
+        <Route
           path={'/:company_id/:store_id/menu'}
           element={
             <RequireAuth>
@@ -75,28 +102,10 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />
         <Route
-          path={'/:company_id/analytic'}
-          element={
-            <RequireAuth>
-              <AnalyticPage />
-            </RequireAuth>
-          }
-          errorElement={<ErrorPage />}
-        />
-        <Route
-          path={'/:company_id/settings'}
+          path={'/:company_id/:store_id/settings'}
           element={
             <RequireAuth>
               <SettingsPage />
-            </RequireAuth>
-          }
-          errorElement={<ErrorPage />}
-        />
-        <Route
-          path={'/:company_id/tariffs'}
-          element={
-            <RequireAuth>
-              <PricesPage />
             </RequireAuth>
           }
           errorElement={<ErrorPage />}

@@ -136,15 +136,9 @@ const AuthPage = ({ type }) => {
           />
         </button>
       </form>
-      {type === AuthType.REGISTER ? (
-        <Link className={style.link} to={'/login'}>
-          У вас уже есть аккаунт?
-        </Link>
-      ) : (
-        <Link className={style.link} to={'/auth'}>
-          У вас нет аккаунта?
-        </Link>
-      )}
+      <Link className={style.link} to={type === AuthType.REGISTER ? '/login' : '/auth'}>
+        {type === AuthType.REGISTER ? 'У вас уже есть аккаунт?' : 'У вас нет аккаунта?'}
+      </Link>
     </div>
   );
 };

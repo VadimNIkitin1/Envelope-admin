@@ -6,7 +6,8 @@ import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { getStores } from '../../store/storeSlice';
 import { useEffect } from 'react';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
-import ModalStores from '../../widgets/ModalStores/ModalStores';
+
+import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
 
 const StoreCardsPage = () => {
   const dispatch = useAppDispatch();
@@ -39,7 +40,7 @@ const StoreCardsPage = () => {
           ))}
         </div>
       )}
-      {modalStores && <ModalStores />}
+      {modalStores && <ModalCategories type={ModalType.STORES} />}
     </div>
   );
 };

@@ -11,13 +11,21 @@ import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 const NavBar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const theme = useAppSelector((state) => state.active.theme);
   const [company_id] = useLocalStorage('company_id', '');
   const [data] = useLocalStorage('data', '');
+  const store_id = localStorage.getItem('store_id');
+  console.log(store_id);
 
   const handleLogOut = () => {
-    dispatch(logOut());
-    navigate('/login');
+    if (!store_id) {
+      dispatch(logOut());
+      navigate('/login');
+    } else {
+      navigate(`${company_id}/stores`);
+      localStorage.removeItem('store_id');
+    }
   };
 
   return (

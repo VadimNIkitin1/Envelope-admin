@@ -11,6 +11,7 @@ import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { addCategory, editCategory } from '../../store/categorySlice';
 import { Checkbox } from '../../shared/Checkbox/Checkbox';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+import { addStore } from '../../store/storeSlice';
 
 const ModalCategories = ({ type }) => {
   const dispatch = useAppDispatch();
@@ -23,16 +24,6 @@ const ModalCategories = ({ type }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<IRequestCategory>({ mode: 'onBlur' });
-
-  const handleClick = (type) => {
-    if (type === ModalType.CATEGORIES) {
-      dispatch(toggleModal({ action: false, type }));
-    }
-
-    if (type === ModalType.EDIT_CATEGORIES) {
-      dispatch(toggleModal({ action: false, type }));
-    }
-  };
 
   const onSubmit: SubmitHandler<IRequestCategory> = (data: IRequestCategory) => {
     if (type === ModalType.CATEGORIES) {
@@ -51,14 +42,27 @@ const ModalCategories = ({ type }) => {
       dispatch(editCategory(requestData));
     }
 
+    if (type === ModalType.STORES) {
+      const requestData = {
+        name: data.name,
+        token_bot: data.token_bot,
+      };
+
+      dispatch(addStore(requestData));
+    }
+
     dispatch(triggerRender());
     dispatch(toggleModal({ action: false, type }));
   };
 
   return (
-    <div className={style.wrapper} onClick={() => handleClick(type)}>
+    <div className={style.wrapper} onClick={() => dispatch(toggleModal({ action: false, type }))}>
       <div className={style.modal} onClick={(e) => e.stopPropagation()}>
-        <h1 className={style.modalTitle}>Добавить категорию</h1>
+        <h1 className={style.modalTitle}>
+          {type === ModalType.CATEGORIES ? 'Добавить категорию' : undefined}
+          {type === ModalType.EDIT_CATEGORIES ? 'Редактировать категорию' : undefined}
+          {type === ModalType.STORES ? 'Добавить магазин' : undefined}
+        </h1>
         <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
           <label className={style.modalLabel}>
             <InputText
@@ -72,6 +76,17 @@ const ModalCategories = ({ type }) => {
               })}
             />
           </label>
+          {type === ModalType.STORES && (
+            <InputText
+              defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
+              error={errors.token_bot}
+              view="text"
+              placeholder="Токен бота"
+              {...register('token_bot', {
+                required: true,
+              })}
+            />
+          )}
           {type === ModalType.CATEGORIES && (
             <label className={style.containerCheckbox}>
               В наличии
@@ -82,7 +97,7 @@ const ModalCategories = ({ type }) => {
             <Button view="add" type="submit">
               Добавить
             </Button>
-            <Button view="delete" onClick={() => handleClick(type)}>
+            <Button view="delete" onClick={() => dispatch(toggleModal({ action: false, type }))}>
               Закрыть
             </Button>
           </div>

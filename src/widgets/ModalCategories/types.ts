@@ -1,6 +1,7 @@
 export interface IRequestCategory {
   id?: string | number;
-  name?: string;
+  name: string;
   availability?: boolean;
   code?: string;
+  token_bot: string;
 }
