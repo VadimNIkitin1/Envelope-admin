@@ -75,7 +75,7 @@ const ModalCategories = ({ type, isOpen }) => {
     <Modal isOpen={isOpen} onClose={() => dispatch(toggleModal({ action: false, type }))}>
       <ModalOverlay />
       <ModalContent marginTop={200} borderRadius={16}>
-        <ModalBody className={style.modal}>
+        <ModalBody className={style.modal} padding={5}>
           <h1 className={style.modalTitle}>
             {type === ModalType.CATEGORIES && 'Добавить категорию'}
             {type === ModalType.EDIT_CATEGORIES && 'Редактировать категорию'}
@@ -120,10 +120,14 @@ const ModalCategories = ({ type, isOpen }) => {
               </label>
             )}
             <div style={{ display: 'flex', columnGap: '20px' }}>
-              <Button view="add" type="submit">
+              <Button view="add" type="submit" style={{ fontSize: '20px' }}>
                 Добавить
               </Button>
-              <Button view="delete" onClick={() => dispatch(toggleModal({ action: false, type }))}>
+              <Button
+                view="delete"
+                style={{ fontSize: '20px' }}
+                onClick={() => dispatch(toggleModal({ action: false, type }))}
+              >
                 Закрыть
               </Button>
             </div>
