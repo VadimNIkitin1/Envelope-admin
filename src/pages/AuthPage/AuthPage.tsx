@@ -59,86 +59,88 @@ const AuthPage = ({ type }) => {
   }, [render]);
 
   return (
-    <div className={style.AuthForm}>
-      <h1 className={style.logoText}>
-        ENVELOPE <GiEnvelope className={style.logo} />
-      </h1>
-      <h2 className={style.title}>{type === AuthType.REGISTER ? 'Регистрация' : 'Войти'}</h2>
-      <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-        <label className={style.label}>
-          <p>Логин</p>
-          <InputText
-            placeholder="Логин"
-            view="email"
-            error={errors.username}
-            className={style.input}
-            {...register('username', {
-              required: 'Это поле обязательно для заполнения!',
-              pattern: {
-                value: EMAIL_REGEXP,
-                message: 'Некоректный email!',
-              },
-            })}
-          />
-        </label>
-        <label className={style.label}>
-          <p>Пароль</p>
-          <InputText
-            placeholder="Пароль"
-            className={style.input}
-            view="password"
-            error={errors.hashed_password}
-            {...register('hashed_password', {
-              required: 'Это поле обязательно для заполнения!',
-              minLength: {
-                value: 8,
-                message: 'Пароль должен содержать минимум 8 символов!',
-              },
-              maxLength: {
-                value: 40,
-                message: 'Пароль должен содержать не более 40 символов!',
-              },
-              pattern: {
-                value: PASSWORD_REGEXP,
-                message:
-                  'Должен содержать по крайней мере одно число, одну заглавную и строчную буквы, не менее 8 и более символов, а также люой из символов !@#$%^&*?',
-              },
-            })}
-          />
-        </label>
-        {type === AuthType.REGISTER && (
+    <div className={style.page}>
+      <div className={style.container}>
+        <h1 className={style.logoText}>
+          ENVELOPE <GiEnvelope className={style.logo} />
+        </h1>
+        <h2 className={style.title}>{type === AuthType.REGISTER ? 'Регистрация' : 'Войти'}</h2>
+        <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
           <label className={style.label}>
-            <p>Повторите пароль</p>
+            <p>Логин</p>
             <InputText
-              placeholder="Повторите пароль"
-              view="password"
-              error={errors.repeatPassword}
+              placeholder="Логин"
+              view="email"
+              error={errors.username}
               className={style.input}
-              type="password"
-              {...register('repeatPassword', {
+              {...register('username', {
                 required: 'Это поле обязательно для заполнения!',
-                validate: (value, allValues) => {
-                  const { hashed_password } = allValues;
-                  return hashed_password === value;
+                pattern: {
+                  value: EMAIL_REGEXP,
+                  message: 'Некоректный email!',
                 },
               })}
             />
-            {getValues('repeatPassword') !== getValues('hashed_password') && (
-              <p className={style.errorMsg}>Пароль не совпадает!</p>
-            )}
           </label>
-        )}
-        <button className={style.submit}>
-          <input
-            type="submit"
-            value={type === AuthType.REGISTER ? 'Зарегистрироваться' : 'Войти'}
-            disabled={!isValid}
-          />
-        </button>
-      </form>
-      <Link className={style.link} to={type === AuthType.REGISTER ? '/login' : '/auth'}>
-        {type === AuthType.REGISTER ? 'У вас уже есть аккаунт?' : 'У вас нет аккаунта?'}
-      </Link>
+          <label className={style.label}>
+            <p>Пароль</p>
+            <InputText
+              placeholder="Пароль"
+              className={style.input}
+              view="password"
+              error={errors.hashed_password}
+              {...register('hashed_password', {
+                required: 'Это поле обязательно для заполнения!',
+                minLength: {
+                  value: 8,
+                  message: 'Пароль должен содержать минимум 8 символов!',
+                },
+                maxLength: {
+                  value: 40,
+                  message: 'Пароль должен содержать не более 40 символов!',
+                },
+                pattern: {
+                  value: PASSWORD_REGEXP,
+                  message:
+                    'Должен содержать по крайней мере одно число, одну заглавную и строчную буквы, не менее 8 и более символов, а также люой из символов !@#$%^&*?',
+                },
+              })}
+            />
+          </label>
+          {type === AuthType.REGISTER && (
+            <label className={style.label}>
+              <p>Повторите пароль</p>
+              <InputText
+                placeholder="Повторите пароль"
+                view="password"
+                error={errors.repeatPassword}
+                className={style.input}
+                type="password"
+                {...register('repeatPassword', {
+                  required: 'Это поле обязательно для заполнения!',
+                  validate: (value, allValues) => {
+                    const { hashed_password } = allValues;
+                    return hashed_password === value;
+                  },
+                })}
+              />
+              {getValues('repeatPassword') !== getValues('hashed_password') && (
+                <p className={style.errorMsg}>Пароль не совпадает!</p>
+              )}
+            </label>
+          )}
+          <button className={style.submit}>
+            <input
+              type="submit"
+              value={type === AuthType.REGISTER ? 'Зарегистрироваться' : 'Войти'}
+              disabled={!isValid}
+            />
+          </button>
+        </form>
+        <Link className={style.link} to={type === AuthType.REGISTER ? '/login' : '/auth'}>
+          {type === AuthType.REGISTER ? 'У вас уже есть аккаунт?' : 'У вас нет аккаунта?'}
+        </Link>
+      </div>
     </div>
   );
 };
