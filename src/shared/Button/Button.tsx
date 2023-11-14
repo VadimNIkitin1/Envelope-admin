@@ -22,7 +22,6 @@ const Button: FC<any> = ({ view, ...props }) => {
         style.button,
         view === 'add' && style.add,
         view === 'delete' && style.delete,
-        view === 'edit' && style.edit,
         theme && style.light
       )}
     />

@@ -97,7 +97,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
         <div style={{ display: 'flex', columnGap: '20px' }}>
           <Tooltip label="Редактировать" placement="top">
             <span>
-              <Button view="edit" onClick={() => handleEdit(cell)}>
+              <Button view="add" onClick={() => handleEdit(cell)}>
                 <MdOutlineEditCalendar />
               </Button>
             </span>
@@ -113,7 +113,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
       ) : null}
       {location.pathname.includes(PATHNAME.SETTINGS) ? (
         <>
-          <Button view="edit">
+          <Button view="add">
             <MdOutlineEditCalendar />
           </Button>
         </>

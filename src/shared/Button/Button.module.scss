@@ -5,50 +5,32 @@
   justify-content: center;
   align-items: center;
   column-gap: 10px;
-  margin: 5px;
-  font-size: 20px;
-  border-radius: 10px;
-  padding: 10px;
+  font-size: 30px;
+  border-radius: 8px;
   &.add {
-    border: 2px solid $green;
-    color: $green;
+    color: $violet;
     &.light {
-      background-color: $green;
+      border: 2px solid $blue;
+      background-color: $blue;
       color: #fff;
     }
   }
   &.delete {
     color: red;
-    border: 2px solid red;
     &.light {
       background-color: red;
-      color: #fff;
-    }
-  }
-  &.edit {
-    color: $orange;
-    border: 2px solid $orange;
-    &.light {
-      background-color: $orange;
       color: #fff;
     }
   }
 }
 
 .add:hover {
-  background-color: $green;
-  color: #fff;
+  background-color: $grey;
   transition: all 0.3s ease-in-out;
 }
 
 .delete:hover {
   background-color: red;
-  color: #fff;
-  transition: all 0.3s ease-in-out;
-}
-
-.edit:hover {
-  background-color: $orange;
   color: #fff;
   transition: all 0.3s ease-in-out;
 }

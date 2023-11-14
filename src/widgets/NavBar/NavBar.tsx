@@ -1,13 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { toggleTabs } from '../../store/activeSlice';
-import { GiEnvelope, GiExitDoor } from 'react-icons/gi';
+import { GiEnvelope } from 'react-icons/gi';
+import { IoExitOutline } from 'react-icons/io5';
 import style from './NavBar.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { clsx } from 'clsx';
-import Button from '../../shared/Button/Button';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 import { logOut } from '../../store/authSlice';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import { Tooltip } from '@chakra-ui/react';
+import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { PATHNAME } from '../../app/constants';
 
 const NavBar = () => {
@@ -43,13 +44,21 @@ const NavBar = () => {
         ENVELOPE <GiEnvelope className={style.logo} />
       </Link>
       <h1 className={style.username}>{data.data.username}</h1>
-      <Tooltip label={store_id ? 'Выйти из магазина' : 'Выйти из профиля'} placement="bottom">
-        <span>
-          <Button view="delete" onClick={() => handleLogOut()}>
-            <GiExitDoor />
-          </Button>
-        </span>
-      </Tooltip>
+      <Menu>
+        <MenuButton>
+          <BsThreeDotsVertical className={style.dots} />
+        </MenuButton>
+        <MenuList backgroundColor={'#212121'}>
+          <MenuItem backgroundColor={'#212121'} height={25} onClick={() => handleLogOut()}>
+            {store_id ? (
+              <p className={style.menu_text}>Выйти из магазина</p>
+            ) : (
+              <p className={style.menu_text}>Выйти из профиля</p>
+            )}
+            <IoExitOutline className={style.icon} />
+          </MenuItem>
+        </MenuList>
+      </Menu>
     </nav>
   );
 };
