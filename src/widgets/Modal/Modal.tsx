@@ -3,7 +3,7 @@ import type { SubmitHandler } from 'react-hook-form';
 import type { IRequestCategory } from './types';
 import { InputText } from '../../shared/InputText/InputText';
 
-import style from './ModalCategories.module.scss';
+import style from './Modal.module.scss';
 import Button from '../../shared/Button/Button';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { triggerRender } from '../../store/activeSlice';

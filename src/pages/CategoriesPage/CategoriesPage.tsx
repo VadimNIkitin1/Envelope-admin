@@ -7,7 +7,7 @@ import { getCategories } from '../../store/categorySlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
 
-import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
+import { ModalCategories } from '../../widgets/Modal/Modal';
 
 import Table from '../../widgets/Table/Table';
 

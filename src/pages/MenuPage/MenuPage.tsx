@@ -6,7 +6,7 @@ import { toggleModal, ModalType } from '../../store/modalsSlice';
 import { getProducts } from '../../store/productSlice';
 
 import Table from '../../widgets/Table/Table';
-import ModalProducts from '../../widgets/ModalProducts/ModalProducts';
+import { ModalProducts } from '../../widgets/ModalProducts/ModalProducts';
 
 import Button from '../../shared/Button/Button';
 
@@ -15,7 +15,7 @@ import style from './MenuPage.module.scss';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
+import { ModalCategories } from '../../widgets/Modal/Modal';
 import { Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
 
 const MenuPage = () => {
@@ -52,8 +52,10 @@ const MenuPage = () => {
           <AlertTitle>Ошибка!!!</AlertTitle>
         </Alert>
       )}
-      {modalProducts && <ModalProducts type={ModalType.PRODUCTS} />}
-      {modalEditProducts && <ModalProducts type={ModalType.EDIT_PRODUCTS} />}
+      {modalProducts && <ModalProducts isOpen={modalProducts} type={ModalType.PRODUCTS} />}
+      {modalEditProducts && (
+        <ModalProducts isOpen={modalEditProducts} type={ModalType.EDIT_PRODUCTS} />
+      )}
       {modalForDelete && <ModalCategories isOpen={modalForDelete} type={ModalType.DELETE} />}
     </div>
   );

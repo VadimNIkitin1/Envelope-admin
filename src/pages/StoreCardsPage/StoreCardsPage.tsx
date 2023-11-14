@@ -7,7 +7,7 @@ import { getStores } from '../../store/storeSlice';
 import { useEffect } from 'react';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 
-import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
+import { ModalCategories } from '../../widgets/Modal/Modal';
 
 const StoreCardsPage = () => {
   const dispatch = useAppDispatch();
