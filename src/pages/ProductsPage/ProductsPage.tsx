@@ -1,17 +1,13 @@
 import { useEffect } from 'react';
 
-import { BsFillPlusSquareFill } from 'react-icons/bs';
-
-import { toggleModal, ModalType } from '../../store/modalsSlice';
+import { ModalType } from '../../store/modalsSlice';
 import { getProducts } from '../../store/productSlice';
 
 import Table from '../../widgets/Table/Table';
 import { ModalProducts } from '../../widgets/ModalProducts/ModalProducts';
 
-import Button from '../../shared/Button/Button';
-
-import { TABLE_HEADER_MENU } from './MenuPage.data';
-import style from './MenuPage.module.scss';
+import { TABLE_HEADER_MENU } from './ProductsPage.data';
+import style from './ProductsPage.module.scss';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
@@ -35,14 +31,6 @@ const MenuPage = () => {
 
   return (
     <div className={style.page}>
-      <div className={style.button}>
-        <Button
-          view={'add'}
-          onClick={() => dispatch(toggleModal({ action: true, type: ModalType.PRODUCTS }))}
-        >
-          Добавить продукт <BsFillPlusSquareFill />
-        </Button>
-      </div>
       <div className={style.table}>
         <Table data={products} tableHeader={TABLE_HEADER_MENU} />
       </div>

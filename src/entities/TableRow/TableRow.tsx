@@ -71,29 +71,31 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
 
   return (
     <div className={clsx(style.tableRow, theme && style.light)}>
-      {tableHeader.map((column: IColumnTable) => {
-        switch (column.type) {
-          case 'checkbox':
-            return (
-              <TableCheckbox
-                key={column.name}
-                checked={cell[column.code]}
-                className={style.tableColumn}
-                onChange={() => handleCheckbox(cell.id, column.code)}
-              />
-            );
-          default:
-            return (
-              <p key={column.name} className={style.tableColumn}>
-                {cell[column.code]}
-              </p>
-            );
-            break;
-        }
-      })}
+      <div style={{ display: 'flex', columnGap: '20px' }}>
+        {tableHeader.map((column: IColumnTable) => {
+          switch (column.type) {
+            case 'checkbox':
+              return (
+                <TableCheckbox
+                  key={column.name}
+                  checked={cell[column.code]}
+                  className={style.tableColumn}
+                  onChange={() => handleCheckbox(cell.id, column.code)}
+                />
+              );
+            default:
+              return (
+                <p key={column.name} className={style.tableColumn}>
+                  {cell[column.code]}
+                </p>
+              );
+              break;
+          }
+        })}
+      </div>
       {location.pathname === `/${company_id}/${store_id}/categories` ||
       location.pathname === `/${company_id}/${store_id}/menu` ? (
-        <>
+        <div style={{ display: 'flex', columnGap: '20px' }}>
           <Tooltip label="Редактировать" placement="top">
             <span>
               <Button view="edit" onClick={() => handleEdit(cell)}>
@@ -108,7 +110,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
               </Button>
             </span>
           </Tooltip>
-        </>
+        </div>
       ) : null}
       {location.pathname === `/${company_id}/${store_id}/settings` ? (
         <>

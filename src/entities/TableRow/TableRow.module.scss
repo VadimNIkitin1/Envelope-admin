@@ -3,6 +3,7 @@
 .tableRow {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   column-gap: 20px;
   background-color: $black;
@@ -29,4 +30,5 @@
 
 .tableColumn {
   min-width: 90px;
+  text-align: -webkit-center;
 }

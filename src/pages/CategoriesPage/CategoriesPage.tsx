@@ -1,17 +1,14 @@
 import { FC, useEffect } from 'react';
-import { BsFillPlusSquareFill } from 'react-icons/bs';
 
 import { AlertIcon, AlertTitle, Alert } from '@chakra-ui/react';
 
 import { getCategories } from '../../store/categorySlice';
-import { ModalType, toggleModal } from '../../store/modalsSlice';
+import { ModalType } from '../../store/modalsSlice';
 import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
 
 import { ModalCategories } from '../../widgets/Modal/Modal';
 
 import Table from '../../widgets/Table/Table';
-
-import Button from '../../shared/Button/Button';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
@@ -38,14 +35,6 @@ const CategoriesPage: FC = () => {
 
   return (
     <div className={style.page}>
-      <div className={style.button}>
-        <Button
-          view="add"
-          onClick={() => dispatch(toggleModal({ action: true, type: ModalType.CATEGORIES }))}
-        >
-          Добавить категорию <BsFillPlusSquareFill />
-        </Button>
-      </div>
       <div className={style.table}>
         <Table data={categories} tableHeader={TABLE_HEADER_CATEGORIES} />
       </div>

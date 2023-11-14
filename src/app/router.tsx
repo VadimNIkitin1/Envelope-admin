@@ -6,7 +6,7 @@ import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import AuthPage from '../pages/AuthPage/AuthPage';
 import Layout from '../widgets/Layout/Layout';
 import PricesPage from '../pages/PricesPage/PricesPage';
-import MenuPage from '../pages/MenuPage/MenuPage';
+import MenuPage from '../pages/ProductsPage/ProductsPage';
 import ClientsPage from '../pages/ClientsPage/ClientsPage';
 import NotificationPage from '../pages/NotificationPage/NotificationPage';
 import AnalyticPage from '../pages/AnalyticPage/AnalyticPage';
