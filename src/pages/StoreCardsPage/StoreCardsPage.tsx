@@ -40,7 +40,7 @@ const StoreCardsPage = () => {
           ))}
         </div>
       )}
-      {modalStores && <ModalCategories type={ModalType.STORES} />}
+      {modalStores && <ModalCategories isOpen={modalStores} type={ModalType.STORES} />}
     </div>
   );
 };
