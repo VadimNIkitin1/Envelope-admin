@@ -10,18 +10,17 @@ import { triggerRender } from '../../store/activeSlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { addCategory, deleteCategoryFlag, editCategory } from '../../store/categorySlice';
 import { Checkbox } from '../../shared/Checkbox/Checkbox';
-import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { addStore } from '../../store/storeSlice';
 import { useLocation } from 'react-router';
 import { deleteProductFlag } from '../../store/productSlice';
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
+import { PATHNAME } from '../../app/constants';
 
 const ModalCategories = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { category } = useAppSelector((state) => state.categories);
   const product = useAppSelector((state) => state.products.product);
-  const [company_id] = useLocalStorage('company_id', '');
   const store_id = localStorage.getItem('store_id');
   const { name, id } = category;
 
@@ -58,11 +57,11 @@ const ModalCategories = ({ type, isOpen }) => {
     }
 
     if (type === ModalType.DELETE) {
-      if (location.pathname === `/${company_id}/${store_id}/categories`) {
+      if (location.pathname.includes(PATHNAME.CATEGORIES)) {
         dispatch(deleteCategoryFlag(category.id));
       }
 
-      if (location.pathname === `/${company_id}/${store_id}/menu`) {
+      if (location.pathname.includes(PATHNAME.PRODUCTS)) {
         dispatch(deleteProductFlag(product.id));
       }
     }
@@ -81,10 +80,10 @@ const ModalCategories = ({ type, isOpen }) => {
             {type === ModalType.EDIT_CATEGORIES && 'Редактировать категорию'}
             {type === ModalType.STORES && 'Добавить магазин'}
             {type === ModalType.DELETE &&
-              location.pathname === `/${company_id}/${store_id}/menu` &&
+              location.pathname.includes(PATHNAME.PRODUCTS) &&
               `Вы действительно хотите удалить ${product.name} ?`}
             {type === ModalType.DELETE &&
-              location.pathname === `/${company_id}/${store_id}/categories` &&
+              location.pathname.includes(PATHNAME.CATEGORIES) &&
               `Вы действительно хотите удалить ${category.name} ?`}
           </h1>
           <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
