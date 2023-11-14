@@ -63,7 +63,7 @@ const MenuPage = () => {
       )}
       {modalProducts && <ModalProducts type={ModalType.PRODUCTS} />}
       {modalEditProducts && <ModalProducts type={ModalType.EDIT_PRODUCTS} />}
-      {modalForDelete && <ModalCategories type={ModalType.DELETE} />}
+      {modalForDelete && <ModalCategories isOpen={modalForDelete} type={ModalType.DELETE} />}
     </div>
   );
 };

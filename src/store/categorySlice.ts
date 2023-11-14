@@ -13,7 +13,7 @@ const initialState: ICategoriesInitialState = {
     name: '',
     availability: false,
   },
-  loading: false,
+  loading: true,
   error: null,
 };
 
