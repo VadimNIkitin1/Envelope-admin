@@ -66,7 +66,7 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />
         <Route
-          path={'/:company_id/:store_id/menu'}
+          path={'/:company_id/:store_id/products'}
           element={
             <RequireAuth>
               <MenuPage />

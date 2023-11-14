@@ -8,6 +8,7 @@ import Button from '../../shared/Button/Button';
 import { logOut } from '../../store/authSlice';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { Tooltip } from '@chakra-ui/react';
+import { PATHNAME } from '../../app/constants';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
@@ -21,9 +22,9 @@ const NavBar = () => {
   const handleLogOut = () => {
     if (!store_id) {
       dispatch(logOut());
-      navigate('/login');
+      navigate(PATHNAME.LOGIN);
     } else {
-      navigate(`${company_id}/stores`);
+      navigate(`${company_id}${PATHNAME.STORES}`);
       localStorage.removeItem('store_id');
     }
   };
@@ -31,8 +32,12 @@ const NavBar = () => {
   return (
     <nav className={clsx(style.navbar, theme && style.light)}>
       <Link
-        to={store_id ? `/${company_id}/${store_id}/menu` : `/${company_id}/stores`}
-        onClick={() => dispatch(toggleTabs(`/${company_id}/menu`))}
+        to={
+          store_id
+            ? `/${company_id}/${store_id + PATHNAME.PRODUCTS}`
+            : `/${company_id + PATHNAME.STORES}`
+        }
+        onClick={() => dispatch(toggleTabs(`/${company_id + PATHNAME.PRODUCTS}`))}
         className={clsx(style.logoText, theme && style.light)}
       >
         ENVELOPE <GiEnvelope className={style.logo} />

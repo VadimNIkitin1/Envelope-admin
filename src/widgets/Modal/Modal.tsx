@@ -72,10 +72,7 @@ const ModalCategories = ({ type, isOpen }) => {
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={() => dispatch(toggleModal({ action: false, type: ModalType.CATEGORIES }))}
-    >
+    <Modal isOpen={isOpen} onClose={() => dispatch(toggleModal({ action: false, type }))}>
       <ModalOverlay />
       <ModalContent marginTop={200} borderRadius={16}>
         <ModalBody className={style.modal}>

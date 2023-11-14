@@ -9,7 +9,7 @@ import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 import { Tooltip } from '@chakra-ui/react';
 import { useLocation } from 'react-router';
-import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+import { PATHNAME } from '../../app/constants';
 
 interface Props {
   tableHeader: IColumnTable[];
@@ -18,16 +18,14 @@ interface Props {
 const TableHeader: FC<Props> = ({ tableHeader }) => {
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const [company_id] = useLocalStorage('company_id', '');
-  const store_id = localStorage.getItem('store_id');
   const theme = useAppSelector((state) => state.active.theme);
 
   const handleAdd = () => {
-    if (location.pathname === `/${company_id}/${store_id}/menu`) {
+    if (location.pathname.includes(PATHNAME.PRODUCTS)) {
       dispatch(toggleModal({ action: true, type: ModalType.PRODUCTS }));
     }
 
-    if (location.pathname === `/${company_id}/${store_id}/categories`) {
+    if (location.pathname.includes(PATHNAME.CATEGORIES)) {
       dispatch(toggleModal({ action: true, type: ModalType.CATEGORIES }));
     }
   };
@@ -41,7 +39,15 @@ const TableHeader: FC<Props> = ({ tableHeader }) => {
           </p>
         ))}
       </div>
-      <Tooltip label="Добавить категорию">
+      <Tooltip
+        label={
+          location.pathname.includes(PATHNAME.CATEGORIES)
+            ? 'Добавить категорию'
+            : location.pathname.includes(PATHNAME.PRODUCTS)
+            ? 'Добавить продукт'
+            : null
+        }
+      >
         <span>
           <Button view="add" onClick={() => handleAdd()}>
             <BsFillPlusSquareFill />

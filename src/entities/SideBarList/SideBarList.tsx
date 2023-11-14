@@ -13,7 +13,7 @@ import {
   MdStore,
   MdList,
 } from 'react-icons/md';
-import { PATHNAME } from './SideBarList.data';
+import { PATHNAME } from '../../app/constants';
 
 import { toggleSidebar, toggleTabs } from '../../store/activeSlice';
 import { Link, Navigate, useLocation } from 'react-router-dom';
@@ -30,7 +30,7 @@ const SideBarList = () => {
   const store_id = localStorage.getItem('store_id');
 
   if (!company_id) {
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to={PATHNAME.LOGIN} state={{ from: location }} />;
   }
 
   const SIDEBAR_LIST_USER = [
@@ -54,7 +54,7 @@ const SideBarList = () => {
 
   const SIDEBAR_LIST_STORE = [
     { link: `/${store_id}${PATHNAME.CATEGORIES}`, icon: MdList, name: 'Категории' },
-    { link: `/${store_id}${PATHNAME.MENU}`, icon: MdOutlineMenuBook, name: 'Продукты' },
+    { link: `/${store_id}${PATHNAME.PRODUCTS}`, icon: MdOutlineMenuBook, name: 'Продукты' },
     {
       link: `/${store_id}${PATHNAME.CLIENTS}`,
       icon: MdPeopleAlt,

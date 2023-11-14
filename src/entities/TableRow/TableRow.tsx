@@ -18,8 +18,9 @@ import { IColumnTable } from '../../types/tableHeaders';
 import { FC } from 'react';
 
 import { TDataForTable } from '../../types/data';
-import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+
 import { Tooltip } from '@chakra-ui/react';
+import { PATHNAME } from '../../app/constants';
 
 interface Props {
   cell: TDataForTable;
@@ -30,27 +31,25 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const theme = useAppSelector((state) => state.active.theme);
-  const [company_id] = useLocalStorage('company_id', '');
-  const store_id = localStorage.getItem('store_id');
 
   const handleEdit = (data: any) => {
-    if (location.pathname === `/${company_id}/${store_id}/menu`) {
+    if (location.pathname.includes(PATHNAME.PRODUCTS)) {
       dispatch(saveProduct(data));
       dispatch(toggleModal({ action: true, type: ModalType.EDIT_PRODUCTS }));
     }
 
-    if (location.pathname === `/${company_id}/${store_id}/categories`) {
+    if (location.pathname.includes(PATHNAME.CATEGORIES)) {
       dispatch(saveCategory(data));
       dispatch(toggleModal({ action: true, type: ModalType.EDIT_CATEGORIES }));
     }
   };
 
   const handleDelete = (data: any) => {
-    if (location.pathname === `/${company_id}/${store_id}/menu`) {
+    if (location.pathname.includes(PATHNAME.PRODUCTS)) {
       dispatch(saveProduct(data));
     }
 
-    if (location.pathname === `/${company_id}/${store_id}/categories`) {
+    if (location.pathname.includes(PATHNAME.CATEGORIES)) {
       dispatch(saveCategory(data));
     }
 
@@ -58,11 +57,11 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   };
 
   const handleCheckbox = (id: string | number, code: string) => {
-    if (location.pathname === `/${company_id}/${store_id}/menu`) {
+    if (location.pathname.includes(PATHNAME.PRODUCTS)) {
       dispatch(toggleCheckboxProduct({ id, code }));
     }
 
-    if (location.pathname === `/${company_id}/${store_id}/categories`) {
+    if (location.pathname.includes(PATHNAME.CATEGORIES)) {
       dispatch(toggleCheckboxCategory({ id, code }));
     }
 
@@ -93,8 +92,8 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
           }
         })}
       </div>
-      {location.pathname === `/${company_id}/${store_id}/categories` ||
-      location.pathname === `/${company_id}/${store_id}/menu` ? (
+      {location.pathname.includes(PATHNAME.CATEGORIES) ||
+      location.pathname.includes(PATHNAME.PRODUCTS) ? (
         <div style={{ display: 'flex', columnGap: '20px' }}>
           <Tooltip label="Редактировать" placement="top">
             <span>
@@ -112,7 +111,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
           </Tooltip>
         </div>
       ) : null}
-      {location.pathname === `/${company_id}/${store_id}/settings` ? (
+      {location.pathname.includes(PATHNAME.SETTINGS) ? (
         <>
           <Button view="edit">
             <MdOutlineEditCalendar />
