@@ -16,11 +16,11 @@ import style from './MenuPage.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { ModalCategories } from '../../widgets/ModalCategories/ModalCategories';
-import { Alert, AlertIcon, AlertTitle, Skeleton, Stack } from '@chakra-ui/react';
+import { Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
 
 const MenuPage = () => {
   const dispatch = useAppDispatch();
-  const { products, loading, error } = useAppSelector((state) => state.products);
+  const { products, error } = useAppSelector((state) => state.products);
   const modalProducts = useAppSelector((state) => state.modals.modalProducts);
   const render = useAppSelector((state) => state.active.render);
   const modalEditProducts = useAppSelector((state) => state.modals.modalEditProducts);
@@ -43,18 +43,9 @@ const MenuPage = () => {
           Добавить продукт <BsFillPlusSquareFill />
         </Button>
       </div>
-      {loading ? (
-        <Stack>
-          <Skeleton height="45px" borderRadius={'10px'} />
-          <Skeleton height="75px" borderRadius={'10px'} />
-          <Skeleton height="75px" borderRadius={'10px'} />
-          <Skeleton height="75px" borderRadius={'10px'} />
-        </Stack>
-      ) : (
-        <div className={style.table}>
-          <Table data={products} tableHeader={TABLE_HEADER_MENU} />
-        </div>
-      )}
+      <div className={style.table}>
+        <Table data={products} tableHeader={TABLE_HEADER_MENU} />
+      </div>
       {error && (
         <Alert status="error" variant={'solid'} borderRadius={'10px'}>
           <AlertIcon />
