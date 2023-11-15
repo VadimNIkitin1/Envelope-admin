@@ -90,10 +90,9 @@ export const deleteProductFlag = createAsyncThunk<string, string | number, { rej
   'products/deleteProductFlag',
   async (id, { rejectWithValue }) => {
     try {
-      console.log(id);
       const token = localStorage.getItem('token') || '';
       const res = await axios.put(
-        `product/?product_id=${id}`,
+        `product/delete/?product_id=${id}`,
         {},
         {
           headers: {
