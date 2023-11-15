@@ -36,6 +36,7 @@ export const getProducts = createAsyncThunk<IProduct[], number | string, { rejec
   'products/getProducts',
   async (id, { rejectWithValue }) => {
     try {
+      console.log(id);
       const token = localStorage.getItem('token') || '';
       const res = await axios.get(`product/?store_id=${id}`, {
         headers: {
