@@ -22,7 +22,6 @@ const MenuPage = () => {
   const modalEditProducts = useAppSelector((state) => state.modals.modalEditProducts);
   const modalForDelete = useAppSelector((state) => state.modals.modalForDelete);
   const [store_id] = useLocalStorage('store_id', '');
-  console.log(products);
 
   useEffect(() => {
     setTimeout(() => {
