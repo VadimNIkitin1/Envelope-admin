@@ -6,6 +6,11 @@ import type { IRequestProduct } from '../widgets/ModalProducts/types';
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
 
+interface IRequestPhoto {
+  store_id: string | number;
+  formData: FormData;
+}
+
 const initialState: IProductsInitialState = {
   products: [],
   product: {
@@ -15,6 +20,7 @@ const initialState: IProductsInitialState = {
     name: 'string',
     price: 0,
     description: '',
+    image: '',
     wt: 0,
     kilocalories: 0,
     proteins: 0,
@@ -36,7 +42,6 @@ export const getProducts = createAsyncThunk<IProduct[], number | string, { rejec
   'products/getProducts',
   async (id, { rejectWithValue }) => {
     try {
-      console.log(id);
       const token = localStorage.getItem('token') || '';
       const res = await axios.get(`product/?store_id=${id}`, {
         headers: {
@@ -53,7 +58,7 @@ export const getProducts = createAsyncThunk<IProduct[], number | string, { rejec
 
 export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectValue: string }>(
   'products/addProduct',
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     try {
       const token = localStorage.getItem('token') || '';
       const res = await axios.post(`product/?store_id=${data.id}`, data, {
@@ -62,6 +67,7 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
           Authorization: `Bearer ${token}`,
         },
       });
+      dispatch(clearImage());
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -112,6 +118,7 @@ export const editProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectV
   'products/editProduct',
   async (data, { rejectWithValue }) => {
     try {
+      console.log(data);
       const token = localStorage.getItem('token') || '';
       const res = await axios.put(`product/?product_id=${data.id}`, data, {
         headers: {
@@ -149,6 +156,28 @@ export const toggleCheckboxProduct = createAsyncThunk<
   }
 });
 
+export const uploadPhoto = createAsyncThunk<string, IRequestPhoto, { rejectValue: string }>(
+  'products/uploadPhoto',
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.post(
+        `product/upload_photo/?store_id=${data.store_id}`,
+        data.formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const getUnits = createAsyncThunk<IUnit[], undefined, { rejectValue: string }>(
   'products/getUnits',
   async (_, { rejectWithValue }) => {
@@ -177,6 +206,9 @@ const slice = createSlice({
   reducers: {
     saveProduct(state, action) {
       state.product = action.payload;
+    },
+    clearImage(state) {
+      state.product.image = '';
     },
   },
   extraReducers: (builder) => {
@@ -231,6 +263,15 @@ const slice = createSlice({
         state.loading = false;
         state.error = null;
       })
+      .addCase(uploadPhoto.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(uploadPhoto.fulfilled, (state, action) => {
+        state.product.image = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
         state.loading = false;
@@ -238,6 +279,6 @@ const slice = createSlice({
   },
 });
 
-export const { saveProduct } = slice.actions;
+export const { saveProduct, clearImage } = slice.actions;
 
 export default slice.reducer;

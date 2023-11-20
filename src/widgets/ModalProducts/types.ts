@@ -3,6 +3,7 @@ export interface IRequestProduct {
   category_id?: number;
   name?: string;
   description?: string;
+  image: string;
   price?: number;
   wt?: number;
   kilocalories?: number;

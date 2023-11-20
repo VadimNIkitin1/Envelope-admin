@@ -17,18 +17,17 @@ const initialState: ICategoriesInitialState = {
   error: null,
 };
 
-const TOKEN = localStorage.getItem('token') || '';
-
 export const getCategories = createAsyncThunk<
   ICategory[],
   number | string,
   { rejectValue: string }
 >('categories/getCategories', async (id, { rejectWithValue }) => {
   try {
+    const token = localStorage.getItem('token') || '';
     const res = await axios.get(`category/?store_id=${id}`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return res.data;
@@ -41,10 +40,11 @@ export const addCategory = createAsyncThunk<ICategory, IRequestCategory, { rejec
   'categories/addCategory',
   async (data, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem('token') || '';
       const res = await axios.post(`category/?store_id=${data.id}`, data, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       return res.data;
@@ -58,10 +58,11 @@ export const editCategory = createAsyncThunk<string, IRequestCategory, { rejectV
   'categories/editCategory',
   async (data, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem('token') || '';
       const res = await axios.put(`category/?category_id=${data.id}`, data, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       return res.data;
@@ -75,10 +76,11 @@ export const deleteCategory = createAsyncThunk<string, string | number, { reject
   'categories/deleteCategory',
   async (id, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem('token') || '';
       const res = await axios.delete(`category/?category_id=${id}`, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       return res.data;
@@ -94,13 +96,14 @@ export const deleteCategoryFlag = createAsyncThunk<
   { rejectValue: string }
 >('categories/deleteCategoryFlag', async (id, { rejectWithValue }) => {
   try {
+    const token = localStorage.getItem('token') || '';
     const res = await axios.put(
       `category/delete/?category_id=${id}`,
       {},
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -116,12 +119,13 @@ export const toggleCheckboxCategory = createAsyncThunk<
   { rejectValue: string }
 >('categories/toggleCheckboxCategory', async (data, { rejectWithValue }) => {
   try {
+    const token = localStorage.getItem('token') || '';
     const res = await axios.put(
       `category/checkbox/?category_id=${data.id}&checkbox=${data.code}`,
       {},
       {
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );

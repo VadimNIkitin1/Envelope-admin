@@ -3,10 +3,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { toggleModal, ModalType } from '../../store/modalsSlice';
 import { triggerRender } from '../../store/activeSlice';
 
-// import InputFile from '../../shared/InputFile/InputFile';
+import InputFile from '../../shared/InputFile/InputFile';
 import Button from '../../shared/Button/Button';
 
-import { addProduct, editProduct, getUnits } from '../../store/productSlice';
+import { addProduct, clearImage, editProduct, getUnits } from '../../store/productSlice';
 
 import { useEffect } from 'react';
 import { getCategories } from '../../store/categorySlice';
@@ -25,6 +25,7 @@ const ModalProducts = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories.categories);
   const product = useAppSelector((state) => state.products.product);
+  const image = useAppSelector((state) => state.products.product.image);
   const units = useAppSelector((state) => state.products.units);
   const [store_id] = useLocalStorage('store_id', '');
 
@@ -58,6 +59,7 @@ const ModalProducts = ({ type, isOpen }) => {
       const requestData = {
         id: store_id,
         ...data,
+        image,
       };
 
       dispatch(addProduct(requestData));
@@ -67,17 +69,24 @@ const ModalProducts = ({ type, isOpen }) => {
       const requestData = {
         id,
         ...data,
+        image,
       };
 
       dispatch(editProduct(requestData));
     }
 
     dispatch(triggerRender());
+    dispatch(clearImage());
     dispatch(toggleModal({ action: false, type }));
   };
 
+  const handleClose = () => {
+    dispatch(toggleModal({ action: false, type }));
+    dispatch(clearImage());
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={() => dispatch(toggleModal({ action: false, type }))}>
+    <Modal isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay />
       <ModalContent marginTop={30} borderRadius={16}>
         <ModalBody className={style.modal}>
@@ -227,7 +236,7 @@ const ModalProducts = ({ type, isOpen }) => {
                   rowGap: '10px',
                 }}
               >
-                {/* <InputFile {...register("image")} /> */}
+                <InputFile {...register('image')} error={errors.image} />
                 {type === ModalType.PRODUCTS && (
                   <>
                     <label className={style.containerCheckbox}>
@@ -258,7 +267,7 @@ const ModalProducts = ({ type, isOpen }) => {
               <Button view="add" type={'submit'}>
                 Добавить
               </Button>
-              <Button view="delete" onClick={() => dispatch(toggleModal({ action: false, type }))}>
+              <Button view="delete" onClick={handleClose}>
                 Закрыть
               </Button>
             </div>
