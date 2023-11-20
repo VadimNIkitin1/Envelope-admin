@@ -118,7 +118,6 @@ export const editProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectV
   'products/editProduct',
   async (data, { rejectWithValue }) => {
     try {
-      console.log(data);
       const token = localStorage.getItem('token') || '';
       const res = await axios.put(`product/?product_id=${data.id}`, data, {
         headers: {
