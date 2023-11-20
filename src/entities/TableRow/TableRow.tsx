@@ -58,7 +58,12 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
 
   const handleCheckbox = (id: string | number, code: string) => {
     if (location.pathname.includes(PATHNAME.PRODUCTS)) {
-      dispatch(toggleCheckboxProduct({ id, code }));
+      dispatch(
+        toggleCheckboxProduct({
+          id,
+          code,
+        })
+      );
     }
 
     if (location.pathname.includes(PATHNAME.CATEGORIES)) {
