@@ -7,15 +7,16 @@
 // ];
 
 export interface ITariff {
+  term: string;
   price: string;
   id: number;
 }
 
 export const tariff: ITariff[] = [
-  { price: '2990', id: 1 },
-  { price: '8490', id: 2 },
-  { price: '16990', id: 3 },
-  { price: '29990', id: 4 },
+  { term: '1 месяц', price: '2990', id: 1 },
+  { term: '3 месяца', price: '8490', id: 2 },
+  { term: '6 месяцев', price: '16990', id: 3 },
+  { term: '1 год', price: '29990', id: 4 },
 ];
 
 export interface IClients {
