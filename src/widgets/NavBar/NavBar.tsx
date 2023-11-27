@@ -20,6 +20,10 @@ const NavBar = () => {
   const [data] = useLocalStorage('data', '');
   const store_id = localStorage.getItem('store_id');
 
+  // if (!data || !company_id || !store_id) {
+  //   navigate(PATHNAME.LOGIN);
+  // }
+
   const handleLogOut = () => {
     if (!store_id) {
       dispatch(logOut());
@@ -43,7 +47,7 @@ const NavBar = () => {
       >
         ENVELOPE <GiEnvelope className={style.logo} />
       </Link>
-      <h1 className={style.username}>{data.data.username}</h1>
+      <h1 className={style.username}>{data ? data?.data.username : null}</h1>
       <Menu>
         <MenuButton>
           <BsThreeDotsVertical className={style.dots} />

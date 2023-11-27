@@ -19,7 +19,15 @@ import { AuthType } from '../store/authSlice';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
+      <Route
+        path="/"
+        element={
+          <RequireAuth>
+            <Layout />
+          </RequireAuth>
+        }
+        errorElement={<ErrorPage />}
+      >
         <Route
           path="/:company_id"
           element={

@@ -95,12 +95,12 @@ const ModalProducts = ({ type, isOpen }) => {
             <div
               style={{
                 display: 'flex',
+                alignItems: 'baseline',
                 columnGap: '100px',
                 marginBottom: '30px',
               }}
             >
               <label className={style.modalLabel}>
-                <p className={style.productTitle}>Категория</p>
                 <select
                   defaultValue={type === ModalType.EDIT_PRODUCTS ? category_id : undefined}
                   {...register('category_id', {
@@ -264,10 +264,11 @@ const ModalProducts = ({ type, isOpen }) => {
               </div>
             </div>
             <div style={{ display: 'flex', columnGap: '20px' }}>
-              <Button view="add" type={'submit'}>
-                Добавить
+              <Button view="add" style={{ fontSize: '20px' }} type={'submit'}>
+                {type === ModalType.PRODUCTS && 'Добавить'}
+                {type === ModalType.EDIT_PRODUCTS && 'Редактировать'}
               </Button>
-              <Button view="delete" onClick={handleClose}>
+              <Button view="delete" style={{ fontSize: '20px' }} onClick={handleClose}>
                 Закрыть
               </Button>
             </div>

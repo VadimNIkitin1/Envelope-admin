@@ -1,6 +1,5 @@
 import { FC, ReactElement } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
-import { useLocalStorage } from '../hooks/useLocalStorage';
 
 interface Props {
   children: ReactElement;
@@ -8,7 +7,7 @@ interface Props {
 
 const RequireAuth: FC<Props> = ({ children }) => {
   const location = useLocation();
-  const data = useLocalStorage('data', '');
+  const data = localStorage.getItem('data') || '';
 
   if (!data) {
     return <Navigate to="/login" state={{ from: location }} />;
