@@ -82,6 +82,10 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
                   onChange={() => handleCheckbox(cell.id, column.code)}
                 />
               );
+
+            case 'bool':
+              return <p className={style.tableColumn}>{cell[column.code] ? '✅' : '-'}</p>;
+
             default:
               return (
                 <p key={column.name} className={style.tableColumn}>
