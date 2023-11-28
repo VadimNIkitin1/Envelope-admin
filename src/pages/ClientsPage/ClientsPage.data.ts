@@ -4,7 +4,7 @@ export const TABLE_HEADER_CLIENTS = [
   { name: 'Имя', code: 'first_name', type: 'str' },
   { name: 'Фамилия', code: 'last_name', type: 'str' },
   { name: 'Телефон', code: 'phone', type: 'str' },
-  { name: 'Сумма заказов', code: 'full_order', type: 'str' },
-  { name: 'Последний заказ', code: 'last_order', type: 'str' },
+  { name: 'Сумма заказов', code: 'total_sales', type: 'str' },
+  { name: 'Последний заказ', code: 'last_order_date', type: 'str' },
   { name: 'Премиум', code: 'is_premium', type: 'bool' },
 ];

@@ -10,7 +10,6 @@ const ClientsPage = () => {
   const dispatch = useAppDispatch();
   const customers = useAppSelector((state) => state.report.customers);
   const [store_id] = useLocalStorage('store_id', '');
-  console.log(customers);
 
   useEffect(() => {
     dispatch(getCustomers(store_id));

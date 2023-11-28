@@ -84,7 +84,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
               );
 
             case 'bool':
-              return <p className={style.tableColumn}>{cell[column.code] ? '✅' : '-'}</p>;
+              return <p className={style.tableColumn}>{cell[column.code] ? '✅' : '❌'}</p>;
 
             default:
               return (
