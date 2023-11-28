@@ -61,6 +61,11 @@ const SideBarList = () => {
       name: 'Клиенты',
     },
     {
+      link: `/${store_id}${PATHNAME.ANALYTIC}`,
+      icon: MdAnalytics,
+      name: 'Аналитика магазина',
+    },
+    {
       link: `/${store_id}${PATHNAME.NOTIFICATION}`,
       icon: MdMessage,
       name: 'Рассылка',

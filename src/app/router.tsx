@@ -50,7 +50,7 @@ const router = createBrowserRouter(
           path={'/:company_id/analytic'}
           element={
             <RequireAuth>
-              <AnalyticPage />
+              <AnalyticPage type={'user'} />
             </RequireAuth>
           }
           errorElement={<ErrorPage />}
@@ -114,6 +114,15 @@ const router = createBrowserRouter(
           element={
             <RequireAuth>
               <SettingsPage />
+            </RequireAuth>
+          }
+          errorElement={<ErrorPage />}
+        />
+        <Route
+          path={'/:company_id/:store_id/analytic'}
+          element={
+            <RequireAuth>
+              <AnalyticPage type={'store'} />
             </RequireAuth>
           }
           errorElement={<ErrorPage />}

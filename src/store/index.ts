@@ -5,6 +5,7 @@ import categoriesReducer from './categorySlice';
 import productsReducer from './productSlice';
 import modalsReducer from './modalsSlice';
 import storeReducer from './storeSlice';
+import reportReducer from './reportSlice';
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     products: productsReducer,
     auth: authReducer,
     store: storeReducer,
+    report: reportReducer,
   },
 });
 export default store;

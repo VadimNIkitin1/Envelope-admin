@@ -39,21 +39,24 @@ const TableHeader: FC<Props> = ({ tableHeader }) => {
           </p>
         ))}
       </div>
-      <Tooltip
-        label={
-          location.pathname.includes(PATHNAME.CATEGORIES)
-            ? 'Добавить категорию'
-            : location.pathname.includes(PATHNAME.PRODUCTS)
-            ? 'Добавить продукт'
-            : null
-        }
-      >
-        <span>
-          <Button view="add" onClick={() => handleAdd()}>
-            <BsFillPlusSquareFill />
-          </Button>
-        </span>
-      </Tooltip>
+      {location.pathname.includes(PATHNAME.CATEGORIES) ||
+      location.pathname.includes(PATHNAME.PRODUCTS) ? (
+        <Tooltip
+          label={
+            location.pathname.includes(PATHNAME.CATEGORIES)
+              ? 'Добавить категорию'
+              : location.pathname.includes(PATHNAME.PRODUCTS)
+              ? 'Добавить продукт'
+              : null
+          }
+        >
+          <span>
+            <Button view="add" onClick={() => handleAdd()}>
+              <BsFillPlusSquareFill />
+            </Button>
+          </span>
+        </Tooltip>
+      ) : null}
     </div>
   );
 };
