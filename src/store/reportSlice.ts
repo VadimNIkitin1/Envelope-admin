@@ -1,6 +1,11 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import { IReportInitialState, ICustomers, IReportItemForCategory } from '../types/report';
+import {
+  IReportInitialState,
+  ICustomers,
+  IReportItemForCategory,
+  ITotalSales,
+} from '../types/report';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -17,7 +22,7 @@ const initialState: IReportInitialState = {
 };
 
 export const getTotalSales = createAsyncThunk<
-  number,
+  ITotalSales,
   string | number | null,
   { rejectValue: string }
 >('report/getTotalSales', async (store_id, { rejectWithValue }) => {

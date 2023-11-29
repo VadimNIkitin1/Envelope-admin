@@ -7,11 +7,13 @@ export interface ICustomers {
   is_premium: boolean;
 }
 
+export interface ITotalSales {
+  total_sales: number;
+}
+
 export interface IReportInitialState {
   customers: ICustomers[];
-  totalSales: {
-    total_sales: number;
-  };
+  totalSales: ITotalSales;
   totalSalesForCategory: IReportItemForCategory[];
   totalSalesForProduct: IReportItemForCategory[];
   loading: boolean;
