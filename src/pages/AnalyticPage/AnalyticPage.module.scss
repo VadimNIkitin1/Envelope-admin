@@ -1,1 +1,18 @@
+@import '../../app/variable.module.scss';
 
+.select_container {
+  display: flex;
+  margin: 40px 0 20px 0;
+  background-color: $grey;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+.table_title {
+  font-size: 20px;
+  margin-bottom: 20px;
+  background-color: $grey;
+  padding: 10px 10px;
+  border-radius: 10px;
+  width: 50%;
+}

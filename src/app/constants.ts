@@ -11,3 +11,14 @@ export enum PATHNAME {
   AUTH = '/auth',
   ABOUT = '/about',
 }
+
+export enum ANALYTIC_TABLE {
+  ALL = 'all',
+  CATEGORIES = 'categories',
+  PRODUCTS = 'products',
+}
+
+export enum ANALYTIC_PAGE {
+  USER = 'user',
+  STORE = 'store',
+}

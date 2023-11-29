@@ -7,11 +7,32 @@ axios.defaults.withCredentials = true;
 
 const initialState: IReportInitialState = {
   customers: [],
+  totalSales: 0,
   totalSalesForCategory: [],
   totalSalesForProduct: [],
   loading: false,
   error: null,
 };
+
+export const getTotalSales = createAsyncThunk<
+  number,
+  string | number | null,
+  { rejectValue: string }
+>('report/getTotalSales', async (store_id, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.get(`report/total_report/?store_id=${store_id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
 
 export const getCustomers = createAsyncThunk<
   ICustomers[],
@@ -83,6 +104,13 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getTotalSales.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getTotalSales.fulfilled, (state, action) => {
+        state.loading = false;
+        state.totalSales = action.payload;
+      })
       .addCase(getCustomers.pending, (state) => {
         state.loading = true;
       })
