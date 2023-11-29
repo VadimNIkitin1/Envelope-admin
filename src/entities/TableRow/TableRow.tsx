@@ -71,12 +71,12 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   return (
     <div className={clsx(style.tableRow, theme && style.light)}>
       <div style={{ display: 'flex', columnGap: '20px' }}>
-        {tableHeader.map((column: IColumnTable) => {
+        {tableHeader.map((column: IColumnTable, idx) => {
           switch (column.type) {
             case 'checkbox':
               return (
                 <TableCheckbox
-                  key={column.name}
+                  key={idx}
                   checked={cell[column.code]}
                   className={style.tableColumn}
                   onChange={() => handleCheckbox(cell.id, column.code)}
@@ -84,11 +84,15 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
               );
 
             case 'bool':
-              return <p className={style.tableColumn}>{cell[column.code] ? '✅' : '❌'}</p>;
+              return (
+                <p key={idx} className={style.tableColumn}>
+                  {cell[column.code] ? '✅' : '❌'}
+                </p>
+              );
 
             default:
               return (
-                <p key={column.name} className={style.tableColumn}>
+                <p key={idx} className={style.tableColumn}>
                   {cell[column.code]}
                 </p>
               );

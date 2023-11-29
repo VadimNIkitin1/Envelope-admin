@@ -9,6 +9,15 @@ export interface ICustomers {
 
 export interface IReportInitialState {
   customers: ICustomers[];
+  totalSalesForCategory: IReportItemForCategory[];
+  totalSalesForProduct: IReportItemForCategory[];
   loading: boolean;
   error: string | null;
+}
+
+export interface IReportItemForCategory {
+  id: number | string;
+  product_name: string;
+  category_name: string;
+  total_sales: number;
 }

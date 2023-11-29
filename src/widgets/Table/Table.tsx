@@ -21,7 +21,7 @@ const Table: FC<Props> = ({ data, tableHeader }) => {
           <p className={style.message}>Нет добавленых элементов</p>
         </div>
       ) : (
-        data.map((cell) => <TableRow key={cell.id} cell={cell} tableHeader={tableHeader} />)
+        data.map((cell, idx) => <TableRow key={idx} cell={cell} tableHeader={tableHeader} />)
       )}
     </>
   );

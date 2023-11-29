@@ -1,11 +1,38 @@
 import Table from '../../widgets/Table/Table';
 
-import { analytic } from '../../assets/db';
-import { TABLE_HEADER_ANALYTIC } from './AnalyticPage.data';
+import {
+  TABLE_HEADER_ANALYTIC_FOR_CATEGORY,
+  TABLE_HEADER_ANALYTIC_FOR_PRODUCT,
+} from './AnalyticPage.data';
+import { useAppDispatch, useAppSelector } from '../../types/hooks';
+import { useEffect } from 'react';
+import { getTotalSalesForCategory, getTotalSalesForProduct } from '../../store/reportSlice';
 
 const AnalyticPage = ({ type }) => {
-  console.log(type);
-  return <Table data={analytic} tableHeader={TABLE_HEADER_ANALYTIC} />;
+  const dispatch = useAppDispatch();
+  const { totalSalesForCategory, totalSalesForProduct } = useAppSelector((state) => state.report);
+
+  useEffect(() => {
+    if (type === 'store') {
+      const store_id = localStorage.getItem('store_id' || '');
+
+      dispatch(getTotalSalesForCategory(store_id));
+      dispatch(getTotalSalesForProduct(store_id));
+    }
+  }, []);
+
+  return (
+    <>
+      {type === 'store' && (
+        <>
+          <Table data={totalSalesForCategory} tableHeader={TABLE_HEADER_ANALYTIC_FOR_CATEGORY} />
+          <br />
+          <Table data={totalSalesForProduct} tableHeader={TABLE_HEADER_ANALYTIC_FOR_PRODUCT} />
+        </>
+      )}
+      {type === 'user' && <p>Аналитика всех магазинов</p>}
+    </>
+  );
 };
 
 export default AnalyticPage;

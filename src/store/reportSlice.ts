@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import { IReportInitialState, ICustomers } from '../types/report';
+import { IReportInitialState, ICustomers, IReportItemForCategory } from '../types/report';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
 
 const initialState: IReportInitialState = {
   customers: [],
+  totalSalesForCategory: [],
+  totalSalesForProduct: [],
   loading: false,
   error: null,
 };
@@ -19,6 +21,46 @@ export const getCustomers = createAsyncThunk<
   try {
     const token = localStorage.getItem('token') || '';
     const res = await axios.get(`report/customer/?store_id=${store_id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+export const getTotalSalesForCategory = createAsyncThunk<
+  IReportItemForCategory[],
+  string | number | null,
+  { rejectValue: string }
+>('report/getTotalSalesForCategory', async (store_id, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.get(`report/total_category/?store_id=${store_id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+export const getTotalSalesForProduct = createAsyncThunk<
+  IReportItemForCategory[],
+  string | number | null,
+  { rejectValue: string }
+>('report/getTotalSalesForProduct', async (store_id, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.get(`report/total_product/?store_id=${store_id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -47,6 +89,20 @@ const slice = createSlice({
       .addCase(getCustomers.fulfilled, (state, action) => {
         state.loading = false;
         state.customers = action.payload;
+      })
+      .addCase(getTotalSalesForCategory.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getTotalSalesForCategory.fulfilled, (state, action) => {
+        state.loading = false;
+        state.totalSalesForCategory = action.payload;
+      })
+      .addCase(getTotalSalesForProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getTotalSalesForProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.totalSalesForProduct = action.payload;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
