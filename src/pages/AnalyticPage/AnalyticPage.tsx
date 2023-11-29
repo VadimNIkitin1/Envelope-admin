@@ -40,7 +40,7 @@ const AnalyticPage = ({ type }) => {
       </div>
       <div className={style.select_container}>
         <h2 style={{ marginRight: '20px' }}>Аналитика по</h2>
-        <select value={select} onChange={(e) => setSelect(e.target.value)}>
+        <select value={select} onChange={(e) => setSelect(e.target.value)} className={style.select}>
           <option value={ANALYTIC_TABLE.ALL}>Всем параметрам</option>
           <option value={ANALYTIC_TABLE.CATEGORIES}>Категориям</option>
           <option value={ANALYTIC_TABLE.PRODUCTS}>Продуктам</option>
