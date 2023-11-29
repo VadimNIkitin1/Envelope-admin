@@ -7,7 +7,9 @@ axios.defaults.withCredentials = true;
 
 const initialState: IReportInitialState = {
   customers: [],
-  totalSales: 0,
+  totalSales: {
+    total_sales: 0,
+  },
   totalSalesForCategory: [],
   totalSalesForProduct: [],
   loading: false,

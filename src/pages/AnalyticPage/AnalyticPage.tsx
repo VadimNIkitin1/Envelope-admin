@@ -21,7 +21,6 @@ const AnalyticPage = ({ type }) => {
   const { totalSalesForCategory, totalSalesForProduct, totalSales } = useAppSelector(
     (state) => state.report
   );
-  console.log(totalSales);
 
   useEffect(() => {
     if (type === 'store') {
@@ -36,7 +35,7 @@ const AnalyticPage = ({ type }) => {
   return (
     <>
       <div>
-        <h2 className={style.table_title}>Всего продаж на сумму {0} руб.</h2>
+        <h2 className={style.table_title}>Всего продаж на сумму {totalSales.total_sales} руб.</h2>
       </div>
       <div className={style.select_container}>
         <h2 style={{ marginRight: '20px' }}>Аналитика по</h2>
@@ -56,13 +55,8 @@ const AnalyticPage = ({ type }) => {
                 tableHeader={TABLE_HEADER_ANALYTIC_FOR_CATEGORY}
               />
               <br />
-              <>
-                <h2 className={style.table_title}>Аналитика по продуктам</h2>
-                <Table
-                  data={totalSalesForProduct}
-                  tableHeader={TABLE_HEADER_ANALYTIC_FOR_PRODUCT}
-                />
-              </>
+              <h2 className={style.table_title}>Аналитика по продуктам</h2>
+              <Table data={totalSalesForProduct} tableHeader={TABLE_HEADER_ANALYTIC_FOR_PRODUCT} />
             </>
           )}
           {select === ANALYTIC_TABLE.CATEGORIES && (
