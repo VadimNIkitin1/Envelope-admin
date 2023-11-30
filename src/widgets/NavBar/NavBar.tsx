@@ -13,6 +13,7 @@ import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { PATHNAME } from '../../app/constants';
 import { useEffect } from 'react';
 import { getStores } from '../../store/storeSlice';
+import { MdStore } from 'react-icons/md';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
@@ -64,6 +65,7 @@ const NavBar = () => {
           </MenuItem>
           {store_id && (
             <MenuItem backgroundColor={'#2c2c2c'} height={35} marginBottom={1}>
+              <MdStore fontSize={25} />
               <h2 className={style.store_name}>{store ? store.name : 'Не найден'}</h2>
             </MenuItem>
           )}
