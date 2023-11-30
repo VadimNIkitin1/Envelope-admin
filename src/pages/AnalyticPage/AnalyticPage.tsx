@@ -15,10 +15,12 @@ import {
 import { ANALYTIC_PAGE, ANALYTIC_TABLE } from '../../app/constants';
 import Button from '../../shared/Button/Button';
 import { TbMailForward } from 'react-icons/tb';
-import { Tooltip } from '@chakra-ui/react';
+import { Input, Tooltip } from '@chakra-ui/react';
 
 const AnalyticPage = ({ type }) => {
   const [select, setSelect] = useState<string>(ANALYTIC_TABLE.NONE);
+  const [from, setFrom] = useState('');
+  const [before, setBefore] = useState('');
 
   const dispatch = useAppDispatch();
   const { totalSalesForCategory, totalSalesForProduct, totalSales } = useAppSelector(
@@ -51,7 +53,7 @@ const AnalyticPage = ({ type }) => {
         <h2 className={style.table_title}>Всего продаж на сумму {totalSales.total_sales} руб.</h2>
       </div>
       <div className={style.select_container}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
           <h2 style={{ marginRight: '20px' }}>Аналитика по</h2>
           <select
             value={select}
@@ -63,6 +65,34 @@ const AnalyticPage = ({ type }) => {
             <option value={ANALYTIC_TABLE.CATEGORIES}>Категориям</option>
             <option value={ANALYTIC_TABLE.PRODUCTS}>Продуктам</option>
           </select>
+          <div className={style.period_block}>
+            <p>Выбрать период</p>
+            <div className={style.period_block_item}>
+              <p>От</p>
+
+              <Input
+                value={from}
+                onChange={(e) => setFrom(e.target.value)}
+                size="sm"
+                type="datetime-local"
+                width={'200px'}
+                borderColor={'#fb923c'}
+                borderRadius={'8px'}
+              />
+            </div>
+            <div className={style.period_block_item}>
+              <p>До</p>
+              <Input
+                value={before}
+                onChange={(e) => setBefore(e.target.value)}
+                size="sm"
+                type="datetime-local"
+                width={'200px'}
+                borderColor={'#fb923c'}
+                borderRadius={'8px'}
+              />
+            </div>
+          </div>
         </div>
         <Tooltip label={'Отправить на почту'}>
           <span>

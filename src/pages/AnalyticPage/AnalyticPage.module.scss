@@ -8,13 +8,25 @@
   background-color: $grey;
   padding: 10px 10px;
   border-radius: 10px;
-  width: 50%;
+  width: 80%;
 }
 
 .select {
   padding: 3px 5px;
   border: 2px solid $orange;
   border-radius: 8px;
+}
+
+.period_block {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.period_block_item {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
 }
 
 .table_title {
