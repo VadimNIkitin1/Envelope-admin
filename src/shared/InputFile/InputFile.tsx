@@ -5,10 +5,12 @@ import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { uploadPhoto } from '../../store/productSlice';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { IInputProps } from './InputFile.types';
+import clsx from 'clsx';
 
 const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error }, ref) => {
   const dispatch = useAppDispatch();
   const image = useAppSelector((state) => state.products.product.image);
+  const theme = useAppSelector((state) => state.active.theme);
   const [store_id] = useLocalStorage('store_id', '');
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const filePicker = useRef<any>(ref);
@@ -59,7 +61,9 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error }, ref) => 
             <path d="M18.153 6h-.009v5.342H23.5v-.002z"></path>
           </g>
         </svg>
-        <p style={{ color: '#fff' }}>{selectedFile ? selectedFile.name : 'Файл не выбран'}</p>
+        <p className={clsx(style.undertext, theme && style.light)}>
+          {selectedFile ? selectedFile.name : 'Файл не выбран'}
+        </p>
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
           <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>

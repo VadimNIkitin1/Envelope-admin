@@ -56,7 +56,7 @@ const NavBar = () => {
       </Link>
       <Menu>
         <MenuButton>
-          <BsThreeDotsVertical className={style.dots} />
+          <BsThreeDotsVertical className={clsx(style.dots, theme && style.light)} />
         </MenuButton>
         <MenuList backgroundColor={'#212121'}>
           <MenuItem backgroundColor={'#2c2c2c'} height={35} marginBottom={1}>

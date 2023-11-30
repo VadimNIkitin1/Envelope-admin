@@ -15,12 +15,14 @@ import { useLocation } from 'react-router';
 import { deleteProductFlag } from '../../store/productSlice';
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import { PATHNAME } from '../../app/constants';
+import clsx from 'clsx';
 
 const ModalCategories = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { category } = useAppSelector((state) => state.categories);
   const product = useAppSelector((state) => state.products.product);
+  const theme = useAppSelector((state) => state.active.theme);
   const store_id = localStorage.getItem('store_id');
   const { name, id } = category;
 
@@ -74,8 +76,8 @@ const ModalCategories = ({ type, isOpen }) => {
     <Modal isOpen={isOpen} onClose={() => dispatch(toggleModal({ action: false, type }))}>
       <ModalOverlay />
       <ModalContent marginTop={200} borderRadius={16}>
-        <ModalBody className={style.modal} padding={5}>
-          <h1 className={style.modalTitle}>
+        <ModalBody className={clsx(style.modal, theme && style.light)} padding={5}>
+          <h1 className={clsx(style.modalTitle, theme && style.light)}>
             {type === ModalType.CATEGORIES && 'Добавить категорию'}
             {type === ModalType.EDIT_CATEGORIES && 'Редактировать категорию'}
             {type === ModalType.STORES && 'Добавить магазин'}
@@ -113,7 +115,7 @@ const ModalCategories = ({ type, isOpen }) => {
               />
             )}
             {type === ModalType.CATEGORIES && (
-              <label className={style.containerCheckbox}>
+              <label className={clsx(style.containerCheckbox, theme && style.light)}>
                 В наличии
                 <Checkbox {...register('availability')} />
               </label>

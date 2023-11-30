@@ -20,6 +20,7 @@ import { Checkbox } from '../../shared/Checkbox/Checkbox';
 import { InputText } from '../../shared/InputText/InputText';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
+import clsx from 'clsx';
 
 const ModalProducts = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const ModalProducts = ({ type, isOpen }) => {
   const product = useAppSelector((state) => state.products.product);
   const image = useAppSelector((state) => state.products.product.image);
   const units = useAppSelector((state) => state.products.units);
+  const theme = useAppSelector((state) => state.active.theme);
   const [store_id] = useLocalStorage('store_id', '');
 
   const {
@@ -89,8 +91,8 @@ const ModalProducts = ({ type, isOpen }) => {
     <Modal isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay />
       <ModalContent marginTop={30} borderRadius={16}>
-        <ModalBody className={style.modal}>
-          <h1 className={style.modalTitle}>Добавить продукт</h1>
+        <ModalBody className={clsx(style.modal, theme && style.light)}>
+          <h1 className={clsx(style.modalTitle, theme && style.light)}>Добавить продукт</h1>
           <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
             <div
               style={{
@@ -107,7 +109,7 @@ const ModalProducts = ({ type, isOpen }) => {
                     required: { value: true, message: 'Выберите категорию' },
                   })}
                   name="category_id"
-                  className={style.modalSelect}
+                  className={clsx(style.modalSelect, theme && style.light)}
                 >
                   {categories.map((cat) => (
                     <option key={cat.id} value={cat.id}>
@@ -138,7 +140,7 @@ const ModalProducts = ({ type, isOpen }) => {
                 <textarea
                   defaultValue={type === ModalType.EDIT_PRODUCTS ? description : undefined}
                   placeholder="Описание"
-                  className={style.modalDescription}
+                  className={clsx(style.modalDescription, theme && style.light)}
                   {...register('description', {
                     required: { value: true, message: 'Поле обязательно для заполнения' },
                     minLength: { value: 10, message: 'Не менее 10 символов' },
@@ -217,7 +219,7 @@ const ModalProducts = ({ type, isOpen }) => {
                       {...register('unit_id', {
                         required: { value: true, message: 'Выберите единицу изм.' },
                       })}
-                      className={style.modalSelect}
+                      className={clsx(style.modalSelect, theme && style.light)}
                     >
                       {units.map((unit) => (
                         <option key={unit.id} value={unit.id}>
@@ -239,23 +241,23 @@ const ModalProducts = ({ type, isOpen }) => {
                 <InputFile {...register('image')} error={errors.image} />
                 {type === ModalType.PRODUCTS && (
                   <>
-                    <label className={style.containerCheckbox}>
+                    <label className={clsx(style.containerCheckbox, theme && style.light)}>
                       В наличии
                       <Checkbox {...register('availability')} />
                     </label>
-                    <label className={style.containerCheckbox}>
+                    <label className={clsx(style.containerCheckbox, theme && style.light)}>
                       Популярное
                       <Checkbox {...register('popular')} />
                     </label>
-                    <label className={style.containerCheckbox}>
+                    <label className={clsx(style.containerCheckbox, theme && style.light)}>
                       Доставка
                       <Checkbox {...register('delivery')} />
                     </label>
-                    <label className={style.containerCheckbox}>
+                    <label className={clsx(style.containerCheckbox, theme && style.light)}>
                       Самовывоз
                       <Checkbox {...register('takeaway')} />
                     </label>
-                    <label className={style.containerCheckbox}>
+                    <label className={clsx(style.containerCheckbox, theme && style.light)}>
                       Зал
                       <Checkbox {...register('dinein')} />
                     </label>

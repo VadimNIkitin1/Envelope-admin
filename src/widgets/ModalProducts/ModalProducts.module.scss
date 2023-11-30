@@ -11,6 +11,10 @@
   border-radius: 15px;
   background-color: $black;
   width: 750px;
+  border: 1px solid $violet;
+  &.light {
+    background-color: #fff;
+  }
 }
 
 .modalForm {
@@ -22,6 +26,9 @@
 .modalTitle {
   font-size: 20px;
   margin-bottom: 10px;
+  &.light {
+    color: #000;
+  }
 }
 
 .productTitle {
@@ -55,6 +62,10 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  &.light {
+    background-color: #fff;
+    color: #000;
+  }
 }
 
 .modalInputSmall {
@@ -81,6 +92,9 @@ input::-webkit-inner-spin-button {
   resize: none;
   width: 350px;
   height: 180px;
+  &.light {
+    background-color: #fff;
+  }
 }
 
 .modalBtn {
@@ -134,6 +148,9 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: space-between;
   column-gap: 40px;
+  &.light {
+    color: #000;
+  }
 }
 
 .containerCheckbox input {

@@ -8,12 +8,19 @@
   height: 40px;
   min-width: 100%;
   background-color: #212121;
+  &.light {
+    background-color: #fff;
+  }
 }
+
 .text {
   font-size: 12px;
   padding: 5px;
   color: #fff;
   text-align: center;
+  &.light {
+    color: #000;
+  }
 }
 
 .link {
@@ -28,4 +35,7 @@
   border: 2px solid $green;
   border-radius: 5px;
   background-color: rgba($color: #3ea20cab, $alpha: 0.5);
+  &.light {
+    color: #000;
+  }
 }

@@ -16,8 +16,10 @@ import { ANALYTIC_PAGE, ANALYTIC_TABLE } from '../../app/constants';
 import Button from '../../shared/Button/Button';
 import { TbMailForward } from 'react-icons/tb';
 import { Input, Tooltip } from '@chakra-ui/react';
+import clsx from 'clsx';
 
 const AnalyticPage = ({ type }) => {
+  const theme = useAppSelector((state) => state.active.theme);
   const [select, setSelect] = useState<string>(ANALYTIC_TABLE.NONE);
   const [from, setFrom] = useState('');
   const [before, setBefore] = useState('');
@@ -50,9 +52,11 @@ const AnalyticPage = ({ type }) => {
   return (
     <>
       <div>
-        <h2 className={style.table_title}>Всего продаж на сумму {totalSales.total_sales} руб.</h2>
+        <h2 className={clsx(style.table_title, theme && style.light)}>
+          Всего продаж на сумму {totalSales.total_sales} руб.
+        </h2>
       </div>
-      <div className={style.select_container}>
+      <div className={clsx(style.select_container, theme && style.light)}>
         <div style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
           <h2 style={{ marginRight: '20px' }}>Аналитика по</h2>
           <select
@@ -106,19 +110,25 @@ const AnalyticPage = ({ type }) => {
         <>
           {select === ANALYTIC_TABLE.ALL && (
             <>
-              <h2 className={style.table_title}>Аналитика по категориям</h2>
+              <h2 className={clsx(style.table_title, theme && style.light)}>
+                Аналитика по категориям
+              </h2>
               <Table
                 data={totalSalesForCategory}
                 tableHeader={TABLE_HEADER_ANALYTIC_FOR_CATEGORY}
               />
               <br />
-              <h2 className={style.table_title}>Аналитика по продуктам</h2>
+              <h2 className={clsx(style.table_title, theme && style.light)}>
+                Аналитика по продуктам
+              </h2>
               <Table data={totalSalesForProduct} tableHeader={TABLE_HEADER_ANALYTIC_FOR_PRODUCT} />
             </>
           )}
           {select === ANALYTIC_TABLE.CATEGORIES && (
             <>
-              <h2 className={style.table_title}>Аналитика по категориям</h2>
+              <h2 className={clsx(style.table_title, theme && style.light)}>
+                Аналитика по категориям
+              </h2>
               <Table
                 data={totalSalesForCategory}
                 tableHeader={TABLE_HEADER_ANALYTIC_FOR_CATEGORY}
@@ -127,7 +137,9 @@ const AnalyticPage = ({ type }) => {
           )}
           {select === ANALYTIC_TABLE.PRODUCTS && (
             <>
-              <h2 className={style.table_title}>Аналитика по продуктам</h2>
+              <h2 className={clsx(style.table_title, theme && style.light)}>
+                Аналитика по продуктам
+              </h2>
               <Table data={totalSalesForProduct} tableHeader={TABLE_HEADER_ANALYTIC_FOR_PRODUCT} />
             </>
           )}

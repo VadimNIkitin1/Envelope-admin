@@ -9,6 +9,10 @@
   padding: 10px 10px;
   border-radius: 10px;
   width: 80%;
+  &.light {
+    background-color: #fff;
+    color: #000;
+  }
 }
 
 .select {
@@ -36,4 +40,8 @@
   padding: 10px 10px;
   border-radius: 10px;
   width: 50%;
+  &.light {
+    background-color: #fff;
+    color: #000;
+  }
 }
