@@ -59,12 +59,12 @@ const NavBar = () => {
         </MenuButton>
         <MenuList backgroundColor={'#212121'}>
           <MenuItem backgroundColor={'#2c2c2c'} height={35} marginBottom={1}>
-            <CgProfile fontSize={20} />
+            <CgProfile fontSize={25} color="#7669c8" />
             <h1 className={style.username}>{data ? data?.data.username : null}</h1>
           </MenuItem>
           {store_id && (
             <MenuItem backgroundColor={'#2c2c2c'} height={35} marginBottom={1}>
-              <h2 className={style.username}>{store[0].name}</h2>
+              <h2 className={style.store_name}>{store[0].name}</h2>
             </MenuItem>
           )}
           <MenuItem backgroundColor={'#212121'} height={25} onClick={() => handleLogOut()}>

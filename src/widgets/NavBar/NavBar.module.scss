@@ -35,9 +35,13 @@
 }
 
 .username {
-  color: #fff;
+  color: $violet;
   padding: 0 5px;
   border-radius: 5px;
+}
+
+.store_name {
+  font-size: 14px;
 }
 
 .menu_text {
