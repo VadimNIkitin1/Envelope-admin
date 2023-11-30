@@ -34,7 +34,7 @@ const NavBar = () => {
     }
   };
 
-  const store = stores.filter((store) => String(store.id) === store_id);
+  const store = stores.filter((store) => String(store.id) === store_id)[0];
 
   useEffect(() => {
     dispatch(getStores());
@@ -64,7 +64,7 @@ const NavBar = () => {
           </MenuItem>
           {store_id && (
             <MenuItem backgroundColor={'#2c2c2c'} height={35} marginBottom={1}>
-              <h2 className={style.store_name}>{store[0].name}</h2>
+              <h2 className={style.store_name}>{store ? store.name : 'Не найден'}</h2>
             </MenuItem>
           )}
           <MenuItem backgroundColor={'#212121'} height={25} onClick={() => handleLogOut()}>

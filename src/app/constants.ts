@@ -16,6 +16,7 @@ export enum ANALYTIC_TABLE {
   ALL = 'all',
   CATEGORIES = 'categories',
   PRODUCTS = 'products',
+  NONE = 'none',
 }
 
 export enum ANALYTIC_PAGE {

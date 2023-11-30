@@ -15,7 +15,7 @@ import {
 import { ANALYTIC_PAGE, ANALYTIC_TABLE } from '../../app/constants';
 
 const AnalyticPage = ({ type }) => {
-  const [select, setSelect] = useState<string>(ANALYTIC_TABLE.ALL);
+  const [select, setSelect] = useState<string>(ANALYTIC_TABLE.NONE);
 
   const dispatch = useAppDispatch();
   const { totalSalesForCategory, totalSalesForProduct, totalSales } = useAppSelector(
@@ -23,14 +23,24 @@ const AnalyticPage = ({ type }) => {
   );
 
   useEffect(() => {
-    if (type === 'store') {
+    if (type === ANALYTIC_PAGE.STORE) {
       const store_id = localStorage.getItem('store_id' || '');
-
-      dispatch(getTotalSalesForCategory(store_id));
-      dispatch(getTotalSalesForProduct(store_id));
       dispatch(getTotalSales(store_id));
+
+      if (select === ANALYTIC_TABLE.CATEGORIES) {
+        dispatch(getTotalSalesForCategory(store_id));
+      }
+
+      if (select === ANALYTIC_TABLE.PRODUCTS) {
+        dispatch(getTotalSalesForProduct(store_id));
+      }
+
+      if (select === ANALYTIC_TABLE.ALL) {
+        dispatch(getTotalSalesForCategory(store_id));
+        dispatch(getTotalSalesForProduct(store_id));
+      }
     }
-  }, []);
+  }, [select]);
 
   return (
     <>
@@ -40,6 +50,7 @@ const AnalyticPage = ({ type }) => {
       <div className={style.select_container}>
         <h2 style={{ marginRight: '20px' }}>Аналитика по</h2>
         <select value={select} onChange={(e) => setSelect(e.target.value)} className={style.select}>
+          <option value={ANALYTIC_TABLE.NONE}>Выбрать</option>
           <option value={ANALYTIC_TABLE.ALL}>Всем параметрам</option>
           <option value={ANALYTIC_TABLE.CATEGORIES}>Категориям</option>
           <option value={ANALYTIC_TABLE.PRODUCTS}>Продуктам</option>
