@@ -6,23 +6,23 @@ import style from './NavBar.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { clsx } from 'clsx';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import { CgProfile } from 'react-icons/cg';
 import { logOut } from '../../store/authSlice';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { PATHNAME } from '../../app/constants';
+import { useEffect } from 'react';
+import { getStores } from '../../store/storeSlice';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const theme = useAppSelector((state) => state.active.theme);
+  const stores = useAppSelector((state) => state.store.stores);
   const [company_id] = useLocalStorage('company_id', '');
   const [data] = useLocalStorage('data', '');
   const store_id = localStorage.getItem('store_id');
-
-  // if (!data || !company_id || !store_id) {
-  //   navigate(PATHNAME.LOGIN);
-  // }
 
   const handleLogOut = () => {
     if (!store_id) {
@@ -33,6 +33,12 @@ const NavBar = () => {
       localStorage.removeItem('store_id');
     }
   };
+
+  const store = stores.filter((store) => String(store.id) === store_id);
+
+  useEffect(() => {
+    dispatch(getStores());
+  }, []);
 
   return (
     <nav className={clsx(style.navbar, theme && style.light)}>
@@ -47,12 +53,20 @@ const NavBar = () => {
       >
         ENVELOPE <GiEnvelope className={style.logo} />
       </Link>
-      <h1 className={style.username}>{data ? data?.data.username : null}</h1>
       <Menu>
         <MenuButton>
           <BsThreeDotsVertical className={style.dots} />
         </MenuButton>
         <MenuList backgroundColor={'#212121'}>
+          <MenuItem backgroundColor={'#2c2c2c'} height={35} marginBottom={1}>
+            <CgProfile fontSize={20} />
+            <h1 className={style.username}>{data ? data?.data.username : null}</h1>
+          </MenuItem>
+          {store_id && (
+            <MenuItem backgroundColor={'#2c2c2c'} height={35} marginBottom={1}>
+              <h2 className={style.username}>{store[0].name}</h2>
+            </MenuItem>
+          )}
           <MenuItem backgroundColor={'#212121'} height={25} onClick={() => handleLogOut()}>
             {store_id ? (
               <p className={style.menu_text}>Выйти из магазина</p>
