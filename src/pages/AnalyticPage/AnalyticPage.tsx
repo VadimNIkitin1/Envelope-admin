@@ -13,6 +13,9 @@ import {
   getTotalSalesForProduct,
 } from '../../store/reportSlice';
 import { ANALYTIC_PAGE, ANALYTIC_TABLE } from '../../app/constants';
+import Button from '../../shared/Button/Button';
+import { TbMailForward } from 'react-icons/tb';
+import { Tooltip } from '@chakra-ui/react';
 
 const AnalyticPage = ({ type }) => {
   const [select, setSelect] = useState<string>(ANALYTIC_TABLE.NONE);
@@ -48,13 +51,26 @@ const AnalyticPage = ({ type }) => {
         <h2 className={style.table_title}>Всего продаж на сумму {totalSales.total_sales} руб.</h2>
       </div>
       <div className={style.select_container}>
-        <h2 style={{ marginRight: '20px' }}>Аналитика по</h2>
-        <select value={select} onChange={(e) => setSelect(e.target.value)} className={style.select}>
-          <option value={ANALYTIC_TABLE.NONE}>Выбрать</option>
-          <option value={ANALYTIC_TABLE.ALL}>Всем параметрам</option>
-          <option value={ANALYTIC_TABLE.CATEGORIES}>Категориям</option>
-          <option value={ANALYTIC_TABLE.PRODUCTS}>Продуктам</option>
-        </select>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <h2 style={{ marginRight: '20px' }}>Аналитика по</h2>
+          <select
+            value={select}
+            onChange={(e) => setSelect(e.target.value)}
+            className={style.select}
+          >
+            <option value={ANALYTIC_TABLE.NONE}>Выбрать</option>
+            <option value={ANALYTIC_TABLE.ALL}>Всем параметрам</option>
+            <option value={ANALYTIC_TABLE.CATEGORIES}>Категориям</option>
+            <option value={ANALYTIC_TABLE.PRODUCTS}>Продуктам</option>
+          </select>
+        </div>
+        <Tooltip label={'Отправить на почту'}>
+          <span>
+            <Button view="add">
+              <TbMailForward />
+            </Button>
+          </span>
+        </Tooltip>
       </div>
       {type === ANALYTIC_PAGE.STORE && (
         <>
