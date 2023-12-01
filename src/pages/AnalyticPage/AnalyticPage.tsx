@@ -33,6 +33,12 @@ const AnalyticPage = ({ type }) => {
     if (type === ANALYTIC_PAGE.STORE) {
       const store_id = localStorage.getItem('store_id' || '');
       dispatch(getTotalSales(store_id));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (type === ANALYTIC_PAGE.STORE) {
+      const store_id = localStorage.getItem('store_id' || '');
 
       if (select === ANALYTIC_TABLE.CATEGORIES) {
         dispatch(getTotalSalesForCategory(store_id));
