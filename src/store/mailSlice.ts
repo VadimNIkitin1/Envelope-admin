@@ -1,29 +1,36 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import { IStore, IStoreInitialState } from '../types/stores';
-import { IRequestCategory } from '../widgets/Modal/types';
+import type { INotification } from '../pages/NotificationPage/NotificationPage';
+import type { IinitialStateMail } from '../types/mail';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
 
-const initialState: IStoreInitialState = {
-  stores: [],
-  store_id: 0,
+interface IRequestPhoto {
+  store_id: string | number;
+  formData: FormData;
+}
+
+const initialState: IinitialStateMail = {
+  photo_url: '',
   loading: false,
   error: null,
 };
 
-export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: string }>(
-  'store/getStores',
-  async (_, { rejectWithValue }) => {
+export const sendMessage = createAsyncThunk<undefined, INotification, { rejectValue: string }>(
+  'mail/sendMessage',
+  async (data, { rejectWithValue }) => {
     try {
+      console.log(data);
       const token = localStorage.getItem('token') || '';
-      const res = await axios.get('store/', {
+      const store_id = localStorage.getItem('store_id') || '';
+      const res = await axios.post(`mail/send_message/?store_id=${store_id}`, data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
+
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -31,14 +38,14 @@ export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: st
   }
 );
 
-export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue: string }>(
-  'store/addStore',
+export const uploadPhotoForMail = createAsyncThunk<string, IRequestPhoto, { rejectValue: string }>(
+  'mail/uploadPhoto',
   async (data, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token') || '';
-      const res = await axios.post('store/', data, {
+      const res = await axios.post(`mail/upload_photo/?store_id=${data.store_id}`, data.formData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       });
@@ -54,19 +61,21 @@ const isError = (action: AnyAction) => {
 };
 
 const slice = createSlice({
-  name: 'store',
+  name: 'mail',
   initialState,
-  reducers: {},
+  reducers: {
+    clearImage(state) {
+      state.photo_url = '';
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(getStores.pending, (state) => {
+      .addCase(uploadPhotoForMail.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
-      .addCase(getStores.fulfilled, (state, action) => {
-        state.stores = action.payload;
+      .addCase(uploadPhotoForMail.fulfilled, (state, action) => {
+        state.photo_url = action.payload;
         state.loading = false;
-        state.error = null;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
@@ -74,5 +83,7 @@ const slice = createSlice({
       });
   },
 });
+
+export const { clearImage } = slice.actions;
 
 export default slice.reducer;

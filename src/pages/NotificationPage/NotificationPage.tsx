@@ -7,18 +7,19 @@ import Button from '../../shared/Button/Button';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import style from './NotificationPage.module.scss';
 import { InputText } from '../../shared/InputText/InputText';
-import { sendMessage } from '../../store/storeSlice';
+import { clearImage, sendMessage } from '../../store/mailSlice';
 
 export interface INotification {
   title?: string;
   mail_text?: string;
-  file?: string;
+  photo_url?: string;
   users?: string[];
 }
 
 const NotificationPage = () => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.active.theme);
+  const photo_url = useAppSelector((state) => state.mail.photo_url);
 
   const {
     register,
@@ -28,7 +29,13 @@ const NotificationPage = () => {
   } = useForm<INotification>();
 
   const onSubmit: SubmitHandler<INotification> = (data: INotification) => {
-    dispatch(sendMessage({ mail_text: data.mail_text }));
+    const requestData = {
+      ...data,
+      photo_url,
+    };
+
+    dispatch(sendMessage(requestData));
+    dispatch(clearImage());
     reset();
   };
 
@@ -87,8 +94,9 @@ const NotificationPage = () => {
             </div>
           </div>
           <InputFile
-            error={errors.file}
-            {...register('file')}
+            type="mail"
+            error={errors.photo_url}
+            {...register('photo_url')}
             style={{ width: '350px', height: '350px' }}
           />
           <div className={style.instructions_container}>

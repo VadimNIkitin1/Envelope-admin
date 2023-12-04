@@ -239,6 +239,7 @@ const ModalProducts = ({ type, isOpen }) => {
                 }}
               >
                 <InputFile
+                  type="product"
                   {...register('image')}
                   error={errors.image}
                   style={{ width: '250px', height: '250px' }}

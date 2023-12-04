@@ -6,10 +6,12 @@ import { uploadPhoto } from '../../store/productSlice';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { IInputProps } from './InputFile.types';
 import clsx from 'clsx';
+import { uploadPhotoForMail } from '../../store/mailSlice';
 
-const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style }, ref) => {
+const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, type }, ref) => {
   const dispatch = useAppDispatch();
   const image = useAppSelector((state) => state.products.product.image);
+  const photo_url = useAppSelector((state) => state.mail.photo_url);
   const theme = useAppSelector((state) => state.active.theme);
   const [store_id] = useLocalStorage('store_id', '');
   const [selectedFile, setSelectedFile] = useState<any>(null);
@@ -25,7 +27,13 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style }, r
     const formData = new FormData();
     formData.append('file', event.target.files[0]);
 
-    dispatch(uploadPhoto({ store_id, formData }));
+    if (type === 'product') {
+      dispatch(uploadPhoto({ store_id, formData }));
+    }
+
+    if (type === 'mail') {
+      dispatch(uploadPhotoForMail({ store_id, formData }));
+    }
   };
 
   return (
@@ -33,6 +41,12 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style }, r
       <div className={styles.header}>
         {image ? (
           <img src={image} style={(style?.height, style?.width, { objectFit: 'cover' })} alt="" />
+        ) : photo_url ? (
+          <img
+            src={photo_url}
+            style={(style?.height, style?.width, { objectFit: 'cover' })}
+            alt=""
+          />
         ) : (
           <>
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

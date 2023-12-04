@@ -6,6 +6,7 @@ import productsReducer from './productSlice';
 import modalsReducer from './modalsSlice';
 import storeReducer from './storeSlice';
 import reportReducer from './reportSlice';
+import mailReducer from './mailSlice';
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     auth: authReducer,
     store: storeReducer,
     report: reportReducer,
+    mail: mailReducer,
   },
 });
 export default store;
