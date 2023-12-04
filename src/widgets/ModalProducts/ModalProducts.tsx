@@ -238,7 +238,11 @@ const ModalProducts = ({ type, isOpen }) => {
                   rowGap: '10px',
                 }}
               >
-                <InputFile {...register('image')} error={errors.image} />
+                <InputFile
+                  {...register('image')}
+                  error={errors.image}
+                  style={{ width: '250px', height: '250px' }}
+                />
                 {type === ModalType.PRODUCTS && (
                   <>
                     <label className={clsx(style.containerCheckbox, theme && style.light)}>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
 import { IStore, IStoreInitialState } from '../types/stores';
 import { IRequestCategory } from '../widgets/Modal/types';
+import { INotification } from '../pages/NotificationPage/NotificationPage';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -42,6 +43,26 @@ export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue
           Authorization: `Bearer ${token}`,
         },
       });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const sendMessage = createAsyncThunk<undefined, INotification, { rejectValue: string }>(
+  'store/sendMessage',
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token') || '';
+      const store_id = localStorage.getItem('store_id') || '';
+      const res = await axios.post(`mail/send_message/?store_id=${store_id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

@@ -1,5 +1,5 @@
 import { forwardRef, useRef, useState } from 'react';
-import style from './InputFile.module.scss';
+import styles from './InputFile.module.scss';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { uploadPhoto } from '../../store/productSlice';
@@ -7,7 +7,7 @@ import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { IInputProps } from './InputFile.types';
 import clsx from 'clsx';
 
-const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error }, ref) => {
+const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style }, ref) => {
   const dispatch = useAppDispatch();
   const image = useAppSelector((state) => state.products.product.image);
   const theme = useAppSelector((state) => state.active.theme);
@@ -29,10 +29,10 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error }, ref) => 
   };
 
   return (
-    <div className={style.container} onClick={handlePick}>
-      <div className={style.header}>
+    <div className={styles.container} onClick={handlePick} style={style}>
+      <div className={styles.header}>
         {image ? (
-          <img src={image} style={{ height: '200px', width: '200px', objectFit: 'cover' }} alt="" />
+          <img src={image} style={(style?.height, style?.width, { objectFit: 'cover' })} alt="" />
         ) : (
           <>
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +52,7 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error }, ref) => 
           </>
         )}
       </div>
-      <label htmlFor="file" className={style.footer}>
+      <label htmlFor="file" className={styles.footer}>
         <svg fill="#7669c8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
           <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
@@ -61,7 +61,7 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error }, ref) => 
             <path d="M18.153 6h-.009v5.342H23.5v-.002z"></path>
           </g>
         </svg>
-        <p className={clsx(style.undertext, theme && style.light)}>
+        <p className={clsx(styles.undertext, theme && styles.light)}>
           {selectedFile ? selectedFile.name : 'Файл не выбран'}
         </p>
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,11 +86,11 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error }, ref) => 
       <input
         ref={filePicker}
         onChange={handleChange}
-        className={style.file}
+        className={styles.file}
         type="file"
         accept="/image/*,.png,.jpg,.jpeg,.gif,.web,.webp"
       />
-      <div>{error && <div className={style.error}>{error.message}</div>}</div>
+      <div>{error && <div className={styles.error}>{error.message}</div>}</div>
     </div>
   );
 });
