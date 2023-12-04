@@ -6,7 +6,7 @@ import { triggerRender } from '../../store/activeSlice';
 import InputFile from '../../shared/InputFile/InputFile';
 import Button from '../../shared/Button/Button';
 
-import { addProduct, clearImage, editProduct, getUnits } from '../../store/productSlice';
+import { addProduct, clearImageProduct, editProduct, getUnits } from '../../store/productSlice';
 
 import { useEffect } from 'react';
 import { getCategories } from '../../store/categorySlice';
@@ -78,13 +78,12 @@ const ModalProducts = ({ type, isOpen }) => {
     }
 
     dispatch(triggerRender());
-    dispatch(clearImage());
     dispatch(toggleModal({ action: false, type }));
   };
 
   const handleClose = () => {
     dispatch(toggleModal({ action: false, type }));
-    dispatch(clearImage());
+    dispatch(clearImageProduct());
   };
 
   return (
@@ -242,7 +241,7 @@ const ModalProducts = ({ type, isOpen }) => {
                   type="product"
                   {...register('image')}
                   error={errors.image}
-                  style={{ width: '250px', height: '250px' }}
+                  style={{ width: '250px', height: '245px', objectFit: 'cover' }}
                 />
                 {type === ModalType.PRODUCTS && (
                   <>

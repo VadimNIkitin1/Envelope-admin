@@ -7,7 +7,7 @@ import Button from '../../shared/Button/Button';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import style from './NotificationPage.module.scss';
 import { InputText } from '../../shared/InputText/InputText';
-import { clearImage, sendMessage } from '../../store/mailSlice';
+import { sendMessage, sendMessageMyself } from '../../store/mailSlice';
 
 export interface INotification {
   title?: string;
@@ -35,12 +35,16 @@ const NotificationPage = () => {
     };
 
     dispatch(sendMessage(requestData));
-    dispatch(clearImage());
     reset();
   };
 
   const onSubmitMyself: SubmitHandler<INotification> = (data: INotification) => {
-    console.log(data);
+    const requestData = {
+      ...data,
+      photo_url,
+    };
+
+    dispatch(sendMessageMyself(requestData));
   };
 
   return (
@@ -97,7 +101,7 @@ const NotificationPage = () => {
             type="mail"
             error={errors.photo_url}
             {...register('photo_url')}
-            style={{ width: '350px', height: '350px' }}
+            style={{ width: '350px', height: '345px', objectFit: 'cover' }}
           />
           <div className={style.instructions_container}>
             <h2 className={style.instructions_title}>Форматирование текста</h2>

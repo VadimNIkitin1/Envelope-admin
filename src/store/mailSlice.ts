@@ -19,9 +19,8 @@ const initialState: IinitialStateMail = {
 
 export const sendMessage = createAsyncThunk<undefined, INotification, { rejectValue: string }>(
   'mail/sendMessage',
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     try {
-      console.log(data);
       const token = localStorage.getItem('token') || '';
       const store_id = localStorage.getItem('store_id') || '';
       const res = await axios.post(`mail/send_message/?store_id=${store_id}`, data, {
@@ -31,12 +30,34 @@ export const sendMessage = createAsyncThunk<undefined, INotification, { rejectVa
         },
       });
 
+      dispatch(clearImageMail());
+
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
 );
+
+export const sendMessageMyself = createAsyncThunk<
+  undefined,
+  INotification,
+  { rejectValue: string }
+>('mail/sendMessageMyself', async (data, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.post(`mail/send_message_me/`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
 
 export const uploadPhotoForMail = createAsyncThunk<string, IRequestPhoto, { rejectValue: string }>(
   'mail/uploadPhoto',
@@ -64,7 +85,7 @@ const slice = createSlice({
   name: 'mail',
   initialState,
   reducers: {
-    clearImage(state) {
+    clearImageMail(state) {
       state.photo_url = '';
     },
   },
@@ -84,6 +105,6 @@ const slice = createSlice({
   },
 });
 
-export const { clearImage } = slice.actions;
+export const { clearImageMail } = slice.actions;
 
 export default slice.reducer;

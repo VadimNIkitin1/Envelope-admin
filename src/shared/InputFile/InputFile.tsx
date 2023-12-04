@@ -2,11 +2,11 @@ import { forwardRef, useRef, useState } from 'react';
 import styles from './InputFile.module.scss';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import { uploadPhoto } from '../../store/productSlice';
+import { clearImageProduct, uploadPhoto } from '../../store/productSlice';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { IInputProps } from './InputFile.types';
 import clsx from 'clsx';
-import { uploadPhotoForMail } from '../../store/mailSlice';
+import { clearImageMail, uploadPhotoForMail } from '../../store/mailSlice';
 
 const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, type }, ref) => {
   const dispatch = useAppDispatch();
@@ -36,17 +36,31 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, typ
     }
   };
 
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    if (type === 'product') {
+      dispatch(clearImageProduct());
+    }
+
+    if (type === 'mail') {
+      dispatch(clearImageMail());
+    }
+  };
+
   return (
-    <div className={styles.container} onClick={handlePick} style={style}>
+    <div
+      className={clsx(
+        styles.container,
+        type === 'product' && styles.container_product,
+        type === 'mail' && styles.container_mail
+      )}
+      onClick={handlePick}
+    >
       <div className={styles.header}>
         {image ? (
-          <img src={image} style={(style?.height, style?.width, { objectFit: 'cover' })} alt="" />
+          <img src={image} style={style} alt="" />
         ) : photo_url ? (
-          <img
-            src={photo_url}
-            style={(style?.height, style?.width, { objectFit: 'cover' })}
-            alt=""
-          />
+          <img src={photo_url} style={style} alt="" />
         ) : (
           <>
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +92,12 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, typ
         <p className={clsx(styles.undertext, theme && styles.light)}>
           {selectedFile ? selectedFile.name : 'Файл не выбран'}
         </p>
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          onClick={handleDelete}
+        >
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
           <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
           <g id="SVGRepo_iconCarrier">

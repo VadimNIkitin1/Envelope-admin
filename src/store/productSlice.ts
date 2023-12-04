@@ -67,7 +67,9 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
           Authorization: `Bearer ${token}`,
         },
       });
-      dispatch(clearImage());
+
+      dispatch(clearImageProduct());
+
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -206,7 +208,7 @@ const slice = createSlice({
     saveProduct(state, action) {
       state.product = action.payload;
     },
-    clearImage(state) {
+    clearImageProduct(state) {
       state.product.image = '';
     },
   },
@@ -278,6 +280,6 @@ const slice = createSlice({
   },
 });
 
-export const { saveProduct, clearImage } = slice.actions;
+export const { saveProduct, clearImageProduct } = slice.actions;
 
 export default slice.reducer;
