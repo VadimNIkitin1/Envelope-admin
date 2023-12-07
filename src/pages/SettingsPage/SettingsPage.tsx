@@ -83,6 +83,14 @@ const SettingsPage = ({ type }) => {
           <div className={clsx(style.information_table, theme && style.light)}>
             <h2 style={{ color: '#7669c8' }}>Служебные чаты</h2>
             <div className={style.table_item}>
+              <p className={style.table_item__first}>Приветственное сообщение бота</p>
+              <p>Сообщение</p>
+            </div>
+            <div className={style.table_item}>
+              <p className={style.table_item__first}>Изображение при приветствии</p>
+              <p>Изображение</p>
+            </div>
+            <div className={style.table_item}>
               <p className={style.table_item__first}>Чат доставки</p>
               <p>Чат</p>
             </div>
