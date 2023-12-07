@@ -23,10 +23,22 @@ const SettingsPage = ({ type }) => {
       {type === SETTINGS_PAGE.STORE && (
         <>
           <div className={clsx(style.information_table, theme && style.light)}>
-            <h2 style={{ color: '#7669c8' }}>Общая информация</h2>
+            <h2 style={{ color: '#7669c8' }}>О заведении</h2>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Название магазина</p>
               <p>Ресторан 1</p>
+            </div>
+            <div className={style.table_item}>
+              <p className={style.table_item__first}>Адрес</p>
+              <p>г. Томск, ул. Вадима Саратова 69</p>
+            </div>
+            <div className={style.table_item}>
+              <p className={style.table_item__first}>Номер телефона</p>
+              <p>+7969-069-69-69</p>
+            </div>
+            <div className={style.table_item}>
+              <p className={style.table_item__first}>Координаты</p>
+              <p>Координаты</p>
             </div>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Ссылка на бота</p>
@@ -38,12 +50,16 @@ const SettingsPage = ({ type }) => {
               <p className={style.table_item__first}>Типы заказа</p>
               <p>Доставка, Самовывоз, В зале</p>
             </div>
+            <div className={style.table_item}>
+              <p className={style.table_item__first}>Активный</p>
+              <p>Да</p>
+            </div>
           </div>
           <div className={clsx(style.information_table, theme && style.light)}>
             <h2 style={{ color: '#7669c8' }}>Оплата и условия доставки</h2>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Типы оплаты</p>
-              <p>Картой, Наличные</p>
+              <p>Картой, Наличные, СБП</p>
             </div>
             <div className={style.table_item}>
               <p className={style.table_item__first}>
@@ -73,25 +89,6 @@ const SettingsPage = ({ type }) => {
             <div className={style.table_item}>
               <p className={style.table_item__first}>Чат отмененных заказов</p>
               <p>Чат</p>
-            </div>
-          </div>
-          <div className={clsx(style.information_table, theme && style.light)}>
-            <h2 style={{ color: '#7669c8' }}>О заведении</h2>
-            <div className={style.table_item}>
-              <p className={style.table_item__first}>Название</p>
-              <p>Название</p>
-            </div>
-            <div className={style.table_item}>
-              <p className={style.table_item__first}>Адрес</p>
-              <p>г. Томск, ул. Вадима Саратова 69</p>
-            </div>
-            <div className={style.table_item}>
-              <p className={style.table_item__first}>Номер телефона</p>
-              <p>+7969-069-69-69</p>
-            </div>
-            <div className={style.table_item}>
-              <p className={style.table_item__first}>Координаты</p>
-              <p>Координаты</p>
             </div>
           </div>
           <div className={clsx(style.information_table, theme && style.light)}>
