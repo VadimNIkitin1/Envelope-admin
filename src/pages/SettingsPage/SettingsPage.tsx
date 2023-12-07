@@ -54,6 +54,14 @@ const SettingsPage = ({ type }) => {
               <p className={style.table_item__first}>Активный</p>
               <p>Да</p>
             </div>
+            <div className={style.table_item}>
+              <p className={style.table_item__first}>График работы</p>
+              <p>10:00 - 22:00</p>
+            </div>
+            <div className={style.table_item}>
+              <p className={style.table_item__first}>Часовой пояс</p>
+              <p>GMT +3</p>
+            </div>
           </div>
           <div className={clsx(style.information_table, theme && style.light)}>
             <h2 style={{ color: '#7669c8' }}>Оплата и условия доставки</h2>
