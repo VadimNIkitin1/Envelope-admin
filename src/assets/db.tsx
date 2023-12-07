@@ -63,5 +63,11 @@ export interface ISettings {
 
 export const settings: ISettings[] = [
   { name: 'График работы', values: '10:00-20:00', id: 1 },
-  { name: 'Язык', values: 'Русский', id: 2 },
+  { name: 'Часовой пояс', values: 'GMT+3', id: 2 },
+  { name: 'Язык', values: 'Русский', id: 3 },
+];
+
+export const information = [
+  { id: 1, name: 'Название магазина', values: 'Ресторан 1' },
+  { id: 2, name: 'Ссылка на бота', values: 'ссылка' },
 ];

@@ -8,8 +8,33 @@
   background-color: $black;
   border-radius: 10px;
   padding: 10px 20px;
+  margin-bottom: 20px;
   &.light {
     color: black;
     background-color: white;
   }
+}
+
+.information_table {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  background-color: $black;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  &.light {
+    color: black;
+    background-color: white;
+  }
+}
+
+.table_item {
+  display: flex;
+  align-items: center;
+}
+
+.table_item__first:first-child {
+  width: 200px;
+  margin-right: 20px;
 }
