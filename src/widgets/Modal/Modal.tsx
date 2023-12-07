@@ -6,23 +6,32 @@ import { InputText } from '../../shared/InputText/InputText';
 import style from './Modal.module.scss';
 import Button from '../../shared/Button/Button';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import { triggerRender } from '../../store/activeSlice';
+import { toggleRecipient, triggerRender } from '../../store/activeSlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { addCategory, deleteCategoryFlag, editCategory } from '../../store/categorySlice';
 import { Checkbox } from '../../shared/Checkbox/Checkbox';
 import { addStore } from '../../store/storeSlice';
 import { useLocation } from 'react-router';
 import { deleteProductFlag } from '../../store/productSlice';
-import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  Radio,
+  RadioGroup,
+  Stack,
+} from '@chakra-ui/react';
 import { PATHNAME } from '../../app/constants';
 import clsx from 'clsx';
 
-const ModalCategories = ({ type, isOpen }) => {
+const Modals = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { category } = useAppSelector((state) => state.categories);
   const product = useAppSelector((state) => state.products.product);
   const theme = useAppSelector((state) => state.active.theme);
+  const recipient = useAppSelector((state) => state.active.recipient);
   const store_id = localStorage.getItem('store_id');
   const { name, id } = category;
 
@@ -81,6 +90,7 @@ const ModalCategories = ({ type, isOpen }) => {
             {type === ModalType.CATEGORIES && 'Добавить категорию'}
             {type === ModalType.EDIT_CATEGORIES && 'Редактировать категорию'}
             {type === ModalType.STORES && 'Добавить магазин'}
+            {type === ModalType.RECIPIENT && 'Выберите получателей'}
             {type === ModalType.DELETE &&
               location.pathname.includes(PATHNAME.PRODUCTS) &&
               `Вы действительно хотите удалить ${product.name} ?`}
@@ -89,7 +99,21 @@ const ModalCategories = ({ type, isOpen }) => {
               `Вы действительно хотите удалить ${category.name} ?`}
           </h1>
           <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
-            {type !== ModalType.DELETE && (
+            {type === ModalType.RECIPIENT && (
+              <RadioGroup
+                onChange={(e) => dispatch(toggleRecipient(e))}
+                value={recipient}
+                marginBottom={'20px'}
+              >
+                <Stack direction="column">
+                  <Radio value="all">Всем</Radio>
+                  <Radio value="without_order">Кто еще не заказывал</Radio>
+                  <Radio value="with_order">Кто уже заказывал</Radio>
+                  <Radio value="is_premium">С премимум подпиской TG</Radio>
+                </Stack>
+              </RadioGroup>
+            )}
+            {type !== ModalType.DELETE && type !== ModalType.RECIPIENT && (
               <label className={style.modalLabel}>
                 <InputText
                   defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
@@ -142,4 +166,4 @@ const ModalCategories = ({ type, isOpen }) => {
   );
 };
 
-export { ModalCategories };
+export { Modals };

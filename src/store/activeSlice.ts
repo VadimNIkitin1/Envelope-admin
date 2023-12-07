@@ -6,6 +6,7 @@ const initialState: IActive = {
   theme: JSON.parse(localStorage.getItem('theme') || 'false'),
   render: false,
   sidebar: false,
+  recipient: 'all',
 };
 
 const slice = createSlice({
@@ -25,9 +26,13 @@ const slice = createSlice({
     toggleSidebar(state, action) {
       state.sidebar = action.payload;
     },
+    toggleRecipient(state, action) {
+      state.recipient = action.payload;
+    },
   },
 });
 
-export const { toggleTabs, toggleTheme, triggerRender, toggleSidebar } = slice.actions;
+export const { toggleTabs, toggleTheme, triggerRender, toggleSidebar, toggleRecipient } =
+  slice.actions;
 
 export default slice.reducer;

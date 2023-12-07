@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import style from './NotificationPage.module.scss';
 import { InputText } from '../../shared/InputText/InputText';
 import { sendMessage, sendMessageMyself } from '../../store/mailSlice';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
+import { Modals } from '../../widgets/Modal/Modal';
 
 export interface INotification {
   title?: string;
@@ -20,6 +22,8 @@ const NotificationPage = () => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.active.theme);
   const photo_url = useAppSelector((state) => state.mail.photo_url);
+  const modalRecipient = useAppSelector((state) => state.modals.modalRecipient);
+  const recipient = useAppSelector((state) => state.active.recipient);
 
   const {
     register,
@@ -44,13 +48,14 @@ const NotificationPage = () => {
       photo_url,
     };
 
+    console.log(recipient);
     dispatch(sendMessageMyself(requestData));
   };
 
   return (
     <div>
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', columnGap: '20px' }}>
           <label>
             <InputText
               style={{ width: '500px' }}
@@ -60,6 +65,13 @@ const NotificationPage = () => {
               error={errors.title}
             />
           </label>
+          <Button
+            view="add"
+            style={{ fontSize: '20px' }}
+            onClick={() => dispatch(toggleModal({ action: true, type: ModalType.RECIPIENT }))}
+          >
+            Выбрать получателей
+          </Button>
         </div>
         <div
           style={{
@@ -131,6 +143,7 @@ const NotificationPage = () => {
           <input type="button" className={style.imageNotification} {...register('users')} />
         </label> */}
       </form>
+      {modalRecipient && <Modals isOpen={modalRecipient} type={ModalType.RECIPIENT} />}
     </div>
   );
 };

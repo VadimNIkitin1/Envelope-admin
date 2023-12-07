@@ -5,4 +5,5 @@ export interface IModals {
   modalEditProducts: boolean;
   modalForDelete: boolean;
   modalStores: boolean;
+  modalRecipient: boolean;
 }

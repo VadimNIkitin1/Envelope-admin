@@ -3,4 +3,5 @@ export interface IActive {
   theme: boolean;
   render: boolean;
   sidebar: boolean;
+  recipient: string;
 }

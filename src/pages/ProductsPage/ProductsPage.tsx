@@ -11,7 +11,7 @@ import style from './ProductsPage.module.scss';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import { ModalCategories } from '../../widgets/Modal/Modal';
+import { Modals } from '../../widgets/Modal/Modal';
 import { Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
 
 const MenuPage = () => {
@@ -44,7 +44,7 @@ const MenuPage = () => {
       {modalEditProducts && (
         <ModalProducts isOpen={modalEditProducts} type={ModalType.EDIT_PRODUCTS} />
       )}
-      {modalForDelete && <ModalCategories isOpen={modalForDelete} type={ModalType.DELETE} />}
+      {modalForDelete && <Modals isOpen={modalForDelete} type={ModalType.DELETE} />}
     </div>
   );
 };

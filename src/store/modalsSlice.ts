@@ -8,6 +8,7 @@ const initialState: IModals = {
   modalEditProducts: false,
   modalForDelete: false,
   modalStores: false,
+  modalRecipient: false,
 };
 
 export enum ModalType {
@@ -18,6 +19,7 @@ export enum ModalType {
   DELETE = 'delete',
   ERROR = 'error',
   STORES = 'stores',
+  RECIPIENT = 'recipient',
 }
 
 const slice = createSlice({
@@ -47,6 +49,10 @@ const slice = createSlice({
 
       if (action.payload.type === ModalType.STORES) {
         state.modalStores = action.payload.action;
+      }
+
+      if (action.payload.type === ModalType.RECIPIENT) {
+        state.modalRecipient = action.payload.action;
       }
     },
   },

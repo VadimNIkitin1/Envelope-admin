@@ -6,7 +6,7 @@ import { getCategories } from '../../store/categorySlice';
 import { ModalType } from '../../store/modalsSlice';
 import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
 
-import { ModalCategories } from '../../widgets/Modal/Modal';
+import { Modals } from '../../widgets/Modal/Modal';
 
 import Table from '../../widgets/Table/Table';
 
@@ -44,11 +44,11 @@ const CategoriesPage: FC = () => {
           <AlertTitle>Ошибка!!!</AlertTitle>
         </Alert>
       )}
-      {modalCategories && <ModalCategories isOpen={modalCategories} type={ModalType.CATEGORIES} />}
+      {modalCategories && <Modals isOpen={modalCategories} type={ModalType.CATEGORIES} />}
       {modalEditCategories && (
-        <ModalCategories isOpen={modalEditCategories} type={ModalType.EDIT_CATEGORIES} />
+        <Modals isOpen={modalEditCategories} type={ModalType.EDIT_CATEGORIES} />
       )}
-      {modalForDelete && <ModalCategories isOpen={modalForDelete} type={ModalType.DELETE} />}
+      {modalForDelete && <Modals isOpen={modalForDelete} type={ModalType.DELETE} />}
     </div>
   );
 };
