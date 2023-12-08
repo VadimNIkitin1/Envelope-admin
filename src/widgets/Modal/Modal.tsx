@@ -166,8 +166,7 @@ const Modals = ({ type, isOpen }) => {
             )}
             <div style={{ display: 'flex', columnGap: '20px' }}>
               <Button view="add" type="submit" style={{ fontSize: '20px' }}>
-                {type === ModalType.CATEGORIES && 'Добавить'}
-                {type === ModalType.STORES && 'Добавить'}
+                {type === ModalType.CATEGORIES || type === ModalType.STORES ? 'Добавить' : null}
                 {type === ModalType.EDIT_CATEGORIES && 'Редактировать'}
                 {type === ModalType.DELETE && 'Удалить'}
               </Button>

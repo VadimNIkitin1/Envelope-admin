@@ -9,7 +9,7 @@ const Instruction = () => {
   return (
     <div className={style.instruction_container}>
       <p className={style.instruction_title} onClick={() => setHidden(!hidden)}>
-        <CgDanger fontSize={'18px'} color="#fb923c" /> Инструкция для получения токена бота
+        <CgDanger fontSize={'18px'} color="#fb923c" /> Инструкция
       </p>
       <ol className={clsx(style.instruction_text, hidden && style.hidden)}>
         <li>
@@ -31,6 +31,7 @@ const Instruction = () => {
           <p style={{ color: '#fb923c' }}>789012:DEF-ABC5678ijKlm-nop90X1u2v345rsTU</p>
         </li>
         <li>Укажите его в поле Telegram-токен бота</li>
+        <li>Ссылку на бота указать в формате https://t.me/BotFather</li>
       </ol>
     </div>
   );
