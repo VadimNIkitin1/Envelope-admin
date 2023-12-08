@@ -61,9 +61,7 @@ const Modals = ({ type, isOpen }) => {
 
     if (type === ModalType.STORES) {
       const requestData = {
-        name: data.name,
-        token_bot: data.token_bot,
-        link_to_bot: `https://t.me/${data.link_to_bot}`,
+        ...data,
       };
 
       dispatch(addStore(requestData));
@@ -147,11 +145,11 @@ const Modals = ({ type, isOpen }) => {
                 <label className={style.modalLabel}>
                   <InputText
                     defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
-                    error={errors.token_bot}
+                    error={errors.link_bot}
                     view="text"
                     placeholder="Ссылка на бота"
                     style={{ width: '300px' }}
-                    {...register('link_to_bot', {
+                    {...register('link_bot', {
                       required: true,
                     })}
                   />

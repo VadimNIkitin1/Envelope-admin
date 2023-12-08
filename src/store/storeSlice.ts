@@ -36,12 +36,24 @@ export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue
   async (data, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token') || '';
-      const res = await axios.post('store/', data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+      const res = await axios.post(
+        'store/',
+        {
+          data: {
+            name: data.name,
+            link_bot: data.link_bot,
+          },
+          token_bot: {
+            token_bot: data.token_bot,
+          },
         },
-      });
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
