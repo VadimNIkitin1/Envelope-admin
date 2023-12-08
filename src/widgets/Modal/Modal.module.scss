@@ -33,7 +33,7 @@
   flex-direction: column;
   align-items: center;
   row-gap: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   &.light {
     background-color: #fff;
   }
@@ -75,33 +75,13 @@
   }
 }
 
-.containerCheckbox input {
-  display: none;
+.instruction_container {
+  margin-top: 20px;
+  font-size: 12px;
 }
 
-.containerCheckbox svg {
-  overflow: visible;
-}
-
-.path {
-  fill: none;
-  stroke: white;
-  stroke-width: 6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
-  stroke-dasharray: 241 9999999;
-  stroke-dashoffset: 0;
-  &.light {
-    stroke: #000;
-  }
-}
-
-.checked {
-  stroke: $green;
-}
-
-.containerCheckbox input:checked ~ svg .path {
-  stroke-dasharray: 70.5096664428711 9999999;
-  stroke-dashoffset: -262.2723388671875;
+.instruction_title {
+  display: flex;
+  column-gap: 10px;
+  margin-bottom: 10px;
 }

@@ -23,6 +23,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { PATHNAME } from '../../app/constants';
+import { CgDanger } from 'react-icons/cg';
 import clsx from 'clsx';
 
 const Modals = ({ type, isOpen }) => {
@@ -62,6 +63,7 @@ const Modals = ({ type, isOpen }) => {
       const requestData = {
         name: data.name,
         token_bot: data.token_bot,
+        link_to_bot: data.link_to_bot,
       };
 
       dispatch(addStore(requestData));
@@ -120,6 +122,7 @@ const Modals = ({ type, isOpen }) => {
                   error={errors.name}
                   view="text"
                   placeholder="Наименование"
+                  style={{ width: '300px' }}
                   {...register('name', {
                     required: true,
                     maxLength: { value: 20, message: 'Не более 20 символов' },
@@ -128,15 +131,32 @@ const Modals = ({ type, isOpen }) => {
               </label>
             )}
             {type === ModalType.STORES && (
-              <InputText
-                defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
-                error={errors.token_bot}
-                view="text"
-                placeholder="Токен бота"
-                {...register('token_bot', {
-                  required: true,
-                })}
-              />
+              <>
+                <label className={style.modalLabel}>
+                  <InputText
+                    defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
+                    error={errors.token_bot}
+                    view="text"
+                    style={{ width: '300px' }}
+                    placeholder="Telegram-токен бота"
+                    {...register('token_bot', {
+                      required: true,
+                    })}
+                  />
+                </label>
+                <label className={style.modalLabel}>
+                  <InputText
+                    defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
+                    error={errors.token_bot}
+                    view="text"
+                    placeholder="Ссылка на бота"
+                    style={{ width: '300px' }}
+                    {...register('link_to_bot', {
+                      required: true,
+                    })}
+                  />
+                </label>
+              </>
             )}
             {type === ModalType.CATEGORIES && (
               <label className={clsx(style.containerCheckbox, theme && style.light)}>
@@ -158,6 +178,32 @@ const Modals = ({ type, isOpen }) => {
               >
                 Закрыть
               </Button>
+            </div>
+            <div className={style.instruction_container}>
+              <p className={style.instruction_title}>
+                <CgDanger fontSize={'18px'} /> Инструкция для получения токена бота
+              </p>
+              <ol>
+                <li>
+                  Перейдите в чат с ботом{' '}
+                  <a href="https://t.me/BotFather" target="_blank" style={{ color: '#2b9cf2' }}>
+                    @BotFather
+                  </a>{' '}
+                  в Telegram
+                </li>
+                <li>Отправьте команду /newbot , чтобы создать нового бота</li>
+                <li>Укажите name и username</li>
+                <li>
+                  {' '}
+                  В ответ{' '}
+                  <a href="https://t.me/BotFather" target="_blank" style={{ color: '#2b9cf2' }}>
+                    @BotFather
+                  </a>{' '}
+                  пришлет токен вашего бота в формате:{' '}
+                  <p style={{ color: '#fb923c' }}>789012:DEF-ABC5678ijKlm-nop90X1u2v345rsTU</p>
+                </li>
+                <li>Укажите его в поле Telegram-токен бота</li>
+              </ol>
             </div>
           </form>
         </ModalBody>

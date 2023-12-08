@@ -4,4 +4,5 @@ export interface IRequestCategory {
   availability?: boolean;
   code?: string;
   token_bot: string;
+  link_to_bot: string;
 }
