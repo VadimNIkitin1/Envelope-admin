@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 import type { IRequestCategory } from './types';
 import { InputText } from '../../shared/InputText/InputText';
+import { Instruction } from '../Instruction/Instruction';
 
 import style from './Modal.module.scss';
 import Button from '../../shared/Button/Button';
@@ -23,7 +24,6 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { PATHNAME } from '../../app/constants';
-import { CgDanger } from 'react-icons/cg';
 import clsx from 'clsx';
 
 const Modals = ({ type, isOpen }) => {
@@ -179,32 +179,7 @@ const Modals = ({ type, isOpen }) => {
                 Закрыть
               </Button>
             </div>
-            <div className={style.instruction_container}>
-              <p className={style.instruction_title}>
-                <CgDanger fontSize={'18px'} /> Инструкция для получения токена бота
-              </p>
-              <ol>
-                <li>
-                  Перейдите в чат с ботом{' '}
-                  <a href="https://t.me/BotFather" target="_blank" style={{ color: '#2b9cf2' }}>
-                    @BotFather
-                  </a>{' '}
-                  в Telegram
-                </li>
-                <li>Отправьте команду /newbot , чтобы создать нового бота</li>
-                <li>Укажите name и username</li>
-                <li>
-                  {' '}
-                  В ответ{' '}
-                  <a href="https://t.me/BotFather" target="_blank" style={{ color: '#2b9cf2' }}>
-                    @BotFather
-                  </a>{' '}
-                  пришлет токен вашего бота в формате:{' '}
-                  <p style={{ color: '#fb923c' }}>789012:DEF-ABC5678ijKlm-nop90X1u2v345rsTU</p>
-                </li>
-                <li>Укажите его в поле Telegram-токен бота</li>
-              </ol>
-            </div>
+            {type === ModalType.STORES && <Instruction />}
           </form>
         </ModalBody>
       </ModalContent>
