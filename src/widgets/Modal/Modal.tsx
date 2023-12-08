@@ -63,7 +63,7 @@ const Modals = ({ type, isOpen }) => {
       const requestData = {
         name: data.name,
         token_bot: data.token_bot,
-        link_to_bot: data.link_to_bot,
+        link_to_bot: `https://t.me/${data.link_to_bot}`,
       };
 
       dispatch(addStore(requestData));
