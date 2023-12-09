@@ -23,12 +23,14 @@ import {
 } from '@chakra-ui/react';
 import { PATHNAME } from '../../app/constants';
 import clsx from 'clsx';
+import { deleteStoreFlag } from '../../store/storeSlice';
 
 const Modals = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { category } = useAppSelector((state) => state.categories);
-  const product = useAppSelector((state) => state.products.product);
+  const { product } = useAppSelector((state) => state.products);
+  const { store } = useAppSelector((state) => state.store);
   const theme = useAppSelector((state) => state.active.theme);
   const recipient = useAppSelector((state) => state.active.recipient);
   const store_id = localStorage.getItem('store_id');
@@ -65,6 +67,10 @@ const Modals = ({ type, isOpen }) => {
       if (location.pathname.includes(PATHNAME.PRODUCTS)) {
         dispatch(deleteProductFlag(product.id));
       }
+
+      if (location.pathname.includes(PATHNAME.STORES)) {
+        dispatch(deleteStoreFlag(store.id));
+      }
     }
 
     dispatch(triggerRender());
@@ -86,6 +92,9 @@ const Modals = ({ type, isOpen }) => {
             {type === ModalType.DELETE &&
               location.pathname.includes(PATHNAME.CATEGORIES) &&
               `Вы действительно хотите удалить ${category.name} ?`}
+            {type === ModalType.DELETE &&
+              location.pathname.includes(PATHNAME.STORES) &&
+              `Вы действительно хотите удалить ${store.name} ?`}
           </h1>
           <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
             {type === ModalType.RECIPIENT && (

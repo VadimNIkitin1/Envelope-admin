@@ -19,13 +19,10 @@ const CategoriesPage: FC = () => {
   const dispatch = useAppDispatch();
   const { categories, error } = useAppSelector((state) => state.categories);
   const [store_id] = useLocalStorage('store_id', '');
-
   const render = useAppSelector((state) => state.active.render);
-
-  const modalCategories = useAppSelector((state) => state.modals.modalCategories);
-
-  const modalEditCategories = useAppSelector((state) => state.modals.modalEditCategories);
-  const modalForDelete = useAppSelector((state) => state.modals.modalForDelete);
+  const { modalCategories, modalEditCategories, modalForDelete } = useAppSelector(
+    (state) => state.modals
+  );
 
   useEffect(() => {
     setTimeout(() => {

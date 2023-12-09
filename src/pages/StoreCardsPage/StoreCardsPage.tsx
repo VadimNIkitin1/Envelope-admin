@@ -8,12 +8,13 @@ import { useEffect } from 'react';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 
 import { ModalStores } from '../../widgets/ModalStores/ModalStores';
+import { Modals } from '../../widgets/Modal/Modal';
 
 const StoreCardsPage = () => {
   const dispatch = useAppDispatch();
   const { stores } = useAppSelector((state) => state.store);
   const render = useAppSelector((state) => state.active.render);
-  const { modalStores, modalEditStores } = useAppSelector((state) => state.modals);
+  const { modalStores, modalEditStores, modalForDelete } = useAppSelector((state) => state.modals);
 
   useEffect(() => {
     setTimeout(() => {
@@ -42,6 +43,7 @@ const StoreCardsPage = () => {
       )}
       {modalStores && <ModalStores isOpen={modalStores} type={ModalType.STORES} />}
       {modalEditStores && <ModalStores isOpen={modalEditStores} type={ModalType.EDIT_STORES} />}
+      {modalForDelete && <Modals isOpen={modalForDelete} type={ModalType.DELETE} />}
     </div>
   );
 };

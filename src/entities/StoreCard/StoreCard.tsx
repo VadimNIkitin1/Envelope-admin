@@ -28,6 +28,11 @@ const StoreCard = (props) => {
     dispatch(saveStore(store));
   };
 
+  const handleDelete = (store) => {
+    dispatch(toggleModal({ action: true, type: ModalType.DELETE }));
+    dispatch(saveStore(store));
+  };
+
   return (
     <>
       {location.pathname.includes(PATHNAME.STORES) && (
@@ -47,7 +52,7 @@ const StoreCard = (props) => {
             </Tooltip>
             <Tooltip label="Удалить" placement="top">
               <span style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
-                <Button view="delete" onClick={() => console.log()}>
+                <Button view="delete" onClick={() => handleDelete(props)}>
                   <MdDeleteForever />
                 </Button>
               </span>

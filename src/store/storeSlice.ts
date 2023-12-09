@@ -86,6 +86,28 @@ export const editStore = createAsyncThunk<IStore[], IRequestCategory, { rejectVa
   }
 );
 
+export const deleteStoreFlag = createAsyncThunk<string, string | number, { rejectValue: string }>(
+  'store/deleteStoreFlag',
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.put(
+        `store/delete/?store_id=${id}`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const isError = (action: AnyAction) => {
   return action.type.endsWith('rejected');
 };
