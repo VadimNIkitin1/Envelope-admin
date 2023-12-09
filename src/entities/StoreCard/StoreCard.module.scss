@@ -1,17 +1,25 @@
 .card {
-  min-width: 200px;
+  display: flex;
+  justify-content: space-between;
+  min-width: 400px;
   height: 204px;
   background-color: #1a1a1a;
   color: #fff;
   border-radius: 20px;
   transition: all 0.2s;
   padding: 20px;
+  margin-bottom: 20px;
   cursor: pointer;
   border: 2px solid linear-gradient(45deg, rgba(9, 121, 38, 1) 13%, rgba(0, 239, 255, 1) 72%);
   &.light {
     background-color: #fff;
     color: #000;
   }
+}
+
+.card_title {
+  font-size: 25px;
+  font-weight: 800;
 }
 
 .card2:hover {

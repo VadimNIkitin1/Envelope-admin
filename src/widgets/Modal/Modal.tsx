@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 import type { IRequestCategory } from './types';
 import { InputText } from '../../shared/InputText/InputText';
-import { Instruction } from '../Instruction/Instruction';
 
 import style from './Modal.module.scss';
 import Button from '../../shared/Button/Button';
@@ -11,7 +10,6 @@ import { toggleRecipient, triggerRender } from '../../store/activeSlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { addCategory, deleteCategoryFlag, editCategory } from '../../store/categorySlice';
 import { Checkbox } from '../../shared/Checkbox/Checkbox';
-import { addStore } from '../../store/storeSlice';
 import { useLocation } from 'react-router';
 import { deleteProductFlag } from '../../store/productSlice';
 import {
@@ -59,14 +57,6 @@ const Modals = ({ type, isOpen }) => {
       dispatch(editCategory(requestData));
     }
 
-    if (type === ModalType.STORES) {
-      const requestData = {
-        ...data,
-      };
-
-      dispatch(addStore(requestData));
-    }
-
     if (type === ModalType.DELETE) {
       if (location.pathname.includes(PATHNAME.CATEGORIES)) {
         dispatch(deleteCategoryFlag(category.id));
@@ -89,7 +79,6 @@ const Modals = ({ type, isOpen }) => {
           <h1 className={clsx(style.modalTitle, theme && style.light)}>
             {type === ModalType.CATEGORIES && 'Добавить категорию'}
             {type === ModalType.EDIT_CATEGORIES && 'Редактировать категорию'}
-            {type === ModalType.STORES && 'Добавить магазин'}
             {type === ModalType.RECIPIENT && 'Выберите получателей'}
             {type === ModalType.DELETE &&
               location.pathname.includes(PATHNAME.PRODUCTS) &&
@@ -128,34 +117,6 @@ const Modals = ({ type, isOpen }) => {
                 />
               </label>
             )}
-            {type === ModalType.STORES && (
-              <>
-                <label className={style.modalLabel}>
-                  <InputText
-                    defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
-                    error={errors.token_bot}
-                    view="text"
-                    style={{ width: '300px' }}
-                    placeholder="Telegram-токен бота"
-                    {...register('token_bot', {
-                      required: true,
-                    })}
-                  />
-                </label>
-                <label className={style.modalLabel}>
-                  <InputText
-                    defaultValue={type === ModalType.EDIT_CATEGORIES ? name : undefined}
-                    error={errors.link_bot}
-                    view="text"
-                    placeholder="Ссылка на бота"
-                    style={{ width: '300px' }}
-                    {...register('link_bot', {
-                      required: true,
-                    })}
-                  />
-                </label>
-              </>
-            )}
             {type === ModalType.CATEGORIES && (
               <label className={clsx(style.containerCheckbox, theme && style.light)}>
                 В наличии
@@ -164,7 +125,7 @@ const Modals = ({ type, isOpen }) => {
             )}
             <div style={{ display: 'flex', columnGap: '20px' }}>
               <Button view="add" type="submit" style={{ fontSize: '20px' }}>
-                {type === ModalType.CATEGORIES || type === ModalType.STORES ? 'Добавить' : null}
+                {type === ModalType.CATEGORIES && 'Добавить'}
                 {type === ModalType.EDIT_CATEGORIES && 'Редактировать'}
                 {type === ModalType.DELETE && 'Удалить'}
               </Button>
@@ -176,7 +137,6 @@ const Modals = ({ type, isOpen }) => {
                 Закрыть
               </Button>
             </div>
-            {type === ModalType.STORES && <Instruction />}
           </form>
         </ModalBody>
       </ModalContent>

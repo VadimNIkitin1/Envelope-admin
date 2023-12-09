@@ -1,9 +1,10 @@
 export interface IModals {
-  modalProducts: boolean;
   modalCategories: boolean;
   modalEditCategories: boolean;
+  modalProducts: boolean;
   modalEditProducts: boolean;
-  modalForDelete: boolean;
   modalStores: boolean;
+  modalEditStores: boolean;
+  modalForDelete: boolean;
   modalRecipient: boolean;
 }

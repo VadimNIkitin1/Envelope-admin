@@ -1,11 +1,11 @@
 export interface IStore {
-  name: string;
   id: number;
+  name: string;
 }
 
 export interface IStoreInitialState {
   stores: IStore[];
-  store_id: number;
+  store: IStore;
   loading: boolean;
   error: string | null;
 }

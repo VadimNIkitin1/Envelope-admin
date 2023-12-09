@@ -7,13 +7,13 @@ import { getStores } from '../../store/storeSlice';
 import { useEffect } from 'react';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 
-import { Modals } from '../../widgets/Modal/Modal';
+import { ModalStores } from '../../widgets/ModalStores/ModalStores';
 
 const StoreCardsPage = () => {
   const dispatch = useAppDispatch();
   const { stores } = useAppSelector((state) => state.store);
   const render = useAppSelector((state) => state.active.render);
-  const modalStores = useAppSelector((state) => state.modals.modalStores);
+  const { modalStores, modalEditStores } = useAppSelector((state) => state.modals);
 
   useEffect(() => {
     setTimeout(() => {
@@ -36,11 +36,12 @@ const StoreCardsPage = () => {
       ) : (
         <div className={style.cardList}>
           {stores.map((card: any) => (
-            <StoreCard key={card.name} {...card} />
+            <StoreCard key={card.id} {...card} />
           ))}
         </div>
       )}
-      {modalStores && <Modals isOpen={modalStores} type={ModalType.STORES} />}
+      {modalStores && <ModalStores isOpen={modalStores} type={ModalType.STORES} />}
+      {modalEditStores && <ModalStores isOpen={modalEditStores} type={ModalType.EDIT_STORES} />}
     </div>
   );
 };

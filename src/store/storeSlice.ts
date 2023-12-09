@@ -8,7 +8,10 @@ axios.defaults.withCredentials = true;
 
 const initialState: IStoreInitialState = {
   stores: [],
-  store_id: 0,
+  store: {
+    id: 0,
+    name: '',
+  },
   loading: false,
   error: null,
 };
@@ -61,6 +64,28 @@ export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue
   }
 );
 
+export const editStore = createAsyncThunk<IStore[], IRequestCategory, { rejectValue: string }>(
+  'store/editStore',
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.put(
+        `store/?store_id=${data.id}`,
+        { name: data.name },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const isError = (action: AnyAction) => {
   return action.type.endsWith('rejected');
 };
@@ -68,17 +93,19 @@ const isError = (action: AnyAction) => {
 const slice = createSlice({
   name: 'store',
   initialState,
-  reducers: {},
+  reducers: {
+    saveStore(state, action) {
+      state.store = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getStores.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(getStores.fulfilled, (state, action) => {
         state.stores = action.payload;
         state.loading = false;
-        state.error = null;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
@@ -86,5 +113,7 @@ const slice = createSlice({
       });
   },
 });
+
+export const { saveStore } = slice.actions;
 
 export default slice.reducer;
