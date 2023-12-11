@@ -29,6 +29,10 @@ const SettingsPage = ({ type }) => {
               <p>Ресторан 1</p>
             </div>
             <div className={style.table_item}>
+              <p className={style.table_item__first}>Статус работы</p>
+              <p className={style.status}>Активный</p>
+            </div>
+            <div className={style.table_item}>
               <p className={style.table_item__first}>Адрес</p>
               <p>г. Томск, ул. Вадима Саратова 69</p>
             </div>
@@ -82,6 +86,10 @@ const SettingsPage = ({ type }) => {
           </div>
           <div className={clsx(style.information_table, theme && style.light)}>
             <h2 style={{ color: '#7669c8' }}>Служебные чаты</h2>
+            <div className={style.table_item}>
+              <p className={style.table_item__first}>Служебная почта</p>
+              <p>vchivas18years@gmail.com</p>
+            </div>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Приветственное сообщение бота</p>
               <p>Сообщение</p>

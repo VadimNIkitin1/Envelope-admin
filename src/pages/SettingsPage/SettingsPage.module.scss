@@ -29,6 +29,13 @@
   }
 }
 
+.status {
+  background-color: $grey;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .table_item {
   display: flex;
   align-items: center;
