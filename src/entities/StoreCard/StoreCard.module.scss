@@ -1,3 +1,5 @@
+@import '../../app/variable.module.scss';
+
 .card {
   display: flex;
   justify-content: space-between;
@@ -29,4 +31,29 @@
 
 .card:hover {
   box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.3);
+}
+
+.container_card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.info_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status {
+  background-color: $grey;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.creation_date {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
 }

@@ -41,22 +41,33 @@ const StoreCard = (props) => {
           className={clsx(style.card, theme && style.light)}
           onClick={() => handleClick()}
         >
-          <p className={style.card_title}>{props.name}</p>
-          <div style={{ display: 'flex' }}>
-            <Tooltip label="Редактировать" placement="top">
-              <span style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
-                <Button view="add" onClick={() => handleEdit(props)}>
-                  <MdOutlineEditCalendar />
-                </Button>
-              </span>
-            </Tooltip>
-            <Tooltip label="Удалить" placement="top">
-              <span style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
-                <Button view="delete" onClick={() => handleDelete(props)}>
-                  <MdDeleteForever />
-                </Button>
-              </span>
-            </Tooltip>
+          <div className={style.container_card}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <p className={style.card_title}>{props.name}</p>
+              <div style={{ display: 'flex' }}>
+                <Tooltip label="Редактировать" placement="top">
+                  <span style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
+                    <Button view="add" onClick={() => handleEdit(props)}>
+                      <MdOutlineEditCalendar />
+                    </Button>
+                  </span>
+                </Tooltip>
+                <Tooltip label="Удалить" placement="top">
+                  <span style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
+                    <Button view="delete" onClick={() => handleDelete(props)}>
+                      <MdDeleteForever />
+                    </Button>
+                  </span>
+                </Tooltip>
+              </div>
+            </div>
+            <div className={style.info_container}>
+              <p className={style.status}>Активный</p>
+              <div className={style.creation_date}>
+                <p>Создан</p>
+                <p>23.12.2023</p>
+              </div>
+            </div>
           </div>
         </Link>
       )}
