@@ -1,11 +1,24 @@
 import ThemeSwitches from '../../shared/ThemeSwitches/ThemeSwitches';
 import style from './SettingsPage.module.scss';
 import { clsx } from 'clsx';
-import { useAppSelector } from '../../types/hooks';
+import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { SETTINGS_PAGE } from '../../app/constants';
+import { getStores } from '../../store/storeSlice';
+import { useEffect } from 'react';
 
 const SettingsPage = ({ type }) => {
+  const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.active.theme);
+  const stores = useAppSelector((state) => state.store.stores);
+  const render = useAppSelector((state) => state.active.render);
+  const store_id = localStorage.getItem('store_id');
+
+  useEffect(() => {
+    dispatch(getStores());
+  }, [render]);
+
+  const store = stores.filter((store) => String(store.id) === store_id)[0];
+
   return (
     <>
       {type === SETTINGS_PAGE.USER && (
@@ -26,7 +39,7 @@ const SettingsPage = ({ type }) => {
             <h2 style={{ color: '#7669c8' }}>О заведении</h2>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Название магазина</p>
-              <p>Ресторан 1</p>
+              <p>{store.name}</p>
             </div>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Статус работы</p>

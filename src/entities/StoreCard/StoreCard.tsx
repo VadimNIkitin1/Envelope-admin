@@ -37,7 +37,7 @@ const StoreCard = (props) => {
     <>
       {location.pathname.includes(PATHNAME.STORES) && (
         <Link
-          to={`/${company_id}/${props.id}/categories`}
+          to={`/${company_id}/${props.id}/settings`}
           className={clsx(style.card, theme && style.light)}
           onClick={() => handleClick()}
         >

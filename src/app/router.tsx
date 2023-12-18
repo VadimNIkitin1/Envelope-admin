@@ -66,7 +66,7 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />
         <Route
-          path={'/:company_id/tariffs'}
+          path={'/:company_id/:store_id/tariffs'}
           element={
             <RequireAuth>
               <PricesPage />

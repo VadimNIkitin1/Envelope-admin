@@ -9,8 +9,8 @@ import {
   MdPriceChange,
   MdPeopleAlt,
   MdStore,
-  MdList,
 } from 'react-icons/md';
+
 import { IoExitOutline } from 'react-icons/io5';
 import { PATHNAME } from '../../app/constants';
 
@@ -18,17 +18,40 @@ import { toggleTabs, triggerRender } from '../../store/activeSlice';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import { Tooltip } from '@chakra-ui/react';
+import { Tooltip, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 import { logOut } from '../../store/authSlice';
+import { useEffect } from 'react';
+import { getStores } from '../../store/storeSlice';
+
+interface IStoresFroMenu {
+  name: string;
+  link: string;
+  id: string | number;
+}
 
 const SideBarList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const render = useAppSelector((state) => state.active.render);
   const activeTab = useAppSelector((state) => state.active.active);
+  const stores = useAppSelector((state) => state.store.stores);
   const theme = useAppSelector((state) => state.active.theme);
   const [company_id] = useLocalStorage('company_id', '');
   const store_id = localStorage.getItem('store_id');
+
+  useEffect(() => {
+    dispatch(getStores());
+  }, [render]);
+
+  const storesForMenu: IStoresFroMenu[] = [];
+  stores.map((el) =>
+    storesForMenu.push({
+      name: el.name,
+      link: `${company_id}/${el.id}${PATHNAME.SETTINGS}`,
+      id: el.id,
+    })
+  );
 
   const handleLogOut = () => {
     if (!store_id) {
@@ -39,6 +62,12 @@ const SideBarList = () => {
       localStorage.removeItem('store_id');
       dispatch(triggerRender());
     }
+  };
+
+  const handleClick = (el) => {
+    localStorage.setItem('store_id', el.id);
+    dispatch(toggleTabs(`/${company_id}${el.link}`));
+    dispatch(triggerRender());
   };
 
   if (!company_id) {
@@ -60,9 +89,28 @@ const SideBarList = () => {
   ];
 
   const SIDEBAR_LIST_STORE = [
-    { link: PATHNAME.STORES, icon: MdStore, name: 'Магазины' },
-    { link: `/${store_id}${PATHNAME.CATEGORIES}`, icon: MdList, name: 'Категории' },
-    { link: `/${store_id}${PATHNAME.PRODUCTS}`, icon: MdOutlineMenuBook, name: 'Продукты' },
+    {
+      link: `/${store_id}${PATHNAME.SETTINGS}`,
+      icon: MdOutlineSettings,
+      name: 'Настройки магазина',
+    },
+    {
+      link: `/${store_id}${PATHNAME.PRODUCTS}`,
+      icon: MdOutlineMenuBook,
+      name: 'Каталог',
+      subcategory: [
+        {
+          name: 'Категории',
+          link: `${company_id}/${store_id}${PATHNAME.CATEGORIES}`,
+          id: store_id,
+        },
+        {
+          name: 'Продукты',
+          link: `${company_id}/${store_id}${PATHNAME.PRODUCTS}`,
+          id: store_id,
+        },
+      ],
+    },
     {
       link: `/${store_id}${PATHNAME.CLIENTS}`,
       icon: MdPeopleAlt,
@@ -79,12 +127,13 @@ const SideBarList = () => {
       name: 'Рассылка',
     },
     {
-      link: `/${store_id}${PATHNAME.SETTINGS}`,
-      icon: MdOutlineSettings,
-      name: 'Настройки магазина',
+      link: `/${store_id}${PATHNAME.STORES}`,
+      icon: MdStore,
+      name: 'Магазины',
+      subcategory: storesForMenu,
     },
     {
-      link: PATHNAME.TARRIFS,
+      link: `/${store_id}${PATHNAME.TARRIFS}`,
       icon: MdPriceChange,
       name: 'Тарифы',
     },
@@ -94,7 +143,7 @@ const SideBarList = () => {
     <div>
       {!store_id
         ? SIDEBAR_LIST_USER.map((el) => (
-            <Tooltip label={el.name} key={el.name}>
+            <Tooltip label={el.name} key={el.name} placement="right">
               <Link
                 className={clsx(
                   style.item,
@@ -109,19 +158,50 @@ const SideBarList = () => {
             </Tooltip>
           ))
         : SIDEBAR_LIST_STORE.map((el) => (
-            <Tooltip label={el.name} key={el.name}>
-              <Link
-                className={clsx(
-                  style.item,
-                  activeTab === `/${company_id}${el.link}` && style.active,
-                  theme && style.light
-                )}
-                to={`/${company_id}${el.link}`}
-                onClick={() => dispatch(toggleTabs(`/${company_id}${el.link}`))}
-              >
-                <el.icon />
-              </Link>
-            </Tooltip>
+            <div key={el.name}>
+              {!el.subcategory ? (
+                <Tooltip label={el.name} placement="right">
+                  <Link
+                    className={clsx(
+                      style.item,
+                      activeTab === `/${company_id}${el.link}` && style.active,
+                      theme && style.light
+                    )}
+                    to={`/${company_id}${el.link}`}
+                    onClick={() => dispatch(toggleTabs(`/${company_id}${el.link}`))}
+                  >
+                    <el.icon />
+                  </Link>
+                </Tooltip>
+              ) : (
+                <Menu>
+                  <Tooltip label={el.name} placement="right">
+                    <MenuButton
+                      onClick={() => dispatch(toggleTabs(`/${company_id}${el.link}`))}
+                      className={clsx(
+                        style.item,
+                        activeTab === `/${company_id}${el.link}` && style.active,
+                        theme && style.light
+                      )}
+                    >
+                      <el.icon />
+                    </MenuButton>
+                  </Tooltip>
+                  <MenuList backgroundColor={'#212121'}>
+                    {el.subcategory?.map((el) => (
+                      <MenuItem
+                        backgroundColor={'#212121'}
+                        key={el.name}
+                        className={style.subcategory_item}
+                        onClick={() => handleClick(el)}
+                      >
+                        <Link to={el.link}>{el.name}</Link>
+                      </MenuItem>
+                    ))}
+                  </MenuList>
+                </Menu>
+              )}
+            </div>
           ))}
       <div
         className={clsx(style.item, theme && style.light)}
