@@ -11,21 +11,35 @@ import {
   MdStore,
   MdList,
 } from 'react-icons/md';
+import { IoExitOutline } from 'react-icons/io5';
 import { PATHNAME } from '../../app/constants';
 
-import { toggleTabs } from '../../store/activeSlice';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { toggleTabs, triggerRender } from '../../store/activeSlice';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { Tooltip } from '@chakra-ui/react';
+import { logOut } from '../../store/authSlice';
 
 const SideBarList = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const activeTab = useAppSelector((state) => state.active.active);
   const theme = useAppSelector((state) => state.active.theme);
   const [company_id] = useLocalStorage('company_id', '');
   const store_id = localStorage.getItem('store_id');
+
+  const handleLogOut = () => {
+    if (!store_id) {
+      dispatch(logOut());
+      navigate(PATHNAME.LOGIN);
+    } else {
+      navigate(`${company_id}${PATHNAME.STORES}`);
+      localStorage.removeItem('store_id');
+      dispatch(triggerRender());
+    }
+  };
 
   if (!company_id) {
     return <Navigate to={PATHNAME.LOGIN} state={{ from: location }} />;
@@ -43,14 +57,10 @@ const SideBarList = () => {
       icon: MdOutlineSettings,
       name: 'Настройки профиля',
     },
-    {
-      link: PATHNAME.TARRIFS,
-      icon: MdPriceChange,
-      name: 'Тарифы',
-    },
   ];
 
   const SIDEBAR_LIST_STORE = [
+    { link: PATHNAME.STORES, icon: MdStore, name: 'Магазины' },
     { link: `/${store_id}${PATHNAME.CATEGORIES}`, icon: MdList, name: 'Категории' },
     { link: `/${store_id}${PATHNAME.PRODUCTS}`, icon: MdOutlineMenuBook, name: 'Продукты' },
     {
@@ -72,6 +82,11 @@ const SideBarList = () => {
       link: `/${store_id}${PATHNAME.SETTINGS}`,
       icon: MdOutlineSettings,
       name: 'Настройки магазина',
+    },
+    {
+      link: PATHNAME.TARRIFS,
+      icon: MdPriceChange,
+      name: 'Тарифы',
     },
   ];
 
@@ -108,6 +123,17 @@ const SideBarList = () => {
               </Link>
             </Tooltip>
           ))}
+      <div
+        className={clsx(style.item, theme && style.light)}
+        style={{ color: 'red' }}
+        onClick={() => handleLogOut()}
+      >
+        <Tooltip label={store_id ? 'Выйти из магазина' : 'Выйти из профиля'}>
+          <span>
+            <IoExitOutline />
+          </span>
+        </Tooltip>
+      </div>
     </div>
   );
 };

@@ -14,8 +14,6 @@ const Footer = () => {
     store_id = localStorage.getItem('store_id');
   }, [render]);
 
-  console.log(store_id);
-
   return (
     <div className={clsx(style.footer, theme && style.light)}>
       <p className={clsx(style.text, theme && style.light)}>
