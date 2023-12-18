@@ -128,7 +128,6 @@ const ModalProducts = ({ type, isOpen }) => {
                   placeholder="Наименование"
                   {...register('name', {
                     required: { value: true, message: 'Поле обязательно для заполнения' },
-                    maxLength: { value: 20, message: 'Не более 20 символов' },
                   })}
                 />
               </label>
