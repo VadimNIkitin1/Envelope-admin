@@ -1,5 +1,4 @@
 import StoreCard from '../../entities/StoreCard/StoreCard';
-import Button from '../../shared/Button/Button';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 import style from './StoreCardsPage.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
@@ -24,18 +23,21 @@ const StoreCardsPage = () => {
 
   return (
     <div className={style.page}>
-      <Button
-        view="add"
-        onClick={() => dispatch(toggleModal({ action: true, type: ModalType.STORES }))}
-      >
-        Создать магазин <BsFillPlusSquareFill />
-      </Button>
       {stores === undefined || stores.length === 0 ? (
         <div className={style.messageAddButton}>
           <p className={style.message}>Нет созданных магазинов</p>
         </div>
       ) : (
         <div className={style.cardList}>
+          <div
+            className={style.cardAddStore}
+            onClick={() => dispatch(toggleModal({ action: true, type: ModalType.STORES }))}
+          >
+            <div className={style.cardAddStore_text}>
+              <p>Создать магазин</p>
+              <BsFillPlusSquareFill />
+            </div>
+          </div>
           {stores.map((card: any) => (
             <StoreCard key={card.id} {...card} />
           ))}
