@@ -4,13 +4,13 @@ import { clsx } from 'clsx';
 import style from './StoreCard.module.scss';
 import { Link, useLocation } from 'react-router-dom';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
-import { toggleSidebar } from '../../store/activeSlice';
 import { PATHNAME } from '../../app/constants';
 import Button from '../../shared/Button/Button';
 import { MdDeleteForever, MdOutlineEditCalendar } from 'react-icons/md';
 import { Tooltip } from '@chakra-ui/react';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { saveStore } from '../../store/storeSlice';
+import { triggerRender } from '../../store/activeSlice';
 
 const StoreCard = (props) => {
   const location = useLocation();
@@ -20,7 +20,7 @@ const StoreCard = (props) => {
 
   const handleClick = () => {
     localStorage.setItem('store_id', props.id);
-    dispatch(toggleSidebar(false));
+    dispatch(triggerRender());
   };
 
   const handleEdit = (store) => {

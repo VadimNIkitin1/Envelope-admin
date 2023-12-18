@@ -23,16 +23,12 @@ const slice = createSlice({
     triggerRender(state) {
       state.render = !state.render;
     },
-    toggleSidebar(state, action) {
-      state.sidebar = action.payload;
-    },
     toggleRecipient(state, action) {
       state.recipient = action.payload;
     },
   },
 });
 
-export const { toggleTabs, toggleTheme, triggerRender, toggleSidebar, toggleRecipient } =
-  slice.actions;
+export const { toggleTabs, toggleTheme, triggerRender, toggleRecipient } = slice.actions;
 
 export default slice.reducer;

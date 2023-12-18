@@ -3,9 +3,18 @@ import style from './Footer.module.scss';
 import { PATHNAME } from '../../app/constants';
 import { useAppSelector } from '../../types/hooks';
 import clsx from 'clsx';
+import { useEffect } from 'react';
 
 const Footer = () => {
   const theme = useAppSelector((state) => state.active.theme);
+  const render = useAppSelector((state) => state.active.render);
+  let store_id = localStorage.getItem('store_id');
+
+  useEffect(() => {
+    store_id = localStorage.getItem('store_id');
+  }, [render]);
+
+  console.log(store_id);
 
   return (
     <div className={clsx(style.footer, theme && style.light)}>
@@ -15,7 +24,9 @@ const Footer = () => {
           Envelope-App
         </Link>
       </p>
-      <p className={clsx(style.subscription, theme && style.light)}>Оплачено до 01.01.30г.</p>
+      {store_id && (
+        <p className={clsx(style.subscription, theme && style.light)}>Оплачено до 01.01.30г.</p>
+      )}
     </div>
   );
 };

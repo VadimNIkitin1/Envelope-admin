@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { toggleTabs } from '../../store/activeSlice';
+import { toggleTabs, triggerRender } from '../../store/activeSlice';
 import { GiEnvelope } from 'react-icons/gi';
 import { IoExitOutline } from 'react-icons/io5';
 import style from './NavBar.module.scss';
@@ -32,6 +32,7 @@ const NavBar = () => {
     } else {
       navigate(`${company_id}${PATHNAME.STORES}`);
       localStorage.removeItem('store_id');
+      dispatch(triggerRender());
     }
   };
 

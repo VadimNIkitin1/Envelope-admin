@@ -1,7 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
-import BurgerButton from '../../shared/BurgerButton/BurgerButton';
-
 import style from './SideBarList.module.scss';
 import {
   MdOutlineMenuBook,
@@ -15,7 +13,7 @@ import {
 } from 'react-icons/md';
 import { PATHNAME } from '../../app/constants';
 
-import { toggleSidebar, toggleTabs } from '../../store/activeSlice';
+import { toggleTabs } from '../../store/activeSlice';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
@@ -110,7 +108,6 @@ const SideBarList = () => {
               </Link>
             </Tooltip>
           ))}
-      {<BurgerButton onClick={() => dispatch(toggleSidebar(false))} />}
     </div>
   );
 };
