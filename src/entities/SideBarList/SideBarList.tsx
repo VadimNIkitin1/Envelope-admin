@@ -23,7 +23,7 @@ import { logOut } from '../../store/authSlice';
 import { useEffect } from 'react';
 import { getStores } from '../../store/storeSlice';
 
-interface IStoresFroMenu {
+interface IStoresForMenu {
   name: string;
   link: string;
   id: string | number;
@@ -39,15 +39,16 @@ const SideBarList = () => {
   const theme = useAppSelector((state) => state.active.theme);
   const [company_id] = useLocalStorage('company_id', '');
   const store_id = localStorage.getItem('store_id');
+  console.log(stores);
 
   useEffect(() => {
     dispatch(getStores());
   }, [render]);
 
-  const storesForMenu: IStoresFroMenu[] = [];
+  const storesForMenu: IStoresForMenu[] = [];
   stores.map((el) =>
     storesForMenu.push({
-      name: el.name,
+      name: el.info.name,
       link: `${company_id}/${el.id}${PATHNAME.SETTINGS}`,
       id: el.id,
     })

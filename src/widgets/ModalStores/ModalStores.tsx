@@ -19,7 +19,7 @@ const ModalStores = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.active.theme);
   const { store } = useAppSelector((state) => state.store);
-  const { name, id } = store;
+  const { info, id } = store;
 
   const {
     register,
@@ -61,7 +61,7 @@ const ModalStores = ({ type, isOpen }) => {
           <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
             <label className={style.modalLabel}>
               <InputText
-                defaultValue={type === ModalType.EDIT_STORES ? name : undefined}
+                defaultValue={type === ModalType.EDIT_STORES ? info.name : undefined}
                 error={errors.name}
                 view="text"
                 placeholder="Наименование"

@@ -39,7 +39,7 @@ const SettingsPage = ({ type }) => {
             <h2 style={{ color: '#7669c8' }}>О заведении</h2>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Название магазина</p>
-              <p>{store.name}</p>
+              <p>{store.info.name}</p>
             </div>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Статус работы</p>

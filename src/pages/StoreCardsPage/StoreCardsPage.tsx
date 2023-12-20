@@ -24,8 +24,16 @@ const StoreCardsPage = () => {
   return (
     <div className={style.page}>
       {stores === undefined || stores.length === 0 ? (
-        <div className={style.messageAddButton}>
-          <p className={style.message}>Нет созданных магазинов</p>
+        <div className={style.cardList}>
+          <div
+            className={style.cardAddStore}
+            onClick={() => dispatch(toggleModal({ action: true, type: ModalType.STORES }))}
+          >
+            <div className={style.cardAddStore_text}>
+              <p>Создать магазин</p>
+              <BsFillPlusSquareFill />
+            </div>
+          </div>
         </div>
       ) : (
         <div className={style.cardList}>

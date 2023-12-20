@@ -94,7 +94,7 @@ const Modals = ({ type, isOpen }) => {
               `Вы действительно хотите удалить ${category.name} ?`}
             {type === ModalType.DELETE &&
               location.pathname.includes(PATHNAME.STORES) &&
-              `Вы действительно хотите удалить ${store.name} ?`}
+              `Вы действительно хотите удалить ${store.info.name} ?`}
           </h1>
           <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
             {type === ModalType.RECIPIENT && (

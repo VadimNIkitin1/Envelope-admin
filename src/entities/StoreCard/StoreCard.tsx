@@ -11,6 +11,7 @@ import { Tooltip } from '@chakra-ui/react';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { saveStore } from '../../store/storeSlice';
 import { triggerRender } from '../../store/activeSlice';
+import { IoIosArrowDown } from 'react-icons/io';
 
 const StoreCard = (props) => {
   const location = useLocation();
@@ -43,7 +44,7 @@ const StoreCard = (props) => {
         >
           <div className={style.container_card}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <p className={style.card_title}>{props.name}</p>
+              <p className={style.card_title}>{props.info.name}</p>
               <div style={{ display: 'flex' }}>
                 <Tooltip label="Редактировать" placement="top">
                   <span style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
@@ -62,7 +63,9 @@ const StoreCard = (props) => {
               </div>
             </div>
             <div className={style.info_container}>
-              <p className={style.status}>Активный</p>
+              <p className={style.status}>
+                Активный <IoIosArrowDown />
+              </p>
               <div className={style.creation_date}>
                 <p>Создан</p>
                 <p>23.12.2023</p>

@@ -10,7 +10,10 @@ const initialState: IStoreInitialState = {
   stores: [],
   store: {
     id: 0,
-    name: '',
+    info: {
+      link_bot: '',
+      name: '',
+    },
   },
   loading: false,
   error: null,

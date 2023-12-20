@@ -39,7 +39,7 @@ const NavBar = () => {
       >
         ENVELOPE <GiEnvelope className={style.logo} />
       </Link>
-      {store && <div className={style.store_name}>{store.name}</div>}
+      {store && <div className={style.store_name}>{store.info.name}</div>}
     </nav>
   );
 };

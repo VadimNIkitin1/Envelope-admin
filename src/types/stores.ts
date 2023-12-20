@@ -1,6 +1,9 @@
 export interface IStore {
   id: number;
-  name: string;
+  info: {
+    link_bot: string;
+    name: string;
+  };
 }
 
 export interface IStoreInitialState {
