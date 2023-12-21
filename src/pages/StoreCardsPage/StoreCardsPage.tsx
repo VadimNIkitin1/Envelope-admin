@@ -8,11 +8,12 @@ import { ModalType, toggleModal } from '../../store/modalsSlice';
 
 import { ModalStores } from '../../widgets/ModalStores/ModalStores';
 import { Modals } from '../../widgets/Modal/Modal';
+import { clsx } from 'clsx';
 
 const StoreCardsPage = () => {
   const dispatch = useAppDispatch();
   const { stores } = useAppSelector((state) => state.store);
-  const render = useAppSelector((state) => state.active.render);
+  const { render, theme } = useAppSelector((state) => state.active);
   const { modalStores, modalEditStores, modalForDelete } = useAppSelector((state) => state.modals);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const StoreCardsPage = () => {
       {stores === undefined || stores.length === 0 ? (
         <div className={style.cardList}>
           <div
-            className={style.cardAddStore}
+            className={clsx(style.cardAddStore, theme && style.light)}
             onClick={() => dispatch(toggleModal({ action: true, type: ModalType.STORES }))}
           >
             <div className={style.cardAddStore_text}>
@@ -38,7 +39,7 @@ const StoreCardsPage = () => {
       ) : (
         <div className={style.cardList}>
           <div
-            className={style.cardAddStore}
+            className={clsx(style.cardAddStore, theme && style.light)}
             onClick={() => dispatch(toggleModal({ action: true, type: ModalType.STORES }))}
           >
             <div className={style.cardAddStore_text}>

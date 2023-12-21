@@ -33,13 +33,10 @@ const SideBarList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const render = useAppSelector((state) => state.active.render);
-  const activeTab = useAppSelector((state) => state.active.active);
+  const { render, theme, active } = useAppSelector((state) => state.active);
   const stores = useAppSelector((state) => state.store.stores);
-  const theme = useAppSelector((state) => state.active.theme);
   const [company_id] = useLocalStorage('company_id', '');
   const store_id = localStorage.getItem('store_id');
-  console.log(stores);
 
   useEffect(() => {
     dispatch(getStores());
@@ -66,8 +63,21 @@ const SideBarList = () => {
   };
 
   const handleClick = (el) => {
+    if (el.link === '/stores') {
+      localStorage.removeItem('store_id');
+      dispatch(toggleTabs(`${el.link}`));
+    }
+
+    if (el.link === '/categories' || el.link === '/products') {
+      dispatch(toggleTabs(`${el.link}`));
+    }
+
+    dispatch(toggleTabs(`${el.link}`));
+  };
+
+  const handleClickSubcategory = (el) => {
     localStorage.setItem('store_id', el.id);
-    dispatch(toggleTabs(`/${company_id}${el.link}`));
+    dispatch(toggleTabs(`${PATHNAME.PRODUCTS}`));
     dispatch(triggerRender());
   };
 
@@ -81,11 +91,6 @@ const SideBarList = () => {
       link: PATHNAME.ANALYTIC,
       icon: MdAnalytics,
       name: 'Аналитика',
-    },
-    {
-      link: PATHNAME.SETTINGS,
-      icon: MdOutlineSettings,
-      name: 'Настройки профиля',
     },
   ];
 
@@ -113,9 +118,9 @@ const SideBarList = () => {
       ],
     },
     {
-      link: `/${store_id}${PATHNAME.CLIENTS}`,
-      icon: MdPeopleAlt,
-      name: 'Клиенты',
+      link: `${PATHNAME.STORES}`,
+      icon: MdStore,
+      name: 'Магазины',
     },
     {
       link: `/${store_id}${PATHNAME.ANALYTIC}`,
@@ -123,15 +128,14 @@ const SideBarList = () => {
       name: 'Аналитика магазина',
     },
     {
+      link: `/${store_id}${PATHNAME.CLIENTS}`,
+      icon: MdPeopleAlt,
+      name: 'Клиенты',
+    },
+    {
       link: `/${store_id}${PATHNAME.NOTIFICATION}`,
       icon: MdMessage,
       name: 'Рассылка',
-    },
-    {
-      link: `/${store_id}${PATHNAME.STORES}`,
-      icon: MdStore,
-      name: 'Магазины',
-      subcategory: storesForMenu,
     },
     {
       link: `/${store_id}${PATHNAME.TARRIFS}`,
@@ -148,11 +152,11 @@ const SideBarList = () => {
               <Link
                 className={clsx(
                   style.item,
-                  activeTab === `/${company_id}/${el.link}` && style.active,
+                  el.link.includes(active) && style.active,
                   theme && style.light
                 )}
                 to={`/${company_id}${el.link}`}
-                onClick={() => dispatch(toggleTabs(`/${company_id}/${el.link}`))}
+                onClick={() => dispatch(toggleTabs(`${el.link}`))}
               >
                 <el.icon />
               </Link>
@@ -165,11 +169,11 @@ const SideBarList = () => {
                   <Link
                     className={clsx(
                       style.item,
-                      activeTab === `/${company_id}${el.link}` && style.active,
+                      el.link.includes(active) && style.active,
                       theme && style.light
                     )}
                     to={`/${company_id}${el.link}`}
-                    onClick={() => dispatch(toggleTabs(`/${company_id}${el.link}`))}
+                    onClick={() => handleClick(el)}
                   >
                     <el.icon />
                   </Link>
@@ -178,10 +182,10 @@ const SideBarList = () => {
                 <Menu>
                   <Tooltip label={el.name} placement="right">
                     <MenuButton
-                      onClick={() => dispatch(toggleTabs(`/${company_id}${el.link}`))}
+                      onClick={() => dispatch(toggleTabs(`${el.link}`))}
                       className={clsx(
                         style.item,
-                        activeTab === `/${company_id}${el.link}` && style.active,
+                        el.link.includes(active) && style.active,
                         theme && style.light
                       )}
                     >
@@ -194,7 +198,7 @@ const SideBarList = () => {
                         backgroundColor={'#212121'}
                         key={el.name}
                         className={style.subcategory_item}
-                        onClick={() => handleClick(el)}
+                        onClick={() => handleClickSubcategory(el)}
                       >
                         <Link to={el.link}>{el.name}</Link>
                       </MenuItem>
@@ -204,17 +208,19 @@ const SideBarList = () => {
               )}
             </div>
           ))}
-      <div
-        className={clsx(style.item, theme && style.light)}
-        style={{ color: 'red' }}
-        onClick={() => handleLogOut()}
-      >
-        <Tooltip label={store_id ? 'Выйти из магазина' : 'Выйти из профиля'}>
-          <span>
-            <IoExitOutline />
-          </span>
-        </Tooltip>
-      </div>
+      {!store_id && (
+        <div
+          className={clsx(style.item, theme && style.light)}
+          style={{ color: 'red' }}
+          onClick={() => handleLogOut()}
+        >
+          <Tooltip label={'Выйти из профиля'}>
+            <span>
+              <IoExitOutline />
+            </span>
+          </Tooltip>
+        </div>
+      )}
     </div>
   );
 };

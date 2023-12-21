@@ -2,16 +2,21 @@ import { CgDanger } from 'react-icons/cg';
 import style from './Instruction.module.scss';
 import { useState } from 'react';
 import clsx from 'clsx';
+import { useAppSelector } from '../../types/hooks';
 
 const Instruction = () => {
   const [hidden, setHidden] = useState(true);
+  const { theme } = useAppSelector((state) => state.active);
 
   return (
     <div className={style.instruction_container}>
-      <p className={style.instruction_title} onClick={() => setHidden(!hidden)}>
+      <p
+        className={clsx(style.instruction_title, theme && style.light)}
+        onClick={() => setHidden(!hidden)}
+      >
         <CgDanger fontSize={'18px'} color="#fb923c" /> Инструкция
       </p>
-      <ol className={clsx(style.instruction_text, hidden && style.hidden)}>
+      <ol className={clsx(style.instruction_text, hidden && style.hidden, theme && style.light)}>
         <li>
           Перейдите в чат с ботом{' '}
           <a href="https://t.me/BotFather" target="_blank" style={{ color: '#2b9cf2' }}>

@@ -28,3 +28,8 @@ export enum SETTINGS_PAGE {
   USER = 'user',
   STORE = 'store',
 }
+
+export enum LANGUAGE {
+  RUSSIAN = 'rus',
+  ENGLAND = 'eng',
+}

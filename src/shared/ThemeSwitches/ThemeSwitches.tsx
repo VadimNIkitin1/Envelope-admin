@@ -17,12 +17,7 @@ const ThemeSwitches = () => {
       }}
     >
       <label className={style.switch_label}>
-        <input
-          type="checkbox"
-          checked={theme}
-          onChange={() => console.log(theme)}
-          className={style.checkbox}
-        />
+        <input type="checkbox" checked={theme} readOnly className={style.checkbox} />
         <span className={style.slider}></span>
       </label>
     </div>

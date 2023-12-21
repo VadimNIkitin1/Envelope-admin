@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IActive } from '../types/active';
+import { LANGUAGE } from '../app/constants';
 
 const initialState: IActive = {
-  active: '/shops',
+  active: '/stores',
   theme: JSON.parse(localStorage.getItem('theme') || 'false'),
   render: false,
   sidebar: false,
   recipient: 'all',
+  language: LANGUAGE.RUSSIAN,
 };
 
 const slice = createSlice({
@@ -26,9 +28,13 @@ const slice = createSlice({
     toggleRecipient(state, action) {
       state.recipient = action.payload;
     },
+    toggleLanguage(state, action) {
+      state.language = action.payload;
+    },
   },
 });
 
-export const { toggleTabs, toggleTheme, triggerRender, toggleRecipient } = slice.actions;
+export const { toggleTabs, toggleTheme, triggerRender, toggleRecipient, toggleLanguage } =
+  slice.actions;
 
 export default slice.reducer;

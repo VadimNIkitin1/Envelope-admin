@@ -4,4 +4,5 @@ export interface IActive {
   render: boolean;
   sidebar: boolean;
   recipient: string;
+  language: string;
 }
