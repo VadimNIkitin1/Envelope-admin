@@ -68,4 +68,67 @@
   background-color: $violet;
   color: #fff;
   border-radius: 5px;
+  margin-right: 10px;
+}
+
+.menu_list {
+  display: flex;
+  flex-direction: column;
+  &.light {
+    background-color: #fff;
+  }
+}
+
+.menu_item {
+  background-color: $black;
+  display: flex;
+  align-items: baseline;
+  column-gap: 30px;
+  height: 50px;
+  &.light {
+    background-color: #fff;
+  }
+}
+
+.menu_item:hover {
+  background-color: $grey;
+  &.light {
+    background-color: $lightgrey;
+  }
+}
+
+.menu_item__title {
+  color: #fff;
+  &.light {
+    color: $black;
+  }
+}
+
+.language {
+  display: flex;
+  column-gap: 10px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.language_item {
+  font-size: 25px;
+  padding: 0 3px;
+  &.checked {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: $grey;
+    transition: all 0.3s;
+    &.light {
+      background-color: $blue;
+    }
+  }
+}
+
+.language_item:hover {
+  border-radius: 5px;
+  background-color: $black;
+  &.light {
+    background-color: #fff;
+  }
 }

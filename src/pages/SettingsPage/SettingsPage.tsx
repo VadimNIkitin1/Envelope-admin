@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 const SettingsPage = ({ type }) => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.active.theme);
-  const stores = useAppSelector((state) => state.store.stores);
+  const { stores } = useAppSelector((state) => state.store);
   const render = useAppSelector((state) => state.active.render);
   const store_id = localStorage.getItem('store_id');
 
@@ -17,7 +17,13 @@ const SettingsPage = ({ type }) => {
     dispatch(getStores());
   }, [render]);
 
-  const store = stores.filter((store) => String(store.id) === store_id)[0];
+  let store = stores.filter((store) => String(store.id) === store_id)[0];
+
+  if (store) {
+    localStorage.setItem('store_info', JSON.stringify(store));
+  } else {
+    store = JSON.parse(localStorage.getItem('store_info') || '');
+  }
 
   return (
     <>
@@ -43,7 +49,7 @@ const SettingsPage = ({ type }) => {
             </div>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Статус работы</p>
-              <p className={style.status}>Активный</p>
+              <p className={clsx(style.status, theme && style.light)}>Активный</p>
             </div>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Адрес</p>
@@ -60,16 +66,16 @@ const SettingsPage = ({ type }) => {
             <div className={style.table_item}>
               <p className={style.table_item__first}>Ссылка на бота</p>
               <a href="https://t.me/store_demo_envelope_app_bot" target="_blank">
-                @store_demo_envelope_app_bot
+                {store.info.link_bot}
               </a>
+            </div>
+            <div className={style.table_item}>
+              <p className={style.table_item__first}>Токен бота</p>
+              <p></p>
             </div>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Типы заказа</p>
               <p>Доставка, Самовывоз, В зале</p>
-            </div>
-            <div className={style.table_item}>
-              <p className={style.table_item__first}>Активный</p>
-              <p>Да</p>
             </div>
             <div className={style.table_item}>
               <p className={style.table_item__first}>График работы</p>
@@ -81,7 +87,7 @@ const SettingsPage = ({ type }) => {
             </div>
           </div>
           <div className={clsx(style.information_table, theme && style.light)}>
-            <h2 style={{ color: '#7669c8' }}>Оплата и условия доставки</h2>
+            <h2 style={{ color: '#7669c8' }}>Оплата и доставка</h2>
             <div className={style.table_item}>
               <p className={style.table_item__first}>Типы оплаты</p>
               <p>Картой, Наличные, СБП</p>

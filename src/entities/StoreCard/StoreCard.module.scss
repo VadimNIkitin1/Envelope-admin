@@ -52,10 +52,20 @@
   background-color: $grey;
   padding: 5px;
   border-radius: 5px;
+  &.light {
+    background-color: $lightgrey;
+  }
 }
 
 .creation_date {
   font-size: 12px;
   display: flex;
   flex-direction: column;
+}
+
+.pay_date_info {
+  padding: 5px;
+  border: 2px solid $green;
+  background-color: rgba($color: #3ea20cab, $alpha: 0.5);
+  border-radius: 5px;
 }
