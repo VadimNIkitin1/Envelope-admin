@@ -1,18 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import style from './Footer.module.scss';
 import { PATHNAME } from '../../app/constants';
 import { useAppSelector } from '../../types/hooks';
 import clsx from 'clsx';
-import { useEffect } from 'react';
 
 const Footer = () => {
+  const { store_id } = useParams();
   const theme = useAppSelector((state) => state.active.theme);
-  const render = useAppSelector((state) => state.active.render);
-  let store_id = localStorage.getItem('store_id');
-
-  useEffect(() => {
-    store_id = localStorage.getItem('store_id');
-  }, [render]);
 
   return (
     <div className={clsx(style.footer, theme && style.light)}>

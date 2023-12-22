@@ -18,18 +18,20 @@ import style from './ModalProducts.module.scss';
 import { IRequestProduct } from './types';
 import { Checkbox } from '../../shared/Checkbox/Checkbox';
 import { InputText } from '../../shared/InputText/InputText';
-import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import clsx from 'clsx';
+import { useParams } from 'react-router';
 
 const ModalProducts = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
-  const categories = useAppSelector((state) => state.categories.categories);
-  const product = useAppSelector((state) => state.products.product);
-  const image = useAppSelector((state) => state.products.product.image);
-  const units = useAppSelector((state) => state.products.units);
-  const theme = useAppSelector((state) => state.active.theme);
-  const [store_id] = useLocalStorage('store_id', '');
+  const { store_id } = useParams();
+
+  const { categories } = useAppSelector((state) => state.categories);
+
+  const { product, units } = useAppSelector((state) => state.products);
+  const { image } = product;
+
+  const { theme } = useAppSelector((state) => state.active);
 
   const {
     id,

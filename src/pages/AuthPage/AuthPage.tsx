@@ -16,7 +16,7 @@ const AuthPage = ({ type }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const responseData = localStorage.getItem('data') || '';
-  const render = useAppSelector((state) => state.active.render);
+  const { render } = useAppSelector((state) => state.active);
 
   const {
     register,

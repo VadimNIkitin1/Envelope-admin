@@ -19,7 +19,7 @@ const initialState: ICategoriesInitialState = {
 
 export const getCategories = createAsyncThunk<
   ICategory[],
-  number | string,
+  number | string | undefined,
   { rejectValue: string }
 >('categories/getCategories', async (id, { rejectWithValue }) => {
   try {
@@ -151,52 +151,40 @@ const slice = createSlice({
     builder
       .addCase(getCategories.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(getCategories.fulfilled, (state, action) => {
         state.categories = action.payload;
         state.loading = false;
-        state.error = null;
       })
       .addCase(addCategory.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(addCategory.fulfilled, (state) => {
         state.loading = false;
-        state.error = null;
       })
       .addCase(editCategory.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(editCategory.fulfilled, (state) => {
         state.loading = false;
-        state.error = null;
       })
       .addCase(deleteCategory.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(deleteCategory.fulfilled, (state) => {
         state.loading = false;
-        state.error = null;
       })
       .addCase(deleteCategoryFlag.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(deleteCategoryFlag.fulfilled, (state) => {
         state.loading = false;
-        state.error = null;
       })
       .addCase(toggleCheckboxCategory.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(toggleCheckboxCategory.fulfilled, (state) => {
         state.loading = false;
-        state.error = null;
       })
       .addMatcher(isError, (state, action: PayloadAction<IError>) => {
         state.error = action.payload;

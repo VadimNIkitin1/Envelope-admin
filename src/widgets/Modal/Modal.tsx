@@ -10,7 +10,7 @@ import { toggleRecipient, triggerRender } from '../../store/activeSlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { addCategory, deleteCategoryFlag, editCategory } from '../../store/categorySlice';
 import { Checkbox } from '../../shared/Checkbox/Checkbox';
-import { useLocation } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { deleteProductFlag } from '../../store/productSlice';
 import {
   Modal,
@@ -23,18 +23,20 @@ import {
 } from '@chakra-ui/react';
 import { PATHNAME } from '../../app/constants';
 import clsx from 'clsx';
-import { deleteStoreFlag } from '../../store/storeSlice';
+import { deleteStore } from '../../store/storeSlice';
 
 const Modals = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const { store_id } = useParams();
+  const { idStoreForDelete } = useAppSelector((state) => state.store);
+
   const { category } = useAppSelector((state) => state.categories);
-  const { product } = useAppSelector((state) => state.products);
-  const { store } = useAppSelector((state) => state.store);
-  const theme = useAppSelector((state) => state.active.theme);
-  const recipient = useAppSelector((state) => state.active.recipient);
-  const store_id = localStorage.getItem('store_id');
   const { name, id } = category;
+
+  const { product } = useAppSelector((state) => state.products);
+
+  const { theme, recipient } = useAppSelector((state) => state.active);
 
   const {
     register,
@@ -69,12 +71,19 @@ const Modals = ({ type, isOpen }) => {
       }
 
       if (location.pathname.includes(PATHNAME.STORES)) {
-        dispatch(deleteStoreFlag(store.id));
+        localStorage.removeItem('store_id');
+        dispatch(deleteStore(idStoreForDelete));
       }
     }
 
     dispatch(triggerRender());
     dispatch(toggleModal({ action: false, type }));
+  };
+
+  const handleCloseModal = () => {
+    localStorage.removeItem('store_id');
+    dispatch(toggleModal({ action: false, type }));
+    dispatch(triggerRender());
   };
 
   return (
@@ -94,7 +103,7 @@ const Modals = ({ type, isOpen }) => {
               `Вы действительно хотите удалить ${category.name} ?`}
             {type === ModalType.DELETE &&
               location.pathname.includes(PATHNAME.STORES) &&
-              `Вы действительно хотите удалить ${store.info.name} ?`}
+              `Вы действительно хотите удалить магазин ?`}
           </h1>
           <form className={style.modalForm} onSubmit={handleSubmit(onSubmit)}>
             {type === ModalType.RECIPIENT && (
@@ -132,18 +141,23 @@ const Modals = ({ type, isOpen }) => {
                 <Checkbox {...register('availability')} />
               </label>
             )}
+            {type === ModalType.DELETE && (
+              <div style={{ display: 'flex', columnGap: '20px', marginBottom: '20px' }}>
+                <Checkbox {...register('shure', { required: true })} />Я действительно хочу удалить
+              </div>
+            )}
             <div style={{ display: 'flex', columnGap: '20px' }}>
+              <Button
+                view="delete"
+                style={{ fontSize: '20px', color: '#fff' }}
+                onClick={() => handleCloseModal()}
+              >
+                Закрыть
+              </Button>
               <Button view="add" type="submit" style={{ fontSize: '20px' }}>
                 {type === ModalType.CATEGORIES && 'Добавить'}
                 {type === ModalType.EDIT_CATEGORIES && 'Редактировать'}
                 {type === ModalType.DELETE && 'Удалить'}
-              </Button>
-              <Button
-                view="delete"
-                style={{ fontSize: '20px' }}
-                onClick={() => dispatch(toggleModal({ action: false, type }))}
-              >
-                Закрыть
               </Button>
             </div>
           </form>

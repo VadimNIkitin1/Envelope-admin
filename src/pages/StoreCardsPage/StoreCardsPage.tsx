@@ -17,9 +17,7 @@ const StoreCardsPage = () => {
   const { modalStores, modalEditStores, modalForDelete } = useAppSelector((state) => state.modals);
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(getStores());
-    }, 200);
+    dispatch(getStores());
   }, [render]);
 
   return (

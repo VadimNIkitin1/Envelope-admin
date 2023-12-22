@@ -13,13 +13,16 @@ import Table from '../../widgets/Table/Table';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import style from './CategoriesPage.module.scss';
-import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+import { useParams } from 'react-router';
 
 const CategoriesPage: FC = () => {
   const dispatch = useAppDispatch();
+  const { store_id } = useParams();
+
+  const { render } = useAppSelector((state) => state.active);
+
   const { categories, error } = useAppSelector((state) => state.categories);
-  const [store_id] = useLocalStorage('store_id', '');
-  const render = useAppSelector((state) => state.active.render);
+
   const { modalCategories, modalEditCategories, modalForDelete } = useAppSelector(
     (state) => state.modals
   );

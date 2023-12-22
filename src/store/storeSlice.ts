@@ -103,6 +103,7 @@ const initialState: IStoreInitialState = {
       store_id: 0,
     },
   },
+  idStoreForDelete: 0,
   loading: false,
   error: null,
 };
@@ -127,7 +128,7 @@ export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: st
 
 export const getOneStore = createAsyncThunk<
   IStore,
-  string | number | null,
+  string | number | undefined,
   { rejectValue: string }
 >('store/getOneStore', async (id, { rejectWithValue }) => {
   try {
@@ -196,27 +197,24 @@ export const editStore = createAsyncThunk<IStore[], IRequestCategory, { rejectVa
   }
 );
 
-export const deleteStoreFlag = createAsyncThunk<string, string | number, { rejectValue: string }>(
-  'store/deleteStoreFlag',
-  async (id, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.put(
-        `store/delete/?store_id=${id}`,
-        {},
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
+export const deleteStore = createAsyncThunk<
+  string,
+  string | number | undefined,
+  { rejectValue: string }
+>('store/deleteStore', async (id, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.delete(`store/?store_id=${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
   }
-);
+});
 
 const isError = (action: AnyAction) => {
   return action.type.endsWith('rejected');
@@ -226,8 +224,8 @@ const slice = createSlice({
   name: 'store',
   initialState,
   reducers: {
-    saveStore(state, action) {
-      state.store = action.payload;
+    saveIdStoreForDelete(state, action) {
+      state.idStoreForDelete = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -246,6 +244,12 @@ const slice = createSlice({
         state.store = action.payload;
         state.loading = false;
       })
+      .addCase(deleteStore.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteStore.fulfilled, (state) => {
+        state.loading = false;
+      })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
         state.loading = false;
@@ -253,6 +257,6 @@ const slice = createSlice({
   },
 });
 
-export const { saveStore } = slice.actions;
+export const { saveIdStoreForDelete } = slice.actions;
 
 export default slice.reducer;

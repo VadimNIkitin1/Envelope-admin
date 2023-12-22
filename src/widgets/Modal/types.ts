@@ -5,4 +5,5 @@ export interface IRequestCategory {
   name: string;
   link_bot: string;
   token_bot: string;
+  shure?: boolean;
 }

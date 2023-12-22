@@ -14,9 +14,9 @@ import {
 import { PATHNAME } from '../../app/constants';
 
 import { toggleTabs, triggerRender } from '../../store/activeSlice';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
 import { clsx } from 'clsx';
-import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+
 import { Tooltip, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { getStores } from '../../store/storeSlice';
@@ -24,9 +24,8 @@ import { getStores } from '../../store/storeSlice';
 const SideBarList = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const { store_id, company_id } = useParams();
   const { render, theme, active } = useAppSelector((state) => state.active);
-  const [company_id] = useLocalStorage('company_id', '');
-  const store_id = localStorage.getItem('store_id');
 
   useEffect(() => {
     dispatch(getStores());
@@ -34,7 +33,6 @@ const SideBarList = () => {
 
   const handleClick = (el) => {
     if (el.link === '/stores') {
-      localStorage.removeItem('store_id');
       dispatch(toggleTabs(`${el.link}`));
     }
 

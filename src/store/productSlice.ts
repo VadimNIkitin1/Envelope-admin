@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
 
 interface IRequestPhoto {
-  store_id: string | number;
+  store_id: string | number | undefined;
   formData: FormData;
 }
 
@@ -38,23 +38,24 @@ const initialState: IProductsInitialState = {
   error: null,
 };
 
-export const getProducts = createAsyncThunk<IProduct[], number | string, { rejectValue: string }>(
-  'products/getProducts',
-  async (id, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.get(`product/?store_id=${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
+export const getProducts = createAsyncThunk<
+  IProduct[],
+  number | string | undefined,
+  { rejectValue: string }
+>('products/getProducts', async (id, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.get(`product/?store_id=${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
   }
-);
+});
 
 export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectValue: string }>(
   'products/addProduct',
