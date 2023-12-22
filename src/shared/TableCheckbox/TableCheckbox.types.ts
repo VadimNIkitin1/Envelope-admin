@@ -1,5 +1,5 @@
 export interface Props {
-  className: string;
+  className?: string;
   checked: boolean;
   onChange: () => void;
 }

@@ -24,11 +24,6 @@ export enum ANALYTIC_PAGE {
   STORE = 'store',
 }
 
-export enum SETTINGS_PAGE {
-  USER = 'user',
-  STORE = 'store',
-}
-
 export enum LANGUAGE {
   RUSSIAN = 'rus',
   ENGLAND = 'eng',

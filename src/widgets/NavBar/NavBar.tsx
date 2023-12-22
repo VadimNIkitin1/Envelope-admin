@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toggleLanguage, toggleTabs } from '../../store/activeSlice';
 import { GiEnvelope } from 'react-icons/gi';
 
@@ -9,25 +9,24 @@ import { clsx } from 'clsx';
 import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 import { LANGUAGE, PATHNAME } from '../../app/constants';
-import { useEffect } from 'react';
-import { getStores } from '../../store/storeSlice';
 import { HiDotsVertical } from 'react-icons/hi';
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import ThemeSwitches from '../../shared/ThemeSwitches/ThemeSwitches';
+import { IoExitOutline } from 'react-icons/io5';
+import { logOut } from '../../store/authSlice';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
-  const { render, theme, language } = useAppSelector((state) => state.active);
-  const stores = useAppSelector((state) => state.store.stores);
+  const navigate = useNavigate();
+  const { theme, language } = useAppSelector((state) => state.active);
+  const { store } = useAppSelector((state) => state.store);
   const [company_id] = useLocalStorage('company_id', '');
   const store_id = localStorage.getItem('store_id');
-  console.log(language);
 
-  const store = stores.filter((store) => String(store.id) === store_id)[0];
-
-  useEffect(() => {
-    dispatch(getStores());
-  }, [render]);
+  const handleLogOut = () => {
+    dispatch(logOut());
+    navigate(PATHNAME.LOGIN);
+  };
 
   const handleClickLanguage = (lang) => {
     dispatch(toggleLanguage(lang));
@@ -44,9 +43,9 @@ const NavBar = () => {
         onClick={() => dispatch(toggleTabs(`/${company_id + PATHNAME.PRODUCTS}`))}
         className={clsx(style.logoText, theme && style.light)}
       >
-        ENVELOPE <GiEnvelope className={style.logo} />
+        Rekka <GiEnvelope className={style.logo} />
       </Link>
-      {store && <div className={style.store_name}>{store.info.name}</div>}
+      {store_id ? <div className={style.store_name}>{store.info.name}</div> : null}
       <Menu closeOnSelect={false}>
         <MenuButton>
           <HiDotsVertical color={theme ? '#000' : '#fff'} />
@@ -90,6 +89,19 @@ const NavBar = () => {
                 🇬🇧
               </p>
             </div>
+          </MenuItem>
+          <MenuItem
+            backgroundColor={'#212121'}
+            className={clsx(style.menu_item, theme && style.light)}
+            onClick={() => handleLogOut()}
+          >
+            <p
+              className={clsx(style.menu_item__title, theme && style.light)}
+              style={{ color: 'red' }}
+            >
+              Выйти
+            </p>
+            <IoExitOutline style={{ color: 'red', fontSize: '25px' }} />
           </MenuItem>
         </MenuList>
       </Menu>

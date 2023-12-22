@@ -45,9 +45,7 @@ const StoreCard = (props) => {
         >
           <div className={style.container_card}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <p className={style.card_title}>
-                {!props.info.name ? 'не найдено' : props.info.name}
-              </p>
+              <p className={style.card_title}>{props.info ? props.info.name : 'не найдено'}</p>
               <div style={{ display: 'flex' }}>
                 <Tooltip label="Редактировать" placement="top">
                   <span style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
@@ -67,7 +65,8 @@ const StoreCard = (props) => {
             </div>
             <div className={style.info_container}>
               <p className={clsx(style.status, theme && style.light)}>
-                Активный <IoIosArrowDown />
+                {props.subscriptions && props.subscriptions.is_active ? 'Активный' : 'Неактивный'}
+                <IoIosArrowDown />
               </p>
               <div className={style.creation_date}>
                 <p>Оплачено до:</p>

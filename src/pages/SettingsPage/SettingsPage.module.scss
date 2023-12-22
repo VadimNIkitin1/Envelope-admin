@@ -30,6 +30,8 @@
 }
 
 .status {
+  display: flex;
+  column-gap: 10px;
   background-color: $grey;
   padding: 5px;
   border-radius: 5px;
@@ -42,9 +44,16 @@
 .table_item {
   display: flex;
   align-items: center;
+  column-gap: 30px;
 }
 
 .table_item__first:first-child {
   width: 200px;
   margin-right: 20px;
+}
+
+.table_item__checkboxes {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
