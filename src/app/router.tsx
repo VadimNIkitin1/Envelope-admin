@@ -15,7 +15,7 @@ import RequireAuth from '../features/HOC/RequireAuth';
 import StoreCardsPage from '../pages/StoreCardsPage/StoreCardsPage';
 import CategoriesPage from '../pages/CategoriesPage/CategoriesPage';
 import { AuthType } from '../store/authSlice';
-import { ANALYTIC_PAGE, SETTINGS_PAGE } from './constants';
+import { ANALYTIC_PAGE } from './constants';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,15 +52,6 @@ const router = createBrowserRouter(
           element={
             <RequireAuth>
               <AnalyticPage type={ANALYTIC_PAGE.USER} />
-            </RequireAuth>
-          }
-          errorElement={<ErrorPage />}
-        />
-        <Route
-          path={'/:company_id/settings'}
-          element={
-            <RequireAuth>
-              <SettingsPage type={SETTINGS_PAGE.USER} />
             </RequireAuth>
           }
           errorElement={<ErrorPage />}
@@ -114,7 +105,7 @@ const router = createBrowserRouter(
           path={'/:company_id/:store_id/settings'}
           element={
             <RequireAuth>
-              <SettingsPage type={SETTINGS_PAGE.STORE} />
+              <SettingsPage />
             </RequireAuth>
           }
           errorElement={<ErrorPage />}
