@@ -3,17 +3,18 @@ import styles from './InputFile.module.scss';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { clearImageProduct, uploadPhoto } from '../../store/productSlice';
-import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+
 import { IInputProps } from './InputFile.types';
 import clsx from 'clsx';
 import { clearImageMail, uploadPhotoForMail } from '../../store/mailSlice';
+import { useParams } from 'react-router';
 
 const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, type }, ref) => {
   const dispatch = useAppDispatch();
   const image = useAppSelector((state) => state.products.product.image);
   const photo_url = useAppSelector((state) => state.mail.photo_url);
   const theme = useAppSelector((state) => state.active.theme);
-  const [store_id] = useLocalStorage('store_id', '');
+  const { store_id } = useParams();
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const filePicker = useRef<any>(ref);
 

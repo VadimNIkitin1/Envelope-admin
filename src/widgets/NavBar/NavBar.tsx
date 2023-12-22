@@ -1,12 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toggleLanguage, toggleTabs } from '../../store/activeSlice';
 import { GiEnvelope } from 'react-icons/gi';
 
 import style from './NavBar.module.scss';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { clsx } from 'clsx';
-
-import { useLocalStorage } from '../../features/hooks/useLocalStorage';
 
 import { LANGUAGE, PATHNAME } from '../../app/constants';
 import { HiDotsVertical } from 'react-icons/hi';
@@ -18,10 +16,9 @@ import { logOut } from '../../store/authSlice';
 const NavBar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { store_id, company_id } = useParams();
   const { theme, language } = useAppSelector((state) => state.active);
   const { store } = useAppSelector((state) => state.store);
-  const [company_id] = useLocalStorage('company_id', '');
-  const store_id = localStorage.getItem('store_id');
 
   const handleLogOut = () => {
     dispatch(logOut());

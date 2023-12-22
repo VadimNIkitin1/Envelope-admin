@@ -18,6 +18,7 @@ import { IRequestStore } from './types';
 const ModalStores = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.active.theme);
+
   const { store } = useAppSelector((state) => state.store);
   const { info, id } = store;
 

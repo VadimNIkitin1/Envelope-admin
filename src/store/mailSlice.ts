@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
 
 interface IRequestPhoto {
-  store_id: string | number;
+  store_id: string | number | undefined;
   formData: FormData;
 }
 

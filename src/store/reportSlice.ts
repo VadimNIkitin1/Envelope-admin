@@ -43,7 +43,7 @@ export const getTotalSales = createAsyncThunk<
 
 export const getCustomers = createAsyncThunk<
   ICustomers[],
-  string | number,
+  string | number | undefined,
   { rejectValue: string }
 >('report/getCustomers', async (store_id, { rejectWithValue }) => {
   try {

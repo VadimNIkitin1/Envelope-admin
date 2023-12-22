@@ -10,18 +10,22 @@ import { TABLE_HEADER_MENU } from './ProductsPage.data';
 import style from './ProductsPage.module.scss';
 
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+
 import { Modals } from '../../widgets/Modal/Modal';
 import { Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
+import { useParams } from 'react-router';
 
 const MenuPage = () => {
   const dispatch = useAppDispatch();
+  const { store_id } = useParams();
+
   const { products, error } = useAppSelector((state) => state.products);
-  const modalProducts = useAppSelector((state) => state.modals.modalProducts);
-  const render = useAppSelector((state) => state.active.render);
-  const modalEditProducts = useAppSelector((state) => state.modals.modalEditProducts);
-  const modalForDelete = useAppSelector((state) => state.modals.modalForDelete);
-  const [store_id] = useLocalStorage('store_id', '');
+
+  const { render } = useAppSelector((state) => state.active);
+
+  const { modalProducts, modalEditProducts, modalForDelete } = useAppSelector(
+    (state) => state.modals
+  );
 
   useEffect(() => {
     setTimeout(() => {

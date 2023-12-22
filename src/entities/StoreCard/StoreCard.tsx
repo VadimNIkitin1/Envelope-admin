@@ -2,37 +2,32 @@ import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
 import { clsx } from 'clsx';
 import style from './StoreCard.module.scss';
-import { Link, useLocation } from 'react-router-dom';
-import { useLocalStorage } from '../../features/hooks/useLocalStorage';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { PATHNAME } from '../../app/constants';
 import Button from '../../shared/Button/Button';
-import { MdDeleteForever, MdOutlineEditCalendar } from 'react-icons/md';
+import { MdDeleteForever } from 'react-icons/md';
 import { Tooltip } from '@chakra-ui/react';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
-import { saveStore } from '../../store/storeSlice';
 import { toggleTabs, triggerRender } from '../../store/activeSlice';
 import { IoIosArrowDown } from 'react-icons/io';
+import { saveIdStoreForDelete } from '../../store/storeSlice';
 
 const StoreCard = (props) => {
-  const location = useLocation();
   const dispatch = useAppDispatch();
-  const theme = useAppSelector((state) => state.active.theme);
-  const [company_id] = useLocalStorage('company_id', '');
+  const location = useLocation();
+
+  const { company_id } = useParams();
+
+  const { theme } = useAppSelector((state) => state.active);
 
   const handleClick = () => {
-    localStorage.setItem('store_id', props.id);
-    dispatch(toggleTabs(PATHNAME.SETTINGS));
     dispatch(triggerRender());
+    dispatch(toggleTabs(PATHNAME.SETTINGS));
   };
 
-  const handleEdit = (store) => {
-    dispatch(toggleModal({ action: true, type: ModalType.EDIT_STORES }));
-    dispatch(saveStore(store));
-  };
-
-  const handleDelete = (store) => {
+  const handleDelete = () => {
+    dispatch(saveIdStoreForDelete(props.id));
     dispatch(toggleModal({ action: true, type: ModalType.DELETE }));
-    dispatch(saveStore(store));
   };
 
   return (
@@ -47,16 +42,9 @@ const StoreCard = (props) => {
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <p className={style.card_title}>{props.info ? props.info.name : 'не найдено'}</p>
               <div style={{ display: 'flex' }}>
-                <Tooltip label="Редактировать" placement="top">
-                  <span style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
-                    <Button view="add" onClick={() => handleEdit(props)}>
-                      <MdOutlineEditCalendar />
-                    </Button>
-                  </span>
-                </Tooltip>
                 <Tooltip label="Удалить" placement="top">
                   <span style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
-                    <Button view="delete" onClick={() => handleDelete(props)}>
+                    <Button view="delete" onClick={() => handleDelete()}>
                       <MdDeleteForever />
                     </Button>
                   </span>

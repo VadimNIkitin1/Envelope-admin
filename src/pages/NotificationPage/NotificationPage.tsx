@@ -20,10 +20,9 @@ export interface INotification {
 
 const NotificationPage = () => {
   const dispatch = useAppDispatch();
-  const theme = useAppSelector((state) => state.active.theme);
+  const { theme, recipient } = useAppSelector((state) => state.active);
   const photo_url = useAppSelector((state) => state.mail.photo_url);
   const modalRecipient = useAppSelector((state) => state.modals.modalRecipient);
-  const recipient = useAppSelector((state) => state.active.recipient);
 
   const {
     register,

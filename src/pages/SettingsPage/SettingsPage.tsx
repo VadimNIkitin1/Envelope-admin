@@ -5,13 +5,13 @@ import { getOneStore } from '../../store/storeSlice';
 import { useEffect } from 'react';
 import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
 import { IoIosArrowDown } from 'react-icons/io';
+import { useParams } from 'react-router';
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();
   const { theme, render } = useAppSelector((state) => state.active);
   const { store } = useAppSelector((state) => state.store);
-
-  const store_id = localStorage.getItem('store_id');
+  const { store_id } = useParams();
 
   useEffect(() => {
     dispatch(getOneStore(store_id));

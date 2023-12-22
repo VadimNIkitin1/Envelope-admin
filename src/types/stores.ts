@@ -97,6 +97,7 @@ export interface IStore {
 export interface IStoreInitialState {
   stores: IStore[];
   store: IStore;
+  idStoreForDelete: number | string;
   loading: boolean;
   error: string | null;
 }
