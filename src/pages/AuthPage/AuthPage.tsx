@@ -62,7 +62,7 @@ const AuthPage = ({ type }) => {
     <div className={style.page}>
       <div className={style.container}>
         <h1 className={style.logoText}>
-          Rekka <GiEnvelope className={style.logo} />
+          Rékka <GiEnvelope className={style.logo} />
         </h1>
         <h2 className={style.title}>{type === AuthType.REGISTER ? 'Регистрация' : 'Войти'}</h2>
         <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
