@@ -25,14 +25,21 @@ If you are developing a production application, we recommend updating the config
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+ 
+--- 
+# Оформление Git
+*При разработке делаем бренч от ветки `Develop` !!!*
+## Commits:
+    Task # (номер задачи) - (тип задачи): (описание задачи на РУССКОМ)
+    
+    Пример: 
+    Task #1 - add: Новый функционал
+**Номер задачи** - берем из Asana. 
 
-# Название коммитов
+**Тип задачи** - add, fix, change, delete.
 
-Task #(номер задачи) - (тип задачи): (описание задачи на РУССКОМ)
-Пример: Task #1 - add: Новый функционал
+## Branches:
+*Название веток на Английском языке.* 
 
-Тип задачи - add,fix,delete,change и т.д.;
 
-# Название веток на английском
 
-# При разработке делаем бренч от ветки Develope
