@@ -78,11 +78,6 @@ const SideBarList = () => {
       ],
     },
     {
-      link: `${PATHNAME.STORES}`,
-      icon: MdStore,
-      name: 'Магазины',
-    },
-    {
       link: `/${store_id}${PATHNAME.ANALYTIC}`,
       icon: MdAnalytics,
       name: 'Аналитика магазина',
@@ -101,6 +96,11 @@ const SideBarList = () => {
       link: `/${store_id}${PATHNAME.TARRIFS}`,
       icon: MdPriceChange,
       name: 'Тарифы',
+    },
+    {
+      link: `${PATHNAME.STORES}`,
+      icon: MdStore,
+      name: 'Магазины',
     },
   ];
 
