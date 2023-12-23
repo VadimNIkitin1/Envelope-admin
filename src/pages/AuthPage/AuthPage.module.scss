@@ -25,6 +25,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .title {
@@ -32,7 +33,7 @@
   text-align: center;
   font-size: 25px;
   font-weight: 800;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .label {
@@ -40,18 +41,19 @@
   flex-direction: column;
   color: #fff;
   row-gap: 10px;
+  width: 350px;
 }
 
 .input {
   color: #000;
   background-color: #e2e2e2;
-  width: 350px;
   border-radius: 10px;
   outline: 2px solid $orange;
   border: 0;
   outline-offset: 3px;
   padding: 10px 1rem;
   transition: 0.25s;
+  margin-bottom: 25px;
 }
 
 .input:focus {
@@ -66,6 +68,7 @@
   padding: 15px;
   border-radius: 10px;
   background-color: $orange;
+  width: calc(100%/2);
 }
 
 .errorMsg {
@@ -73,6 +76,7 @@
   font-size: 16px;
   line-height: 22px;
   width: 300px;
+  //margin-top: -25px;
 }
 
 .link {

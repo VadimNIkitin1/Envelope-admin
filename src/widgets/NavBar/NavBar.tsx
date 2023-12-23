@@ -40,7 +40,7 @@ const NavBar = () => {
         onClick={() => dispatch(toggleTabs(`/${company_id + PATHNAME.PRODUCTS}`))}
         className={clsx(style.logoText, theme && style.light)}
       >
-        Rekka <GiEnvelope className={style.logo} />
+        Rékka <GiEnvelope className={style.logo} />
       </Link>
       {store_id ? <div className={style.store_name}>{store.info.name}</div> : null}
       <Menu closeOnSelect={false}>
