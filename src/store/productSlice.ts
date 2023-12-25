@@ -101,7 +101,7 @@ export const deleteProductFlag = createAsyncThunk<string, string | number, { rej
   async (id, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token') || '';
-      const res = await axios.put(
+      const res = await axios.patch(
         `product/delete/?product_id=${id}`,
         {},
         {
@@ -142,7 +142,7 @@ export const toggleCheckboxProduct = createAsyncThunk<
 >('products/toggleCheckboxProduct', async (data, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem('token') || '';
-    const res = await axios.put(
+    const res = await axios.patch(
       `product/checkbox/?product_id=${data.id}&checkbox=${data.code}`,
       {},
       {
