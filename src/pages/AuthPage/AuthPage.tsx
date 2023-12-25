@@ -67,9 +67,8 @@ const AuthPage = ({ type }) => {
         <h2 className={style.title}>{type === AuthType.REGISTER ? 'Регистрация' : 'Войти'}</h2>
         <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
           <label className={style.label}>
-            <p>Логин</p>
             <InputText
-              placeholder="Логин"
+              placeholder="Электронная почта"
               view="email"
               error={errors.username}
               className={style.input}
@@ -77,13 +76,12 @@ const AuthPage = ({ type }) => {
                 required: 'Это поле обязательно для заполнения!',
                 pattern: {
                   value: EMAIL_REGEXP,
-                  message: 'Некоректный email!',
+                  message: 'Некорректная электронная почта!',
                 },
               })}
             />
           </label>
           <label className={style.label}>
-            <p>Пароль</p>
             <InputText
               placeholder="Пароль"
               className={style.input}
@@ -109,7 +107,6 @@ const AuthPage = ({ type }) => {
           </label>
           {type === AuthType.REGISTER && (
             <label className={style.label}>
-              <p>Повторите пароль</p>
               <InputText
                 placeholder="Повторите пароль"
                 view="password"
