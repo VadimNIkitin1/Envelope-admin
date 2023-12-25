@@ -13,7 +13,7 @@ const Footer = () => {
       <p className={clsx(style.text, theme && style.light)}>
         Разработано командой
         <Link className={style.link} to={PATHNAME.ABOUT}>
-          Envelope-App
+          Rékka-group
         </Link>
       </p>
       {store_id && (

@@ -8,7 +8,7 @@ import Button from '../../shared/Button/Button';
 import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { triggerRender } from '../../store/activeSlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
-import { addStore, editStore } from '../../store/storeSlice';
+import { addStore } from '../../store/storeSlice';
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
 
 import clsx from 'clsx';
@@ -20,7 +20,7 @@ const ModalStores = ({ type, isOpen }) => {
   const theme = useAppSelector((state) => state.active.theme);
 
   const { store } = useAppSelector((state) => state.store);
-  const { info, id } = store;
+  const { info } = store;
 
   const {
     register,
@@ -29,22 +29,11 @@ const ModalStores = ({ type, isOpen }) => {
   } = useForm<IRequestStore>({ mode: 'onBlur' });
 
   const onSubmit: SubmitHandler<IRequestStore> = (data: IRequestStore) => {
-    if (type === ModalType.STORES) {
-      const requestData = {
-        ...data,
-      };
+    const requestData = {
+      ...data,
+    };
 
-      dispatch(addStore(requestData));
-    }
-
-    if (type === ModalType.EDIT_STORES) {
-      const requestData = {
-        id,
-        ...data,
-      };
-
-      dispatch(editStore(requestData));
-    }
+    dispatch(addStore(requestData));
 
     dispatch(triggerRender());
     dispatch(toggleModal({ action: false, type }));

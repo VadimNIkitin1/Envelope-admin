@@ -139,14 +139,16 @@ const SideBarList = () => {
                 </Tooltip>
                 <MenuList backgroundColor={'#212121'}>
                   {el.subcategory?.map((el) => (
-                    <MenuItem
-                      backgroundColor={'#212121'}
-                      key={el.name}
-                      className={style.subcategory_item}
-                      onClick={() => handleClickSubcategory(el)}
-                    >
-                      <Link to={el.link}>{el.name}</Link>
-                    </MenuItem>
+                    <Link to={el.link}>
+                      <MenuItem
+                        backgroundColor={'#212121'}
+                        key={el.name}
+                        className={style.subcategory_item}
+                        onClick={() => handleClickSubcategory(el)}
+                      >
+                        {el.name}
+                      </MenuItem>
+                    </Link>
                   ))}
                 </MenuList>
               </Menu>
