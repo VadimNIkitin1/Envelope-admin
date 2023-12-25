@@ -1,4 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useParams } from 'react-router';
 
 import { toggleModal, ModalType } from '../../store/modalsSlice';
 import { triggerRender } from '../../store/activeSlice';
@@ -20,7 +21,6 @@ import { Checkbox } from '../../shared/Checkbox/Checkbox';
 import { InputText } from '../../shared/InputText/InputText';
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import clsx from 'clsx';
-import { useParams } from 'react-router';
 
 const ModalProducts = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
@@ -29,7 +29,6 @@ const ModalProducts = ({ type, isOpen }) => {
   const { categories } = useAppSelector((state) => state.categories);
 
   const { product, units } = useAppSelector((state) => state.products);
-  const { image } = product;
 
   const { theme } = useAppSelector((state) => state.active);
 
@@ -45,6 +44,11 @@ const ModalProducts = ({ type, isOpen }) => {
     category_id,
     description,
     unit_id,
+    image,
+    delivery,
+    dinein,
+    takeaway,
+    popular,
   } = product;
 
   useEffect(() => {
@@ -252,22 +256,22 @@ const ModalProducts = ({ type, isOpen }) => {
                     </label>
                     <label className={clsx(style.containerCheckbox, theme && style.light)}>
                       Популярное
-                      <Checkbox {...register('popular')} />
-                    </label>
-                    <label className={clsx(style.containerCheckbox, theme && style.light)}>
-                      Доставка
-                      <Checkbox {...register('delivery')} />
-                    </label>
-                    <label className={clsx(style.containerCheckbox, theme && style.light)}>
-                      Самовывоз
-                      <Checkbox {...register('takeaway')} />
-                    </label>
-                    <label className={clsx(style.containerCheckbox, theme && style.light)}>
-                      Зал
-                      <Checkbox {...register('dinein')} />
+                      <Checkbox {...register('popular', { value: popular })} />
                     </label>
                   </>
                 )}
+                <label className={clsx(style.containerCheckbox, theme && style.light)}>
+                  Доставка
+                  <Checkbox {...register('delivery', { value: delivery })} />
+                </label>
+                <label className={clsx(style.containerCheckbox, theme && style.light)}>
+                  Самовывоз
+                  <Checkbox {...register('takeaway', { value: takeaway })} />
+                </label>
+                <label className={clsx(style.containerCheckbox, theme && style.light)}>
+                  Зал
+                  <Checkbox {...register('dinein', { value: dinein })} />
+                </label>
               </div>
             </div>
             <div style={{ display: 'flex', columnGap: '20px' }}>
