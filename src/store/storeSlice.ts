@@ -175,27 +175,30 @@ export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue
   }
 );
 
-export const editStore = createAsyncThunk<IStore[], IRequestCategory, { rejectValue: string }>(
-  'store/editStore',
-  async (data, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.put(
-        `store/?store_id=${data.id}`,
-        { name: data.name },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
+// Убран первоначальный вариант запроса на редактирование магазина за неактуальностью
+// Оставил болванку для удобства (для будущих актуальных запросов)
+
+// export const editStore = createAsyncThunk<IStore[], IRequestCategory, { rejectValue: string }>(
+//   'store/editStore',
+//   async (data, { rejectWithValue }) => {
+//     try {
+//       const token = localStorage.getItem('token') || '';
+//       const res = await axios.put(
+//         `store/?store_id=${data.id}`,
+//         { name: data.name },
+//         {
+//           headers: {
+//             'Content-Type': 'application/json',
+//             Authorization: `Bearer ${token}`,
+//           },
+//         }
+//       );
+//       return res.data;
+//     } catch (error: any) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
 
 export const deleteStore = createAsyncThunk<
   string,
