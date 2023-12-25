@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useParams } from 'react-router';
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();
@@ -219,6 +220,50 @@ const SettingsPage = () => {
           <p>{store.legal_information.ogrn ? store.legal_information.ogrn : '-'}</p>
         </div>
       </div>
+      <TableContainer maxWidth={'80%'}>
+        <Table
+          variant="unstyled"
+          className={clsx(style.information_table_chakra, theme && style.light)}
+        >
+          <Thead>
+            <Tr>
+              <Th color={'#7669c8'}>Юридическая информация</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td>Полное наименование организации</Td>
+              <Td>
+                {store.legal_information.full_organization_name
+                  ? store.legal_information.full_organization_name
+                  : '-'}
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>Юр адрес</Td>
+              <Td>
+                {store.legal_information.legal_adress ? store.legal_information.legal_adress : '-'}
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>Юр телефон</Td>
+              <Td>
+                {store.legal_information.legal_number_phone
+                  ? store.legal_information.legal_number_phone
+                  : '-'}
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>ИНН</Td>
+              <Td>{store.legal_information.inn ? store.legal_information.inn : '-'}</Td>
+            </Tr>
+            <Tr>
+              <Td>ОГРН</Td>
+              <Td>{store.legal_information.ogrn ? store.legal_information.ogrn : '-'}</Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </TableContainer>
     </>
   );
 };

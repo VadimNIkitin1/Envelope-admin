@@ -139,7 +139,7 @@ const SideBarList = () => {
                 </Tooltip>
                 <MenuList backgroundColor={'#212121'}>
                   {el.subcategory?.map((el) => (
-                    <Link to={el.link}>
+                    <Link to={el.link} key={el.name}>
                       <MenuItem
                         backgroundColor={'#212121'}
                         key={el.name}
