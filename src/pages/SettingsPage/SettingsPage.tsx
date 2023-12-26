@@ -7,6 +7,8 @@ import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useParams } from 'react-router';
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
+import { TABLE_LEGAL } from './SettingsPage.data';
+import { ChakraTable } from '../../widgets/ChakraTable/ChakraTable';
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();
@@ -231,39 +233,16 @@ const SettingsPage = () => {
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>Полное наименование организации</Td>
-              <Td>
-                {store.legal_information.full_organization_name
-                  ? store.legal_information.full_organization_name
-                  : '-'}
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Юр адрес</Td>
-              <Td>
-                {store.legal_information.legal_adress ? store.legal_information.legal_adress : '-'}
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Юр телефон</Td>
-              <Td>
-                {store.legal_information.legal_number_phone
-                  ? store.legal_information.legal_number_phone
-                  : '-'}
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>ИНН</Td>
-              <Td>{store.legal_information.inn ? store.legal_information.inn : '-'}</Td>
-            </Tr>
-            <Tr>
-              <Td>ОГРН</Td>
-              <Td>{store.legal_information.ogrn ? store.legal_information.ogrn : '-'}</Td>
-            </Tr>
+            {TABLE_LEGAL.data.map((el) => (
+              <Tr key={el.name}>
+                <Td>{el.name}</Td>
+                <Td>{store.legal_information[el.code] ? store.legal_information[el.code] : '-'}</Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>
+      <ChakraTable staticData={TABLE_LEGAL} dynamicData={store.legal_information} />
     </>
   );
 };

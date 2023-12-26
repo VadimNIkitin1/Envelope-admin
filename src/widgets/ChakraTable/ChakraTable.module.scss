@@ -1,0 +1,11 @@
+@import '../../app/variable.module.scss';
+
+.information_table_chakra {
+  background-color: $black;
+  border-radius: 10px;
+  padding: 10px 20px;
+  &.light {
+    color: black;
+    background-color: white;
+  }
+}
