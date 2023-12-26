@@ -6,8 +6,7 @@ import { useEffect } from 'react';
 import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useParams } from 'react-router';
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
-import { TABLE_LEGAL } from './SettingsPage.data';
+import { TABLE_CHATS, TABLE_LEGAL, TABLE_PAYMENTS } from './SettingsPage.data';
 import { ChakraTable } from '../../widgets/ChakraTable/ChakraTable';
 
 const SettingsPage = () => {
@@ -96,35 +95,7 @@ const SettingsPage = () => {
           <p>{store.info.time_zone ? store.info.time_zone : '-'}</p>
         </div>
       </div>
-      <div className={clsx(style.information_table, theme && style.light)}>
-        <h2 style={{ color: '#7669c8' }}>Оплата</h2>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Типы оплаты</p>
-          <div className={style.table_item__checkboxes}>
-            <TableCheckbox checked={store.payments.card} onChange={() => console.log('check')} />
-            Картой{' '}
-          </div>
-          <div className={style.table_item__checkboxes}>
-            <TableCheckbox checked={store.payments.cash} onChange={() => console.log('check')} />
-            Наличные{' '}
-          </div>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>
-            Минимальная сумма заказа для бесплатной доставки
-          </p>
-          <p>
-            {store.payments.min_order_amount_for_free_delivery
-              ? store.payments.min_order_amount_for_free_delivery
-              : '-'}{' '}
-            р.
-          </p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Минимальная сумма доставки</p>
-          <p>{store.payments.min_delivery_amount} р.</p>
-        </div>
-      </div>
+      <ChakraTable staticData={TABLE_PAYMENTS} dynamicData={store.payments} />
       <div className={clsx(style.information_table, theme && style.light)}>
         <h2 style={{ color: '#7669c8' }}>Доставка</h2>
         <div className={style.table_item}>
@@ -136,112 +107,7 @@ const SettingsPage = () => {
           <p>249р.</p>
         </div>
       </div>
-      <div className={clsx(style.information_table, theme && style.light)}>
-        <h2 style={{ color: '#7669c8' }}>Служебные чаты</h2>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Служебная почта</p>
-          <p>{store.service_text_and_chats.email ? store.service_text_and_chats.email : '-'}</p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Приветственное сообщение бота</p>
-          <p>
-            {store.service_text_and_chats.welcome_message_bot
-              ? store.service_text_and_chats.welcome_message_bot
-              : '-'}
-          </p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Изображение при приветствии</p>
-          <p>
-            {store.service_text_and_chats.welcome_image
-              ? store.service_text_and_chats.welcome_image
-              : '-'}
-          </p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Чат доставки</p>
-          <p>
-            {store.service_text_and_chats.delivery_chat
-              ? store.service_text_and_chats.delivery_chat
-              : '-'}
-          </p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Чат заказов</p>
-          <p>
-            {store.service_text_and_chats.order_chat
-              ? store.service_text_and_chats.order_chat
-              : '-'}
-          </p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Чат выполненых заказов</p>
-          <p>
-            {store.service_text_and_chats.completed_orders_chat
-              ? store.service_text_and_chats.completed_orders_chat
-              : '-'}
-          </p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Чат отмененных заказов</p>
-          <p>
-            {store.service_text_and_chats.canceled_orders_chat
-              ? store.service_text_and_chats.canceled_orders_chat
-              : '-'}
-          </p>
-        </div>
-      </div>
-      <div className={clsx(style.information_table, theme && style.light)}>
-        <h2 style={{ color: '#7669c8' }}>Юридическая информация</h2>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Полное наименование организации</p>
-          <p>
-            {store.legal_information.full_organization_name
-              ? store.legal_information.full_organization_name
-              : '-'}
-          </p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Юр адрес</p>
-          <p>{store.legal_information.legal_adress ? store.legal_information.legal_adress : '-'}</p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>Юр телефон</p>
-          <p>
-            {store.legal_information.legal_number_phone
-              ? store.legal_information.legal_number_phone
-              : '-'}
-          </p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>ИНН</p>
-          <p>{store.legal_information.inn ? store.legal_information.inn : '-'}</p>
-        </div>
-        <div className={style.table_item}>
-          <p className={style.table_item__first}>ОГРН</p>
-          <p>{store.legal_information.ogrn ? store.legal_information.ogrn : '-'}</p>
-        </div>
-      </div>
-      <TableContainer maxWidth={'80%'}>
-        <Table
-          variant="unstyled"
-          className={clsx(style.information_table_chakra, theme && style.light)}
-        >
-          <Thead>
-            <Tr>
-              <Th color={'#7669c8'}>Юридическая информация</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {TABLE_LEGAL.data.map((el) => (
-              <Tr key={el.name}>
-                <Td>{el.name}</Td>
-                <Td>{store.legal_information[el.code] ? store.legal_information[el.code] : '-'}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      <ChakraTable staticData={TABLE_CHATS} dynamicData={store.service_text_and_chats} />
       <ChakraTable staticData={TABLE_LEGAL} dynamicData={store.legal_information} />
     </>
   );
