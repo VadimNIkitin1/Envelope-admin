@@ -56,6 +56,7 @@ export interface IStore {
     min_order_amount_for_free_delivery: number;
     store_id: number;
   };
+  delivery_info: '';
   delivery_distance: {
     start_price: number;
     price_per_km: number;

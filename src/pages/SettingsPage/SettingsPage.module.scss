@@ -23,6 +23,7 @@
   border-radius: 10px;
   padding: 10px 20px;
   margin-bottom: 10px;
+  width: 80%;
   &.light {
     color: black;
     background-color: white;
@@ -42,11 +43,15 @@
 
 .status {
   display: flex;
-  column-gap: 10px;
   background-color: $grey;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
+  border: 1px solid red;
+  column-gap: 10px;
   cursor: pointer;
+  &.active {
+    border: 1px solid $green;
+  }
   &.light {
     background-color: $lightgrey;
   }
@@ -55,7 +60,7 @@
 .table_item {
   display: flex;
   align-items: center;
-  column-gap: 30px;
+  justify-content: space-between;
 }
 
 .table_item__first:first-child {

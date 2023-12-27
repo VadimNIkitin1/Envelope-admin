@@ -3,7 +3,7 @@ import { IActive } from '../types/active';
 import { LANGUAGE } from '../app/constants';
 
 const initialState: IActive = {
-  active: '/stores',
+  active: '/settings',
   theme: JSON.parse(localStorage.getItem('theme') || 'false'),
   render: false,
   sidebar: false,

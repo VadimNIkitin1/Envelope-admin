@@ -1,3 +1,55 @@
+export const TABLE_INFO = {
+  header: 'О заведении',
+  code: 'info',
+  data: [
+    {
+      name: 'Название магазина',
+      code: 'name',
+    },
+    {
+      name: 'Адрес',
+      code: 'adress',
+    },
+    {
+      name: 'Номер телефона',
+      code: 'number_phone',
+    },
+    {
+      name: 'Ссылка на бота',
+      code: 'link_bot',
+    },
+    {
+      name: 'График работы',
+      list: [
+        { name: '24/7', code: 'format_24_7' },
+        { name: 'Единый', code: 'format_unified' },
+        { name: 'Вариативный', code: 'format_custom' },
+      ],
+    },
+    {
+      name: 'Часовой пояс',
+      code: 'time_zone',
+    },
+  ],
+};
+
+export const TABLE_TOKEN = {
+  header: 'Токен бота',
+  code: 'bot_tokens',
+  data: [{ name: 'Токен бота', code: 'token_bot' }],
+};
+
+export const TABLE_TYPE_ORDER = {
+  header: 'Типы заказа',
+  code: 'is_active',
+  data: [
+    {
+      name: 'Типы заказа',
+      code: '',
+    },
+  ],
+};
+
 export const TABLE_PAYMENTS = {
   header: 'Оплата',
   code: 'payments',
@@ -14,6 +66,15 @@ export const TABLE_PAYMENTS = {
       code: 'min_order_amount_for_free_delivery',
     },
     { name: 'Минимальная сумма доставки', code: 'min_delivery_amount' },
+  ],
+};
+
+export const TABLE_DELIVERY = {
+  header: 'Доставка',
+  code: 'delivery_info',
+  data: [
+    { name: 'Тип доставки', code: 'delivery_type' },
+    { name: 'Минимальная сумма доставки', code: 'min_price_delivery' },
   ],
 };
 

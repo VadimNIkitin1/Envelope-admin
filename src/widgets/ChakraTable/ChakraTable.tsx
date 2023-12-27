@@ -11,7 +11,7 @@ const ChakraTable = ({ staticData, dynamicData }) => {
   const { theme } = useAppSelector((state) => state.active);
 
   return (
-    <TableContainer maxWidth={'60%'}>
+    <TableContainer maxWidth={'80%'}>
       <Table variant="unstyled" className={clsx(style.table, theme && style.light)}>
         <Thead>
           <Tr>
@@ -23,7 +23,18 @@ const ChakraTable = ({ staticData, dynamicData }) => {
             <Tr key={el.name} className={style.table_item__checkboxes}>
               <Td>{el.name}</Td>
               <Td className={style.table_item}>
-                {el.list ? (
+                {Array.isArray(dynamicData)
+                  ? dynamicData.map((checkbox, idx) => (
+                      <Fragment key={idx}>
+                        <TableCheckbox
+                          checked={checkbox.is_active}
+                          onChange={() => console.log(`${checkbox.is_active}`)}
+                        />
+                        <p>{checkbox.order_type.name}</p>
+                      </Fragment>
+                    ))
+                  : ''}
+                {el.list &&
                   el.list.map((checkbox) => (
                     <Fragment key={checkbox.name}>
                       <TableCheckbox
@@ -32,9 +43,9 @@ const ChakraTable = ({ staticData, dynamicData }) => {
                       />
                       <p>{checkbox.name}</p>
                     </Fragment>
-                  ))
-                ) : (
-                  <p>{dynamicData[el.code] ? dynamicData[el.code] : '-'}</p>
+                  ))}
+                {!Array.isArray(dynamicData) && !el.list && (
+                  <p>{dynamicData && dynamicData[el.code] ? dynamicData[el.code] : '-'}</p>
                 )}
               </Td>
             </Tr>
