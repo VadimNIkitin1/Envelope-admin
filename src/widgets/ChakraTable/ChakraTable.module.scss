@@ -1,0 +1,25 @@
+@import '../../app/variable.module.scss';
+
+.table {
+  background-color: $black;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  &.light {
+    color: black;
+    background-color: white;
+  }
+}
+
+.table_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 30px;
+}
+
+.table_item__checkboxes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

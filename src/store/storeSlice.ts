@@ -66,6 +66,7 @@ const initialState: IStoreInitialState = {
       min_order_amount_for_free_delivery: 0,
       store_id: 0,
     },
+    delivery_info: '',
     delivery_distance: {
       start_price: 0,
       price_per_km: 0,
