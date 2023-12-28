@@ -91,7 +91,6 @@ export interface IStore {
     inn: number;
     ogrn: number;
     postal_code: number;
-    store_id: number;
   };
 }
 

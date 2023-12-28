@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
 import { IStore, IStoreInitialState } from '../types/stores';
-import { IRequestCategory } from '../widgets/Modal/types';
+import { IRequestCategory } from '../widgets/Modals/ModalCategories/types';
+import { IRequestLegalInfo } from '../widgets/Modals/ModalLegalInfo/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -101,7 +102,6 @@ const initialState: IStoreInitialState = {
       inn: 0,
       ogrn: 0,
       postal_code: 0,
-      store_id: 0,
     },
   },
   idStoreForDelete: 0,
@@ -201,6 +201,48 @@ export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue
 //   }
 // );
 
+export const editActivityStore = createAsyncThunk<
+  IStore[],
+  string | number | undefined,
+  { rejectValue: string }
+>('store/editActivityStore', async (id, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.patch(
+      `store/update_activity/?store_id=${id}`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+export const editLegalInfo = createAsyncThunk<IStore[], IRequestLegalInfo, { rejectValue: string }>(
+  'store/editLegalInfo',
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log(data);
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.put(`store/legal_informations/?store_id=${data.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const deleteStore = createAsyncThunk<
   string,
   string | number | undefined,
@@ -252,6 +294,18 @@ const slice = createSlice({
         state.loading = true;
       })
       .addCase(deleteStore.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(editActivityStore.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editActivityStore.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(editLegalInfo.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editLegalInfo.fulfilled, (state) => {
         state.loading = false;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {

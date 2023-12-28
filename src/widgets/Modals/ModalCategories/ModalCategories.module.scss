@@ -1,4 +1,4 @@
-@import '../../app/variable.module.scss';
+@import '../../../app/variable.module.scss';
 
 .modal {
   display: flex;
@@ -36,30 +36,6 @@
   &.light {
     background-color: #fff;
   }
-}
-
-.modalBtn {
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: 2px solid $green;
-  color: $green;
-  margin-bottom: 20px;
-}
-.modalBtn:hover {
-  background-color: $green;
-  color: #fff;
-  transition: all 0.3s ease-in-out;
-}
-
-.closeModalBtn {
-  color: red;
-}
-
-.errorMsg {
-  color: red;
-  font-size: 16px;
-  line-height: 22px;
-  width: 300px;
 }
 
 .containerCheckbox {

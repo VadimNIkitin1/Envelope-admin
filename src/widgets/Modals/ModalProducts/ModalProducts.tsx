@@ -1,24 +1,24 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useParams } from 'react-router';
 
-import { toggleModal, ModalType } from '../../store/modalsSlice';
-import { triggerRender } from '../../store/activeSlice';
+import { toggleModal, ModalType } from '../../../store/modalsSlice';
+import { triggerRender } from '../../../store/activeSlice';
 
-import InputFile from '../../shared/InputFile/InputFile';
-import Button from '../../shared/Button/Button';
+import InputFile from '../../../shared/InputFile/InputFile';
+import Button from '../../../shared/Button/Button';
 
-import { addProduct, clearImageProduct, editProduct, getUnits } from '../../store/productSlice';
+import { addProduct, clearImageProduct, editProduct, getUnits } from '../../../store/productSlice';
 
 import { useEffect } from 'react';
-import { getCategories } from '../../store/categorySlice';
+import { getCategories } from '../../../store/categorySlice';
 
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
+import { useAppDispatch, useAppSelector } from '../../../types/hooks';
 
 import style from './ModalProducts.module.scss';
 
 import { IRequestProduct } from './types';
-import { Checkbox } from '../../shared/Checkbox/Checkbox';
-import { InputText } from '../../shared/InputText/InputText';
+import { Checkbox } from '../../../shared/Checkbox/Checkbox';
+import { InputText } from '../../../shared/InputText/InputText';
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import clsx from 'clsx';
 
@@ -140,7 +140,6 @@ const ModalProducts = ({ type, isOpen }) => {
             </div>
             <div style={{ display: 'flex', columnGap: '20px', marginBottom: '30px' }}>
               <label className={style.modalLabel}>
-                <p className={style.productTitle}>Описание</p>
                 <textarea
                   defaultValue={type === ModalType.EDIT_PRODUCTS ? description : undefined}
                   placeholder="Описание"
@@ -156,7 +155,7 @@ const ModalProducts = ({ type, isOpen }) => {
                     error={errors.kilocalories}
                     placeholder="Ккал"
                     view="number"
-                    className={style.modalInputSmall}
+                    style={{ width: '85px' }}
                     {...register('kilocalories', {
                       required: { value: true, message: 'Поле обязательно для заполнения' },
                     })}
@@ -166,7 +165,7 @@ const ModalProducts = ({ type, isOpen }) => {
                     error={errors.proteins}
                     placeholder="Белки"
                     view="number"
-                    className={style.modalInputSmall}
+                    style={{ width: '85px' }}
                     {...register('proteins', {
                       required: { value: true, message: 'Поле обязательно для заполнения' },
                     })}
@@ -176,7 +175,7 @@ const ModalProducts = ({ type, isOpen }) => {
                     error={errors.fats}
                     placeholder="Жиры"
                     view="number"
-                    className={style.modalInputSmall}
+                    style={{ width: '85px' }}
                     {...register('fats', {
                       required: { value: true, message: 'Поле обязательно для заполнения' },
                     })}
@@ -186,7 +185,7 @@ const ModalProducts = ({ type, isOpen }) => {
                     error={errors.carbohydrates}
                     placeholder="Углеводы"
                     view="number"
-                    className={style.modalInputSmall}
+                    style={{ width: '85px' }}
                     {...register('carbohydrates', {
                       required: { value: true, message: 'Поле обязательно для заполнения' },
                     })}
@@ -199,7 +198,7 @@ const ModalProducts = ({ type, isOpen }) => {
                     error={errors.price}
                     placeholder="Цена"
                     view="number"
-                    className={style.modalInputSmall}
+                    style={{ width: '85px' }}
                     {...register('price', {
                       required: { value: true, message: 'Поле обязательно для заполнения' },
                     })}
@@ -213,7 +212,7 @@ const ModalProducts = ({ type, isOpen }) => {
                       error={errors.wt}
                       placeholder="Выход"
                       view="number"
-                      className={style.modalInputSmall}
+                      style={{ width: '85px' }}
                       {...register('wt', {
                         required: { value: true, message: 'Поле обязательно для заполнения' },
                       })}
