@@ -199,16 +199,13 @@ const slice = createSlice({
     builder
       .addCase(getProducts.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.products = action.payload;
         state.loading = false;
-        state.error = null;
       })
       .addCase(addProduct.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(addProduct.fulfilled, (state) => {
         state.loading = false;
@@ -216,11 +213,9 @@ const slice = createSlice({
       })
       .addCase(editProduct.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(editProduct.fulfilled, (state) => {
         state.loading = false;
-        state.error = null;
       })
       .addCase(toggleCheckboxProduct.pending, (state) => {
         state.loading = true;
@@ -228,25 +223,20 @@ const slice = createSlice({
       })
       .addCase(toggleCheckboxProduct.fulfilled, (state) => {
         state.loading = false;
-        state.error = null;
       })
       .addCase(getUnits.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(getUnits.fulfilled, (state, action) => {
         state.units = action.payload;
         state.loading = false;
-        state.error = null;
       })
       .addCase(uploadPhoto.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(uploadPhoto.fulfilled, (state, action) => {
         state.product.image = action.payload;
         state.loading = false;
-        state.error = null;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;

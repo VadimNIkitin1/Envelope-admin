@@ -18,6 +18,10 @@ const ChakraTable = ({ staticData, dynamicData }) => {
     if (modal === ModalType.LEGAL_INFO) {
       dispatch(toggleModal({ action: true, type: ModalType.LEGAL_INFO }));
     }
+
+    if (modal === ModalType.CHATS) {
+      dispatch(toggleModal({ action: true, type: ModalType.CHATS }));
+    }
   };
 
   return (

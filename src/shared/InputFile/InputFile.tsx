@@ -8,6 +8,7 @@ import { IInputProps } from './InputFile.types';
 import clsx from 'clsx';
 import { clearImageMail, uploadPhotoForMail } from '../../store/mailSlice';
 import { useParams } from 'react-router';
+import { uploadWelcomeImage, clearWelcomeImage } from '../../store/storeSlice';
 
 const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, type }, ref) => {
   const dispatch = useAppDispatch();
@@ -35,6 +36,10 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, typ
     if (type === 'mail') {
       dispatch(uploadPhotoForMail({ store_id, formData }));
     }
+
+    if (type === 'welcome_image') {
+      dispatch(uploadWelcomeImage({ store_id, formData }));
+    }
   };
 
   const handleDelete = (e) => {
@@ -45,6 +50,10 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, typ
 
     if (type === 'mail') {
       dispatch(clearImageMail());
+    }
+
+    if (type === 'welcome_image') {
+      dispatch(clearWelcomeImage());
     }
   };
 

@@ -19,11 +19,12 @@ import { triggerRender } from '../../store/activeSlice';
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { ModalType } from '../../store/modalsSlice';
 import { ModalLegalInfo } from '../../widgets/Modals/ModalLegalInfo/ModalLegalInfo';
+import { ModalChats } from '../../widgets/Modals/ModalChats/ModalChats';
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();
   const { theme, render } = useAppSelector((state) => state.active);
-  const { modalLegalInfo } = useAppSelector((state) => state.modals);
+  const { modalLegalInfo, modalChats } = useAppSelector((state) => state.modals);
   const { store } = useAppSelector((state) => state.store);
   const { store_id } = useParams();
 
@@ -70,6 +71,7 @@ const SettingsPage = () => {
       <ChakraTable staticData={TABLE_CHATS} dynamicData={store.service_text_and_chats} />
       <ChakraTable staticData={TABLE_LEGAL} dynamicData={store.legal_information} />
       {modalLegalInfo && <ModalLegalInfo isOpen={modalLegalInfo} type={ModalType.LEGAL_INFO} />}
+      {modalChats && <ModalChats type={ModalType.CHATS} isOpen={modalChats} />}
     </>
   );
 };
