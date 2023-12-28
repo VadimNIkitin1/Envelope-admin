@@ -11,6 +11,7 @@ const initialState: IModals = {
   modalForDelete: false,
   modalRecipient: false,
   modalLegalInfo: false,
+  modalChats: false,
 };
 
 export enum ModalType {
@@ -24,6 +25,7 @@ export enum ModalType {
   ERROR = 'error',
   RECIPIENT = 'recipient',
   LEGAL_INFO = 'legal_information',
+  CHATS = 'service_text_and_chats',
 }
 
 const slice = createSlice({
@@ -65,6 +67,10 @@ const slice = createSlice({
 
       if (action.payload.type === ModalType.LEGAL_INFO) {
         state.modalLegalInfo = action.payload.action;
+      }
+
+      if (action.payload.type === ModalType.CHATS) {
+        state.modalChats = action.payload.action;
       }
     },
   },

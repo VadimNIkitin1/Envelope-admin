@@ -3,9 +3,15 @@ import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxj
 import { IStore, IStoreInitialState } from '../types/stores';
 import { IRequestCategory } from '../widgets/Modals/ModalCategories/types';
 import { IRequestLegalInfo } from '../widgets/Modals/ModalLegalInfo/types';
+import { IRequestChats } from '../widgets/Modals/ModalChats/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
+
+interface IRequestPhoto {
+  store_id: string | number | undefined;
+  formData: FormData;
+}
 
 const initialState: IStoreInitialState = {
   stores: [],
@@ -228,7 +234,6 @@ export const editLegalInfo = createAsyncThunk<IStore[], IRequestLegalInfo, { rej
   'store/editLegalInfo',
   async (data, { rejectWithValue }) => {
     try {
-      console.log(data);
       const token = localStorage.getItem('token') || '';
       const res = await axios.put(`store/legal_informations/?store_id=${data.id}`, data, {
         headers: {
@@ -236,6 +241,47 @@ export const editLegalInfo = createAsyncThunk<IStore[], IRequestLegalInfo, { rej
           Authorization: `Bearer ${token}`,
         },
       });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const editChats = createAsyncThunk<IStore[], IRequestChats, { rejectValue: string }>(
+  'store/editChats',
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log(data);
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.put(`store/service_text_and_chats/?store_id=${data.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const uploadWelcomeImage = createAsyncThunk<string, IRequestPhoto, { rejectValue: string }>(
+  'store/uploadWelcomeImage',
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.post(
+        `product/upload_photo/?store_id=${data.store_id}`,
+        data.formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -273,6 +319,9 @@ const slice = createSlice({
     saveIdStoreForDelete(state, action) {
       state.idStoreForDelete = action.payload;
     },
+    clearWelcomeImage(state) {
+      state.store.service_text_and_chats.welcome_image = '';
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -308,6 +357,13 @@ const slice = createSlice({
       .addCase(editLegalInfo.fulfilled, (state) => {
         state.loading = false;
       })
+      .addCase(uploadWelcomeImage.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(uploadWelcomeImage.fulfilled, (state, action) => {
+        state.store.service_text_and_chats.welcome_image = action.payload;
+        state.loading = false;
+      })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
         state.loading = false;
@@ -315,6 +371,6 @@ const slice = createSlice({
   },
 });
 
-export const { saveIdStoreForDelete } = slice.actions;
+export const { saveIdStoreForDelete, clearWelcomeImage } = slice.actions;
 
 export default slice.reducer;
