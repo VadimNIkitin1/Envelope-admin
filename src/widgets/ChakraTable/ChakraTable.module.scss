@@ -11,6 +11,13 @@
   }
 }
 
+.title_table {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: $violet;
+}
+
 .table_item {
   display: flex;
   align-items: center;

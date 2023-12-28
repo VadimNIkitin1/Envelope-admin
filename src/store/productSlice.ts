@@ -78,24 +78,6 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
   }
 );
 
-export const deleteProduct = createAsyncThunk<string, string | number, { rejectValue: string }>(
-  'products/deleteProduct',
-  async (id, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.delete(`product/?product_id=${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
 export const deleteProductFlag = createAsyncThunk<string, string | number, { rejectValue: string }>(
   'products/deleteProductFlag',
   async (id, { rejectWithValue }) => {
@@ -229,14 +211,6 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(addProduct.fulfilled, (state) => {
-        state.loading = false;
-        state.error = null;
-      })
-      .addCase(deleteProduct.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(deleteProduct.fulfilled, (state) => {
         state.loading = false;
         state.error = null;
       })

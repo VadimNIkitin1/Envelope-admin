@@ -7,4 +7,5 @@ export interface IModals {
   modalEditStores: boolean;
   modalForDelete: boolean;
   modalRecipient: boolean;
+  modalLegalInfo: boolean;
 }

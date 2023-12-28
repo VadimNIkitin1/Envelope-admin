@@ -101,5 +101,6 @@ export const TABLE_LEGAL = {
     { name: 'Юр телефон', code: 'legal_number_phone' },
     { name: 'ИНН', code: 'inn' },
     { name: 'ОГРН', code: 'ogrn' },
+    { name: 'Почтовый индекс', code: 'postal_code' },
   ],
 };

@@ -9,7 +9,8 @@ import style from './NotificationPage.module.scss';
 import { InputText } from '../../shared/InputText/InputText';
 import { sendMessage, sendMessageMyself } from '../../store/mailSlice';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
-import { Modals } from '../../widgets/Modal/Modal';
+
+import { ModalRecipient } from '../../widgets/Modals/ModalRecipient/ModalRecipient';
 
 export interface INotification {
   title?: string;
@@ -142,7 +143,7 @@ const NotificationPage = () => {
           <input type="button" className={style.imageNotification} {...register('users')} />
         </label> */}
       </form>
-      {modalRecipient && <Modals isOpen={modalRecipient} type={ModalType.RECIPIENT} />}
+      {modalRecipient && <ModalRecipient isOpen={modalRecipient} type={ModalType.RECIPIENT} />}
     </div>
   );
 };

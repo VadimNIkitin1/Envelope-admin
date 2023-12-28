@@ -1,21 +1,40 @@
-import { useAppSelector } from '../../types/hooks';
+import { useAppDispatch, useAppSelector } from '../../types/hooks';
 
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Tooltip } from '@chakra-ui/react';
 
 import { clsx } from 'clsx';
 import style from './ChakraTable.module.scss';
 import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
 import { Fragment } from 'react';
+import Button from '../../shared/Button/Button';
+import { MdOutlineEditCalendar } from 'react-icons/md';
+import { ModalType, toggleModal } from '../../store/modalsSlice';
 
 const ChakraTable = ({ staticData, dynamicData }) => {
+  const dispatch = useAppDispatch();
   const { theme } = useAppSelector((state) => state.active);
+
+  const handleClick = (modal) => {
+    if (modal === ModalType.LEGAL_INFO) {
+      dispatch(toggleModal({ action: true, type: ModalType.LEGAL_INFO }));
+    }
+  };
 
   return (
     <TableContainer maxWidth={'80%'}>
       <Table variant="unstyled" className={clsx(style.table, theme && style.light)}>
         <Thead>
           <Tr>
-            <Th color={'#7669c8'}>{staticData.header}</Th>
+            <Th className={style.title_table}>
+              {staticData.header}
+              <Tooltip label="Редактировать" placement="top">
+                <span>
+                  <Button view="add" onClick={() => handleClick(staticData.code)}>
+                    <MdOutlineEditCalendar />
+                  </Button>
+                </span>
+              </Tooltip>
+            </Th>
           </Tr>
         </Thead>
         <Tbody>

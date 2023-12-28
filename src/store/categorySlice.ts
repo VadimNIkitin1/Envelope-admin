@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
 import { ICategoriesInitialState, ICategory, IError, IRequestCheckbox } from '../types/categories';
-import { IRequestCategory } from '../widgets/Modal/types';
+import { IRequestCategory } from '../widgets/Modals/ModalCategories/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -60,24 +60,6 @@ export const editCategory = createAsyncThunk<string, IRequestCategory, { rejectV
     try {
       const token = localStorage.getItem('token') || '';
       const res = await axios.put(`category/?category_id=${data.id}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const deleteCategory = createAsyncThunk<string, string | number, { rejectValue: string }>(
-  'categories/deleteCategory',
-  async (id, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.delete(`category/?category_id=${id}`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -166,12 +148,6 @@ const slice = createSlice({
         state.loading = true;
       })
       .addCase(editCategory.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(deleteCategory.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(deleteCategory.fulfilled, (state) => {
         state.loading = false;
       })
       .addCase(deleteCategoryFlag.pending, (state) => {

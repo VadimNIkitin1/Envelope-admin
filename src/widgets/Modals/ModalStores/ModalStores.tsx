@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
-import { InputText } from '../../shared/InputText/InputText';
-import { Instruction } from '../Instruction/Instruction';
+import { InputText } from '../../../shared/InputText/InputText';
+import { Instruction } from '../../Instruction/Instruction';
 
 import style from './ModalStores.module.scss';
-import Button from '../../shared/Button/Button';
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import { triggerRender } from '../../store/activeSlice';
-import { ModalType, toggleModal } from '../../store/modalsSlice';
-import { addStore } from '../../store/storeSlice';
+import Button from '../../../shared/Button/Button';
+import { useAppDispatch, useAppSelector } from '../../../types/hooks';
+import { triggerRender } from '../../../store/activeSlice';
+import { ModalType, toggleModal } from '../../../store/modalsSlice';
+import { addStore } from '../../../store/storeSlice';
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
 
 import clsx from 'clsx';
@@ -84,7 +84,6 @@ const ModalStores = ({ type, isOpen }) => {
               <Button view="add" type="submit" style={{ fontSize: '20px' }}>
                 {type === ModalType.STORES && 'Добавить'}
                 {type === ModalType.EDIT_STORES && 'Редактировать'}
-                {type === ModalType.DELETE && 'Удалить'}
               </Button>
               <Button
                 view="delete"

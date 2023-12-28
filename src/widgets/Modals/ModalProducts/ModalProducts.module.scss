@@ -1,4 +1,4 @@
-@import '../../app/variable.module.scss';
+@import '../../../app/variable.module.scss';
 
 .modal {
   position: relative;
@@ -31,25 +31,12 @@
   }
 }
 
-.productTitle {
-  font-size: 14px;
-}
-
 .modalLabel {
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 10px;
   margin-bottom: 10px;
-}
-
-.modalInput {
-  background-color: $grey;
-  border: 2px solid $orange;
-  border-radius: 10px;
-  padding: 5px 10px;
-  font-size: 14px;
-  width: 250px;
 }
 
 .modalSelect {
@@ -66,15 +53,6 @@
     background-color: #fff;
     color: #000;
   }
-}
-
-.modalInputSmall {
-  background-color: $grey;
-  border: 2px solid $orange;
-  border-radius: 10px;
-  padding: 5px 10px;
-  font-size: 14px;
-  width: 85px;
 }
 
 input::-webkit-outer-spin-button,
@@ -95,19 +73,6 @@ input::-webkit-inner-spin-button {
   &.light {
     background-color: #fff;
   }
-}
-
-.modalBtn {
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: 2px solid $green;
-  color: $green;
-  margin-bottom: 20px;
-}
-.modalBtn:hover {
-  background-color: $green;
-  color: #fff;
-  transition: all 0.3s ease-in-out;
 }
 
 .closeModalBtn {

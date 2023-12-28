@@ -6,9 +6,9 @@ import { getStores } from '../../store/storeSlice';
 import { useEffect } from 'react';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 
-import { ModalStores } from '../../widgets/ModalStores/ModalStores';
-import { Modals } from '../../widgets/Modal/Modal';
+import { ModalStores } from '../../widgets/Modals/ModalStores/ModalStores';
 import { clsx } from 'clsx';
+import { ModalDelete } from '../../widgets/Modals/ModalDelete/ModalDelete';
 
 const StoreCardsPage = () => {
   const dispatch = useAppDispatch();
@@ -52,7 +52,7 @@ const StoreCardsPage = () => {
       )}
       {modalStores && <ModalStores isOpen={modalStores} type={ModalType.STORES} />}
       {modalEditStores && <ModalStores isOpen={modalEditStores} type={ModalType.EDIT_STORES} />}
-      {modalForDelete && <Modals isOpen={modalForDelete} type={ModalType.DELETE} />}
+      {modalForDelete && <ModalDelete isOpen={modalForDelete} type={ModalType.DELETE} />}
     </div>
   );
 };
