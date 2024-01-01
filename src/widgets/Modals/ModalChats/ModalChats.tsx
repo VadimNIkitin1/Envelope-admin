@@ -16,9 +16,8 @@ import InputFile from '../../../shared/InputFile/InputFile';
 const ModalChats = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const { store_id } = useParams();
-  const { store } = useAppSelector((state) => state.store);
+  const { store, image_welcome } = useAppSelector((state) => state.store);
   const { service_text_and_chats } = store;
-  const { welcome_image } = service_text_and_chats;
   const { theme } = useAppSelector((state) => state.active);
 
   const {
@@ -31,7 +30,7 @@ const ModalChats = ({ type, isOpen }) => {
     const requestData = {
       id: store_id,
       ...data,
-      welcome_image,
+      welcome_image: image_welcome,
     };
 
     dispatch(editChats(requestData));

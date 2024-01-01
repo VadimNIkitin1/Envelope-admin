@@ -3,18 +3,22 @@ import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Tooltip } from '@chakra-ui/react';
 
 import { clsx } from 'clsx';
-import style from './ChakraTable.module.scss';
+import style from './SettingsTable.module.scss';
 import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
 import { Fragment } from 'react';
 import Button from '../../shared/Button/Button';
 import { MdOutlineEditCalendar } from 'react-icons/md';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
+import { editCheckboxPayment, editCheckboxTypeOrder } from '../../store/storeSlice';
+import { useParams } from 'react-router';
+import { triggerRender } from '../../store/activeSlice';
 
-const ChakraTable = ({ staticData, dynamicData }) => {
+const SettingsTable = ({ staticData, dynamicData }) => {
   const dispatch = useAppDispatch();
   const { theme } = useAppSelector((state) => state.active);
+  const { store_id } = useParams();
 
-  const handleClick = (modal) => {
+  const handleClick = (modal: string) => {
     if (modal === ModalType.LEGAL_INFO) {
       dispatch(toggleModal({ action: true, type: ModalType.LEGAL_INFO }));
     }
@@ -22,6 +26,24 @@ const ChakraTable = ({ staticData, dynamicData }) => {
     if (modal === ModalType.CHATS) {
       dispatch(toggleModal({ action: true, type: ModalType.CHATS }));
     }
+
+    if (modal === ModalType.PAYMENTS) {
+      dispatch(toggleModal({ action: true, type: ModalType.PAYMENTS }));
+    }
+  };
+
+  const hadleCheckbox = (checkbox: string) => {
+    dispatch(editCheckboxPayment({ store_id, checkbox }));
+    setTimeout(() => {
+      dispatch(triggerRender());
+    }, 200);
+  };
+
+  const hadleCheckboxTypeOrder = (order_type_id: number) => {
+    dispatch(editCheckboxTypeOrder({ store_id, order_type_id }));
+    setTimeout(() => {
+      dispatch(triggerRender());
+    }, 200);
   };
 
   return (
@@ -51,7 +73,7 @@ const ChakraTable = ({ staticData, dynamicData }) => {
                       <Fragment key={idx}>
                         <TableCheckbox
                           checked={checkbox.is_active}
-                          onChange={() => console.log(`${checkbox.is_active}`)}
+                          onChange={() => hadleCheckboxTypeOrder(checkbox.order_type_id)}
                         />
                         <p>{checkbox.order_type.name}</p>
                       </Fragment>
@@ -62,7 +84,7 @@ const ChakraTable = ({ staticData, dynamicData }) => {
                     <Fragment key={checkbox.name}>
                       <TableCheckbox
                         checked={dynamicData[checkbox.code]}
-                        onChange={() => console.log(`${checkbox.code}`)}
+                        onChange={() => hadleCheckbox(checkbox.code)}
                       />
                       <p>{checkbox.name}</p>
                     </Fragment>
@@ -79,4 +101,4 @@ const ChakraTable = ({ staticData, dynamicData }) => {
   );
 };
 
-export { ChakraTable };
+export { SettingsTable };

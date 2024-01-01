@@ -14,17 +14,18 @@ import {
   TABLE_TOKEN,
   TABLE_TYPE_ORDER,
 } from './SettingsPage.data';
-import { ChakraTable } from '../../widgets/ChakraTable/ChakraTable';
+import { SettingsTable } from '../../widgets/SettingsTable/SettingsTable';
 import { triggerRender } from '../../store/activeSlice';
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { ModalType } from '../../store/modalsSlice';
 import { ModalLegalInfo } from '../../widgets/Modals/ModalLegalInfo/ModalLegalInfo';
 import { ModalChats } from '../../widgets/Modals/ModalChats/ModalChats';
+import { ModalPayments } from '../../widgets/Modals/ModalPayments/ModalPayments';
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();
   const { theme, render } = useAppSelector((state) => state.active);
-  const { modalLegalInfo, modalChats } = useAppSelector((state) => state.modals);
+  const { modalLegalInfo, modalChats, modalPayments } = useAppSelector((state) => state.modals);
   const { store } = useAppSelector((state) => state.store);
   const { store_id } = useParams();
 
@@ -63,15 +64,16 @@ const SettingsPage = () => {
           </Menu>
         </div>
       </div>
-      <ChakraTable staticData={TABLE_INFO} dynamicData={store.info} />
-      <ChakraTable staticData={TABLE_TOKEN} dynamicData={store.bot_tokens} />
-      <ChakraTable staticData={TABLE_TYPE_ORDER} dynamicData={store.association} />
-      <ChakraTable staticData={TABLE_PAYMENTS} dynamicData={store.payments} />
-      <ChakraTable staticData={TABLE_DELIVERY} dynamicData={store.delivery_info} />
-      <ChakraTable staticData={TABLE_CHATS} dynamicData={store.service_text_and_chats} />
-      <ChakraTable staticData={TABLE_LEGAL} dynamicData={store.legal_information} />
+      <SettingsTable staticData={TABLE_INFO} dynamicData={store.info} />
+      <SettingsTable staticData={TABLE_TOKEN} dynamicData={store.bot_tokens} />
+      <SettingsTable staticData={TABLE_TYPE_ORDER} dynamicData={store.association} />
+      <SettingsTable staticData={TABLE_PAYMENTS} dynamicData={store.payments} />
+      <SettingsTable staticData={TABLE_DELIVERY} dynamicData={store.delivery_info} />
+      <SettingsTable staticData={TABLE_CHATS} dynamicData={store.service_text_and_chats} />
+      <SettingsTable staticData={TABLE_LEGAL} dynamicData={store.legal_information} />
       {modalLegalInfo && <ModalLegalInfo isOpen={modalLegalInfo} type={ModalType.LEGAL_INFO} />}
       {modalChats && <ModalChats type={ModalType.CHATS} isOpen={modalChats} />}
+      {modalPayments && <ModalPayments type={ModalType.PAYMENTS} isOpen={modalPayments} />}
     </>
   );
 };
