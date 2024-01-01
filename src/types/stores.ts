@@ -76,7 +76,7 @@ export interface IStore {
   service_text_and_chats: {
     email: string;
     welcome_message_bot: string;
-    welcome_image: string;
+    welcome_image: string | undefined;
     tg_id_group: number;
     delivery_chat: number;
     order_chat: number;
@@ -98,6 +98,7 @@ export interface IStoreInitialState {
   stores: IStore[];
   store: IStore;
   idStoreForDelete: number | string;
+  image_welcome: string | undefined;
   loading: boolean;
   error: string | null;
 }

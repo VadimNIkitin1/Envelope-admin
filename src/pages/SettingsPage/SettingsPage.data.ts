@@ -61,11 +61,11 @@ export const TABLE_PAYMENTS = {
         { name: 'Наличные', code: 'cash' },
       ],
     },
+    { name: 'Минимальная сумма доставки', code: 'min_delivery_amount' },
     {
       name: 'Минимальная сумма заказа для бесплатной доставки',
       code: 'min_order_amount_for_free_delivery',
     },
-    { name: 'Минимальная сумма доставки', code: 'min_delivery_amount' },
   ],
 };
 
@@ -84,11 +84,11 @@ export const TABLE_CHATS = {
   data: [
     { name: 'Служебная почта', code: 'email' },
     { name: 'Приветственное сообщение бота', code: 'welcome_message_bot' },
-    { name: 'Изображение при приветствии', code: 'welcome_image' },
     { name: 'Чат доставки', code: 'delivery_chat' },
     { name: 'Чат заказов', code: 'order_chat' },
     { name: 'Чат выполненых заказов', code: 'completed_orders_chat' },
     { name: 'Чат отмененных заказов', code: 'canceled_orders_chat' },
+    { name: 'Изображение при приветствии', code: 'welcome_image' },
   ],
 };
 

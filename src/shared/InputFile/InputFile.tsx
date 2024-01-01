@@ -12,8 +12,9 @@ import { uploadWelcomeImage, clearWelcomeImage } from '../../store/storeSlice';
 
 const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, type }, ref) => {
   const dispatch = useAppDispatch();
-  const image = useAppSelector((state) => state.products.product.image);
-  const photo_url = useAppSelector((state) => state.mail.photo_url);
+  const { image } = useAppSelector((state) => state.products.product);
+  const { photo_url } = useAppSelector((state) => state.mail);
+  const { image_welcome } = useAppSelector((state) => state.store);
   const theme = useAppSelector((state) => state.active.theme);
   const { store_id } = useParams();
   const [selectedFile, setSelectedFile] = useState<any>(null);
@@ -71,6 +72,8 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, typ
           <img src={image} style={style} alt="" />
         ) : photo_url ? (
           <img src={photo_url} style={style} alt="" />
+        ) : image_welcome ? (
+          <img src={image_welcome} alt="" />
         ) : (
           <>
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

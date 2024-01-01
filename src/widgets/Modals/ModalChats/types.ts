@@ -6,5 +6,5 @@ export interface IRequestChats {
   completed_orders_chat: number;
   canceled_orders_chat: number;
   id?: string | number | null;
-  welcome_image?: string;
+  welcome_image?: string | undefined;
 }

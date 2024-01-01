@@ -4,6 +4,7 @@ import { IStore, IStoreInitialState } from '../types/stores';
 import { IRequestCategory } from '../widgets/Modals/ModalCategories/types';
 import { IRequestLegalInfo } from '../widgets/Modals/ModalLegalInfo/types';
 import { IRequestChats } from '../widgets/Modals/ModalChats/types';
+import { IRequestPayments } from '../widgets/Modals/ModalPayments/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -11,6 +12,16 @@ axios.defaults.withCredentials = true;
 interface IRequestPhoto {
   store_id: string | number | undefined;
   formData: FormData;
+}
+
+interface IRequestCheckboxPayment {
+  store_id: string | number | undefined;
+  checkbox: string;
+}
+
+interface IRequestCheckboxTypeOrder {
+  store_id: string | number | undefined;
+  order_type_id: number;
 }
 
 const initialState: IStoreInitialState = {
@@ -111,6 +122,7 @@ const initialState: IStoreInitialState = {
     },
   },
   idStoreForDelete: 0,
+  image_welcome: '',
   loading: false,
   error: null,
 };
@@ -182,31 +194,6 @@ export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue
   }
 );
 
-// Убран первоначальный вариант запроса на редактирование магазина за неактуальностью
-// Оставил болванку для удобства (для будущих актуальных запросов)
-
-// export const editStore = createAsyncThunk<IStore[], IRequestCategory, { rejectValue: string }>(
-//   'store/editStore',
-//   async (data, { rejectWithValue }) => {
-//     try {
-//       const token = localStorage.getItem('token') || '';
-//       const res = await axios.put(
-//         `store/?store_id=${data.id}`,
-//         { name: data.name },
-//         {
-//           headers: {
-//             'Content-Type': 'application/json',
-//             Authorization: `Bearer ${token}`,
-//           },
-//         }
-//       );
-//       return res.data;
-//     } catch (error: any) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
-
 export const editActivityStore = createAsyncThunk<
   IStore[],
   string | number | undefined,
@@ -252,9 +239,26 @@ export const editChats = createAsyncThunk<IStore[], IRequestChats, { rejectValue
   'store/editChats',
   async (data, { rejectWithValue }) => {
     try {
-      console.log(data);
       const token = localStorage.getItem('token') || '';
       const res = await axios.put(`store/service_text_and_chats/?store_id=${data.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const editPayments = createAsyncThunk<IStore[], IRequestPayments, { rejectValue: string }>(
+  'store/editPayments',
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.put(`store/store_payments/?store_id=${data.id}`, data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -302,6 +306,52 @@ export const deleteStore = createAsyncThunk<
         Authorization: `Bearer ${token}`,
       },
     });
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+export const editCheckboxPayment = createAsyncThunk<
+  string,
+  IRequestCheckboxPayment,
+  { rejectValue: string }
+>('store/editCheckboxPayment', async (data, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.patch(
+      `store/store_payments/?store_id=${data.store_id}&checkbox=${data.checkbox}`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+export const editCheckboxTypeOrder = createAsyncThunk<
+  string,
+  IRequestCheckboxTypeOrder,
+  { rejectValue: string }
+>('store/editCheckboxTypeOrder', async (data, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token') || '';
+    const res = await axios.patch(
+      `store/order_type/?store_id=${data.store_id}&order_type_id=${data.order_type_id}`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -357,11 +407,29 @@ const slice = createSlice({
       .addCase(editLegalInfo.fulfilled, (state) => {
         state.loading = false;
       })
+      .addCase(editPayments.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editPayments.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(editCheckboxPayment.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editCheckboxPayment.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(editCheckboxTypeOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editCheckboxTypeOrder.fulfilled, (state) => {
+        state.loading = false;
+      })
       .addCase(uploadWelcomeImage.pending, (state) => {
         state.loading = true;
       })
       .addCase(uploadWelcomeImage.fulfilled, (state, action) => {
-        state.store.service_text_and_chats.welcome_image = action.payload;
+        state.image_welcome = action.payload;
         state.loading = false;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
