@@ -97,7 +97,6 @@ export interface IStore {
 export interface IStoreInitialState {
   stores: IStore[];
   store: IStore;
-  idStoreForDelete: number | string;
   image_welcome: string | undefined;
   loading: boolean;
   error: string | null;

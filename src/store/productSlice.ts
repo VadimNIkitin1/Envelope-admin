@@ -4,13 +4,13 @@ import axios from 'axios';
 import { IProduct, IProductsInitialState, IUnit } from '@/types/products';
 import type { IRequestProduct } from '@/widgets/Modals/ModalProducts/types';
 
-axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
-axios.defaults.withCredentials = true;
-
-axios.interceptors.request.use((config) => {
-  config.headers['Content-Type'] = 'application/json';
-  config.headers['Authorization'] = `Bearer ${localStorage.getItem('token') || ''}`;
-  return config;
+const instanceAxios = axios.create({
+  baseURL: 'https://envelope-app.ru/api/v1/',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+  },
 });
 
 interface IRequestPhoto {
@@ -51,7 +51,7 @@ export const getProducts = createAsyncThunk<
   { rejectValue: string }
 >('products/getProducts', async (id, { rejectWithValue }) => {
   try {
-    const res = await axios.get(`product/?store_id=${id}`);
+    const res = await instanceAxios.get(`product/?store_id=${id}`);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -62,7 +62,7 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
   'products/addProduct',
   async (data, { rejectWithValue, dispatch }) => {
     try {
-      const res = await axios.post(`product/?store_id=${data.id}`, data);
+      const res = await instanceAxios.post(`product/?store_id=${data.id}`, data);
       dispatch(clearImageProduct());
       return res.data;
     } catch (error: any) {
@@ -75,7 +75,7 @@ export const deleteProductFlag = createAsyncThunk<string, string | number, { rej
   'products/deleteProductFlag',
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.patch(`product/delete/?product_id=${id}`);
+      const res = await instanceAxios.patch(`product/delete/?product_id=${id}`);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -87,7 +87,7 @@ export const editProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectV
   'products/editProduct',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`product/?product_id=${data.id}`, data);
+      const res = await instanceAxios.put(`product/?product_id=${data.id}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -101,7 +101,9 @@ export const toggleCheckboxProduct = createAsyncThunk<
   { rejectValue: string }
 >('products/toggleCheckboxProduct', async (data, { rejectWithValue }) => {
   try {
-    const res = await axios.patch(`product/checkbox/?product_id=${data.id}&checkbox=${data.code}`);
+    const res = await instanceAxios.patch(
+      `product/checkbox/?product_id=${data.id}&checkbox=${data.code}`
+    );
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -112,7 +114,7 @@ export const uploadPhoto = createAsyncThunk<string, IRequestPhoto, { rejectValue
   'products/uploadPhoto',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post(
+      const res = await instanceAxios.post(
         `product/upload_photo/?store_id=${data.store_id}`,
         data.formData
       );
@@ -127,7 +129,7 @@ export const getUnits = createAsyncThunk<IUnit[], undefined, { rejectValue: stri
   'products/getUnits',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`unit/`);
+      const res = await instanceAxios.get(`unit/`);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

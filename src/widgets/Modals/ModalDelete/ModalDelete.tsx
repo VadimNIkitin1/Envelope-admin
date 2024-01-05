@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useLocation } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
@@ -17,7 +17,7 @@ import { PATHNAME } from '@/app/constants';
 const ModalDelete = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const { idStoreForDelete } = useAppSelector((state) => state.store);
+  const { store_id } = useParams();
 
   const { category } = useAppSelector((state) => state.categories);
   const { product } = useAppSelector((state) => state.products);
@@ -34,7 +34,7 @@ const ModalDelete = ({ type, isOpen }) => {
     }
 
     if (location.pathname.includes(PATHNAME.STORES)) {
-      dispatch(deleteStore(idStoreForDelete));
+      dispatch(deleteStore(store_id));
     }
 
     dispatch(triggerRender());

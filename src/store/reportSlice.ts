@@ -7,13 +7,13 @@ import {
   ITotalSales,
 } from '@/types/report';
 
-axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
-axios.defaults.withCredentials = true;
-
-axios.interceptors.request.use((config) => {
-  config.headers['Content-Type'] = 'application/json';
-  config.headers['Authorization'] = `Bearer ${localStorage.getItem('token') || ''}`;
-  return config;
+const instanceAxios = axios.create({
+  baseURL: 'https://envelope-app.ru/api/v1/',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+  },
 });
 
 const initialState: IReportInitialState = {
@@ -33,7 +33,7 @@ export const getTotalSales = createAsyncThunk<
   { rejectValue: string }
 >('report/getTotalSales', async (store_id, { rejectWithValue }) => {
   try {
-    const res = await axios.get(`report/total_report/?store_id=${store_id}`);
+    const res = await instanceAxios.get(`report/total_report/?store_id=${store_id}`);
 
     return res.data;
   } catch (error: any) {
@@ -47,7 +47,7 @@ export const getCustomers = createAsyncThunk<
   { rejectValue: string }
 >('report/getCustomers', async (store_id, { rejectWithValue }) => {
   try {
-    const res = await axios.get(`report/customer/?store_id=${store_id}`);
+    const res = await instanceAxios.get(`report/customer/?store_id=${store_id}`);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -60,7 +60,7 @@ export const getTotalSalesForCategory = createAsyncThunk<
   { rejectValue: string }
 >('report/getTotalSalesForCategory', async (store_id, { rejectWithValue }) => {
   try {
-    const res = await axios.get(`report/total_category/?store_id=${store_id}`);
+    const res = await instanceAxios.get(`report/total_category/?store_id=${store_id}`);
 
     return res.data;
   } catch (error: any) {
@@ -74,7 +74,7 @@ export const getTotalSalesForProduct = createAsyncThunk<
   { rejectValue: string }
 >('report/getTotalSalesForProduct', async (store_id, { rejectWithValue }) => {
   try {
-    const res = await axios.get(`report/total_product/?store_id=${store_id}`);
+    const res = await instanceAxios.get(`report/total_product/?store_id=${store_id}`);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);

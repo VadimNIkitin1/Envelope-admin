@@ -4,13 +4,13 @@ import axios from 'axios';
 import type { INotification } from '@/pages/NotificationPage/NotificationPage';
 import type { IinitialStateMail } from '@/types/mail';
 
-axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
-axios.defaults.withCredentials = true;
-
-axios.interceptors.request.use((config) => {
-  config.headers['Content-Type'] = 'application/json';
-  config.headers['Authorization'] = `Bearer ${localStorage.getItem('token') || ''}`;
-  return config;
+const instanceAxios = axios.create({
+  baseURL: 'https://envelope-app.ru/api/v1/',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+  },
 });
 
 interface IRequestPhoto {
@@ -29,7 +29,7 @@ export const sendMessage = createAsyncThunk<undefined, INotification, { rejectVa
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const store_id = localStorage.getItem('store_id') || '';
-      const res = await axios.post(`mail/send_message/?store_id=${store_id}`, data);
+      const res = await instanceAxios.post(`mail/send_message/?store_id=${store_id}`, data);
       dispatch(clearImageMail());
       return res.data;
     } catch (error: any) {
@@ -44,7 +44,7 @@ export const sendMessageMyself = createAsyncThunk<
   { rejectValue: string }
 >('mail/sendMessageMyself', async (data, { rejectWithValue }) => {
   try {
-    const res = await axios.post(`mail/send_message_me/`, data);
+    const res = await instanceAxios.post(`mail/send_message_me/`, data);
 
     return res.data;
   } catch (error: any) {
@@ -56,7 +56,10 @@ export const uploadPhotoForMail = createAsyncThunk<string, IRequestPhoto, { reje
   'mail/uploadPhoto',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`mail/upload_photo/?store_id=${data.store_id}`, data.formData);
+      const res = await instanceAxios.post(
+        `mail/upload_photo/?store_id=${data.store_id}`,
+        data.formData
+      );
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

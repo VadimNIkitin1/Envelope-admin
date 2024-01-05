@@ -10,7 +10,6 @@ import { Tooltip } from '@chakra-ui/react';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { toggleTabs, triggerRender } from '../../store/activeSlice';
 import { IoIosArrowDown } from 'react-icons/io';
-import { saveIdStoreForDelete } from '../../store/storeSlice';
 
 const StoreCard = (props) => {
   const dispatch = useAppDispatch();
@@ -26,7 +25,6 @@ const StoreCard = (props) => {
   };
 
   const handleDelete = () => {
-    dispatch(saveIdStoreForDelete(props.id));
     dispatch(toggleModal({ action: true, type: ModalType.DELETE }));
   };
 

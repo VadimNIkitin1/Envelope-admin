@@ -10,13 +10,13 @@ import { IRequestPayments } from '@/widgets/Modals/ModalPayments/types';
 import { IRequestTokenBot } from '@/widgets/Modals/ModalToken/types';
 import { IRequestInfo } from '@/widgets/Modals/ModalInfo/types';
 
-axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
-axios.defaults.withCredentials = true;
-
-axios.interceptors.request.use((config) => {
-  config.headers['Content-Type'] = 'application/json';
-  config.headers['Authorization'] = `Bearer ${localStorage.getItem('token') || ''}`;
-  return config;
+const instanceAxios = axios.create({
+  baseURL: 'https://envelope-app.ru/api/v1/',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+  },
 });
 
 interface IRequestPhoto {
@@ -131,7 +131,6 @@ const initialState: IStoreInitialState = {
       postal_code: 0,
     },
   },
-  idStoreForDelete: 0,
   image_welcome: '',
   loading: false,
   error: null,
@@ -141,7 +140,7 @@ export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: st
   'store/getStores',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get('store/');
+      const res = await instanceAxios.get('store/');
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -155,7 +154,7 @@ export const getOneStore = createAsyncThunk<
   { rejectValue: string }
 >('store/getOneStore', async (id, { rejectWithValue }) => {
   try {
-    const res = await axios.get(`store/one/?store_id=${id}`);
+    const res = await instanceAxios.get(`store/one/?store_id=${id}`);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -166,7 +165,7 @@ export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue
   'store/addStore',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post('store/', {
+      const res = await instanceAxios.post('store/', {
         data: {
           name: data.name,
           link_bot: data.link_bot,
@@ -188,7 +187,7 @@ export const editActivityStore = createAsyncThunk<
   { rejectValue: string }
 >('store/editActivityStore', async (id, { rejectWithValue }) => {
   try {
-    const res = await axios.patch(`store/update_activity/?store_id=${id}`);
+    const res = await instanceAxios.patch(`store/update_activity/?store_id=${id}`);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -199,7 +198,7 @@ export const editLegalInfo = createAsyncThunk<IStore[], IRequestLegalInfo, { rej
   'store/editLegalInfo',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`store/legal_informations/?store_id=${data.id}`, data);
+      const res = await instanceAxios.put(`store/legal_informations/?store_id=${data.id}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -211,7 +210,7 @@ export const editTokenBot = createAsyncThunk<string, IRequestTokenBot, { rejectV
   'store/editTokenBot',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`store/token_bot/?store_id=${data.id}`, data);
+      const res = await instanceAxios.put(`store/token_bot/?store_id=${data.id}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -223,7 +222,10 @@ export const editChats = createAsyncThunk<IStore[], IRequestChats, { rejectValue
   'store/editChats',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`store/service_text_and_chats/?store_id=${data.id}`, data);
+      const res = await instanceAxios.put(
+        `store/service_text_and_chats/?store_id=${data.id}`,
+        data
+      );
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -235,7 +237,7 @@ export const editPayments = createAsyncThunk<IStore[], IRequestPayments, { rejec
   'store/editPayments',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`store/store_payments/?store_id=${data.id}`, data);
+      const res = await instanceAxios.put(`store/store_payments/?store_id=${data.id}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -247,7 +249,7 @@ export const editInfo = createAsyncThunk<IStore[], IRequestInfo, { rejectValue: 
   'store/editInfo',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`store/store_info/?store_id=${data.id}`, data);
+      const res = await instanceAxios.put(`store/store_info/?store_id=${data.id}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -259,7 +261,7 @@ export const uploadWelcomeImage = createAsyncThunk<string, IRequestPhoto, { reje
   'store/uploadWelcomeImage',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post(
+      const res = await instanceAxios.post(
         `product/upload_photo/?store_id=${data.store_id}`,
         data.formData
       );
@@ -276,7 +278,7 @@ export const deleteStore = createAsyncThunk<
   { rejectValue: string }
 >('store/deleteStore', async (id, { rejectWithValue }) => {
   try {
-    const res = await axios.delete(`store/?store_id=${id}`);
+    const res = await instanceAxios.delete(`store/?store_id=${id}`);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -289,7 +291,7 @@ export const editCheckboxPayment = createAsyncThunk<
   { rejectValue: string }
 >('store/editCheckboxPayment', async (data, { rejectWithValue }) => {
   try {
-    const res = await axios.patch(
+    const res = await instanceAxios.patch(
       `store/store_payments/?store_id=${data.store_id}&checkbox=${data.checkbox}`
     );
     return res.data;
@@ -304,7 +306,7 @@ export const editCheckboxTypeOrder = createAsyncThunk<
   { rejectValue: string }
 >('store/editCheckboxTypeOrder', async (data, { rejectWithValue }) => {
   try {
-    const res = await axios.patch(
+    const res = await instanceAxios.patch(
       `store/order_type/?store_id=${data.store_id}&order_type_id=${data.order_type_id}`
     );
     return res.data;
@@ -321,9 +323,6 @@ const slice = createSlice({
   name: 'store',
   initialState,
   reducers: {
-    saveIdStoreForDelete(state, action) {
-      state.idStoreForDelete = action.payload;
-    },
     clearWelcomeImage(state) {
       state.store.service_text_and_chats.welcome_image = '';
     },
@@ -406,6 +405,6 @@ const slice = createSlice({
   },
 });
 
-export const { saveIdStoreForDelete, clearWelcomeImage } = slice.actions;
+export const { clearWelcomeImage } = slice.actions;
 
 export default slice.reducer;
