@@ -14,6 +14,7 @@ const initialState: IModals = {
   modalChats: false,
   modalPayments: false,
   modalTokenBot: false,
+  modalInfo: false,
 };
 
 export enum ModalType {
@@ -30,6 +31,7 @@ export enum ModalType {
   CHATS = 'service_text_and_chats',
   PAYMENTS = 'payments',
   TOKEN_BOT = 'bot_tokens',
+  INFO = 'info',
 }
 
 const slice = createSlice({
@@ -83,6 +85,10 @@ const slice = createSlice({
 
       if (action.payload.type === ModalType.TOKEN_BOT) {
         state.modalTokenBot = action.payload.action;
+      }
+
+      if (action.payload.type === ModalType.INFO) {
+        state.modalInfo = action.payload.action;
       }
     },
   },

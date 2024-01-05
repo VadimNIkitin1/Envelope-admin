@@ -22,11 +22,12 @@ import { ModalLegalInfo } from '../../widgets/Modals/ModalLegalInfo/ModalLegalIn
 import { ModalChats } from '../../widgets/Modals/ModalChats/ModalChats';
 import { ModalPayments } from '../../widgets/Modals/ModalPayments/ModalPayments';
 import { ModalToken } from '../../widgets/Modals/ModalToken/ModalToken';
+import { ModalInfo } from '../../widgets/Modals/ModalInfo/ModalInfo';
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();
   const { theme, render } = useAppSelector((state) => state.active);
-  const { modalLegalInfo, modalChats, modalPayments, modalTokenBot } = useAppSelector(
+  const { modalLegalInfo, modalChats, modalPayments, modalTokenBot, modalInfo } = useAppSelector(
     (state) => state.modals
   );
   const { store } = useAppSelector((state) => state.store);
@@ -78,6 +79,7 @@ const SettingsPage = () => {
       {modalChats && <ModalChats type={ModalType.CHATS} isOpen={modalChats} />}
       {modalPayments && <ModalPayments type={ModalType.PAYMENTS} isOpen={modalPayments} />}
       {modalTokenBot && <ModalToken type={ModalType.TOKEN_BOT} isOpen={modalTokenBot} />}
+      {modalInfo && <ModalInfo isOpen={modalInfo} type={ModalType.INFO} />}
     </>
   );
 };
