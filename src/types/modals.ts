@@ -10,4 +10,5 @@ export interface IModals {
   modalLegalInfo: boolean;
   modalChats: boolean;
   modalPayments: boolean;
+  modalTokenBot: boolean;
 }
