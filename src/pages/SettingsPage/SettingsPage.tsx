@@ -21,11 +21,14 @@ import { ModalType } from '../../store/modalsSlice';
 import { ModalLegalInfo } from '../../widgets/Modals/ModalLegalInfo/ModalLegalInfo';
 import { ModalChats } from '../../widgets/Modals/ModalChats/ModalChats';
 import { ModalPayments } from '../../widgets/Modals/ModalPayments/ModalPayments';
+import { ModalToken } from '../../widgets/Modals/ModalToken/ModalToken';
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();
   const { theme, render } = useAppSelector((state) => state.active);
-  const { modalLegalInfo, modalChats, modalPayments } = useAppSelector((state) => state.modals);
+  const { modalLegalInfo, modalChats, modalPayments, modalTokenBot } = useAppSelector(
+    (state) => state.modals
+  );
   const { store } = useAppSelector((state) => state.store);
   const { store_id } = useParams();
 
@@ -74,6 +77,7 @@ const SettingsPage = () => {
       {modalLegalInfo && <ModalLegalInfo isOpen={modalLegalInfo} type={ModalType.LEGAL_INFO} />}
       {modalChats && <ModalChats type={ModalType.CHATS} isOpen={modalChats} />}
       {modalPayments && <ModalPayments type={ModalType.PAYMENTS} isOpen={modalPayments} />}
+      {modalTokenBot && <ModalToken type={ModalType.TOKEN_BOT} isOpen={modalTokenBot} />}
     </>
   );
 };

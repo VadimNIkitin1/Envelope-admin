@@ -5,6 +5,7 @@ import { IRequestCategory } from '../widgets/Modals/ModalCategories/types';
 import { IRequestLegalInfo } from '../widgets/Modals/ModalLegalInfo/types';
 import { IRequestChats } from '../widgets/Modals/ModalChats/types';
 import { IRequestPayments } from '../widgets/Modals/ModalPayments/types';
+import { IRequestTokenBot } from '../widgets/Modals/ModalToken/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -235,6 +236,24 @@ export const editLegalInfo = createAsyncThunk<IStore[], IRequestLegalInfo, { rej
   }
 );
 
+export const editTokenBot = createAsyncThunk<string, IRequestTokenBot, { rejectValue: string }>(
+  'store/editTokenBot',
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.put(`store/token_bot/?store_id=${data.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const editChats = createAsyncThunk<IStore[], IRequestChats, { rejectValue: string }>(
   'store/editChats',
   async (data, { rejectWithValue }) => {
@@ -405,6 +424,12 @@ const slice = createSlice({
         state.loading = true;
       })
       .addCase(editLegalInfo.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(editTokenBot.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editTokenBot.fulfilled, (state) => {
         state.loading = false;
       })
       .addCase(editPayments.pending, (state) => {

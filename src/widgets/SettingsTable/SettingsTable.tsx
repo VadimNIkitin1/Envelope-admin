@@ -19,6 +19,7 @@ const SettingsTable = ({ staticData, dynamicData }) => {
   const { store_id } = useParams();
 
   const handleClick = (modal: string) => {
+    console.log(modal);
     if (modal === ModalType.LEGAL_INFO) {
       dispatch(toggleModal({ action: true, type: ModalType.LEGAL_INFO }));
     }
@@ -29,6 +30,10 @@ const SettingsTable = ({ staticData, dynamicData }) => {
 
     if (modal === ModalType.PAYMENTS) {
       dispatch(toggleModal({ action: true, type: ModalType.PAYMENTS }));
+    }
+
+    if (modal === ModalType.TOKEN_BOT) {
+      dispatch(toggleModal({ action: true, type: ModalType.TOKEN_BOT }));
     }
   };
 
