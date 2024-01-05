@@ -38,6 +38,7 @@ const ModalCategories = ({ type, isOpen }) => {
         id: store_id,
         ...data,
       };
+
       dispatch(addCategory(requestData));
     }
 

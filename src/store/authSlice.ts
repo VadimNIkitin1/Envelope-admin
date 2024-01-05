@@ -9,6 +9,11 @@ import { IAuthRequestRegistration } from '@/pages/AuthPage/AuthPage.types';
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
 
+axios.interceptors.request.use((config) => {
+  config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+  return config;
+});
+
 export enum AuthType {
   REGISTER = 'register',
   LOGIN = 'login',
@@ -60,11 +65,7 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequestRegistration, { rej
   'auth/logIn',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post('login/', data, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
+      const res = await axios.post('login/', data);
       localStorage.setItem('data', JSON.stringify(res.data));
       localStorage.setItem('company_id', res.data.data.user_id);
       localStorage.setItem('token', res.data.access_token);

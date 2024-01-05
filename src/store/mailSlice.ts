@@ -7,6 +7,12 @@ import type { IinitialStateMail } from '@/types/mail';
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
 
+axios.interceptors.request.use((config) => {
+  config.headers['Content-Type'] = 'application/json';
+  config.headers['Authorization'] = `Bearer ${localStorage.getItem('token') || ''}`;
+  return config;
+});
+
 interface IRequestPhoto {
   store_id: string | number | undefined;
   formData: FormData;
@@ -22,17 +28,9 @@ export const sendMessage = createAsyncThunk<undefined, INotification, { rejectVa
   'mail/sendMessage',
   async (data, { rejectWithValue, dispatch }) => {
     try {
-      const token = localStorage.getItem('token') || '';
       const store_id = localStorage.getItem('store_id') || '';
-      const res = await axios.post(`mail/send_message/?store_id=${store_id}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      const res = await axios.post(`mail/send_message/?store_id=${store_id}`, data);
       dispatch(clearImageMail());
-
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -46,13 +44,7 @@ export const sendMessageMyself = createAsyncThunk<
   { rejectValue: string }
 >('mail/sendMessageMyself', async (data, { rejectWithValue }) => {
   try {
-    const token = localStorage.getItem('token') || '';
-    const res = await axios.post(`mail/send_message_me/`, data, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.post(`mail/send_message_me/`, data);
 
     return res.data;
   } catch (error: any) {
@@ -64,13 +56,7 @@ export const uploadPhotoForMail = createAsyncThunk<string, IRequestPhoto, { reje
   'mail/uploadPhoto',
   async (data, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.post(`mail/upload_photo/?store_id=${data.store_id}`, data.formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.post(`mail/upload_photo/?store_id=${data.store_id}`, data.formData);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
