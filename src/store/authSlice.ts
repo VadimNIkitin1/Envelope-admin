@@ -6,12 +6,12 @@ import { IError } from '@/types/categories';
 
 import { IAuthRequestRegistration } from '@/pages/AuthPage/AuthPage.types';
 
-axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
-axios.defaults.withCredentials = true;
-
-axios.interceptors.request.use((config) => {
-  config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-  return config;
+const instanceAxios = axios.create({
+  baseURL: 'https://envelope-app.ru/api/v1/',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
 });
 
 export enum AuthType {
@@ -65,7 +65,11 @@ export const logIn = createAsyncThunk<IResponse, IAuthRequestRegistration, { rej
   'auth/logIn',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post('login/', data);
+      const res = await instanceAxios.post('login/', data, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
       localStorage.setItem('data', JSON.stringify(res.data));
       localStorage.setItem('company_id', res.data.data.user_id);
       localStorage.setItem('token', res.data.access_token);
