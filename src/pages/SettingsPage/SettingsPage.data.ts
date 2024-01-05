@@ -19,16 +19,16 @@ export const TABLE_INFO = {
       code: 'link_bot',
     },
     {
+      name: 'Часовой пояс',
+      code: 'time_zone',
+    },
+    {
       name: 'График работы',
       list: [
         { name: '24/7', code: 'format_24_7' },
         { name: 'Единый', code: 'format_unified' },
         { name: 'Вариативный', code: 'format_custom' },
       ],
-    },
-    {
-      name: 'Часовой пояс',
-      code: 'time_zone',
     },
   ],
 };

@@ -6,6 +6,7 @@ import { IRequestLegalInfo } from '../widgets/Modals/ModalLegalInfo/types';
 import { IRequestChats } from '../widgets/Modals/ModalChats/types';
 import { IRequestPayments } from '../widgets/Modals/ModalPayments/types';
 import { IRequestTokenBot } from '../widgets/Modals/ModalToken/types';
+import { IRequestInfo } from '../widgets/Modals/ModalInfo/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
@@ -290,6 +291,24 @@ export const editPayments = createAsyncThunk<IStore[], IRequestPayments, { rejec
   }
 );
 
+export const editInfo = createAsyncThunk<IStore[], IRequestInfo, { rejectValue: string }>(
+  'store/editInfo',
+  async (data, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token') || '';
+      const res = await axios.put(`store/store_info/?store_id=${data.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const uploadWelcomeImage = createAsyncThunk<string, IRequestPhoto, { rejectValue: string }>(
   'store/uploadWelcomeImage',
   async (data, { rejectWithValue }) => {
@@ -421,6 +440,12 @@ const slice = createSlice({
         state.loading = false;
       })
       .addCase(editLegalInfo.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editInfo.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(editInfo.pending, (state) => {
         state.loading = true;
       })
       .addCase(editLegalInfo.fulfilled, (state) => {

@@ -42,7 +42,7 @@ const ModalToken = ({ isOpen, type }) => {
         <InputText
           defaultValue={token_bot}
           error={errors.token_bot}
-          view="number"
+          view="text"
           placeholder="Токен бота"
           style={{ width: '450px' }}
           {...register('token_bot', {

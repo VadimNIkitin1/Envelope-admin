@@ -35,6 +35,10 @@ const SettingsTable = ({ staticData, dynamicData }) => {
     if (modal === ModalType.TOKEN_BOT) {
       dispatch(toggleModal({ action: true, type: ModalType.TOKEN_BOT }));
     }
+
+    if (modal === ModalType.INFO) {
+      dispatch(toggleModal({ action: true, type: ModalType.INFO }));
+    }
   };
 
   const hadleCheckbox = (checkbox: string) => {
