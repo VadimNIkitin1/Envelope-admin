@@ -1,15 +1,16 @@
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import type { SubmitHandler } from 'react-hook-form';
-import type { IAuthRequestRegistration } from './AuthPage.types';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import { GiEnvelope } from 'react-icons/gi';
 
-import { useAppSelector, useAppDispatch } from '../../types/hooks';
+import { useAppSelector, useAppDispatch } from '@/types/hooks';
 
-import { AuthType, logIn, registration } from '../../store/authSlice';
-import { triggerRender } from '../../store/activeSlice';
-import { InputText } from '../../shared/InputText/InputText';
+import { AuthType, logIn, registration } from '@/store/authSlice';
+import { triggerRender } from '@/store/activeSlice';
+
+import { InputText } from '@/shared/InputText/InputText';
+
+import type { IAuthRequestRegistration } from './AuthPage.types';
 import style from './AuthPage.module.scss';
 
 const AuthPage = ({ type }) => {

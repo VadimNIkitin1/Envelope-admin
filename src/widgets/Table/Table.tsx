@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import TableRow from '../../entities/TableRow/TableRow';
-import TableHeader from '../../entities/TableHeader/TableHeader';
+import TableRow from '@/entities/TableRow/TableRow';
+import TableHeader from '@/entities/TableHeader/TableHeader';
 
-import { IColumnTable } from '../../types/tableHeaders';
-import { TData } from '../../types/data';
+import { IColumnTable } from '@/types/tableHeaders';
+import { TData } from '@/types/data';
 
 import style from './Table.module.scss';
 interface Props {

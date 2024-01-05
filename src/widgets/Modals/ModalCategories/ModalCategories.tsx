@@ -1,19 +1,20 @@
+import { useParams } from 'react-router';
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
-import type { IRequestCategory } from './types';
-import { InputText } from '../../../shared/InputText/InputText';
 
-import style from './ModalCategories.module.scss';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { useAppDispatch, useAppSelector } from '../../../types/hooks';
 import { triggerRender } from '../../../store/activeSlice';
-import { ModalType, toggleModal } from '../../../store/modalsSlice';
-import { addCategory, editCategory } from '../../../store/categorySlice';
-import { Checkbox } from '../../../shared/Checkbox/Checkbox';
-import { useParams } from 'react-router';
+import { ModalType, toggleModal } from '@/store/modalsSlice';
+import { addCategory, editCategory } from '@/store/categorySlice';
 
+import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+import { InputText } from '@/shared/InputText/InputText';
+import { Checkbox } from '@/shared/Checkbox/Checkbox';
+
+import type { IRequestCategory } from './types';
 import clsx from 'clsx';
-import { ModalWindow } from '../../../entities/ModalWindow/ModalWindow';
+import style from './ModalCategories.module.scss';
 
 const ModalCategories = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();

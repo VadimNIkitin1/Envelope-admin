@@ -1,11 +1,13 @@
+import { useLocation } from 'react-router';
+
+import SideBarList from '@/entities/SideBarList/SideBarList';
+
+import { useAppSelector } from '@/types/hooks';
+
+import { PATHNAME } from '@/app/constants';
+
 import style from './SideBar.module.scss';
 import { clsx } from 'clsx';
-
-import SideBarList from '../../entities/SideBarList/SideBarList';
-
-import { useAppSelector } from '../../types/hooks';
-import { useLocation } from 'react-router';
-import { PATHNAME } from '../../app/constants';
 
 const SideBar = () => {
   const location = useLocation();

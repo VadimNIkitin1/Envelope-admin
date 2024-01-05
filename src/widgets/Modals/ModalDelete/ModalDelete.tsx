@@ -1,17 +1,18 @@
 import { useForm } from 'react-hook-form';
-
-import { useAppDispatch, useAppSelector } from '../../../types/hooks';
-import { triggerRender } from '../../../store/activeSlice';
-import { ModalType, toggleModal } from '../../../store/modalsSlice';
-import { deleteCategoryFlag } from '../../../store/categorySlice';
-import { Checkbox } from '../../../shared/Checkbox/Checkbox';
 import { useLocation } from 'react-router';
-import { deleteProductFlag } from '../../../store/productSlice';
 
-import { PATHNAME } from '../../../app/constants';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { deleteStore } from '../../../store/storeSlice';
-import { ModalWindow } from '../../../entities/ModalWindow/ModalWindow';
+import { triggerRender } from '@/store/activeSlice';
+import { ModalType, toggleModal } from '@/store/modalsSlice';
+import { deleteCategoryFlag } from '@/store/categorySlice';
+import { deleteProductFlag } from '@/store/productSlice';
+import { deleteStore } from '@/store/storeSlice';
+
+import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+import { Checkbox } from '@/shared/Checkbox/Checkbox';
+
+import { PATHNAME } from '@/app/constants';
 
 const ModalDelete = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();

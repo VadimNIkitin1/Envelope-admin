@@ -1,17 +1,19 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { toggleLanguage, toggleTabs } from '../../store/activeSlice';
 import { GiEnvelope } from 'react-icons/gi';
-
-import style from './NavBar.module.scss';
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import { clsx } from 'clsx';
-
-import { LANGUAGE, PATHNAME } from '../../app/constants';
-import { HiDotsVertical } from 'react-icons/hi';
-import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-import ThemeSwitches from '../../shared/ThemeSwitches/ThemeSwitches';
 import { IoExitOutline } from 'react-icons/io5';
-import { logOut } from '../../store/authSlice';
+import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { HiDotsVertical } from 'react-icons/hi';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { LANGUAGE, PATHNAME } from '@/app/constants';
+import ThemeSwitches from '@/shared/ThemeSwitches/ThemeSwitches';
+
+import { toggleLanguage, toggleTabs } from '@/store/activeSlice';
+import { logOut } from '@/store/authSlice';
+
+import { clsx } from 'clsx';
+import style from './NavBar.module.scss';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();

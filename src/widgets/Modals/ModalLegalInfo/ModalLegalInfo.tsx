@@ -1,16 +1,18 @@
+import { useParams } from 'react-router';
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
-import { InputText } from '../../../shared/InputText/InputText';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { triggerRender } from '@/store/activeSlice';
+import { toggleModal } from '@/store/modalsSlice';
+import { editLegalInfo } from '@/store/storeSlice';
+
+import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+import { InputText } from '@/shared/InputText/InputText';
+
 import type { IRequestLegalInfo } from './types';
 import style from './ModalLegalInfo.module.scss';
-
-import { useAppDispatch, useAppSelector } from '../../../types/hooks';
-import { triggerRender } from '../../../store/activeSlice';
-import { toggleModal } from '../../../store/modalsSlice';
-import { useParams } from 'react-router';
-
-import { editLegalInfo } from '../../../store/storeSlice';
-import { ModalWindow } from '../../../entities/ModalWindow/ModalWindow';
 
 const ModalLegalInfo = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();

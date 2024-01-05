@@ -1,8 +1,10 @@
-import axios from 'axios';
 import { AnyAction, PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IAuth } from '../types/auth';
-import { IError } from '../types/categories';
-import { IAuthRequestRegistration } from '../pages/AuthPage/AuthPage.types';
+import axios from 'axios';
+
+import { IAuth } from '@/types/auth';
+import { IError } from '@/types/categories';
+
+import { IAuthRequestRegistration } from '@/pages/AuthPage/AuthPage.types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;

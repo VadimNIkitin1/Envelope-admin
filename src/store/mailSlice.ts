@@ -1,7 +1,8 @@
-import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import type { INotification } from '../pages/NotificationPage/NotificationPage';
-import type { IinitialStateMail } from '../types/mail';
+import axios from 'axios';
+
+import type { INotification } from '@/pages/NotificationPage/NotificationPage';
+import type { IinitialStateMail } from '@/types/mail';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;

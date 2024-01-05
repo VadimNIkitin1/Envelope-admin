@@ -1,5 +1,7 @@
-import StoreCard from '../../entities/StoreCard/StoreCard';
-import { tariff } from '../../assets/db';
+import StoreCard from '@/entities/StoreCard/StoreCard';
+
+import { tariff } from '@/assets/db';
+
 import style from './PricesPage.module.scss';
 
 const PricesPage = () => {

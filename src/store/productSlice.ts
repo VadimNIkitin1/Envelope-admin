@@ -1,7 +1,8 @@
-import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import { IProduct, IProductsInitialState, IUnit } from '../types/products';
-import type { IRequestProduct } from '../widgets/Modals/ModalProducts/types';
+import axios from 'axios';
+
+import { IProduct, IProductsInitialState, IUnit } from '@/types/products';
+import type { IRequestProduct } from '@/widgets/Modals/ModalProducts/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;

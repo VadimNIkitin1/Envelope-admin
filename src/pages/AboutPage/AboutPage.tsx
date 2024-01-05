@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '../../shared/Button/Button';
 
-import rykhlov from '../../assets/rykhlov.webp';
-import nikitin from '../../assets/nikitin.webp';
-import swarovskyi from '../../assets/swarovskyi.webp';
-import swarovskaya from '../../assets/swarovskaya.webp';
+import Button from '@/shared/Button/Button';
+
+import rykhlov from '@/assets/rykhlov.webp';
+import nikitin from '@/assets/nikitin.webp';
+import swarovskyi from '@/assets/swarovskyi.webp';
+import swarovskaya from '@/assets/swarovskaya.webp';
 
 import style from './AboutPage.module.scss';
 

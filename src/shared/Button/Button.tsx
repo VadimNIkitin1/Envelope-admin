@@ -1,9 +1,10 @@
+import { FC } from 'react';
 // import { ReactNode } from 'react';
-import { useAppSelector } from '../../types/hooks';
+
+import { useAppSelector } from '@/types/hooks';
 
 import { clsx } from 'clsx';
 import style from './Button.module.scss';
-import { FC } from 'react';
 
 // interface Props {
 //   view: string;

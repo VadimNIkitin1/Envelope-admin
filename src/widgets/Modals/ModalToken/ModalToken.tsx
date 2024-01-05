@@ -1,13 +1,19 @@
-import { ModalWindow } from '../../../entities/ModalWindow/ModalWindow';
-import { useAppDispatch, useAppSelector } from '../../../types/hooks';
-import { InputText } from '../../../shared/InputText/InputText';
-import style from './ModalToken.module.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IRequestTokenBot } from './types';
-import { toggleModal } from '../../../store/modalsSlice';
-import { triggerRender } from '../../../store/activeSlice';
 import { useParams } from 'react-router-dom';
-import { editTokenBot } from '../../../store/storeSlice';
+
+import type { IRequestTokenBot } from './types';
+
+import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { InputText } from '@/shared/InputText/InputText';
+
+import { toggleModal } from '@/store/modalsSlice';
+import { triggerRender } from '@/store/activeSlice';
+import { editTokenBot } from '@/store/storeSlice';
+
+import style from './ModalToken.module.scss';
 
 const ModalToken = ({ isOpen, type }) => {
   const dispatch = useAppDispatch();

@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IActive } from '../types/active';
-import { LANGUAGE } from '../app/constants';
+
+import { IActive } from '@/types/active';
+
+import { LANGUAGE } from '@/app/constants';
 
 const initialState: IActive = {
   active: '/settings',

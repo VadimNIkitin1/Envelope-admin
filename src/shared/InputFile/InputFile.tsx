@@ -1,14 +1,15 @@
 import { forwardRef, useRef, useState } from 'react';
-import styles from './InputFile.module.scss';
+import { useParams } from 'react-router';
 
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import { clearImageProduct, uploadPhoto } from '../../store/productSlice';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { clearImageProduct, uploadPhoto } from '@/store/productSlice';
+import { clearImageMail, uploadPhotoForMail } from '@/store/mailSlice';
+import { uploadWelcomeImage, clearWelcomeImage } from '@/store/storeSlice';
 
 import { IInputProps } from './InputFile.types';
 import clsx from 'clsx';
-import { clearImageMail, uploadPhotoForMail } from '../../store/mailSlice';
-import { useParams } from 'react-router';
-import { uploadWelcomeImage, clearWelcomeImage } from '../../store/storeSlice';
+import styles from './InputFile.module.scss';
 
 const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, type }, ref) => {
   const dispatch = useAppDispatch();

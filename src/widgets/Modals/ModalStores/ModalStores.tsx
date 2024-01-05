@@ -1,17 +1,19 @@
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
-import { InputText } from '../../../shared/InputText/InputText';
-import { Instruction } from '../../Instruction/Instruction';
 
-import style from './ModalStores.module.scss';
+import { Instruction } from '@/widgets/Instruction/Instruction';
+import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+import { InputText } from '@/shared/InputText/InputText';
 
-import { useAppDispatch, useAppSelector } from '../../../types/hooks';
-import { triggerRender } from '../../../store/activeSlice';
-import { ModalType, toggleModal } from '../../../store/modalsSlice';
-import { addStore } from '../../../store/storeSlice';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { triggerRender } from '@/store/activeSlice';
+import { ModalType, toggleModal } from '@/store/modalsSlice';
+import { addStore } from '@/store/storeSlice';
 
 import { IRequestStore } from './types';
-import { ModalWindow } from '../../../entities/ModalWindow/ModalWindow';
+
+import style from './ModalStores.module.scss';
 
 const ModalStores = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();

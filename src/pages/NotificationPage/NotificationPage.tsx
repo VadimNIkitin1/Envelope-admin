@@ -1,16 +1,18 @@
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { sendMessage, sendMessageMyself } from '@/store/mailSlice';
+import { ModalType, toggleModal } from '@/store/modalsSlice';
+
+import { ModalRecipient } from '@/widgets/Modals/ModalRecipient/ModalRecipient';
+import InputFile from '@/shared/InputFile/InputFile';
+import Button from '@/shared/Button/Button';
+import { InputText } from '@/shared/InputText/InputText';
+
 import { clsx } from 'clsx';
-import InputFile from '../../shared/InputFile/InputFile';
-import Button from '../../shared/Button/Button';
-
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
 import style from './NotificationPage.module.scss';
-import { InputText } from '../../shared/InputText/InputText';
-import { sendMessage, sendMessageMyself } from '../../store/mailSlice';
-import { ModalType, toggleModal } from '../../store/modalsSlice';
-
-import { ModalRecipient } from '../../widgets/Modals/ModalRecipient/ModalRecipient';
 
 export interface INotification {
   title?: string;

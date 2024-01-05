@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
-
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import Table from '../../widgets/Table/Table';
-import { TABLE_HEADER_CLIENTS } from './ClientsPage.data';
-import { getCustomers } from '../../store/reportSlice';
-
 import { useParams } from 'react-router';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import Table from '@/widgets/Table/Table';
+
+import { TABLE_HEADER_CLIENTS } from './ClientsPage.data';
+
+import { getCustomers } from '@/store/reportSlice';
 
 const ClientsPage = () => {
   const dispatch = useAppDispatch();

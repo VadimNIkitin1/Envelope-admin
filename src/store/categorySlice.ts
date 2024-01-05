@@ -1,7 +1,8 @@
-import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import { ICategoriesInitialState, ICategory, IError, IRequestCheckbox } from '../types/categories';
-import { IRequestCategory } from '../widgets/Modals/ModalCategories/types';
+import axios from 'axios';
+
+import { ICategoriesInitialState, ICategory, IError, IRequestCheckbox } from '@/types/categories';
+import { IRequestCategory } from '@/widgets/Modals/ModalCategories/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;

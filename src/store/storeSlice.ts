@@ -1,12 +1,14 @@
-import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import { IStore, IStoreInitialState } from '../types/stores';
-import { IRequestCategory } from '../widgets/Modals/ModalCategories/types';
-import { IRequestLegalInfo } from '../widgets/Modals/ModalLegalInfo/types';
-import { IRequestChats } from '../widgets/Modals/ModalChats/types';
-import { IRequestPayments } from '../widgets/Modals/ModalPayments/types';
-import { IRequestTokenBot } from '../widgets/Modals/ModalToken/types';
-import { IRequestInfo } from '../widgets/Modals/ModalInfo/types';
+import axios from 'axios';
+
+import { IStore, IStoreInitialState } from '@/types/stores';
+
+import { IRequestCategory } from '@/widgets/Modals/ModalCategories/types';
+import { IRequestLegalInfo } from '@/widgets/Modals/ModalLegalInfo/types';
+import { IRequestChats } from '@/widgets/Modals/ModalChats/types';
+import { IRequestPayments } from '@/widgets/Modals/ModalPayments/types';
+import { IRequestTokenBot } from '@/widgets/Modals/ModalToken/types';
+import { IRequestInfo } from '@/widgets/Modals/ModalInfo/types';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
