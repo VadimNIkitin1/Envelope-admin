@@ -13,6 +13,12 @@ import { IRequestInfo } from '@/widgets/Modals/ModalInfo/types';
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;
 
+axios.interceptors.request.use((config) => {
+  config.headers['Content-Type'] = 'application/json';
+  config.headers['Authorization'] = `Bearer ${localStorage.getItem('token') || ''}`;
+  return config;
+});
+
 interface IRequestPhoto {
   store_id: string | number | undefined;
   formData: FormData;
@@ -135,13 +141,7 @@ export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: st
   'store/getStores',
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.get('store/', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get('store/');
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -155,13 +155,7 @@ export const getOneStore = createAsyncThunk<
   { rejectValue: string }
 >('store/getOneStore', async (id, { rejectWithValue }) => {
   try {
-    const token = localStorage.getItem('token') || '';
-    const res = await axios.get(`store/one/?store_id=${id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.get(`store/one/?store_id=${id}`);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -172,25 +166,15 @@ export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue
   'store/addStore',
   async (data, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.post(
-        'store/',
-        {
-          data: {
-            name: data.name,
-            link_bot: data.link_bot,
-          },
-          token_bot: {
-            token_bot: data.token_bot,
-          },
+      const res = await axios.post('store/', {
+        data: {
+          name: data.name,
+          link_bot: data.link_bot,
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        token_bot: {
+          token_bot: data.token_bot,
+        },
+      });
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -204,17 +188,7 @@ export const editActivityStore = createAsyncThunk<
   { rejectValue: string }
 >('store/editActivityStore', async (id, { rejectWithValue }) => {
   try {
-    const token = localStorage.getItem('token') || '';
-    const res = await axios.patch(
-      `store/update_activity/?store_id=${id}`,
-      {},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axios.patch(`store/update_activity/?store_id=${id}`);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -225,13 +199,7 @@ export const editLegalInfo = createAsyncThunk<IStore[], IRequestLegalInfo, { rej
   'store/editLegalInfo',
   async (data, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.put(`store/legal_informations/?store_id=${data.id}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.put(`store/legal_informations/?store_id=${data.id}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -243,13 +211,7 @@ export const editTokenBot = createAsyncThunk<string, IRequestTokenBot, { rejectV
   'store/editTokenBot',
   async (data, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.put(`store/token_bot/?store_id=${data.id}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.put(`store/token_bot/?store_id=${data.id}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -261,13 +223,7 @@ export const editChats = createAsyncThunk<IStore[], IRequestChats, { rejectValue
   'store/editChats',
   async (data, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.put(`store/service_text_and_chats/?store_id=${data.id}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.put(`store/service_text_and_chats/?store_id=${data.id}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -279,13 +235,7 @@ export const editPayments = createAsyncThunk<IStore[], IRequestPayments, { rejec
   'store/editPayments',
   async (data, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.put(`store/store_payments/?store_id=${data.id}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.put(`store/store_payments/?store_id=${data.id}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -297,13 +247,7 @@ export const editInfo = createAsyncThunk<IStore[], IRequestInfo, { rejectValue: 
   'store/editInfo',
   async (data, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token') || '';
-      const res = await axios.put(`store/store_info/?store_id=${data.id}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.put(`store/store_info/?store_id=${data.id}`, data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -315,16 +259,9 @@ export const uploadWelcomeImage = createAsyncThunk<string, IRequestPhoto, { reje
   'store/uploadWelcomeImage',
   async (data, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token') || '';
       const res = await axios.post(
         `product/upload_photo/?store_id=${data.store_id}`,
-        data.formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        data.formData
       );
       return res.data;
     } catch (error: any) {
@@ -339,13 +276,7 @@ export const deleteStore = createAsyncThunk<
   { rejectValue: string }
 >('store/deleteStore', async (id, { rejectWithValue }) => {
   try {
-    const token = localStorage.getItem('token') || '';
-    const res = await axios.delete(`store/?store_id=${id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.delete(`store/?store_id=${id}`);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -358,16 +289,8 @@ export const editCheckboxPayment = createAsyncThunk<
   { rejectValue: string }
 >('store/editCheckboxPayment', async (data, { rejectWithValue }) => {
   try {
-    const token = localStorage.getItem('token') || '';
     const res = await axios.patch(
-      `store/store_payments/?store_id=${data.store_id}&checkbox=${data.checkbox}`,
-      {},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `store/store_payments/?store_id=${data.store_id}&checkbox=${data.checkbox}`
     );
     return res.data;
   } catch (error: any) {
@@ -381,16 +304,8 @@ export const editCheckboxTypeOrder = createAsyncThunk<
   { rejectValue: string }
 >('store/editCheckboxTypeOrder', async (data, { rejectWithValue }) => {
   try {
-    const token = localStorage.getItem('token') || '';
     const res = await axios.patch(
-      `store/order_type/?store_id=${data.store_id}&order_type_id=${data.order_type_id}`,
-      {},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `store/order_type/?store_id=${data.store_id}&order_type_id=${data.order_type_id}`
     );
     return res.data;
   } catch (error: any) {
