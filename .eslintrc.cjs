@@ -37,7 +37,6 @@ module.exports = {
     'func-names': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-
     'class-methods-use-this': 'off',
     'react/no-unused-prop-types': 'off',
     'prefer-arrow-callback': 'off',

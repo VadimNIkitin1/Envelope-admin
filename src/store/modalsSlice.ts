@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IModals } from '../types/modals';
+import { IModals } from '@/types/modals';
 
 const initialState: IModals = {
   modalCategories: false,

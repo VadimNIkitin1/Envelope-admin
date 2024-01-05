@@ -1,12 +1,12 @@
 import { useForm } from 'react-hook-form';
-
-import { useAppDispatch, useAppSelector } from '../../../types/hooks';
-import { toggleRecipient, triggerRender } from '../../../store/activeSlice';
-import { toggleModal } from '../../../store/modalsSlice';
-
 import { Radio, RadioGroup, Stack } from '@chakra-ui/react';
 
-import { ModalWindow } from '../../../entities/ModalWindow/ModalWindow';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { toggleRecipient, triggerRender } from '@/store/activeSlice';
+import { toggleModal } from '@/store/modalsSlice';
+
+import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
 
 const ModalRecipient = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();

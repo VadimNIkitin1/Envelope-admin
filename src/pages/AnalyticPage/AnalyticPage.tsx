@@ -1,21 +1,26 @@
-import Table from '../../widgets/Table/Table';
-import style from './AnalyticPage.module.scss';
+import { useEffect, useState } from 'react';
+import { TbMailForward } from 'react-icons/tb';
+import { Input, Tooltip } from '@chakra-ui/react';
 
 import {
   TABLE_HEADER_ANALYTIC_FOR_CATEGORY,
   TABLE_HEADER_ANALYTIC_FOR_PRODUCT,
 } from './AnalyticPage.data';
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import { useEffect, useState } from 'react';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
 import {
   getTotalSales,
   getTotalSalesForCategory,
   getTotalSalesForProduct,
-} from '../../store/reportSlice';
-import { ANALYTIC_PAGE, ANALYTIC_TABLE } from '../../app/constants';
-import Button from '../../shared/Button/Button';
-import { TbMailForward } from 'react-icons/tb';
-import { Input, Tooltip } from '@chakra-ui/react';
+} from '@/store/reportSlice';
+
+import { ANALYTIC_PAGE, ANALYTIC_TABLE } from '@/app/constants';
+
+import Table from '@/widgets/Table/Table';
+import Button from '@/shared/Button/Button';
+
+import style from './AnalyticPage.module.scss';
 import clsx from 'clsx';
 
 const AnalyticPage = ({ type }) => {

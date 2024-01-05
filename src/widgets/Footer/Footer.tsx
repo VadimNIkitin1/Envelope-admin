@@ -1,8 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
-import style from './Footer.module.scss';
-import { PATHNAME } from '../../app/constants';
-import { useAppSelector } from '../../types/hooks';
+
+import { PATHNAME } from '@/app/constants';
+import { useAppSelector } from '@/types/hooks';
+
 import clsx from 'clsx';
+import style from './Footer.module.scss';
 
 const Footer = () => {
   const { store_id } = useParams();

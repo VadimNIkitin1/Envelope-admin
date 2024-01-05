@@ -1,26 +1,22 @@
+import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useParams } from 'react-router';
 
-import { toggleModal, ModalType } from '../../../store/modalsSlice';
-import { triggerRender } from '../../../store/activeSlice';
+import { toggleModal, ModalType } from '@/store/modalsSlice';
+import { triggerRender } from '@/store/activeSlice';
+import { addProduct, clearImageProduct, editProduct, getUnits } from '@/store/productSlice';
+import { getCategories } from '@/store/categorySlice';
 
-import InputFile from '../../../shared/InputFile/InputFile';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { addProduct, clearImageProduct, editProduct, getUnits } from '../../../store/productSlice';
-
-import { useEffect } from 'react';
-import { getCategories } from '../../../store/categorySlice';
-
-import { useAppDispatch, useAppSelector } from '../../../types/hooks';
-
-import style from './ModalProducts.module.scss';
+import InputFile from '@/shared/InputFile/InputFile';
+import { Checkbox } from '@/shared/Checkbox/Checkbox';
+import { InputText } from '@/shared/InputText/InputText';
+import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
 
 import { IRequestProduct } from './types';
-import { Checkbox } from '../../../shared/Checkbox/Checkbox';
-import { InputText } from '../../../shared/InputText/InputText';
-
 import clsx from 'clsx';
-import { ModalWindow } from '../../../entities/ModalWindow/ModalWindow';
+import style from './ModalProducts.module.scss';
 
 const ModalProducts = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();

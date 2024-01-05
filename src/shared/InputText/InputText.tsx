@@ -1,8 +1,10 @@
 import { forwardRef } from 'react';
+
+import { useAppSelector } from '@/types/hooks';
+
 import { IInputProps } from './InputText.types';
-import styles from './InputText.module.scss';
 import { clsx } from 'clsx';
-import { useAppSelector } from '../../types/hooks';
+import styles from './InputText.module.scss';
 
 const InputText = forwardRef<HTMLInputElement, IInputProps>(
   ({ error, style, className, view, ...rest }, ref) => {

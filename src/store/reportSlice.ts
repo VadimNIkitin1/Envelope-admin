@@ -1,11 +1,11 @@
-import axios from 'axios';
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
 import {
   IReportInitialState,
   ICustomers,
   IReportItemForCategory,
   ITotalSales,
-} from '../types/report';
+} from '@/types/report';
 
 axios.defaults.baseURL = 'https://envelope-app.ru/api/v1/';
 axios.defaults.withCredentials = true;

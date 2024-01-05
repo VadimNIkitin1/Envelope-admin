@@ -1,5 +1,6 @@
 import { RouterProvider } from 'react-router-dom';
-import { useAppSelector } from '../types/hooks';
+
+import { useAppSelector } from '@/types/hooks';
 
 import router from './router';
 

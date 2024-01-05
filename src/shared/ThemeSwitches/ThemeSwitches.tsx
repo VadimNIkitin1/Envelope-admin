@@ -1,6 +1,6 @@
-import { toggleTheme } from '../../store/activeSlice';
+import { toggleTheme } from '@/store/activeSlice';
 
-import { useAppSelector, useAppDispatch } from '../../types/hooks';
+import { useAppSelector, useAppDispatch } from '@/types/hooks';
 
 import style from './ThemeSwitches.module.scss';
 

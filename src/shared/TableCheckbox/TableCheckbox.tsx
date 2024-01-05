@@ -1,9 +1,8 @@
 import { FC } from 'react';
 
-import { useAppSelector } from '../../types/hooks';
+import { useAppSelector } from '@/types/hooks';
 
 import type { Props } from './TableCheckbox.types';
-
 import { clsx } from 'clsx';
 import style from './TableCheckbox.module.scss';
 

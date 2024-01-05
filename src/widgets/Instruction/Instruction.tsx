@@ -1,8 +1,10 @@
-import { CgDanger } from 'react-icons/cg';
-import style from './Instruction.module.scss';
 import { useState } from 'react';
+import { CgDanger } from 'react-icons/cg';
+
+import { useAppSelector } from '@/types/hooks';
+
 import clsx from 'clsx';
-import { useAppSelector } from '../../types/hooks';
+import style from './Instruction.module.scss';
 
 const Instruction = () => {
   const [hidden, setHidden] = useState(true);

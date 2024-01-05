@@ -1,16 +1,19 @@
+import { useParams } from 'react-router';
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
-import { InputText } from '../../../shared/InputText/InputText';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { triggerRender } from '@/store/activeSlice';
+import { toggleModal } from '@/store/modalsSlice';
+import { editChats } from '@/store/storeSlice';
+
+import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+import { InputText } from '@/shared/InputText/InputText';
+import InputFile from '@/shared/InputFile/InputFile';
+
 import type { IRequestChats } from './types';
 import style from './ModalChats.module.scss';
-
-import { useAppDispatch, useAppSelector } from '../../../types/hooks';
-import { triggerRender } from '../../../store/activeSlice';
-import { toggleModal } from '../../../store/modalsSlice';
-import { useParams } from 'react-router';
-import { editChats } from '../../../store/storeSlice';
-import InputFile from '../../../shared/InputFile/InputFile';
-import { ModalWindow } from '../../../entities/ModalWindow/ModalWindow';
 
 const ModalChats = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();

@@ -1,10 +1,10 @@
-import style from './SettingsPage.module.scss';
-import { clsx } from 'clsx';
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import { editActivityStore, getOneStore } from '../../store/storeSlice';
 import { useEffect } from 'react';
-import { IoIosArrowDown } from 'react-icons/io';
 import { useParams } from 'react-router';
+import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { IoIosArrowDown } from 'react-icons/io';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
 import {
   TABLE_CHATS,
   TABLE_DELIVERY,
@@ -14,15 +14,20 @@ import {
   TABLE_TOKEN,
   TABLE_TYPE_ORDER,
 } from './SettingsPage.data';
-import { SettingsTable } from '../../widgets/SettingsTable/SettingsTable';
-import { triggerRender } from '../../store/activeSlice';
-import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-import { ModalType } from '../../store/modalsSlice';
-import { ModalLegalInfo } from '../../widgets/Modals/ModalLegalInfo/ModalLegalInfo';
-import { ModalChats } from '../../widgets/Modals/ModalChats/ModalChats';
-import { ModalPayments } from '../../widgets/Modals/ModalPayments/ModalPayments';
-import { ModalToken } from '../../widgets/Modals/ModalToken/ModalToken';
-import { ModalInfo } from '../../widgets/Modals/ModalInfo/ModalInfo';
+
+import { editActivityStore, getOneStore } from '@/store/storeSlice';
+import { triggerRender } from '@/store/activeSlice';
+import { ModalType } from '@/store/modalsSlice';
+
+import { SettingsTable } from '@/widgets/SettingsTable/SettingsTable';
+import { ModalLegalInfo } from '@/widgets/Modals/ModalLegalInfo/ModalLegalInfo';
+import { ModalChats } from '@/widgets/Modals/ModalChats/ModalChats';
+import { ModalPayments } from '@/widgets/Modals/ModalPayments/ModalPayments';
+import { ModalToken } from '@/widgets/Modals/ModalToken/ModalToken';
+import { ModalInfo } from '@/widgets/Modals/ModalInfo/ModalInfo';
+
+import style from './SettingsPage.module.scss';
+import { clsx } from 'clsx';
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();

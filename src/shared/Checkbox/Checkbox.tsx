@@ -1,7 +1,9 @@
-import style from './Checkbox.module.scss';
-import { useAppSelector } from '../../types/hooks';
-import { clsx } from 'clsx';
 import { forwardRef } from 'react';
+
+import { useAppSelector } from '@/types/hooks';
+
+import { clsx } from 'clsx';
+import style from './Checkbox.module.scss';
 
 const Checkbox = forwardRef<HTMLInputElement>(({ ...rest }, ref) => {
   const theme = useAppSelector((state) => state.active.theme);

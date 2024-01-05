@@ -1,14 +1,17 @@
-import StoreCard from '../../entities/StoreCard/StoreCard';
-import { BsFillPlusSquareFill } from 'react-icons/bs';
-import style from './StoreCardsPage.module.scss';
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import { getStores } from '../../store/storeSlice';
 import { useEffect } from 'react';
-import { ModalType, toggleModal } from '../../store/modalsSlice';
+import { BsFillPlusSquareFill } from 'react-icons/bs';
 
-import { ModalStores } from '../../widgets/Modals/ModalStores/ModalStores';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { getStores } from '@/store/storeSlice';
+import { ModalType, toggleModal } from '@/store/modalsSlice';
+
+import { ModalStores } from '@/widgets/Modals/ModalStores/ModalStores';
+import { ModalDelete } from '@/widgets/Modals/ModalDelete/ModalDelete';
+import StoreCard from '@/entities/StoreCard/StoreCard';
+
 import { clsx } from 'clsx';
-import { ModalDelete } from '../../widgets/Modals/ModalDelete/ModalDelete';
+import style from './StoreCardsPage.module.scss';
 
 const StoreCardsPage = () => {
   const dispatch = useAppDispatch();

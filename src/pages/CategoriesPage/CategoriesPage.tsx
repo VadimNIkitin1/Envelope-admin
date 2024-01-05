@@ -1,20 +1,19 @@
 import { FC, useEffect } from 'react';
-
+import { useParams } from 'react-router';
 import { AlertIcon, AlertTitle, Alert } from '@chakra-ui/react';
 
-import { getCategories } from '../../store/categorySlice';
-import { ModalType } from '../../store/modalsSlice';
+import { getCategories } from '@/store/categorySlice';
+import { ModalType } from '@/store/modalsSlice';
+
 import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
 
-import { ModalCategories } from '../../widgets/Modals/ModalCategories/ModalCategories';
-import { ModalDelete } from '../../widgets/Modals/ModalDelete/ModalDelete';
+import { ModalCategories } from '@/widgets/Modals/ModalCategories/ModalCategories';
+import { ModalDelete } from '@/widgets/Modals/ModalDelete/ModalDelete';
+import Table from '@/widgets/Table/Table';
 
-import Table from '../../widgets/Table/Table';
-
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
 import style from './CategoriesPage.module.scss';
-import { useParams } from 'react-router';
 
 const CategoriesPage: FC = () => {
   const dispatch = useAppDispatch();

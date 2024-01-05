@@ -1,17 +1,19 @@
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
-
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Tooltip } from '@chakra-ui/react';
-
-import { clsx } from 'clsx';
-import style from './SettingsTable.module.scss';
-import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
 import { Fragment } from 'react';
-import Button from '../../shared/Button/Button';
-import { MdOutlineEditCalendar } from 'react-icons/md';
-import { ModalType, toggleModal } from '../../store/modalsSlice';
-import { editCheckboxPayment, editCheckboxTypeOrder } from '../../store/storeSlice';
 import { useParams } from 'react-router';
-import { triggerRender } from '../../store/activeSlice';
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Tooltip } from '@chakra-ui/react';
+import { MdOutlineEditCalendar } from 'react-icons/md';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { TableCheckbox } from '@/shared/TableCheckbox/TableCheckbox';
+import Button from '@/shared/Button/Button';
+
+import { ModalType, toggleModal } from '@/store/modalsSlice';
+import { editCheckboxPayment, editCheckboxTypeOrder } from '@/store/storeSlice';
+import { triggerRender } from '@/store/activeSlice';
+
+import style from './SettingsTable.module.scss';
+import { clsx } from 'clsx';
 
 const SettingsTable = ({ staticData, dynamicData }) => {
   const dispatch = useAppDispatch();

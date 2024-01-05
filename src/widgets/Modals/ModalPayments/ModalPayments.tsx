@@ -1,16 +1,18 @@
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
-import { InputText } from '../../../shared/InputText/InputText';
+import { useParams } from 'react-router';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { triggerRender } from '@/store/activeSlice';
+import { toggleModal } from '@/store/modalsSlice';
+import { editPayments } from '@/store/storeSlice';
+
+import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+import { InputText } from '@/shared/InputText/InputText';
+
 import type { IRequestPayments } from './types';
 import style from './ModalPayments.module.scss';
-
-import { useAppDispatch, useAppSelector } from '../../../types/hooks';
-import { triggerRender } from '../../../store/activeSlice';
-import { toggleModal } from '../../../store/modalsSlice';
-import { useParams } from 'react-router';
-import { ModalWindow } from '../../../entities/ModalWindow/ModalWindow';
-
-import { editPayments } from '../../../store/storeSlice';
 
 const ModalPayments = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();

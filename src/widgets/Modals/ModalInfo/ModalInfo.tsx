@@ -1,12 +1,16 @@
-import { ModalWindow } from '../../../entities/ModalWindow/ModalWindow';
-import { useAppDispatch, useAppSelector } from '../../../types/hooks';
-import { InputText } from '../../../shared/InputText/InputText';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { IRequestInfo } from './types';
-import { toggleModal } from '../../../store/modalsSlice';
-import { triggerRender } from '../../../store/activeSlice';
 import { useParams } from 'react-router-dom';
-import { editInfo } from '../../../store/storeSlice';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { toggleModal } from '@/store/modalsSlice';
+import { triggerRender } from '@/store/activeSlice';
+import { editInfo } from '@/store/storeSlice';
+
+import { InputText } from '@/shared/InputText/InputText';
+import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+
+import { IRequestInfo } from './types';
 import style from './ModalInfo.module.scss';
 
 const ModalInfo = ({ isOpen, type }) => {
