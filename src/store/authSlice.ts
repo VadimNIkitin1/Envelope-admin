@@ -1,23 +1,45 @@
-import { AnyAction, PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import type { Dispatch, PayloadAction, AnyAction } from '@reduxjs/toolkit';
+import axios, { AxiosInstance, AxiosError } from 'axios';
 
 import { IAuth } from '@/types/auth';
-import { IError } from '@/types/categories';
 
 import { IAuthRequestRegistration } from '@/pages/AuthPage/AuthPage.types';
+import { AuthType } from '@/app/constants';
 
-const instanceAxios = axios.create({
+const axiosInstance = axios.create({
   baseURL: 'https://envelope-app.ru/api/v1/',
   withCredentials: true,
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  },
 });
 
-export enum AuthType {
-  REGISTER = 'register',
-  LOGIN = 'login',
-}
+const configureAxiosInstance = (type: string) => {
+  if (type === AuthType.LOGIN) {
+    return (axiosInstance.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded');
+  }
+
+  if (type === AuthType.REGISTER) {
+    return (axiosInstance.defaults.headers['Content-Type'] = 'application/json');
+  }
+
+  return;
+};
+
+export const localStorageMiddleware = () => (next: Dispatch) => (action: AnyAction) => {
+  if (action.type === 'auth/performAuthentication/fulfilled') {
+    const { payload } = action;
+    localStorage.setItem('data', JSON.stringify(payload.data));
+    localStorage.setItem('token', payload.access_token);
+    const theme = localStorage.getItem('theme');
+    if (!theme) {
+      localStorage.setItem('theme', 'false');
+    }
+  } else if (action.type === 'auth/logOut/fulfilled') {
+    localStorage.removeItem('data');
+    localStorage.removeItem('token');
+  }
+
+  return next(action);
+};
 
 const initialState: IAuth = {
   data: {
@@ -28,70 +50,42 @@ const initialState: IAuth = {
   error: null,
 };
 
-interface IResponse {
-  access_token: string;
-  data: {
-    username: string;
-    user_id: number;
-  };
+interface ApiError {
+  message: string;
 }
 
-export const registration = createAsyncThunk<
-  IResponse,
-  IAuthRequestRegistration,
+export const performAuthentication = createAsyncThunk<
+  undefined,
+  { data: IAuthRequestRegistration; url: string; axiosInstance: AxiosInstance },
   { rejectValue: string }
->('auth/registration', async (data, { rejectWithValue }) => {
+>('auth/performAuthentication', async ({ data, url, axiosInstance }, { rejectWithValue }) => {
   try {
-    const res = await axios.post('user/register/', data, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    localStorage.setItem('data', JSON.stringify(res.data));
-    localStorage.setItem('company_id', res.data.data.user_id);
-    localStorage.setItem('token', res.data.access_token);
-    localStorage.setItem('username', res.data.data.username);
-    const theme = localStorage.getItem('theme');
-    if (!theme) {
-      localStorage.setItem('theme', 'false');
-    }
+    const res = await axiosInstance.post(url, data);
+
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
-  }
-});
-
-export const logIn = createAsyncThunk<IResponse, IAuthRequestRegistration, { rejectValue: string }>(
-  'auth/logIn',
-  async (data, { rejectWithValue }) => {
-    try {
-      const res = await instanceAxios.post('login/', data, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-      localStorage.setItem('data', JSON.stringify(res.data));
-      localStorage.setItem('company_id', res.data.data.user_id);
-      localStorage.setItem('token', res.data.access_token);
-      localStorage.setItem('username', res.data.data.username);
-      const theme = localStorage.getItem('theme');
-      if (!theme) {
-        localStorage.setItem('theme', 'false');
-      }
-      return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
     }
-  }
-);
 
-export const logOut = createAsyncThunk('auth/logOut', async () => {
-  localStorage.removeItem('data');
-  localStorage.removeItem('company_id');
-  localStorage.removeItem('token');
-  localStorage.removeItem('username');
-  localStorage.removeItem('store_id');
+    return rejectWithValue('Произошла непредвиденная ошибка');
+  }
 });
+
+export const registration = (data: IAuthRequestRegistration) => {
+  configureAxiosInstance(AuthType.REGISTER);
+  return performAuthentication({ data, url: 'user/register/', axiosInstance });
+};
+
+export const logIn = (data: IAuthRequestRegistration) => {
+  configureAxiosInstance(AuthType.LOGIN);
+  return performAuthentication({ data, url: 'login/', axiosInstance });
+};
+
+export const logOut = createAsyncThunk('auth/logOut', async () => {});
 
 const isError = (action: AnyAction) => {
   return action.type.endsWith('rejected');
@@ -103,25 +97,13 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(registration.pending, (state) => {
+      .addCase(performAuthentication.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
-      .addCase(registration.fulfilled, (state) => {
-        // state.data = action.payload.data;
+      .addCase(performAuthentication.fulfilled, (state) => {
         state.loading = false;
-        state.error = null;
       })
-      .addCase(logIn.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(logIn.fulfilled, (state) => {
-        // state.data = action.payload.data;
-        state.loading = false;
-        state.error = null;
-      })
-      .addMatcher(isError, (state, action: PayloadAction<IError>) => {
+      .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
         state.loading = false;
       });

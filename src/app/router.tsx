@@ -14,7 +14,7 @@ import SettingsPage from '@/pages/SettingsPage/SettingsPage';
 import RequireAuth from '@/features/HOC/RequireAuth';
 import StoreCardsPage from '@/pages/StoreCardsPage/StoreCardsPage';
 import CategoriesPage from '@/pages/CategoriesPage/CategoriesPage';
-import { AuthType } from '@/store/authSlice';
+import { AuthType } from './constants';
 import { ANALYTIC_PAGE } from './constants';
 
 const router = createBrowserRouter(

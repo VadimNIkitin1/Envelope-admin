@@ -4,15 +4,11 @@ export interface ICategory {
   availability: boolean;
 }
 
-export interface IError {
-  detail: string;
-}
-
 export interface ICategoriesInitialState {
   categories: ICategory[];
   category: ICategory;
   loading: boolean;
-  error: IError | null;
+  error: string | null;
 }
 
 export interface IRequestCheckbox {

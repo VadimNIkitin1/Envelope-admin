@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { ICategoriesInitialState, ICategory, IError, IRequestCheckbox } from '@/types/categories';
+import { ICategoriesInitialState, ICategory, IRequestCheckbox } from '@/types/categories';
 import { IRequestCategory } from '@/widgets/Modals/ModalCategories/types';
 
 const instanceAxios = axios.create({
@@ -134,7 +134,7 @@ const slice = createSlice({
       .addCase(toggleCheckboxCategory.fulfilled, (state) => {
         state.loading = false;
       })
-      .addMatcher(isError, (state, action: PayloadAction<IError>) => {
+      .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
         state.loading = false;
       });
