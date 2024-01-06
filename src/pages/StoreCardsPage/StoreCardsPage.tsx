@@ -8,7 +8,7 @@ import { ModalType, toggleModal } from '@/store/modalsSlice';
 
 import { ModalStores } from '@/widgets/Modals/ModalStores/ModalStores';
 import { ModalDelete } from '@/widgets/Modals/ModalDelete/ModalDelete';
-import StoreCard from '@/entities/StoreCard/StoreCard';
+import { StoreCard } from '@/entities/StoreCard/StoreCard';
 
 import { clsx } from 'clsx';
 import style from './StoreCardsPage.module.scss';
@@ -60,4 +60,4 @@ const StoreCardsPage = () => {
   );
 };
 
-export default StoreCardsPage;
+export { StoreCardsPage };

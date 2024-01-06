@@ -89,4 +89,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export { SettingsPage };

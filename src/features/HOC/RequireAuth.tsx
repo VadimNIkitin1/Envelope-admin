@@ -16,4 +16,4 @@ const RequireAuth: FC<Props> = ({ children }) => {
   return children;
 };
 
-export default RequireAuth;
+export { RequireAuth };

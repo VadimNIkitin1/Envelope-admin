@@ -145,4 +145,4 @@ const AuthPage = ({ type }) => {
   );
 };
 
-export default AuthPage;
+export { AuthPage };

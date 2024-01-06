@@ -24,4 +24,4 @@ const ThemeSwitches = () => {
   );
 };
 
-export default ThemeSwitches;
+export { ThemeSwitches };

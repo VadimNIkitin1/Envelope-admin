@@ -7,7 +7,7 @@ import { HiDotsVertical } from 'react-icons/hi';
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
 import { LANGUAGE, PATHNAME } from '@/app/constants';
-import ThemeSwitches from '@/shared/ThemeSwitches/ThemeSwitches';
+import { ThemeSwitches } from '@/shared/ThemeSwitches/ThemeSwitches';
 
 import { toggleLanguage, toggleTabs } from '@/store/activeSlice';
 import { logOut } from '@/store/authSlice';
@@ -108,4 +108,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export { NavBar };

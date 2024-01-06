@@ -5,7 +5,7 @@ import { useAppSelector } from '../../types/hooks';
 import { ModalType } from '../../store/modalsSlice';
 
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
-import Button from '../../shared/Button/Button';
+import { Button } from '../../shared/Button/Button';
 
 import style from './ModalWindow.module.scss';
 import clsx from 'clsx';

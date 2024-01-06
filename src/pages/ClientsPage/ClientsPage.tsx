@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import Table from '@/widgets/Table/Table';
+import { Table } from '@/widgets/Table/Table';
 
 import { TABLE_HEADER_CLIENTS } from './ClientsPage.data';
 
@@ -21,4 +21,4 @@ const ClientsPage = () => {
   return <Table data={customers} tableHeader={TABLE_HEADER_CLIENTS} />;
 };
 
-export default ClientsPage;
+export { ClientsPage };

@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import style from './StoreCard.module.scss';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { PATHNAME } from '../../app/constants';
-import Button from '../../shared/Button/Button';
+import { Button } from '../../shared/Button/Button';
 import { MdDeleteForever } from 'react-icons/md';
 import { Tooltip } from '@chakra-ui/react';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
@@ -76,4 +76,4 @@ const StoreCard = (props) => {
   );
 };
 
-export default StoreCard;
+export { StoreCard };
