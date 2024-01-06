@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import activeReducer from './activeSlice';
-import authReducer from './authSlice';
+import authReducer, { localStorageMiddleware } from './authSlice';
 import categoriesReducer from './categorySlice';
 import productsReducer from './productSlice';
 import modalsReducer from './modalsSlice';
@@ -19,6 +19,7 @@ const store = configureStore({
     report: reportReducer,
     mail: mailReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
 });
 export default store;
 

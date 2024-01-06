@@ -28,3 +28,8 @@ export enum LANGUAGE {
   RUSSIAN = 'rus',
   ENGLAND = 'eng',
 }
+
+export enum AuthType {
+  REGISTER = 'register',
+  LOGIN = 'login',
+}

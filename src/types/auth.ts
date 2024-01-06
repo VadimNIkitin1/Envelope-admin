@@ -1,4 +1,4 @@
-import { IError } from './categories';
+import { AxiosError } from 'axios';
 
 export interface IAuth {
   data: {
@@ -6,5 +6,5 @@ export interface IAuth {
     user_id: number;
   };
   loading: boolean;
-  error: IError | null;
+  error: AxiosError | null | string;
 }

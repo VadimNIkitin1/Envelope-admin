@@ -5,7 +5,9 @@ import { GiEnvelope } from 'react-icons/gi';
 
 import { useAppSelector, useAppDispatch } from '@/types/hooks';
 
-import { AuthType, logIn, registration } from '@/store/authSlice';
+import { AuthType } from '@/app/constants';
+
+import { logIn, registration } from '@/store/authSlice';
 import { triggerRender } from '@/store/activeSlice';
 
 import { InputText } from '@/shared/InputText/InputText';
@@ -49,13 +51,13 @@ const AuthPage = ({ type }) => {
 
     setTimeout(() => {
       dispatch(triggerRender());
-    }, 1000);
+    }, 2000);
   };
 
   useEffect(() => {
     if (responseData) {
       const parseData = JSON.parse(responseData);
-      navigate(`/${parseData.data.user_id}/stores`, { replace: true });
+      navigate(`/${parseData.user_id}/stores`, { replace: true });
     }
   }, [render]);
 
