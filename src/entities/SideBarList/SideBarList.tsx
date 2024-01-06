@@ -159,4 +159,4 @@ const SideBarList = () => {
   );
 };
 
-export default SideBarList;
+export { SideBarList };

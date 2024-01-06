@@ -4,7 +4,7 @@ import { IColumnTable } from '../../types/tableHeaders';
 
 import style from './TableHeader.module.scss';
 import { clsx } from 'clsx';
-import Button from '../../shared/Button/Button';
+import { Button } from '../../shared/Button/Button';
 import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 import { Tooltip } from '@chakra-ui/react';
@@ -61,4 +61,4 @@ const TableHeader: FC<Props> = ({ tableHeader }) => {
   );
 };
 
-export default TableHeader;
+export { TableHeader };

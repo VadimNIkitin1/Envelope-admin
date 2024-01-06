@@ -9,7 +9,7 @@ import { ModalType, toggleModal } from '../../store/modalsSlice';
 import { triggerRender } from '../../store/activeSlice';
 
 import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
-import Button from '../../shared/Button/Button';
+import { Button } from '../../shared/Button/Button';
 
 import { clsx } from 'clsx';
 import style from './TableRow.module.scss';
@@ -130,4 +130,4 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   );
 };
 
-export default TableRow;
+export { TableRow };

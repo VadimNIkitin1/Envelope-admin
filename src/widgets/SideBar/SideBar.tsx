@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router';
 
-import SideBarList from '@/entities/SideBarList/SideBarList';
+import { SideBarList } from '@/entities/SideBarList/SideBarList';
 
 import { useAppSelector } from '@/types/hooks';
 
@@ -19,4 +19,4 @@ const SideBar = () => {
     </section>
   );
 };
-export default SideBar;
+export { SideBar };

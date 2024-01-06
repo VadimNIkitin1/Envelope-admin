@@ -9,7 +9,7 @@ import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
 
 import { ModalCategories } from '@/widgets/Modals/ModalCategories/ModalCategories';
 import { ModalDelete } from '@/widgets/Modals/ModalDelete/ModalDelete';
-import Table from '@/widgets/Table/Table';
+import { Table } from '@/widgets/Table/Table';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
@@ -55,4 +55,4 @@ const CategoriesPage: FC = () => {
   );
 };
 
-export default CategoriesPage;
+export { CategoriesPage };

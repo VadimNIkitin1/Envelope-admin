@@ -1,19 +1,19 @@
 import { Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 
-import ErrorPage from '@/pages/ErrorPage/ErrorPage';
-import AboutPage from '@/pages/AboutPage/AboutPage';
-import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
-import AuthPage from '@/pages/AuthPage/AuthPage';
-import Layout from '@/widgets/Layout/Layout';
-import PricesPage from '@/pages/PricesPage/PricesPage';
-import MenuPage from '@/pages/ProductsPage/ProductsPage';
-import ClientsPage from '@/pages/ClientsPage/ClientsPage';
+import { ErrorPage } from '@/pages/ErrorPage/ErrorPage';
+import { AboutPage } from '@/pages/AboutPage/AboutPage';
+import { NotFoundPage } from '@/pages/NotFoundPage/NotFoundPage';
+import { AuthPage } from '@/pages/AuthPage/AuthPage';
+import { Layout } from '@/widgets/Layout/Layout';
+import { PricesPage } from '@/pages/PricesPage/PricesPage';
+import { MenuPage } from '@/pages/ProductsPage/ProductsPage';
+import { ClientsPage } from '@/pages/ClientsPage/ClientsPage';
 import { NotificationPage } from '@/pages/NotificationPage/NotificationPage';
-import AnalyticPage from '@/pages/AnalyticPage/AnalyticPage';
-import SettingsPage from '@/pages/SettingsPage/SettingsPage';
-import RequireAuth from '@/features/HOC/RequireAuth';
-import StoreCardsPage from '@/pages/StoreCardsPage/StoreCardsPage';
-import CategoriesPage from '@/pages/CategoriesPage/CategoriesPage';
+import { AnalyticPage } from '@/pages/AnalyticPage/AnalyticPage';
+import { SettingsPage } from '@/pages/SettingsPage/SettingsPage';
+import { RequireAuth } from '@/features/HOC/RequireAuth';
+import { StoreCardsPage } from '@/pages/StoreCardsPage/StoreCardsPage';
+import { CategoriesPage } from '@/pages/CategoriesPage/CategoriesPage';
 import { AuthType } from './constants';
 import { ANALYTIC_PAGE } from './constants';
 

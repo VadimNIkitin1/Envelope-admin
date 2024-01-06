@@ -142,4 +142,4 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, typ
   );
 });
 
-export default InputFile;
+export { InputFile };

@@ -7,8 +7,8 @@ import { sendMessage, sendMessageMyself } from '@/store/mailSlice';
 import { ModalType, toggleModal } from '@/store/modalsSlice';
 
 import { ModalRecipient } from '@/widgets/Modals/ModalRecipient/ModalRecipient';
-import InputFile from '@/shared/InputFile/InputFile';
-import Button from '@/shared/Button/Button';
+import { InputFile } from '@/shared/InputFile/InputFile';
+import { Button } from '@/shared/Button/Button';
 import { InputText } from '@/shared/InputText/InputText';
 
 import { clsx } from 'clsx';

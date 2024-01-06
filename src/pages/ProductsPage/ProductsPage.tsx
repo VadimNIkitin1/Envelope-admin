@@ -5,7 +5,7 @@ import { Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
 import { ModalType } from '@/store/modalsSlice';
 import { getProducts } from '@/store/productSlice';
 
-import Table from '@/widgets/Table/Table';
+import { Table } from '@/widgets/Table/Table';
 import { ModalProducts } from '@/widgets/Modals/ModalProducts/ModalProducts';
 import { ModalDelete } from '@/widgets/Modals/ModalDelete/ModalDelete';
 
@@ -53,4 +53,4 @@ const MenuPage = () => {
   );
 };
 
-export default MenuPage;
+export { MenuPage };

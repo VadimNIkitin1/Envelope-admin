@@ -1,4 +1,4 @@
-import StoreCard from '@/entities/StoreCard/StoreCard';
+import { StoreCard } from '@/entities/StoreCard/StoreCard';
 
 import { tariff } from '@/assets/db';
 
@@ -14,4 +14,4 @@ const PricesPage = () => {
   );
 };
 
-export default PricesPage;
+export { PricesPage };

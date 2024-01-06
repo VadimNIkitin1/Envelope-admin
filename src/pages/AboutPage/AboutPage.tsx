@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import Button from '@/shared/Button/Button';
+import { Button } from '@/shared/Button/Button';
 
 import rykhlov from '@/assets/rykhlov.webp';
 import nikitin from '@/assets/nikitin.webp';
@@ -38,4 +38,4 @@ const AboutPage = () => {
   );
 };
 
-export default AboutPage;
+export { AboutPage };

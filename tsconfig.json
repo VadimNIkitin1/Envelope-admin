@@ -9,8 +9,6 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ES6",
     "skipLibCheck": true,
-    "declaration": true,
-    "sourceMap": true,
 
     /* Bundler mode */
     "moduleResolution": "node",

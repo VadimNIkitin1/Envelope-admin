@@ -17,8 +17,8 @@ import {
 
 import { ANALYTIC_PAGE, ANALYTIC_TABLE } from '@/app/constants';
 
-import Table from '@/widgets/Table/Table';
-import Button from '@/shared/Button/Button';
+import { Table } from '@/widgets/Table/Table';
+import { Button } from '@/shared/Button/Button';
 
 import style from './AnalyticPage.module.scss';
 import clsx from 'clsx';
@@ -161,4 +161,4 @@ const AnalyticPage = ({ type }) => {
   );
 };
 
-export default AnalyticPage;
+export { AnalyticPage };

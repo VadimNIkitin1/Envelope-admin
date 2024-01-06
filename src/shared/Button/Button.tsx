@@ -29,4 +29,4 @@ const Button: FC<any> = ({ view, ...props }) => {
   );
 };
 
-export default Button;
+export { Button };

@@ -6,7 +6,7 @@ import { MdOutlineEditCalendar } from 'react-icons/md';
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
 import { TableCheckbox } from '@/shared/TableCheckbox/TableCheckbox';
-import Button from '@/shared/Button/Button';
+import { Button } from '@/shared/Button/Button';
 
 import { ModalType, toggleModal } from '@/store/modalsSlice';
 import { editCheckboxPayment, editCheckboxTypeOrder } from '@/store/storeSlice';
