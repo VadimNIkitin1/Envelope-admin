@@ -8,8 +8,8 @@ import { triggerRender } from '@/store/activeSlice';
 import { toggleModal } from '@/store/modalsSlice';
 import { editLegalInfo } from '@/store/storeSlice';
 
-import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
-import { InputText } from '@/shared/InputText/InputText';
+import { ModalWindow } from '@/entities/ModalWindow';
+import { InputText } from '@/shared/InputText';
 
 import type { IRequestLegalInfo } from './types';
 import style from './ModalLegalInfo.module.scss';

@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/types/hooks';
 import { toggleRecipient, triggerRender } from '@/store/activeSlice';
 import { toggleModal } from '@/store/modalsSlice';
 
-import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+import { ModalWindow } from '@/entities/ModalWindow';
 
 const ModalRecipient = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();

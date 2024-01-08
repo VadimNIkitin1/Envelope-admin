@@ -13,18 +13,18 @@ import {
   TABLE_PAYMENTS,
   TABLE_TOKEN,
   TABLE_TYPE_ORDER,
-} from './SettingsPage.data';
+} from './data';
 
 import { editActivityStore, getOneStore } from '@/store/storeSlice';
 import { triggerRender } from '@/store/activeSlice';
 import { ModalType } from '@/store/modalsSlice';
 
-import { SettingsTable } from '@/widgets/SettingsTable/SettingsTable';
-import { ModalLegalInfo } from '@/widgets/Modals/ModalLegalInfo/ModalLegalInfo';
-import { ModalChats } from '@/widgets/Modals/ModalChats/ModalChats';
-import { ModalPayments } from '@/widgets/Modals/ModalPayments/ModalPayments';
-import { ModalToken } from '@/widgets/Modals/ModalToken/ModalToken';
-import { ModalInfo } from '@/widgets/Modals/ModalInfo/ModalInfo';
+import { SettingsTable } from '@/widgets/SettingsTable';
+import { ModalLegalInfo } from '@/widgets/Modals/ModalLegalInfo';
+import { ModalChats } from '@/widgets/Modals/ModalChats';
+import { ModalPayments } from '@/widgets/Modals/ModalPayments';
+import { ModalToken } from '@/widgets/Modals/ModalToken';
+import { ModalInfo } from '@/widgets/Modals/ModalInfo';
 
 import style from './SettingsPage.module.scss';
 import { clsx } from 'clsx';

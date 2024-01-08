@@ -7,8 +7,8 @@ import { toggleModal } from '@/store/modalsSlice';
 import { triggerRender } from '@/store/activeSlice';
 import { editInfo } from '@/store/storeSlice';
 
-import { InputText } from '@/shared/InputText/InputText';
-import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+import { InputText } from '@/shared/InputText';
+import { ModalWindow } from '@/entities/ModalWindow';
 
 import { IRequestInfo } from './types';
 import style from './ModalInfo.module.scss';

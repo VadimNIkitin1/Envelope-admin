@@ -3,11 +3,10 @@ import { useParams } from 'react-router-dom';
 
 import type { IRequestTokenBot } from './types';
 
-import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+import { ModalWindow } from '@/entities/ModalWindow';
+import { InputText } from '@/shared/InputText';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
-
-import { InputText } from '@/shared/InputText/InputText';
 
 import { toggleModal } from '@/store/modalsSlice';
 import { triggerRender } from '@/store/activeSlice';

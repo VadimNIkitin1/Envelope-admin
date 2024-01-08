@@ -9,10 +9,10 @@ import { getCategories } from '@/store/categorySlice';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { InputFile } from '@/shared/InputFile/InputFile';
-import { Checkbox } from '@/shared/Checkbox/Checkbox';
-import { InputText } from '@/shared/InputText/InputText';
-import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
+import { InputFile } from '@/shared/InputFile';
+import { Checkbox } from '@/shared/Checkbox';
+import { InputText } from '@/shared/InputText';
+import { ModalWindow } from '@/entities/ModalWindow';
 
 import { IRequestProduct } from './types';
 import clsx from 'clsx';

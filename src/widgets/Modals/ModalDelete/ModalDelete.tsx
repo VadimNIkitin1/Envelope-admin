@@ -9,8 +9,8 @@ import { deleteCategoryFlag } from '@/store/categorySlice';
 import { deleteProductFlag } from '@/store/productSlice';
 import { deleteStore } from '@/store/storeSlice';
 
-import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
-import { Checkbox } from '@/shared/Checkbox/Checkbox';
+import { ModalWindow } from '@/entities/ModalWindow';
+import { Checkbox } from '@/shared/Checkbox';
 
 import { PATHNAME } from '@/app/constants';
 

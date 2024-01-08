@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
-import { NavBar } from '@/widgets/NavBar/NavBar';
-import { SideBar } from '@/widgets/SideBar/SideBar';
-import { Footer } from '@/widgets/Footer/Footer';
+import { NavBar } from '@/widgets/NavBar/';
+import { SideBar } from '@/widgets/SideBar';
+import { Footer } from '@/widgets/Footer';
 
 import style from './Layout.module.scss';
 

@@ -8,9 +8,9 @@ import { triggerRender } from '@/store/activeSlice';
 import { toggleModal } from '@/store/modalsSlice';
 import { editChats } from '@/store/storeSlice';
 
-import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
-import { InputText } from '@/shared/InputText/InputText';
-import { InputFile } from '@/shared/InputFile/InputFile';
+import { ModalWindow } from '@/entities/ModalWindow';
+import { InputText } from '@/shared/InputText';
+import { InputFile } from '@/shared/InputFile';
 
 import type { IRequestChats } from './types';
 import style from './ModalChats.module.scss';

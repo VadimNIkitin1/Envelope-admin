@@ -1,23 +1,16 @@
-import { FC, ReactNode } from 'react';
-
-import { useAppSelector } from '../../types/hooks';
-
-import { ModalType } from '../../store/modalsSlice';
-
+import { FC } from 'react';
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
-import { Button } from '../../shared/Button/Button';
+
+import { useAppSelector } from '@/types/hooks';
+
+import { ModalType } from '@/store/modalsSlice';
+
+import { Button } from '@/shared/Button';
+
+import type { ModalWindowProps } from './types';
 
 import style from './ModalWindow.module.scss';
 import clsx from 'clsx';
-
-interface ModalWindowProps {
-  children: ReactNode;
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  onSubmit?: () => void;
-  type?: string;
-}
 
 const ModalWindow: FC<ModalWindowProps> = ({
   children,

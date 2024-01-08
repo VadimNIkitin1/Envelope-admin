@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@/shared/Button/Button';
+import { Button } from '@/shared/Button';
 
 import rykhlov from '@/assets/rykhlov.webp';
 import nikitin from '@/assets/nikitin.webp';

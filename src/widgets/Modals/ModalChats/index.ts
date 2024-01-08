@@ -1,0 +1,1 @@
+export { ModalChats } from './ModalChats';
