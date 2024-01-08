@@ -1,16 +1,20 @@
 import { FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
-import { IColumnTable } from '../../types/tableHeaders';
-
-import style from './TableHeader.module.scss';
-import { clsx } from 'clsx';
-import { Button } from '../../shared/Button/Button';
-import { ModalType, toggleModal } from '../../store/modalsSlice';
-import { BsFillPlusSquareFill } from 'react-icons/bs';
-import { Tooltip } from '@chakra-ui/react';
 import { useLocation } from 'react-router';
-import { PATHNAME } from '../../app/constants';
+import { Tooltip } from '@chakra-ui/react';
+import { BsFillPlusSquareFill } from 'react-icons/bs';
 
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { IColumnTable } from '@/types/tableHeaders';
+
+import { PATHNAME } from '@/app/constants';
+
+import { Button } from '@/shared/Button';
+
+import { ModalType, toggleModal } from '@/store/modalsSlice';
+
+import { clsx } from 'clsx';
+import style from './TableHeader.module.scss';
 interface Props {
   tableHeader: IColumnTable[];
 }

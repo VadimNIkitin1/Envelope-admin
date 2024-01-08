@@ -5,11 +5,11 @@ import { AlertIcon, AlertTitle, Alert } from '@chakra-ui/react';
 import { getCategories } from '@/store/categorySlice';
 import { ModalType } from '@/store/modalsSlice';
 
-import { TABLE_HEADER_CATEGORIES } from './CategoriesPage.data';
+import { TABLE_HEADER_CATEGORIES } from './data';
 
-import { ModalCategories } from '@/widgets/Modals/ModalCategories/ModalCategories';
-import { ModalDelete } from '@/widgets/Modals/ModalDelete/ModalDelete';
-import { Table } from '@/widgets/Table/Table';
+import { ModalCategories } from '@/widgets/Modals/ModalCategories';
+import { ModalDelete } from '@/widgets/Modals/ModalDelete';
+import { Table } from '@/widgets/Table';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 

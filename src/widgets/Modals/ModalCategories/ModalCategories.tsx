@@ -8,9 +8,9 @@ import { triggerRender } from '../../../store/activeSlice';
 import { ModalType, toggleModal } from '@/store/modalsSlice';
 import { addCategory, editCategory } from '@/store/categorySlice';
 
-import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
-import { InputText } from '@/shared/InputText/InputText';
-import { Checkbox } from '@/shared/Checkbox/Checkbox';
+import { ModalWindow } from '@/entities/ModalWindow';
+import { InputText } from '@/shared/InputText';
+import { Checkbox } from '@/shared/Checkbox';
 
 import type { IRequestCategory } from './types';
 import clsx from 'clsx';

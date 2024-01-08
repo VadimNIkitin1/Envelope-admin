@@ -1,26 +1,26 @@
+import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Tooltip } from '@chakra-ui/react';
 import { MdOutlineEditCalendar, MdDeleteForever } from 'react-icons/md';
 
-import { useAppSelector, useAppDispatch } from '../../types/hooks';
+import { useAppSelector, useAppDispatch } from '@/types/hooks';
 
-import { saveCategory, toggleCheckboxCategory } from '../../store/categorySlice';
-import { saveProduct, toggleCheckboxProduct } from '../../store/productSlice';
-import { ModalType, toggleModal } from '../../store/modalsSlice';
-import { triggerRender } from '../../store/activeSlice';
+import { PATHNAME } from '@/app/constants';
 
-import { TableCheckbox } from '../../shared/TableCheckbox/TableCheckbox';
-import { Button } from '../../shared/Button/Button';
+import { saveCategory, toggleCheckboxCategory } from '@/store/categorySlice';
+import { saveProduct, toggleCheckboxProduct } from '@/store/productSlice';
+import { ModalType, toggleModal } from '@/store/modalsSlice';
+import { triggerRender } from '@/store/activeSlice';
+
+import { TableCheckbox } from '@/shared/TableCheckbox';
+import { Button } from '@/shared/Button';
+
+import { IColumnTable } from '@/types/tableHeaders';
+
+import { TDataForTable } from '@/types/data';
 
 import { clsx } from 'clsx';
 import style from './TableRow.module.scss';
-import { IColumnTable } from '../../types/tableHeaders';
-
-import { FC } from 'react';
-
-import { TDataForTable } from '../../types/data';
-
-import { Tooltip } from '@chakra-ui/react';
-import { PATHNAME } from '../../app/constants';
 
 interface Props {
   cell: TDataForTable;

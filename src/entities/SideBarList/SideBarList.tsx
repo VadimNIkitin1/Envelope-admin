@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
-
-import style from './SideBarList.module.scss';
+import { useEffect } from 'react';
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
+import { Tooltip, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 import {
   MdOutlineMenuBook,
   MdMessage,
@@ -11,15 +11,15 @@ import {
   MdStore,
 } from 'react-icons/md';
 
-import { PATHNAME } from '../../app/constants';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { toggleTabs, triggerRender } from '../../store/activeSlice';
-import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
+import { getStores } from '@/store/storeSlice';
+import { toggleTabs, triggerRender } from '@/store/activeSlice';
+
+import { PATHNAME } from '@/app/constants';
+
 import { clsx } from 'clsx';
-
-import { Tooltip, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { getStores } from '../../store/storeSlice';
+import style from './SideBarList.module.scss';
 
 const SideBarList = () => {
   const dispatch = useAppDispatch();

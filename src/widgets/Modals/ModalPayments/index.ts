@@ -1,0 +1,1 @@
+export { ModalPayments } from './ModalPayments';

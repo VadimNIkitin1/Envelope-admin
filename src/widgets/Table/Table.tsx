@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { TableRow } from '@/entities/TableRow/TableRow';
-import { TableHeader } from '@/entities/TableHeader/TableHeader';
+import { TableRow } from '@/entities/TableRow';
+import { TableHeader } from '@/entities/TableHeader';
 
 import { IColumnTable } from '@/types/tableHeaders';
 import { TData } from '@/types/data';

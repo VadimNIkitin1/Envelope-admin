@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 
-import { Instruction } from '@/widgets/Instruction/Instruction';
-import { ModalWindow } from '@/entities/ModalWindow/ModalWindow';
-import { InputText } from '@/shared/InputText/InputText';
+import { Instruction } from '@/widgets/Instruction';
+import { ModalWindow } from '@/entities/ModalWindow';
+import { InputText } from '@/shared/InputText';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 

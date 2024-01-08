@@ -6,10 +6,10 @@ import { useAppDispatch, useAppSelector } from '@/types/hooks';
 import { sendMessage, sendMessageMyself } from '@/store/mailSlice';
 import { ModalType, toggleModal } from '@/store/modalsSlice';
 
-import { ModalRecipient } from '@/widgets/Modals/ModalRecipient/ModalRecipient';
-import { InputFile } from '@/shared/InputFile/InputFile';
-import { Button } from '@/shared/Button/Button';
-import { InputText } from '@/shared/InputText/InputText';
+import { ModalRecipient } from '@/widgets/Modals/ModalRecipient';
+import { InputFile } from '@/shared/InputFile';
+import { Button } from '@/shared/Button';
+import { InputText } from '@/shared/InputText';
 
 import { clsx } from 'clsx';
 import style from './NotificationPage.module.scss';

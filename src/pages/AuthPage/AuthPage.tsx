@@ -10,9 +10,10 @@ import { AuthType } from '@/app/constants';
 import { logIn, registration } from '@/store/authSlice';
 import { triggerRender } from '@/store/activeSlice';
 
-import { InputText } from '@/shared/InputText/InputText';
+import { InputText } from '@/shared/InputText';
 
-import type { IAuthRequestRegistration } from './AuthPage.types';
+import type { IAuthRequestRegistration } from './types';
+
 import style from './AuthPage.module.scss';
 
 const AuthPage = ({ type }) => {

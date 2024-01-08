@@ -7,7 +7,7 @@ import { clearImageProduct, uploadPhoto } from '@/store/productSlice';
 import { clearImageMail, uploadPhotoForMail } from '@/store/mailSlice';
 import { uploadWelcomeImage, clearWelcomeImage } from '@/store/storeSlice';
 
-import { IInputProps } from './InputFile.types';
+import { IInputProps } from './types';
 import clsx from 'clsx';
 import styles from './InputFile.module.scss';
 

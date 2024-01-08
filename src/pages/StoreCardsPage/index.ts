@@ -1,0 +1,1 @@
+export { StoreCardsPage } from './StoreCardsPage';

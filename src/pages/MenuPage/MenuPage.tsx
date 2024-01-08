@@ -5,15 +5,15 @@ import { Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
 import { ModalType } from '@/store/modalsSlice';
 import { getProducts } from '@/store/productSlice';
 
-import { Table } from '@/widgets/Table/Table';
-import { ModalProducts } from '@/widgets/Modals/ModalProducts/ModalProducts';
-import { ModalDelete } from '@/widgets/Modals/ModalDelete/ModalDelete';
+import { Table } from '@/widgets/Table';
+import { ModalProducts } from '@/widgets/Modals/ModalProducts';
+import { ModalDelete } from '@/widgets/Modals/ModalDelete';
 
-import { TABLE_HEADER_MENU } from './ProductsPage.data';
+import { TABLE_HEADER_MENU } from './data';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import style from './ProductsPage.module.scss';
+import style from './MenuPage.module.scss';
 
 const MenuPage = () => {
   const dispatch = useAppDispatch();

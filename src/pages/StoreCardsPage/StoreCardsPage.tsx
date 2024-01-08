@@ -6,9 +6,9 @@ import { useAppDispatch, useAppSelector } from '@/types/hooks';
 import { getStores } from '@/store/storeSlice';
 import { ModalType, toggleModal } from '@/store/modalsSlice';
 
-import { ModalStores } from '@/widgets/Modals/ModalStores/ModalStores';
-import { ModalDelete } from '@/widgets/Modals/ModalDelete/ModalDelete';
-import { StoreCard } from '@/entities/StoreCard/StoreCard';
+import { ModalStores } from '@/widgets/Modals/ModalStores';
+import { ModalDelete } from '@/widgets/Modals/ModalDelete';
+import { StoreCard } from '@/entities/StoreCard';
 
 import { clsx } from 'clsx';
 import style from './StoreCardsPage.module.scss';

@@ -1,0 +1,1 @@
+export { ModalLegalInfo } from './ModalLegalInfo';

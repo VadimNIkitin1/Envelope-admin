@@ -3,9 +3,9 @@ import { useParams } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { Table } from '@/widgets/Table/Table';
+import { Table } from '@/widgets/Table';
 
-import { TABLE_HEADER_CLIENTS } from './ClientsPage.data';
+import { TABLE_HEADER_CLIENTS } from './data';
 
 import { getCustomers } from '@/store/reportSlice';
 

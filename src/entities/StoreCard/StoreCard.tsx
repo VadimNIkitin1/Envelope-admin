@@ -1,15 +1,19 @@
-import { useAppDispatch, useAppSelector } from '../../types/hooks';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { MdDeleteForever } from 'react-icons/md';
+import { Tooltip } from '@chakra-ui/react';
+import { IoIosArrowDown } from 'react-icons/io';
+
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+
+import { PATHNAME } from '@/app/constants';
+
+import { Button } from '@/shared/Button';
+
+import { ModalType, toggleModal } from '@/store/modalsSlice';
+import { toggleTabs, triggerRender } from '@/store/activeSlice';
 
 import { clsx } from 'clsx';
 import style from './StoreCard.module.scss';
-import { Link, useLocation, useParams } from 'react-router-dom';
-import { PATHNAME } from '../../app/constants';
-import { Button } from '../../shared/Button/Button';
-import { MdDeleteForever } from 'react-icons/md';
-import { Tooltip } from '@chakra-ui/react';
-import { ModalType, toggleModal } from '../../store/modalsSlice';
-import { toggleTabs, triggerRender } from '../../store/activeSlice';
-import { IoIosArrowDown } from 'react-icons/io';
 
 const StoreCard = (props) => {
   const dispatch = useAppDispatch();
