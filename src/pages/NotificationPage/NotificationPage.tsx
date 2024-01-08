@@ -13,12 +13,14 @@ import { InputText } from '@/shared/InputText';
 
 import { clsx } from 'clsx';
 import style from './NotificationPage.module.scss';
+import { useParams } from 'react-router';
 
 export interface INotification {
   title?: string;
   mail_text?: string;
   photo_url?: string;
   users?: string[];
+  store_id: string | number | undefined;
 }
 
 const NotificationPage = () => {
@@ -26,6 +28,7 @@ const NotificationPage = () => {
   const { theme } = useAppSelector((state) => state.active);
   const photo_url = useAppSelector((state) => state.mail.photo_url);
   const modalRecipient = useAppSelector((state) => state.modals.modalRecipient);
+  const { store_id } = useParams();
 
   const {
     register,
@@ -38,6 +41,7 @@ const NotificationPage = () => {
     const requestData = {
       ...data,
       photo_url,
+      store_id,
     };
 
     dispatch(sendMessage(requestData));

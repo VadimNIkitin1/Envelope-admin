@@ -8,19 +8,26 @@ const ThemeSwitches = () => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.active.theme);
 
+  const handleClickTheme = (target) => {
+    target.preventDefault();
+    dispatch(toggleTheme());
+  };
+
   return (
-    <button
+    <div
       className={style.toggle_switch}
       onClick={(target) => {
-        target.preventDefault();
-        return dispatch(toggleTheme());
+        handleClickTheme(target);
       }}
+      onKeyDown={(target) => handleClickTheme(target)}
+      role="button"
+      tabIndex={0}
     >
       <label className={style.switch_label}>
         <input type="checkbox" checked={theme} readOnly className={style.checkbox} />
         <span className={style.slider} />
       </label>
-    </button>
+    </div>
   );
 };
 

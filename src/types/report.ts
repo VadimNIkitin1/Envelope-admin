@@ -14,13 +14,13 @@ export interface ITotalSales {
 export interface IReportInitialState {
   customers: ICustomers[];
   totalSales: ITotalSales;
-  totalSalesForCategory: IReportItemForCategory[];
-  totalSalesForProduct: IReportItemForCategory[];
+  totalSalesForCategory: IReportItemFor[];
+  totalSalesForProduct: IReportItemFor[];
   loading: boolean;
   error: string | null;
 }
 
-export interface IReportItemForCategory {
+export interface IReportItemFor {
   id: number | string;
   product_name: string;
   category_name: string;

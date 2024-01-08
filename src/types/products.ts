@@ -31,3 +31,8 @@ export interface IProductsInitialState {
   loading: boolean;
   error: string | null;
 }
+
+export interface IRequestPhoto {
+  store_id: string | number | undefined;
+  formData: FormData;
+}
