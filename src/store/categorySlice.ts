@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { ICategoriesInitialState, ICategory, IRequestCheckbox } from '@/types/categories';
 import { IRequestCategory } from '@/widgets/Modals/ModalCategories/types';
+import { ApiError } from '.';
 
 const instanceAxios = axios.create({
   baseURL: 'https://envelope-app.ru/api/v1/',
@@ -32,8 +33,15 @@ export const getCategories = createAsyncThunk<
   try {
     const res = await instanceAxios.get(`category/?store_id=${id}`);
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
+    }
+
+    return rejectWithValue('Произошла непредвиденная ошибка');
   }
 });
 
@@ -43,8 +51,15 @@ export const addCategory = createAsyncThunk<ICategory, IRequestCategory, { rejec
     try {
       const res = await instanceAxios.post(`category/?store_id=${data.id}`, data);
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const errorData = axiosError.response?.data as ApiError;
+        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+        return rejectWithValue(errorMessage);
+      }
+
+      return rejectWithValue('Произошла непредвиденная ошибка');
     }
   }
 );
@@ -55,8 +70,15 @@ export const editCategory = createAsyncThunk<string, IRequestCategory, { rejectV
     try {
       const res = await instanceAxios.put(`category/?category_id=${data.id}`, data);
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const errorData = axiosError.response?.data as ApiError;
+        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+        return rejectWithValue(errorMessage);
+      }
+
+      return rejectWithValue('Произошла непредвиденная ошибка');
     }
   }
 );
@@ -69,8 +91,15 @@ export const deleteCategoryFlag = createAsyncThunk<
   try {
     const res = await instanceAxios.patch(`category/delete/?category_id=${id}`);
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
+    }
+
+    return rejectWithValue('Произошла непредвиденная ошибка');
   }
 });
 
@@ -84,8 +113,15 @@ export const toggleCheckboxCategory = createAsyncThunk<
       `category/checkbox/?category_id=${data.id}&checkbox=${data.code}`
     );
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
+    }
+
+    return rejectWithValue('Произошла непредвиденная ошибка');
   }
 });
 

@@ -32,7 +32,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   const location = useLocation();
   const theme = useAppSelector((state) => state.active.theme);
 
-  const handleEdit = (data: any) => {
+  const handleEdit = (data: TDataForTable) => {
     if (location.pathname.includes(PATHNAME.PRODUCTS)) {
       dispatch(saveProduct(data));
       dispatch(toggleModal({ action: true, type: ModalType.EDIT_PRODUCTS }));
@@ -44,7 +44,7 @@ const TableRow: FC<Props> = ({ cell, tableHeader }) => {
     }
   };
 
-  const handleDelete = (data: any) => {
+  const handleDelete = (data: TDataForTable) => {
     if (location.pathname.includes(PATHNAME.PRODUCTS)) {
       dispatch(saveProduct(data));
     }

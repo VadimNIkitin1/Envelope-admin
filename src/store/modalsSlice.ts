@@ -17,22 +17,22 @@ const initialState: IModals = {
   modalInfo: false,
 };
 
-export enum ModalType {
-  CATEGORIES = 'categories',
-  EDIT_CATEGORIES = 'edit_categories',
-  PRODUCTS = 'products',
-  EDIT_PRODUCTS = 'edit_products',
-  STORES = 'stores',
-  EDIT_STORES = 'edit_stores',
-  DELETE = 'delete',
-  ERROR = 'error',
-  RECIPIENT = 'recipient',
-  LEGAL_INFO = 'legal_information',
-  CHATS = 'service_text_and_chats',
-  PAYMENTS = 'payments',
-  TOKEN_BOT = 'bot_tokens',
-  INFO = 'info',
-}
+export const ModalType = {
+  CATEGORIES: 'categories',
+  EDIT_CATEGORIES: 'edit_categories',
+  PRODUCTS: 'products',
+  EDIT_PRODUCTS: 'edit_products',
+  STORES: 'stores',
+  EDIT_STORES: 'edit_stores',
+  DELETE: 'delete',
+  ERROR: 'error',
+  RECIPIENT: 'recipient',
+  LEGAL_INFO: 'legal_information',
+  CHATS: 'service_text_and_chats',
+  PAYMENTS: 'payments',
+  TOKEN_BOT: 'bot_tokens',
+  INFO: 'info',
+};
 
 const slice = createSlice({
   name: 'modals',

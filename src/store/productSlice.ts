@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { IProduct, IProductsInitialState, IUnit } from '@/types/products';
 import type { IRequestProduct } from '@/widgets/Modals/ModalProducts/types';
+import { ApiError } from '.';
 
 const instanceAxios = axios.create({
   baseURL: 'https://envelope-app.ru/api/v1/',
@@ -53,8 +54,15 @@ export const getProducts = createAsyncThunk<
   try {
     const res = await instanceAxios.get(`product/?store_id=${id}`);
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
+    }
+
+    return rejectWithValue('Произошла непредвиденная ошибка');
   }
 });
 
@@ -65,8 +73,15 @@ export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectVa
       const res = await instanceAxios.post(`product/?store_id=${data.id}`, data);
       dispatch(clearImageProduct());
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const errorData = axiosError.response?.data as ApiError;
+        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+        return rejectWithValue(errorMessage);
+      }
+
+      return rejectWithValue('Произошла непредвиденная ошибка');
     }
   }
 );
@@ -77,8 +92,15 @@ export const deleteProductFlag = createAsyncThunk<string, string | number, { rej
     try {
       const res = await instanceAxios.patch(`product/delete/?product_id=${id}`);
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const errorData = axiosError.response?.data as ApiError;
+        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+        return rejectWithValue(errorMessage);
+      }
+
+      return rejectWithValue('Произошла непредвиденная ошибка');
     }
   }
 );
@@ -89,8 +111,15 @@ export const editProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectV
     try {
       const res = await instanceAxios.put(`product/?product_id=${data.id}`, data);
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const errorData = axiosError.response?.data as ApiError;
+        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+        return rejectWithValue(errorMessage);
+      }
+
+      return rejectWithValue('Произошла непредвиденная ошибка');
     }
   }
 );
@@ -105,8 +134,15 @@ export const toggleCheckboxProduct = createAsyncThunk<
       `product/checkbox/?product_id=${data.id}&checkbox=${data.code}`
     );
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
+    }
+
+    return rejectWithValue('Произошла непредвиденная ошибка');
   }
 });
 
@@ -119,8 +155,15 @@ export const uploadPhoto = createAsyncThunk<string, IRequestPhoto, { rejectValue
         data.formData
       );
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const errorData = axiosError.response?.data as ApiError;
+        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+        return rejectWithValue(errorMessage);
+      }
+
+      return rejectWithValue('Произошла непредвиденная ошибка');
     }
   }
 );
@@ -131,8 +174,15 @@ export const getUnits = createAsyncThunk<IUnit[], undefined, { rejectValue: stri
     try {
       const res = await instanceAxios.get(`unit/`);
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const errorData = axiosError.response?.data as ApiError;
+        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+        return rejectWithValue(errorMessage);
+      }
+
+      return rejectWithValue('Произошла непредвиденная ошибка');
     }
   }
 );

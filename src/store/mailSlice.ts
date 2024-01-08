@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import type { INotification } from '@/pages/NotificationPage/NotificationPage';
 import type { IinitialStateMail } from '@/types/mail';
+import { ApiError } from '.';
 
 const instanceAxios = axios.create({
   baseURL: 'https://envelope-app.ru/api/v1/',
@@ -32,8 +33,15 @@ export const sendMessage = createAsyncThunk<undefined, INotification, { rejectVa
       const res = await instanceAxios.post(`mail/send_message/?store_id=${store_id}`, data);
       dispatch(clearImageMail());
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const errorData = axiosError.response?.data as ApiError;
+        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+        return rejectWithValue(errorMessage);
+      }
+
+      return rejectWithValue('Произошла непредвиденная ошибка');
     }
   }
 );
@@ -47,8 +55,15 @@ export const sendMessageMyself = createAsyncThunk<
     const res = await instanceAxios.post(`mail/send_message_me/`, data);
 
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
+    }
+
+    return rejectWithValue('Произошла непредвиденная ошибка');
   }
 });
 
@@ -61,8 +76,15 @@ export const uploadPhotoForMail = createAsyncThunk<string, IRequestPhoto, { reje
         data.formData
       );
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const errorData = axiosError.response?.data as ApiError;
+        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+        return rejectWithValue(errorMessage);
+      }
+
+      return rejectWithValue('Произошла непредвиденная ошибка');
     }
   }
 );

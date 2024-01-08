@@ -45,11 +45,11 @@ const StoreCard = (props) => {
               <p className={style.card_title}>{props.info ? props.info.name : 'не найдено'}</p>
               <div style={{ display: 'flex' }}>
                 <Tooltip label="Удалить" placement="top">
-                  <span style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
+                  <button style={{ height: '40px' }} onClick={(e) => e.preventDefault()}>
                     <Button view="delete" onClick={() => handleDelete()}>
                       <MdDeleteForever />
                     </Button>
-                  </span>
+                  </button>
                 </Tooltip>
               </div>
             </div>

@@ -12,16 +12,21 @@ const Instruction = () => {
 
   return (
     <div className={style.instruction_container}>
-      <p
+      <button
         className={clsx(style.instruction_title, theme && style.light)}
         onClick={() => setHidden(!hidden)}
       >
         <CgDanger fontSize={'18px'} color="#fb923c" /> Инструкция
-      </p>
+      </button>
       <ol className={clsx(style.instruction_text, hidden && style.hidden, theme && style.light)}>
         <li>
           Перейдите в чат с ботом{' '}
-          <a href="https://t.me/BotFather" target="_blank" style={{ color: '#2b9cf2' }}>
+          <a
+            href="https://t.me/BotFather"
+            target="_blank"
+            rel="noreferrer noopener"
+            style={{ color: '#2b9cf2' }}
+          >
             @BotFather
           </a>{' '}
           в Telegram
@@ -31,7 +36,12 @@ const Instruction = () => {
         <li>
           {' '}
           В ответ{' '}
-          <a href="https://t.me/BotFather" target="_blank" style={{ color: '#2b9cf2' }}>
+          <a
+            href="https://t.me/BotFather"
+            target="_blank"
+            rel="noreferrer noopener"
+            style={{ color: '#2b9cf2' }}
+          >
             @BotFather
           </a>{' '}
           пришлет токен вашего бота в формате:{' '}

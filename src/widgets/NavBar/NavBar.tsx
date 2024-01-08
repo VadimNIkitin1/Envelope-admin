@@ -67,26 +67,32 @@ const NavBar = () => {
           >
             <p className={clsx(style.menu_item__title, theme && style.light)}>Язык</p>
             <div className={style.language}>
-              <p
+              <div
                 className={clsx(
                   style.language_item,
                   language === LANGUAGE.RUSSIAN && style.checked,
                   theme && style.light
                 )}
                 onClick={() => handleClickLanguage(LANGUAGE.RUSSIAN)}
+                onKeyDown={() => handleClickLanguage(LANGUAGE.RUSSIAN)}
+                role="button"
+                tabIndex={0}
               >
                 🇷🇺
-              </p>
-              <p
+              </div>
+              <div
                 className={clsx(
                   style.language_item,
                   language === LANGUAGE.ENGLAND && style.checked,
                   theme && style.light
                 )}
                 onClick={() => handleClickLanguage(LANGUAGE.ENGLAND)}
+                onKeyDown={() => handleClickLanguage(LANGUAGE.ENGLAND)}
+                role="button"
+                tabIndex={0}
               >
                 🇬🇧
-              </p>
+              </div>
             </div>
           </MenuItem>
           <MenuItem

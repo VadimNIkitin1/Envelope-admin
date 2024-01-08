@@ -50,8 +50,8 @@ const TableHeader: FC<Props> = ({ tableHeader }) => {
             location.pathname.includes(PATHNAME.CATEGORIES)
               ? 'Добавить категорию'
               : location.pathname.includes(PATHNAME.PRODUCTS)
-              ? 'Добавить продукт'
-              : null
+                ? 'Добавить продукт'
+                : null
           }
         >
           <span>

@@ -23,7 +23,7 @@ export interface INotification {
 
 const NotificationPage = () => {
   const dispatch = useAppDispatch();
-  const { theme, recipient } = useAppSelector((state) => state.active);
+  const { theme } = useAppSelector((state) => state.active);
   const photo_url = useAppSelector((state) => state.mail.photo_url);
   const modalRecipient = useAppSelector((state) => state.modals.modalRecipient);
 
@@ -50,7 +50,6 @@ const NotificationPage = () => {
       photo_url,
     };
 
-    console.log(recipient);
     dispatch(sendMessageMyself(requestData));
   };
 
