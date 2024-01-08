@@ -1,21 +1,16 @@
-import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
-import {
-  IReportInitialState,
-  ICustomers,
-  IReportItemForCategory,
-  ITotalSales,
-} from '@/types/report';
-import { ApiError } from '.';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-const instanceAxios = axios.create({
-  baseURL: 'https://envelope-app.ru/api/v1/',
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
-  },
-});
+import { IReportInitialState, ICustomers, IReportItemFor, ITotalSales } from '@/types/report';
+
+import {
+  handleFulfilled,
+  handlePending,
+  handleRejected,
+  isFulfilledAction,
+  isPendingAction,
+  isRejectedAction,
+  makeApiRequest,
+} from './api';
 
 const initialState: IReportInitialState = {
   customers: [],
@@ -30,89 +25,51 @@ const initialState: IReportInitialState = {
 
 export const getTotalSales = createAsyncThunk<
   ITotalSales,
-  string | number | null,
-  { rejectValue: string }
+  number | undefined,
+  { rejectValue: Error }
 >('report/getTotalSales', async (store_id, { rejectWithValue }) => {
   try {
-    const res = await instanceAxios.get(`report/total_report/?store_id=${store_id}`);
-
-    return res.data;
+    return await makeApiRequest('get', `report/total_report/?store_id=${store_id}`);
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
-    }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
+    return rejectWithValue(error as Error);
   }
 });
 
 export const getCustomers = createAsyncThunk<
   ICustomers[],
-  string | number | undefined,
-  { rejectValue: string }
+  number | undefined,
+  { rejectValue: Error }
 >('report/getCustomers', async (store_id, { rejectWithValue }) => {
   try {
-    const res = await instanceAxios.get(`report/customer/?store_id=${store_id}`);
-    return res.data;
+    return await makeApiRequest('get', `report/customer/?store_id=${store_id}`);
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
-    }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
+    return rejectWithValue(error as Error);
   }
 });
 
 export const getTotalSalesForCategory = createAsyncThunk<
-  IReportItemForCategory[],
-  string | number | null,
-  { rejectValue: string }
+  IReportItemFor[],
+  number | undefined,
+  { rejectValue: Error }
 >('report/getTotalSalesForCategory', async (store_id, { rejectWithValue }) => {
   try {
-    const res = await instanceAxios.get(`report/total_category/?store_id=${store_id}`);
-
-    return res.data;
+    return await makeApiRequest('get', `report/total_category/?store_id=${store_id}`);
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
-    }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
+    return rejectWithValue(error as Error);
   }
 });
 
 export const getTotalSalesForProduct = createAsyncThunk<
-  IReportItemForCategory[],
-  string | number | null,
-  { rejectValue: string }
+  IReportItemFor[],
+  number | undefined,
+  { rejectValue: Error }
 >('report/getTotalSalesForProduct', async (store_id, { rejectWithValue }) => {
   try {
-    const res = await instanceAxios.get(`report/total_product/?store_id=${store_id}`);
-    return res.data;
+    return await makeApiRequest('get', `report/total_product/?store_id=${store_id}`);
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
-    }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
+    return rejectWithValue(error as Error);
   }
 });
-
-const isError = (action: AnyAction) => {
-  return action.type.endsWith('rejected');
-};
 
 const slice = createSlice({
   name: 'report',
@@ -120,38 +77,9 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getTotalSales.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getTotalSales.fulfilled, (state, action) => {
-        state.loading = false;
-        state.totalSales = action.payload;
-      })
-      .addCase(getCustomers.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getCustomers.fulfilled, (state, action) => {
-        state.loading = false;
-        state.customers = action.payload;
-      })
-      .addCase(getTotalSalesForCategory.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getTotalSalesForCategory.fulfilled, (state, action) => {
-        state.loading = false;
-        state.totalSalesForCategory = action.payload;
-      })
-      .addCase(getTotalSalesForProduct.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getTotalSalesForProduct.fulfilled, (state, action) => {
-        state.loading = false;
-        state.totalSalesForProduct = action.payload;
-      })
-      .addMatcher(isError, (state, action: PayloadAction<string>) => {
-        state.error = action.payload;
-        state.loading = false;
-      });
+      .addMatcher(isPendingAction, handlePending)
+      .addMatcher(isFulfilledAction, handleFulfilled)
+      .addMatcher(isRejectedAction, handleRejected);
   },
 });
 

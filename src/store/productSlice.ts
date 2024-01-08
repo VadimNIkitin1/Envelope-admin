@@ -1,23 +1,17 @@
-import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { IProduct, IProductsInitialState, IUnit } from '@/types/products';
+import { IProduct, IProductsInitialState, IRequestPhoto, IUnit } from '@/types/products';
 import type { IRequestProduct } from '@/widgets/Modals/ModalProducts/types';
-import { ApiError } from '.';
 
-const instanceAxios = axios.create({
-  baseURL: 'https://envelope-app.ru/api/v1/',
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
-  },
-});
-
-interface IRequestPhoto {
-  store_id: string | number | undefined;
-  formData: FormData;
-}
+import {
+  handleFulfilled,
+  handlePending,
+  handleRejected,
+  isFulfilledAction,
+  isPendingAction,
+  isRejectedAction,
+  makeApiRequest,
+} from './api';
 
 const initialState: IProductsInitialState = {
   products: [],
@@ -46,80 +40,48 @@ const initialState: IProductsInitialState = {
   error: null,
 };
 
-export const getProducts = createAsyncThunk<
-  IProduct[],
-  number | string | undefined,
-  { rejectValue: string }
->('products/getProducts', async (id, { rejectWithValue }) => {
-  try {
-    const res = await instanceAxios.get(`product/?store_id=${id}`);
-    return res.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
+export const getProducts = createAsyncThunk<IProduct[], number | string, { rejectValue: Error }>(
+  'products/getProducts',
+  async (id, { rejectWithValue }) => {
+    try {
+      return await makeApiRequest('get', `product/?store_id=${id}`);
+    } catch (error) {
+      return rejectWithValue(error as Error);
     }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
   }
-});
+);
 
-export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectValue: string }>(
+export const addProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectValue: Error }>(
   'products/addProduct',
   async (data, { rejectWithValue, dispatch }) => {
     try {
-      const res = await instanceAxios.post(`product/?store_id=${data.id}`, data);
       dispatch(clearImageProduct());
-      return res.data;
+      return await makeApiRequest('post', `product/?store_id=${data.id}`, data);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
 
-export const deleteProductFlag = createAsyncThunk<string, string | number, { rejectValue: string }>(
-  'products/deleteProductFlag',
-  async (id, { rejectWithValue }) => {
-    try {
-      const res = await instanceAxios.patch(`product/delete/?product_id=${id}`);
-      return res.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
-    }
+export const deleteProductFlag = createAsyncThunk<
+  IProduct,
+  string | number,
+  { rejectValue: Error }
+>('products/deleteProductFlag', async (id, { rejectWithValue }) => {
+  try {
+    return await makeApiRequest('patch', `product/delete/?product_id=${id}`);
+  } catch (error) {
+    return rejectWithValue(error as Error);
   }
-);
+});
 
-export const editProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectValue: string }>(
+export const editProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectValue: Error }>(
   'products/editProduct',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.put(`product/?product_id=${data.id}`, data);
-      return res.data;
+      return await makeApiRequest('put', `product/?product_id=${data.id}`, data);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
@@ -127,69 +89,43 @@ export const editProduct = createAsyncThunk<IProduct, IRequestProduct, { rejectV
 export const toggleCheckboxProduct = createAsyncThunk<
   IProduct,
   IRequestProduct,
-  { rejectValue: string }
+  { rejectValue: Error }
 >('products/toggleCheckboxProduct', async (data, { rejectWithValue }) => {
   try {
-    const res = await instanceAxios.patch(
+    return await makeApiRequest(
+      'patch',
       `product/checkbox/?product_id=${data.id}&checkbox=${data.code}`
     );
-    return res.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
-    }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
+    return rejectWithValue(error as Error);
   }
 });
 
-export const uploadPhoto = createAsyncThunk<string, IRequestPhoto, { rejectValue: string }>(
+export const uploadPhoto = createAsyncThunk<string, IRequestPhoto, { rejectValue: Error }>(
   'products/uploadPhoto',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.post(
+      return await makeApiRequest(
+        'post',
         `product/upload_photo/?store_id=${data.store_id}`,
         data.formData
       );
-      return res.data;
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
 
-export const getUnits = createAsyncThunk<IUnit[], undefined, { rejectValue: string }>(
+export const getUnits = createAsyncThunk<IUnit[], undefined, { rejectValue: Error }>(
   'products/getUnits',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.get(`unit/`);
-      return res.data;
+      return await makeApiRequest('get', `unit/`);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
-
-const isError = (action: AnyAction) => {
-  return action.type.endsWith('rejected');
-};
 
 const slice = createSlice({
   name: 'products',
@@ -204,51 +140,9 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getProducts.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getProducts.fulfilled, (state, action) => {
-        state.products = action.payload;
-        state.loading = false;
-      })
-      .addCase(addProduct.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(addProduct.fulfilled, (state) => {
-        state.loading = false;
-        state.error = null;
-      })
-      .addCase(editProduct.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(editProduct.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(toggleCheckboxProduct.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(toggleCheckboxProduct.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(getUnits.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getUnits.fulfilled, (state, action) => {
-        state.units = action.payload;
-        state.loading = false;
-      })
-      .addCase(uploadPhoto.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(uploadPhoto.fulfilled, (state, action) => {
-        state.product.image = action.payload;
-        state.loading = false;
-      })
-      .addMatcher(isError, (state, action: PayloadAction<string>) => {
-        state.error = action.payload;
-        state.loading = false;
-      });
+      .addMatcher(isPendingAction, handlePending)
+      .addMatcher(isFulfilledAction, handleFulfilled)
+      .addMatcher(isRejectedAction, handleRejected);
   },
 });
 

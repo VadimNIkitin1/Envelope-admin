@@ -1,7 +1,12 @@
-import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { IStore, IStoreInitialState } from '@/types/stores';
+import {
+  IRequestCheckboxPayment,
+  IRequestCheckboxTypeOrder,
+  IRequestPhoto,
+  IStore,
+  IStoreInitialState,
+} from '@/types/stores';
 
 import { IRequestCategory } from '@/widgets/Modals/ModalCategories/types';
 import { IRequestLegalInfo } from '@/widgets/Modals/ModalLegalInfo/types';
@@ -9,31 +14,15 @@ import { IRequestChats } from '@/widgets/Modals/ModalChats/types';
 import { IRequestPayments } from '@/widgets/Modals/ModalPayments/types';
 import { IRequestTokenBot } from '@/widgets/Modals/ModalToken/types';
 import { IRequestInfo } from '@/widgets/Modals/ModalInfo/types';
-import { ApiError } from '.';
-
-const instanceAxios = axios.create({
-  baseURL: 'https://envelope-app.ru/api/v1/',
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
-  },
-});
-
-interface IRequestPhoto {
-  store_id: string | number | undefined;
-  formData: FormData;
-}
-
-interface IRequestCheckboxPayment {
-  store_id: string | number | undefined;
-  checkbox: string;
-}
-
-interface IRequestCheckboxTypeOrder {
-  store_id: string | number | undefined;
-  order_type_id: number;
-}
+import {
+  handleFulfilled,
+  handlePending,
+  handleRejected,
+  isFulfilledAction,
+  isPendingAction,
+  isRejectedAction,
+  makeApiRequest,
+} from './api';
 
 const initialState: IStoreInitialState = {
   stores: [],
@@ -137,50 +126,33 @@ const initialState: IStoreInitialState = {
   error: null,
 };
 
-export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: string }>(
+export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: Error }>(
   'store/getStores',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.get('store/');
-      return res.data;
+      return await makeApiRequest('get', 'store/');
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
 
-export const getOneStore = createAsyncThunk<
-  IStore,
-  string | number | undefined,
-  { rejectValue: string }
->('store/getOneStore', async (id, { rejectWithValue }) => {
-  try {
-    const res = await instanceAxios.get(`store/one/?store_id=${id}`);
-    return res.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
+export const getOneStore = createAsyncThunk<IStore, number | undefined, { rejectValue: Error }>(
+  'store/getOneStore',
+  async (id, { rejectWithValue }) => {
+    try {
+      return await makeApiRequest('get', `store/one/?store_id=${id}`);
+    } catch (error) {
+      return rejectWithValue(error as Error);
     }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
   }
-});
+);
 
-export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue: string }>(
+export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue: Error }>(
   'store/addStore',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.post('store/', {
+      return await makeApiRequest('post', 'store/', {
         data: {
           name: data.name,
           link_bot: data.link_bot,
@@ -189,227 +161,134 @@ export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue
           token_bot: data.token_bot,
         },
       });
-      return res.data;
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
 
 export const editActivityStore = createAsyncThunk<
   IStore[],
-  string | number | undefined,
-  { rejectValue: string }
+  number | undefined,
+  { rejectValue: Error }
 >('store/editActivityStore', async (id, { rejectWithValue }) => {
   try {
-    const res = await instanceAxios.patch(`store/update_activity/?store_id=${id}`);
-    return res.data;
+    return await makeApiRequest('patch', `store/update_activity/?store_id=${id}`);
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
-    }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
+    return rejectWithValue(error as Error);
   }
 });
 
-export const editLegalInfo = createAsyncThunk<IStore[], IRequestLegalInfo, { rejectValue: string }>(
+export const editLegalInfo = createAsyncThunk<IStore[], IRequestLegalInfo, { rejectValue: Error }>(
   'store/editLegalInfo',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.put(`store/legal_informations/?store_id=${data.id}`, data);
-      return res.data;
+      return await makeApiRequest('put', `store/legal_informations/?store_id=${data.id}`, data);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
 
-export const editTokenBot = createAsyncThunk<string, IRequestTokenBot, { rejectValue: string }>(
+export const editTokenBot = createAsyncThunk<string, IRequestTokenBot, { rejectValue: Error }>(
   'store/editTokenBot',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.put(`store/token_bot/?store_id=${data.id}`, data);
-      return res.data;
+      return await makeApiRequest('put', `store/token_bot/?store_id=${data.id}`, data);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
 
-export const editChats = createAsyncThunk<IStore[], IRequestChats, { rejectValue: string }>(
+export const editChats = createAsyncThunk<string, IRequestChats, { rejectValue: Error }>(
   'store/editChats',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.put(
-        `store/service_text_and_chats/?store_id=${data.id}`,
-        data
-      );
-      return res.data;
+      return await makeApiRequest('put', `store/service_text_and_chats/?store_id=${data.id}`, data);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
 
-export const editPayments = createAsyncThunk<IStore[], IRequestPayments, { rejectValue: string }>(
+export const editPayments = createAsyncThunk<IStore[], IRequestPayments, { rejectValue: Error }>(
   'store/editPayments',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.put(`store/store_payments/?store_id=${data.id}`, data);
-      return res.data;
+      return await makeApiRequest('put', `store/store_payments/?store_id=${data.id}`, data);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
 
-export const editInfo = createAsyncThunk<IStore[], IRequestInfo, { rejectValue: string }>(
+export const editInfo = createAsyncThunk<IStore[], IRequestInfo, { rejectValue: Error }>(
   'store/editInfo',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.put(`store/store_info/?store_id=${data.id}`, data);
-      return res.data;
+      return await makeApiRequest('put', `store/store_info/?store_id=${data.id}`, data);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
 
-export const uploadWelcomeImage = createAsyncThunk<string, IRequestPhoto, { rejectValue: string }>(
+export const uploadWelcomeImage = createAsyncThunk<string, IRequestPhoto, { rejectValue: Error }>(
   'store/uploadWelcomeImage',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await instanceAxios.post(
+      return await makeApiRequest(
+        'post',
         `product/upload_photo/?store_id=${data.store_id}`,
         data.formData
       );
-      return res.data;
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorData = axiosError.response?.data as ApiError;
-        const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-        return rejectWithValue(errorMessage);
-      }
-
-      return rejectWithValue('Произошла непредвиденная ошибка');
+      return rejectWithValue(error as Error);
     }
   }
 );
 
-export const deleteStore = createAsyncThunk<
-  string,
-  string | number | undefined,
-  { rejectValue: string }
->('store/deleteStore', async (id, { rejectWithValue }) => {
-  try {
-    const res = await instanceAxios.delete(`store/?store_id=${id}`);
-    return res.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
+export const deleteStore = createAsyncThunk<string, number | undefined, { rejectValue: Error }>(
+  'store/deleteStore',
+  async (id, { rejectWithValue }) => {
+    try {
+      return await makeApiRequest('delete', `store/?store_id=${id}`);
+    } catch (error) {
+      return rejectWithValue(error as Error);
     }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
   }
-});
+);
 
 export const editCheckboxPayment = createAsyncThunk<
   string,
   IRequestCheckboxPayment,
-  { rejectValue: string }
+  { rejectValue: Error }
 >('store/editCheckboxPayment', async (data, { rejectWithValue }) => {
   try {
-    const res = await instanceAxios.patch(
+    return await makeApiRequest(
+      'patch',
       `store/store_payments/?store_id=${data.store_id}&checkbox=${data.checkbox}`
     );
-    return res.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
-    }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
+    return rejectWithValue(error as Error);
   }
 });
 
 export const editCheckboxTypeOrder = createAsyncThunk<
   string,
   IRequestCheckboxTypeOrder,
-  { rejectValue: string }
+  { rejectValue: Error }
 >('store/editCheckboxTypeOrder', async (data, { rejectWithValue }) => {
   try {
-    const res = await instanceAxios.patch(
+    return await makeApiRequest(
+      'patch',
       `store/order_type/?store_id=${data.store_id}&order_type_id=${data.order_type_id}`
     );
-    return res.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      const errorData = axiosError.response?.data as ApiError;
-      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
-      return rejectWithValue(errorMessage);
-    }
-
-    return rejectWithValue('Произошла непредвиденная ошибка');
+    return rejectWithValue(error as Error);
   }
 });
-
-const isError = (action: AnyAction) => {
-  return action.type.endsWith('rejected');
-};
 
 const slice = createSlice({
   name: 'store',
@@ -421,79 +300,9 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getStores.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getStores.fulfilled, (state, action) => {
-        state.stores = action.payload;
-        state.loading = false;
-      })
-      .addCase(getOneStore.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getOneStore.fulfilled, (state, action) => {
-        state.store = action.payload;
-        state.loading = false;
-      })
-      .addCase(deleteStore.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(deleteStore.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(editActivityStore.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(editActivityStore.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(editLegalInfo.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(editInfo.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(editInfo.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(editLegalInfo.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(editTokenBot.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(editTokenBot.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(editPayments.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(editPayments.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(editCheckboxPayment.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(editCheckboxPayment.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(editCheckboxTypeOrder.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(editCheckboxTypeOrder.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(uploadWelcomeImage.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(uploadWelcomeImage.fulfilled, (state, action) => {
-        state.image_welcome = action.payload;
-        state.loading = false;
-      })
-      .addMatcher(isError, (state, action: PayloadAction<string>) => {
-        state.error = action.payload;
-        state.loading = false;
-      });
+      .addMatcher(isPendingAction, handlePending)
+      .addMatcher(isFulfilledAction, handleFulfilled)
+      .addMatcher(isRejectedAction, handleRejected);
   },
 });
 

@@ -101,3 +101,18 @@ export interface IStoreInitialState {
   loading: boolean;
   error: string | null;
 }
+
+export interface IRequestPhoto {
+  store_id: number | undefined;
+  formData: FormData;
+}
+
+export interface IRequestCheckboxPayment {
+  store_id: string | number | undefined;
+  checkbox: string;
+}
+
+export interface IRequestCheckboxTypeOrder {
+  store_id: string | number | undefined;
+  order_type_id: number;
+}

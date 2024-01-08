@@ -3,3 +3,8 @@ export interface IinitialStateMail {
   loading: boolean;
   error: null | string;
 }
+
+export interface IRequestPhoto {
+  store_id: string | number | undefined;
+  formData: FormData;
+}
