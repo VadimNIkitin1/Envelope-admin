@@ -22,7 +22,7 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'warn',
     'jsx-a11y/click-events-have-key-events': 'warn',
     'import/no-duplicates': 'error',
-    'consistent-return': 'warn',
+    'consistent-return': 'off',
     'no-unused-expressions': 'error',
     'no-implied-eval': 'error',
     'no-eval': 'error',
