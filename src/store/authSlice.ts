@@ -4,7 +4,7 @@ import axios, { AxiosInstance, AxiosError } from 'axios';
 
 import { IAuth } from '@/types/auth';
 
-import { IAuthRequestRegistration } from '@/pages/AuthPage/AuthPage.types';
+import { IAuthRequestRegistration } from '@/pages/AuthPage/types';
 import { AuthType } from '@/app/constants';
 
 const axiosInstance = axios.create({
