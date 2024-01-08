@@ -16,8 +16,7 @@ import { RequireAuth } from '@/features/HOC/RequireAuth';
 import { StoreCardsPage } from '@/pages/StoreCardsPage/StoreCardsPage';
 import { CategoriesPage } from '@/pages/CategoriesPage/CategoriesPage';
 
-import { AuthType } from './constants';
-import { ANALYTIC_PAGE } from './constants';
+import { AuthType, ANALYTIC_PAGE } from './constants';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

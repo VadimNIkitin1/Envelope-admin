@@ -33,7 +33,7 @@ export interface IStore {
         name: string;
         image: string;
       };
-    }
+    },
   ];
   working_days: [
     {
@@ -47,7 +47,7 @@ export interface IStore {
         day_of_week: string;
         number_day: number;
       };
-    }
+    },
   ];
   payments: {
     cash: boolean;

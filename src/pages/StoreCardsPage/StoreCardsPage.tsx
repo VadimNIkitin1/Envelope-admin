@@ -10,6 +10,7 @@ import { ModalStores } from '@/widgets/Modals/ModalStores';
 import { ModalDelete } from '@/widgets/Modals/ModalDelete';
 import { StoreCard } from '@/entities/StoreCard';
 
+import { IStore } from '@/types/stores';
 import { clsx } from 'clsx';
 import style from './StoreCardsPage.module.scss';
 
@@ -27,7 +28,7 @@ const StoreCardsPage = () => {
     <div className={style.page}>
       {stores === undefined || stores.length === 0 ? (
         <div className={style.cardList}>
-          <div
+          <button
             className={clsx(style.cardAddStore, theme && style.light)}
             onClick={() => dispatch(toggleModal({ action: true, type: ModalType.STORES }))}
           >
@@ -35,11 +36,11 @@ const StoreCardsPage = () => {
               <p>Создать магазин</p>
               <BsFillPlusSquareFill />
             </div>
-          </div>
+          </button>
         </div>
       ) : (
         <div className={style.cardList}>
-          <div
+          <button
             className={clsx(style.cardAddStore, theme && style.light)}
             onClick={() => dispatch(toggleModal({ action: true, type: ModalType.STORES }))}
           >
@@ -47,8 +48,8 @@ const StoreCardsPage = () => {
               <p>Создать магазин</p>
               <BsFillPlusSquareFill />
             </div>
-          </div>
-          {stores.map((card: any) => (
+          </button>
+          {stores.map((card: IStore) => (
             <StoreCard key={card.id} {...card} />
           ))}
         </div>

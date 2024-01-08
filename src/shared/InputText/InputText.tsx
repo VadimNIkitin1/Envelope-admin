@@ -3,6 +3,7 @@ import { forwardRef } from 'react';
 import { useAppSelector } from '@/types/hooks';
 
 import { IInputProps } from './types';
+
 import { clsx } from 'clsx';
 import styles from './InputText.module.scss';
 
@@ -20,5 +21,7 @@ const InputText = forwardRef<HTMLInputElement, IInputProps>(
     );
   }
 );
+
+InputText.displayName = 'InputText';
 
 export { InputText };

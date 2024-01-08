@@ -17,6 +17,17 @@ module.exports = {
 
   plugins: ['react-refresh', 'react', 'prettier', 'import', 'jsx-a11y', '@typescript-eslint'],
   rules: {
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'jsx-a11y/no-static-element-interactions': 'warn',
+    'jsx-a11y/click-events-have-key-events': 'warn',
+    'import/no-duplicates': 'error',
+    'consistent-return': 'off',
+    'no-unused-expressions': 'error',
+    'no-implied-eval': 'error',
+    'no-eval': 'error',
+    eqeqeq: ['error', 'always'],
+    curly: 'error',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react/function-component-definition': 'off',
     'react/self-closing-comp': 'warn',
@@ -60,11 +71,15 @@ module.exports = {
     react: {
       version: 'detect',
     },
-  },
-  'import/resolver': {
-    node: {
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      moduleDirectory: ['node_modules', 'src/'],
+    'import/resolver': {
+      alias: {
+        map: [['@', './src/']],
+        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+      },
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src/'],
+      },
     },
   },
 };

@@ -9,7 +9,7 @@ const ThemeSwitches = () => {
   const theme = useAppSelector((state) => state.active.theme);
 
   return (
-    <div
+    <button
       className={style.toggle_switch}
       onClick={(target) => {
         target.preventDefault();
@@ -18,9 +18,9 @@ const ThemeSwitches = () => {
     >
       <label className={style.switch_label}>
         <input type="checkbox" checked={theme} readOnly className={style.checkbox} />
-        <span className={style.slider}></span>
+        <span className={style.slider} />
       </label>
-    </div>
+    </button>
   );
 };
 

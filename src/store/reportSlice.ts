@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import {
   IReportInitialState,
   ICustomers,
   IReportItemForCategory,
   ITotalSales,
 } from '@/types/report';
+import { ApiError } from '.';
 
 const instanceAxios = axios.create({
   baseURL: 'https://envelope-app.ru/api/v1/',
@@ -36,8 +37,15 @@ export const getTotalSales = createAsyncThunk<
     const res = await instanceAxios.get(`report/total_report/?store_id=${store_id}`);
 
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
+    }
+
+    return rejectWithValue('Произошла непредвиденная ошибка');
   }
 });
 
@@ -49,8 +57,15 @@ export const getCustomers = createAsyncThunk<
   try {
     const res = await instanceAxios.get(`report/customer/?store_id=${store_id}`);
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
+    }
+
+    return rejectWithValue('Произошла непредвиденная ошибка');
   }
 });
 
@@ -63,8 +78,15 @@ export const getTotalSalesForCategory = createAsyncThunk<
     const res = await instanceAxios.get(`report/total_category/?store_id=${store_id}`);
 
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
+    }
+
+    return rejectWithValue('Произошла непредвиденная ошибка');
   }
 });
 
@@ -76,8 +98,15 @@ export const getTotalSalesForProduct = createAsyncThunk<
   try {
     const res = await instanceAxios.get(`report/total_product/?store_id=${store_id}`);
     return res.data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const errorData = axiosError.response?.data as ApiError;
+      const errorMessage = errorData.message || 'Произошла ошибка во время запроса';
+      return rejectWithValue(errorMessage);
+    }
+
+    return rejectWithValue('Произошла непредвиденная ошибка');
   }
 });
 
