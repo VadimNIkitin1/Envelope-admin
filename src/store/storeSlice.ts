@@ -137,7 +137,7 @@ export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: Er
   }
 );
 
-export const getOneStore = createAsyncThunk<IStore, number | undefined, { rejectValue: Error }>(
+export const getOneStore = createAsyncThunk<IStore, string | undefined, { rejectValue: Error }>(
   'store/getOneStore',
   async (id, { rejectWithValue }) => {
     try {
@@ -249,7 +249,7 @@ export const uploadWelcomeImage = createAsyncThunk<string, IRequestPhoto, { reje
   }
 );
 
-export const deleteStore = createAsyncThunk<string, number | undefined, { rejectValue: Error }>(
+export const deleteStore = createAsyncThunk<string, string | undefined, { rejectValue: Error }>(
   'store/deleteStore',
   async (id, { rejectWithValue }) => {
     try {

@@ -40,7 +40,7 @@ const initialState: IProductsInitialState = {
   error: null,
 };
 
-export const getProducts = createAsyncThunk<IProduct[], number | string, { rejectValue: Error }>(
+export const getProducts = createAsyncThunk<IProduct[], string | undefined, { rejectValue: Error }>(
   'products/getProducts',
   async (id, { rejectWithValue }) => {
     try {
