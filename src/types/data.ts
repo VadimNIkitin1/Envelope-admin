@@ -1,7 +1,7 @@
 import { IAnalytic, IClients, ISettings } from '../assets/db';
 import { ICategory } from './categories';
 import { IProduct } from './products';
-import { ICustomers, IReportItemForCategory } from './report';
+import { ICustomers, IReportItemFor } from './report';
 
 export type TData =
   | ICategory[]
@@ -10,7 +10,7 @@ export type TData =
   | IAnalytic[]
   | ISettings[]
   | ICustomers[]
-  | IReportItemForCategory[];
+  | IReportItemFor[];
 export type TDataForTable =
   | ICategory
   | IProduct
@@ -18,4 +18,4 @@ export type TDataForTable =
   | IAnalytic
   | ISettings
   | ICustomers
-  | IReportItemForCategory;
+  | IReportItemFor;

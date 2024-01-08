@@ -22,16 +22,17 @@ const initialState: ICategoriesInitialState = {
   error: null,
 };
 
-export const getCategories = createAsyncThunk<ICategory[], number | string, { rejectValue: Error }>(
-  'categories/getCategories',
-  async (id, { rejectWithValue }) => {
-    try {
-      return await makeApiRequest('get', `category/?store_id=${id}`);
-    } catch (error) {
-      return rejectWithValue(error as Error);
-    }
+export const getCategories = createAsyncThunk<
+  ICategory[],
+  string | undefined,
+  { rejectValue: Error }
+>('categories/getCategories', async (id, { rejectWithValue }) => {
+  try {
+    return await makeApiRequest('get', `category/?store_id=${id}`);
+  } catch (error) {
+    return rejectWithValue(error as Error);
   }
-);
+});
 
 export const addCategory = createAsyncThunk<string, IRequestCategory, { rejectValue: Error }>(
   'categories/addCategory',

@@ -103,7 +103,7 @@ export interface IStoreInitialState {
 }
 
 export interface IRequestPhoto {
-  store_id: number | undefined;
+  store_id: string | undefined;
   formData: FormData;
 }
 

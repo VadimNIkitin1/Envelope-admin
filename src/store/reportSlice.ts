@@ -25,7 +25,7 @@ const initialState: IReportInitialState = {
 
 export const getTotalSales = createAsyncThunk<
   ITotalSales,
-  number | undefined,
+  string | undefined,
   { rejectValue: Error }
 >('report/getTotalSales', async (store_id, { rejectWithValue }) => {
   try {
@@ -37,7 +37,7 @@ export const getTotalSales = createAsyncThunk<
 
 export const getCustomers = createAsyncThunk<
   ICustomers[],
-  number | undefined,
+  string | undefined,
   { rejectValue: Error }
 >('report/getCustomers', async (store_id, { rejectWithValue }) => {
   try {
@@ -49,7 +49,7 @@ export const getCustomers = createAsyncThunk<
 
 export const getTotalSalesForCategory = createAsyncThunk<
   IReportItemFor[],
-  number | undefined,
+  string | undefined,
   { rejectValue: Error }
 >('report/getTotalSalesForCategory', async (store_id, { rejectWithValue }) => {
   try {
@@ -61,7 +61,7 @@ export const getTotalSalesForCategory = createAsyncThunk<
 
 export const getTotalSalesForProduct = createAsyncThunk<
   IReportItemFor[],
-  number | undefined,
+  string | undefined,
   { rejectValue: Error }
 >('report/getTotalSalesForProduct', async (store_id, { rejectWithValue }) => {
   try {

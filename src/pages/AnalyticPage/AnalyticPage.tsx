@@ -19,12 +19,14 @@ import { Button } from '@/shared/Button';
 
 import style from './AnalyticPage.module.scss';
 import clsx from 'clsx';
+import { useParams } from 'react-router';
 
 const AnalyticPage = ({ type }) => {
   const theme = useAppSelector((state) => state.active.theme);
   const [select, setSelect] = useState<string>(ANALYTIC_TABLE.NONE);
   const [from, setFrom] = useState('');
   const [before, setBefore] = useState('');
+  const { store_id } = useParams();
 
   const dispatch = useAppDispatch();
   const { totalSalesForCategory, totalSalesForProduct, totalSales } = useAppSelector(
@@ -33,15 +35,12 @@ const AnalyticPage = ({ type }) => {
 
   useEffect(() => {
     if (type === ANALYTIC_PAGE.STORE) {
-      const store_id = localStorage.getItem('store_id' || '');
       dispatch(getTotalSales(store_id));
     }
   }, []);
 
   useEffect(() => {
     if (type === ANALYTIC_PAGE.STORE) {
-      const store_id = localStorage.getItem('store_id' || '');
-
       if (select === ANALYTIC_TABLE.CATEGORIES) {
         dispatch(getTotalSalesForCategory(store_id));
       }
