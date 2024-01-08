@@ -24,11 +24,6 @@ export const ANALYTIC_PAGE = {
   STORE: 'store',
 };
 
-export const LANGUAGE = {
-  RUSSIAN: 'rus',
-  ENGLAND: 'eng',
-};
-
 export const AuthType = {
   REGISTER: 'register',
   LOGIN: 'login',
