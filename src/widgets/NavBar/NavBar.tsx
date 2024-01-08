@@ -6,10 +6,11 @@ import { HiDotsVertical } from 'react-icons/hi';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { LANGUAGE, PATHNAME } from '@/app/constants';
+import { PATHNAME } from '@/app/constants';
+
 import { ThemeSwitches } from '@/shared/ThemeSwitches';
 
-import { toggleLanguage, toggleTabs } from '@/store/activeSlice';
+import { toggleLanguage, toggleTabs, LANGUAGE } from '@/store/activeSlice';
 import { logOut } from '@/store/authSlice';
 
 import { clsx } from 'clsx';
