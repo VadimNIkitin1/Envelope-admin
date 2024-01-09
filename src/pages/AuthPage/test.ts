@@ -1,5 +1,5 @@
-describe('Regular Expressions', () => {
-  describe('EMAIL_REGEXP', () => {
+describe('Проверка ругярных выражений', () => {
+  describe('Для почты', () => {
     const EMAIL_REGEXP =
       /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 
@@ -20,7 +20,7 @@ describe('Regular Expressions', () => {
     });
   });
 
-  describe('PASSWORD_REGEXP', () => {
+  describe('Для пароля', () => {
     const PASSWORD_REGEXP = /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?()]).*/;
 
     it('Подтверждение валидных значений пароля', () => {
