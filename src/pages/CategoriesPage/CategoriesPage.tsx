@@ -32,7 +32,7 @@ const CategoriesPage: FC = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(getCategories(store_id));
-    }, 200);
+    }, 300);
   }, [render]);
 
   return (
