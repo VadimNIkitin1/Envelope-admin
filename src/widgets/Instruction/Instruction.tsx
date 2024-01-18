@@ -54,4 +54,4 @@ const Instruction = () => {
   );
 };
 
-export { Instruction };
+export default Instruction;

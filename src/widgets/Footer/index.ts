@@ -1,1 +1,1 @@
-export { Footer } from './Footer';
+export { LazyFooter as Footer } from './Footer.lazy';

@@ -9,11 +9,22 @@ declare module '*.webp' {
 }
 
 declare module '*.svg' {
-  const value: any;
-  export default value;
+  import React from 'react';
+  const SVG: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  export default SVG;
 }
 
 declare module '*.jpeg' {
   const value: any;
   export default value;
 }
+
+declare module '*.module.scss' {
+  interface IClassNames {
+    [className: string]: string;
+  }
+  const classNames: IClassNames;
+  export = classNames;
+}
+
+declare const __PLATFORM__: 'mobile' | 'desktop';
