@@ -1,1 +1,1 @@
-export { Instruction } from './Instruction';
+export { LazyInstruction as Instruction } from './Instruction.lazy';
