@@ -14,7 +14,7 @@
     "build:webp:desktop": "webpack --env mode=production --env platform=desktop",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepare": "husky install",
-    "unit test": "jest",
+    "test:unit": "jest",
     "typecheck": "tsc"
   },
   "browserslist": {
