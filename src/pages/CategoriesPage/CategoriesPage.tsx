@@ -27,8 +27,6 @@ const CategoriesPage: FC = () => {
     (state) => state.modals
   );
 
-  console.log(render);
-
   useEffect(() => {
     setTimeout(() => {
       dispatch(getCategories(store_id));
