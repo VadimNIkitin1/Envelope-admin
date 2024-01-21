@@ -4,9 +4,9 @@ import { useParams } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { triggerRender } from '@/store/activeSlice';
+import { triggerRender } from '@/store/activeSlice/activeSlice';
 import { toggleModal } from '@/store/modalsSlice';
-import { editPayments } from '@/store/storeSlice';
+import { editPayments, getAllStoresProperties } from '@/store/storeSlice';
 
 import { ModalWindow } from '@/entities/ModalWindow';
 import { InputText } from '@/shared/InputText';
@@ -17,7 +17,8 @@ import style from './ModalPayments.module.scss';
 const ModalPayments = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const { store_id } = useParams();
-  const { store } = useAppSelector((state) => state.store);
+
+  const { store } = useAppSelector((state) => getAllStoresProperties(state));
   const { payments } = store;
 
   const {

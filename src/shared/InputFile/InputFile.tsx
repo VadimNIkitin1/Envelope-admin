@@ -4,9 +4,10 @@ import { useParams } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { clearImageProduct, uploadPhoto } from '@/store/productSlice';
+import { clearImageProduct, uploadPhoto } from '@/store/productSlice/productSlice';
 import { clearImageMail, uploadPhotoForMail } from '@/store/mailSlice';
 import { uploadWelcomeImage, clearWelcomeImage } from '@/store/storeSlice';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 import { IInputProps } from './types';
 import clsx from 'clsx';
@@ -17,7 +18,8 @@ const InputFile = forwardRef<HTMLInputElement, IInputProps>(({ error, style, typ
   const { image } = useAppSelector((state) => state.products.product);
   const { photo_url } = useAppSelector((state) => state.mail);
   const { image_welcome } = useAppSelector((state) => state.store);
-  const theme = useAppSelector((state) => state.active.theme);
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
+
   const { store_id } = useParams();
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const filePicker = useRef<any>(ref);

@@ -4,8 +4,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
 import { toggleModal } from '@/store/modalsSlice';
-import { triggerRender } from '@/store/activeSlice';
-import { editInfo } from '@/store/storeSlice';
+import { triggerRender } from '@/store/activeSlice/activeSlice';
+import { editInfo, getAllStoresProperties } from '@/store/storeSlice';
 
 import { InputText } from '@/shared/InputText';
 import { ModalWindow } from '@/entities/ModalWindow';
@@ -15,9 +15,9 @@ import style from './ModalInfo.module.scss';
 
 const ModalInfo = ({ isOpen, type }) => {
   const dispatch = useAppDispatch();
-  const { name, number_phone, adress, link_bot, time_zone } = useAppSelector(
-    (state) => state.store.store.info
-  );
+  const { info } = useAppSelector((state) => getAllStoresProperties(state));
+  const { name, adress, number_phone, link_bot, time_zone } = info;
+
   const { store_id } = useParams();
 
   const {

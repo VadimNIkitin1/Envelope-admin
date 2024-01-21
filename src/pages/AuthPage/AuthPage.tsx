@@ -8,7 +8,8 @@ import { useAppSelector, useAppDispatch } from '@/types/hooks';
 import { AuthType } from '@/app/constants';
 
 import { logIn, registration } from '@/store/authSlice';
-import { triggerRender } from '@/store/activeSlice';
+import { triggerRender } from '@/store/activeSlice/activeSlice';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 import { InputText } from '@/shared/InputText';
 
@@ -20,7 +21,8 @@ const AuthPage = ({ type }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const responseData = localStorage.getItem('data') || '';
-  const { render } = useAppSelector((state) => state.active);
+
+  const { render } = useAppSelector((state) => getAllActiveProperties(state));
 
   const {
     register,

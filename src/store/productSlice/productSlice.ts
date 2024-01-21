@@ -11,7 +11,7 @@ import {
   isPendingAction,
   isRejectedAction,
   makeApiRequest,
-} from './api';
+} from '../api';
 
 const initialState: IProductsInitialState = {
   products: [],
@@ -127,7 +127,7 @@ export const getUnits = createAsyncThunk<IUnit[], undefined, { rejectValue: Erro
   }
 );
 
-const slice = createSlice({
+const products = createSlice({
   name: 'products',
   initialState,
   reducers: {
@@ -146,6 +146,6 @@ const slice = createSlice({
   },
 });
 
-export const { saveProduct, clearImageProduct } = slice.actions;
+export const { saveProduct, clearImageProduct } = products.actions;
 
-export default slice.reducer;
+export { products };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import { TbMailForward } from 'react-icons/tb';
 import { Input, Tooltip } from '@chakra-ui/react';
 
@@ -7,10 +8,12 @@ import { TABLE_HEADER_ANALYTIC_FOR_CATEGORY, TABLE_HEADER_ANALYTIC_FOR_PRODUCT }
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
 import {
+  getAllReportProperties,
   getTotalSales,
   getTotalSalesForCategory,
   getTotalSalesForProduct,
 } from '@/store/reportSlice';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 import { ANALYTIC_PAGE, ANALYTIC_TABLE } from '@/app/constants';
 
@@ -19,19 +22,20 @@ import { Button } from '@/shared/Button';
 
 import style from './AnalyticPage.module.scss';
 import clsx from 'clsx';
-import { useParams } from 'react-router';
 
 const AnalyticPage = ({ type }) => {
-  const theme = useAppSelector((state) => state.active.theme);
+  const dispatch = useAppDispatch();
+
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
+  const { totalSalesForCategory, totalSalesForProduct, totalSales } = useAppSelector((state) =>
+    getAllReportProperties(state)
+  );
+
   const [select, setSelect] = useState<string>(ANALYTIC_TABLE.NONE);
   const [from, setFrom] = useState('');
   const [before, setBefore] = useState('');
-  const { store_id } = useParams();
 
-  const dispatch = useAppDispatch();
-  const { totalSalesForCategory, totalSalesForProduct, totalSales } = useAppSelector(
-    (state) => state.report
-  );
+  const { store_id } = useParams();
 
   useEffect(() => {
     if (type === ANALYTIC_PAGE.STORE) {

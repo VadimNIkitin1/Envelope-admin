@@ -3,9 +3,15 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useParams } from 'react-router';
 
 import { toggleModal, ModalType } from '@/store/modalsSlice';
-import { triggerRender } from '@/store/activeSlice';
-import { addProduct, clearImageProduct, editProduct, getUnits } from '@/store/productSlice';
-import { getCategories } from '@/store/categorySlice';
+import { triggerRender, getAllActiveProperties } from '@/store/activeSlice';
+import {
+  addProduct,
+  clearImageProduct,
+  editProduct,
+  getUnits,
+  getAllProductsProperties,
+} from '@/store/productSlice';
+import { getCategories, getAllCategoriesProperties } from '@/store/categorySlice';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
@@ -22,11 +28,9 @@ const ModalProducts = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const { store_id } = useParams();
 
-  const { categories } = useAppSelector((state) => state.categories);
-
-  const { product, units } = useAppSelector((state) => state.products);
-
-  const { theme } = useAppSelector((state) => state.active);
+  const { categories } = useAppSelector((state) => getAllCategoriesProperties(state));
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
+  const { product, units } = useAppSelector((state) => getAllProductsProperties(state));
 
   const {
     id,

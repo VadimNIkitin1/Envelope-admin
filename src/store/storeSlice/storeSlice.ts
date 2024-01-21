@@ -22,7 +22,7 @@ import {
   isPendingAction,
   isRejectedAction,
   makeApiRequest,
-} from './api';
+} from '../api';
 
 const initialState: IStoreInitialState = {
   stores: [],
@@ -127,7 +127,7 @@ const initialState: IStoreInitialState = {
 };
 
 export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: Error }>(
-  'store/getStores',
+  'stores/getStores',
   async (_, { rejectWithValue }) => {
     try {
       return await makeApiRequest('get', 'store/');
@@ -138,7 +138,7 @@ export const getStores = createAsyncThunk<IStore[], undefined, { rejectValue: Er
 );
 
 export const getOneStore = createAsyncThunk<IStore, string | undefined, { rejectValue: Error }>(
-  'store/getOneStore',
+  'stores/getOneStore',
   async (id, { rejectWithValue }) => {
     try {
       return await makeApiRequest('get', `store/one/?store_id=${id}`);
@@ -149,7 +149,7 @@ export const getOneStore = createAsyncThunk<IStore, string | undefined, { reject
 );
 
 export const addStore = createAsyncThunk<IStore, IRequestCategory, { rejectValue: Error }>(
-  'store/addStore',
+  'stores/addStore',
   async (data, { rejectWithValue }) => {
     try {
       return await makeApiRequest('post', 'store/', {
@@ -171,7 +171,7 @@ export const editActivityStore = createAsyncThunk<
   IStore[],
   number | undefined,
   { rejectValue: Error }
->('store/editActivityStore', async (id, { rejectWithValue }) => {
+>('stores/editActivityStore', async (id, { rejectWithValue }) => {
   try {
     return await makeApiRequest('patch', `store/update_activity/?store_id=${id}`);
   } catch (error) {
@@ -180,7 +180,7 @@ export const editActivityStore = createAsyncThunk<
 });
 
 export const editLegalInfo = createAsyncThunk<IStore[], IRequestLegalInfo, { rejectValue: Error }>(
-  'store/editLegalInfo',
+  'stores/editLegalInfo',
   async (data, { rejectWithValue }) => {
     try {
       return await makeApiRequest('put', `store/legal_informations/?store_id=${data.id}`, data);
@@ -191,7 +191,7 @@ export const editLegalInfo = createAsyncThunk<IStore[], IRequestLegalInfo, { rej
 );
 
 export const editTokenBot = createAsyncThunk<string, IRequestTokenBot, { rejectValue: Error }>(
-  'store/editTokenBot',
+  'stores/editTokenBot',
   async (data, { rejectWithValue }) => {
     try {
       return await makeApiRequest('put', `store/token_bot/?store_id=${data.id}`, data);
@@ -202,7 +202,7 @@ export const editTokenBot = createAsyncThunk<string, IRequestTokenBot, { rejectV
 );
 
 export const editChats = createAsyncThunk<string, IRequestChats, { rejectValue: Error }>(
-  'store/editChats',
+  'stores/editChats',
   async (data, { rejectWithValue }) => {
     try {
       return await makeApiRequest('put', `store/service_text_and_chats/?store_id=${data.id}`, data);
@@ -213,7 +213,7 @@ export const editChats = createAsyncThunk<string, IRequestChats, { rejectValue: 
 );
 
 export const editPayments = createAsyncThunk<IStore[], IRequestPayments, { rejectValue: Error }>(
-  'store/editPayments',
+  'stores/editPayments',
   async (data, { rejectWithValue }) => {
     try {
       return await makeApiRequest('put', `store/store_payments/?store_id=${data.id}`, data);
@@ -224,7 +224,7 @@ export const editPayments = createAsyncThunk<IStore[], IRequestPayments, { rejec
 );
 
 export const editInfo = createAsyncThunk<IStore[], IRequestInfo, { rejectValue: Error }>(
-  'store/editInfo',
+  'stores/editInfo',
   async (data, { rejectWithValue }) => {
     try {
       return await makeApiRequest('put', `store/store_info/?store_id=${data.id}`, data);
@@ -235,7 +235,7 @@ export const editInfo = createAsyncThunk<IStore[], IRequestInfo, { rejectValue: 
 );
 
 export const uploadWelcomeImage = createAsyncThunk<string, IRequestPhoto, { rejectValue: Error }>(
-  'store/uploadWelcomeImage',
+  'stores/uploadWelcomeImage',
   async (data, { rejectWithValue }) => {
     try {
       return await makeApiRequest(
@@ -250,7 +250,7 @@ export const uploadWelcomeImage = createAsyncThunk<string, IRequestPhoto, { reje
 );
 
 export const deleteStore = createAsyncThunk<string, string | undefined, { rejectValue: Error }>(
-  'store/deleteStore',
+  'stores/deleteStore',
   async (id, { rejectWithValue }) => {
     try {
       return await makeApiRequest('delete', `store/?store_id=${id}`);
@@ -264,7 +264,7 @@ export const editCheckboxPayment = createAsyncThunk<
   string,
   IRequestCheckboxPayment,
   { rejectValue: Error }
->('store/editCheckboxPayment', async (data, { rejectWithValue }) => {
+>('stores/editCheckboxPayment', async (data, { rejectWithValue }) => {
   try {
     return await makeApiRequest(
       'patch',
@@ -279,7 +279,7 @@ export const editCheckboxTypeOrder = createAsyncThunk<
   string,
   IRequestCheckboxTypeOrder,
   { rejectValue: Error }
->('store/editCheckboxTypeOrder', async (data, { rejectWithValue }) => {
+>('stores/editCheckboxTypeOrder', async (data, { rejectWithValue }) => {
   try {
     return await makeApiRequest(
       'patch',
@@ -290,8 +290,8 @@ export const editCheckboxTypeOrder = createAsyncThunk<
   }
 });
 
-const slice = createSlice({
-  name: 'store',
+const stores = createSlice({
+  name: 'stores',
   initialState,
   reducers: {
     clearWelcomeImage(state) {
@@ -306,6 +306,6 @@ const slice = createSlice({
   },
 });
 
-export const { clearWelcomeImage } = slice.actions;
+export const { clearWelcomeImage } = stores.actions;
 
-export default slice.reducer;
+export { stores };

@@ -12,6 +12,7 @@ import { PATHNAME } from '@/app/constants';
 import { Button } from '@/shared/Button';
 
 import { ModalType, toggleModal } from '@/store/modalsSlice';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 import { clsx } from 'clsx';
 import style from './TableHeader.module.scss';
@@ -20,9 +21,10 @@ interface Props {
 }
 
 const TableHeader: FC<Props> = ({ tableHeader }) => {
-  const location = useLocation();
   const dispatch = useAppDispatch();
-  const theme = useAppSelector((state) => state.active.theme);
+  const location = useLocation();
+
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
 
   const handleAdd = () => {
     if (location.pathname.includes(PATHNAME.PRODUCTS)) {

@@ -3,24 +3,26 @@ import { useLocation, useParams } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { triggerRender } from '@/store/activeSlice';
+import { triggerRender } from '@/store/activeSlice/activeSlice';
 import { ModalType, toggleModal } from '@/store/modalsSlice';
-import { deleteCategoryFlag } from '@/store/categorySlice';
-import { deleteProductFlag } from '@/store/productSlice';
+import { deleteCategoryFlag } from '@/store/categorySlice/categorySlice';
+import { deleteProductFlag } from '@/store/productSlice/productSlice';
 import { deleteStore } from '@/store/storeSlice';
 
 import { ModalWindow } from '@/entities/ModalWindow';
 import { Checkbox } from '@/shared/Checkbox';
 
 import { PATHNAME } from '@/app/constants';
+import { getAllCategoriesProperties } from '@/store/categorySlice';
+import { getAllProductsProperties } from '@/store/productSlice';
 
 const ModalDelete = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { store_id } = useParams();
 
-  const { category } = useAppSelector((state) => state.categories);
-  const { product } = useAppSelector((state) => state.products);
+  const { category } = useAppSelector((state) => getAllCategoriesProperties(state));
+  const { product } = useAppSelector((state) => getAllProductsProperties(state));
 
   const { register, handleSubmit } = useForm({ mode: 'onBlur' });
 

@@ -4,9 +4,9 @@ import type { SubmitHandler } from 'react-hook-form';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { triggerRender } from '@/store/activeSlice';
+import { triggerRender } from '@/store/activeSlice/activeSlice';
 import { toggleModal } from '@/store/modalsSlice';
-import { editLegalInfo } from '@/store/storeSlice';
+import { editLegalInfo, getAllStoresProperties } from '@/store/storeSlice';
 
 import { ModalWindow } from '@/entities/ModalWindow';
 import { InputText } from '@/shared/InputText';
@@ -17,7 +17,8 @@ import style from './ModalLegalInfo.module.scss';
 const ModalLegalInfo = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const { store_id } = useParams();
-  const { store } = useAppSelector((state) => state.store);
+
+  const { store } = useAppSelector((state) => getAllStoresProperties(state));
   const { legal_information } = store;
 
   const {

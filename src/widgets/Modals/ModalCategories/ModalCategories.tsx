@@ -4,9 +4,9 @@ import type { SubmitHandler } from 'react-hook-form';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { triggerRender } from '../../../store/activeSlice';
+import { triggerRender } from '../../../store/activeSlice/activeSlice';
 import { ModalType, toggleModal } from '@/store/modalsSlice';
-import { addCategory, editCategory } from '@/store/categorySlice';
+import { addCategory, editCategory } from '@/store/categorySlice/categorySlice';
 
 import { ModalWindow } from '@/entities/ModalWindow';
 import { InputText } from '@/shared/InputText';
@@ -15,16 +15,17 @@ import { Checkbox } from '@/shared/Checkbox';
 import type { IRequestCategory } from './types';
 import clsx from 'clsx';
 import style from './ModalCategories.module.scss';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
+import { getAllCategoriesProperties } from '@/store/categorySlice';
 
 const ModalCategories = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
 
-  const { store_id } = useParams();
-
-  const { category } = useAppSelector((state) => state.categories);
+  const { category } = useAppSelector((state) => getAllCategoriesProperties(state));
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
   const { name, id } = category;
 
-  const { theme } = useAppSelector((state) => state.active);
+  const { store_id } = useParams();
 
   const {
     register,

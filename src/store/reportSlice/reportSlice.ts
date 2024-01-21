@@ -10,7 +10,7 @@ import {
   isPendingAction,
   isRejectedAction,
   makeApiRequest,
-} from './api';
+} from '../api';
 
 const initialState: IReportInitialState = {
   customers: [],
@@ -71,7 +71,7 @@ export const getTotalSalesForProduct = createAsyncThunk<
   }
 });
 
-const slice = createSlice({
+const report = createSlice({
   name: 'report',
   initialState,
   reducers: {},
@@ -83,4 +83,4 @@ const slice = createSlice({
   },
 });
 
-export default slice.reducer;
+export { report };

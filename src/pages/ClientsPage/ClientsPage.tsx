@@ -7,12 +7,13 @@ import { Table } from '@/widgets/Table';
 
 import { TABLE_HEADER_CLIENTS } from './data';
 
-import { getCustomers } from '@/store/reportSlice';
+import { getAllReportProperties, getCustomers } from '@/store/reportSlice';
 
 const ClientsPage = () => {
   const dispatch = useAppDispatch();
   const { store_id } = useParams();
-  const customers = useAppSelector((state) => state.report.customers);
+
+  const { customers } = useAppSelector((state) => getAllReportProperties(state));
 
   useEffect(() => {
     dispatch(getCustomers(store_id));

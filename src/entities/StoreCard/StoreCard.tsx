@@ -10,7 +10,8 @@ import { PATHNAME } from '@/app/constants';
 import { Button } from '@/shared/Button';
 
 import { ModalType, toggleModal } from '@/store/modalsSlice';
-import { toggleTabs, triggerRender } from '@/store/activeSlice';
+import { toggleTabs, triggerRender } from '@/store/activeSlice/activeSlice';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 import { clsx } from 'clsx';
 import style from './StoreCard.module.scss';
@@ -18,10 +19,9 @@ import style from './StoreCard.module.scss';
 const StoreCard = (props) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-
   const { company_id } = useParams();
 
-  const { theme } = useAppSelector((state) => state.active);
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
 
   const handleClick = () => {
     dispatch(triggerRender());
