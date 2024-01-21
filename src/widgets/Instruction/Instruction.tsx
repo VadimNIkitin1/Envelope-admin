@@ -3,12 +3,14 @@ import { CgDanger } from 'react-icons/cg';
 
 import { useAppSelector } from '@/types/hooks';
 
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
+
 import clsx from 'clsx';
 import style from './Instruction.module.scss';
 
 const Instruction = () => {
   const [hidden, setHidden] = useState(true);
-  const { theme } = useAppSelector((state) => state.active);
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
 
   return (
     <div className={style.instruction_container}>

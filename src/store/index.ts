@@ -1,23 +1,23 @@
 import { configureStore } from '@reduxjs/toolkit';
-import activeReducer from './activeSlice';
-import authReducer, { localStorageMiddleware } from './authSlice';
-import categoriesReducer from './categorySlice';
-import productsReducer from './productSlice';
-import modalsReducer from './modalsSlice';
-import storeReducer from './storeSlice';
-import reportReducer from './reportSlice';
-import mailReducer from './mailSlice';
+import { active } from './activeSlice';
+import { localStorageMiddleware, auth } from './authSlice/authSlice';
+import { categories } from './categorySlice';
+import { products } from './productSlice';
+import { modals } from './modalsSlice';
+import { stores } from './storeSlice';
+import { report } from './reportSlice';
+import { mail } from './mailSlice';
 
 const store = configureStore({
   reducer: {
-    active: activeReducer,
-    modals: modalsReducer,
-    categories: categoriesReducer,
-    products: productsReducer,
-    auth: authReducer,
-    store: storeReducer,
-    report: reportReducer,
-    mail: mailReducer,
+    active: active.reducer,
+    modals: modals.reducer,
+    categories: categories.reducer,
+    products: products.reducer,
+    auth: auth.reducer,
+    store: stores.reducer,
+    report: report.reducer,
+    mail: mail.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
 });

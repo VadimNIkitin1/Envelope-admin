@@ -2,6 +2,8 @@ import { ButtonHTMLAttributes, FC } from 'react';
 
 import { useAppSelector } from '@/types/hooks';
 
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
+
 import { clsx } from 'clsx';
 import styles from './Button.module.scss';
 
@@ -10,7 +12,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button: FC<Props> = ({ view, ...props }) => {
-  const theme = useAppSelector((state) => state.active.theme);
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
 
   return (
     <button

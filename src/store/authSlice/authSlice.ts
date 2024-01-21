@@ -91,7 +91,7 @@ const isError = (action: AnyAction) => {
   return action.type.endsWith('rejected');
 };
 
-const slice = createSlice({
+const auth = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
@@ -110,4 +110,4 @@ const slice = createSlice({
   },
 });
 
-export default slice.reducer;
+export { auth };

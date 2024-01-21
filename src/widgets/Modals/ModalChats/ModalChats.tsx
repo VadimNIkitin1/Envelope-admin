@@ -4,9 +4,9 @@ import type { SubmitHandler } from 'react-hook-form';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { triggerRender } from '@/store/activeSlice';
+import { triggerRender } from '@/store/activeSlice/activeSlice';
 import { toggleModal } from '@/store/modalsSlice';
-import { editChats } from '@/store/storeSlice';
+import { editChats, getAllStoresProperties } from '@/store/storeSlice';
 
 import { ModalWindow } from '@/entities/ModalWindow';
 import { InputText } from '@/shared/InputText';
@@ -18,7 +18,7 @@ import style from './ModalChats.module.scss';
 const ModalChats = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
   const { store_id } = useParams();
-  const { store, image_welcome } = useAppSelector((state) => state.store);
+  const { store } = useAppSelector((state) => getAllStoresProperties(state));
   const { service_text_and_chats } = store;
 
   const {
@@ -31,7 +31,7 @@ const ModalChats = ({ type, isOpen }) => {
     const requestData = {
       id: store_id,
       ...data,
-      welcome_image: image_welcome,
+      welcome_image: store.service_text_and_chats.welcome_image,
     };
 
     dispatch(editChats(requestData));

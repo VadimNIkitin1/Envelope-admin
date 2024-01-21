@@ -7,7 +7,7 @@ import {
   handlePending,
   handleFulfilled,
   handleRejected,
-} from './api';
+} from '../api';
 import { ICategoriesInitialState, ICategory, IRequestCheckbox } from '@/types/categories';
 import { IRequestCategory } from '@/widgets/Modals/ModalCategories/types';
 
@@ -82,7 +82,7 @@ export const toggleCheckboxCategory = createAsyncThunk<
   }
 });
 
-const slice = createSlice({
+const categories = createSlice({
   name: 'categories',
   initialState,
   reducers: {
@@ -98,6 +98,6 @@ const slice = createSlice({
   },
 });
 
-export const { saveCategory } = slice.actions;
+export const { saveCategory } = categories.actions;
 
-export default slice.reducer;
+export { categories };

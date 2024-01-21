@@ -7,9 +7,9 @@ import { InputText } from '@/shared/InputText';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { triggerRender } from '@/store/activeSlice';
+import { triggerRender } from '@/store/activeSlice/activeSlice';
 import { ModalType, toggleModal } from '@/store/modalsSlice';
-import { addStore } from '@/store/storeSlice';
+import { addStore, getAllStoresProperties } from '@/store/storeSlice';
 
 import { IRequestStore } from './types';
 
@@ -18,8 +18,7 @@ import style from './ModalStores.module.scss';
 const ModalStores = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
 
-  const { store } = useAppSelector((state) => state.store);
-  const { info } = store;
+  const { info } = useAppSelector((state) => getAllStoresProperties(state));
 
   const {
     register,

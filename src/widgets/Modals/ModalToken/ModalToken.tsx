@@ -9,14 +9,16 @@ import { InputText } from '@/shared/InputText';
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
 import { toggleModal } from '@/store/modalsSlice';
-import { triggerRender } from '@/store/activeSlice';
-import { editTokenBot } from '@/store/storeSlice';
+import { triggerRender } from '@/store/activeSlice/activeSlice';
+import { editTokenBot, getAllStoresProperties } from '@/store/storeSlice';
 
 import style from './ModalToken.module.scss';
 
 const ModalToken = ({ isOpen, type }) => {
   const dispatch = useAppDispatch();
-  const { token_bot } = useAppSelector((state) => state.store.store.bot_tokens);
+
+  const { token_bot } = useAppSelector((state) => getAllStoresProperties(state));
+
   const { store_id } = useParams();
 
   const {

@@ -34,7 +34,7 @@ export const ModalType = {
   INFO: 'info',
 };
 
-const slice = createSlice({
+const modals = createSlice({
   name: 'modals',
   initialState,
   reducers: {
@@ -94,6 +94,6 @@ const slice = createSlice({
   },
 });
 
-export const { toggleModal } = slice.actions;
+export const { toggleModal } = modals.actions;
 
-export default slice.reducer;
+export { modals };

@@ -1,11 +1,14 @@
+import { FC, InputHTMLAttributes } from 'react';
+
 import { useAppSelector } from '@/types/hooks';
+
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 import { clsx } from 'clsx';
 import style from './TableCheckbox.module.scss';
-import { FC, InputHTMLAttributes } from 'react';
 
 const TableCheckbox: FC<InputHTMLAttributes<HTMLInputElement>> = (props) => {
-  const theme = useAppSelector((state) => state.active.theme);
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
 
   return (
     <div className={props.className}>

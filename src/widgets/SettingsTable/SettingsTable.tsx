@@ -10,14 +10,17 @@ import { Button } from '@/shared/Button';
 
 import { ModalType, toggleModal } from '@/store/modalsSlice';
 import { editCheckboxPayment, editCheckboxTypeOrder } from '@/store/storeSlice';
-import { triggerRender } from '@/store/activeSlice';
+import { triggerRender } from '@/store/activeSlice/activeSlice';
 
 import { clsx } from 'clsx';
 import style from './SettingsTable.module.scss';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 const SettingsTable = ({ staticData, dynamicData }) => {
   const dispatch = useAppDispatch();
-  const { theme } = useAppSelector((state) => state.active);
+
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
+
   const { store_id } = useParams();
 
   const handleClick = (modal: string) => {

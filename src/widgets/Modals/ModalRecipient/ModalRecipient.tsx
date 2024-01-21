@@ -3,15 +3,16 @@ import { Radio, RadioGroup, Stack } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { toggleRecipient, triggerRender } from '@/store/activeSlice';
+import { toggleRecipient, triggerRender } from '@/store/activeSlice/activeSlice';
 import { toggleModal } from '@/store/modalsSlice';
 
 import { ModalWindow } from '@/entities/ModalWindow';
+import { getAllActiveProperties } from '@/store/activeSlice';
 
 const ModalRecipient = ({ type, isOpen }) => {
   const dispatch = useAppDispatch();
 
-  const { recipient } = useAppSelector((state) => state.active);
+  const { recipient } = useAppSelector((state) => getAllActiveProperties(state));
 
   const { handleSubmit } = useForm({ mode: 'onBlur' });
 

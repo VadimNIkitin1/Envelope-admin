@@ -11,7 +11,7 @@ import {
   isPendingAction,
   isRejectedAction,
   makeApiRequest,
-} from './api';
+} from '../api';
 
 const initialState: IinitialStateMail = {
   photo_url: '',
@@ -57,7 +57,7 @@ export const uploadPhotoForMail = createAsyncThunk<string, IRequestPhoto, { reje
   }
 );
 
-const slice = createSlice({
+const mail = createSlice({
   name: 'mail',
   initialState,
   reducers: {
@@ -73,6 +73,6 @@ const slice = createSlice({
   },
 });
 
-export const { clearImageMail } = slice.actions;
+export const { clearImageMail } = mail.actions;
 
-export default slice.reducer;
+export { mail };

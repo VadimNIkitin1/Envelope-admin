@@ -1,4 +1,4 @@
-import { toggleTheme } from '@/store/activeSlice';
+import { getAllActiveProperties, toggleTheme } from '@/store/activeSlice';
 
 import { useAppSelector, useAppDispatch } from '@/types/hooks';
 
@@ -6,7 +6,7 @@ import style from './ThemeSwitches.module.scss';
 
 const ThemeSwitches = () => {
   const dispatch = useAppDispatch();
-  const theme = useAppSelector((state) => state.active.theme);
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
 
   const handleClickTheme = (target) => {
     target.preventDefault();

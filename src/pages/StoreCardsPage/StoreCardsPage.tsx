@@ -3,8 +3,9 @@ import { BsFillPlusSquareFill } from 'react-icons/bs';
 
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
-import { getStores } from '@/store/storeSlice';
-import { ModalType, toggleModal } from '@/store/modalsSlice';
+import { getStores, getAllStoresProperties } from '@/store/storeSlice';
+import { ModalType, getAllModalsProperties, toggleModal } from '@/store/modalsSlice';
+import { getAllActiveProperties } from '@/store/activeSlice';
 
 import { ModalStores } from '@/widgets/Modals/ModalStores';
 import { ModalDelete } from '@/widgets/Modals/ModalDelete';
@@ -16,9 +17,12 @@ import style from './StoreCardsPage.module.scss';
 
 const StoreCardsPage = () => {
   const dispatch = useAppDispatch();
-  const { stores } = useAppSelector((state) => state.store);
-  const { render, theme } = useAppSelector((state) => state.active);
-  const { modalStores, modalEditStores, modalForDelete } = useAppSelector((state) => state.modals);
+
+  const { stores } = useAppSelector((state) => getAllStoresProperties(state));
+  const { theme, render } = useAppSelector((state) => getAllActiveProperties(state));
+  const { modalStores, modalEditStores, modalForDelete } = useAppSelector((state) =>
+    getAllModalsProperties(state)
+  );
 
   useEffect(() => {
     dispatch(getStores());

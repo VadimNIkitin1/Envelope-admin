@@ -14,18 +14,20 @@ import {
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
 import { getStores } from '@/store/storeSlice';
-import { toggleTabs, triggerRender } from '@/store/activeSlice';
+import { toggleTabs, triggerRender } from '@/store/activeSlice/activeSlice';
 
 import { PATHNAME } from '@/app/constants';
 
 import { clsx } from 'clsx';
 import style from './SideBarList.module.scss';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 const SideBarList = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { store_id, company_id } = useParams();
-  const { render, theme, active } = useAppSelector((state) => state.active);
+
+  const { theme, render, activeTab } = useAppSelector((state) => getAllActiveProperties(state));
 
   useEffect(() => {
     dispatch(getStores());
@@ -114,7 +116,7 @@ const SideBarList = () => {
                 <Link
                   className={clsx(
                     style.item,
-                    el.link.includes(active) && style.active,
+                    el.link.includes(activeTab) && style.active,
                     theme && style.light
                   )}
                   to={`/${company_id}${el.link}`}
@@ -130,7 +132,7 @@ const SideBarList = () => {
                     onClick={() => dispatch(toggleTabs(`${el.link}`))}
                     className={clsx(
                       style.item,
-                      el.link.includes(active) && style.active,
+                      el.link.includes(activeTab) && style.active,
                       theme && style.light
                     )}
                   >

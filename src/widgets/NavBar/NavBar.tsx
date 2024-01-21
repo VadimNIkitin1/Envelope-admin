@@ -10,18 +10,21 @@ import { PATHNAME } from '@/app/constants';
 
 import { ThemeSwitches } from '@/shared/ThemeSwitches';
 
-import { toggleLanguage, toggleTabs, LANGUAGE } from '@/store/activeSlice';
+import { toggleLanguage, toggleTabs, LANGUAGE } from '@/store/activeSlice/activeSlice';
 import { logOut } from '@/store/authSlice';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 import { clsx } from 'clsx';
 import style from './NavBar.module.scss';
+import { getAllStoresProperties } from '@/store/storeSlice';
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { store_id, company_id } = useParams();
-  const { theme, language } = useAppSelector((state) => state.active);
-  const { store } = useAppSelector((state) => state.store);
+
+  const { theme, language } = useAppSelector((state) => getAllActiveProperties(state));
+  const { store } = useAppSelector((state) => getAllStoresProperties(state));
 
   const handleLogOut = () => {
     dispatch(logOut());

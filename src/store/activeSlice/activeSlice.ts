@@ -15,7 +15,7 @@ const initialState: IActive = {
   language: LANGUAGE.RUSSIAN,
 };
 
-const slice = createSlice({
+const active = createSlice({
   name: 'active',
   initialState,
   reducers: {
@@ -39,6 +39,6 @@ const slice = createSlice({
 });
 
 export const { toggleTabs, toggleTheme, triggerRender, toggleRecipient, toggleLanguage } =
-  slice.actions;
+  active.actions;
 
-export default slice.reducer;
+export { active };

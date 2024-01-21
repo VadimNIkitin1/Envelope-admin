@@ -4,6 +4,7 @@ import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import { useAppSelector } from '@/types/hooks';
 
 import { ModalType } from '@/store/modalsSlice';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 import { Button } from '@/shared/Button';
 
@@ -20,7 +21,7 @@ const ModalWindow: FC<ModalWindowProps> = ({
   onSubmit,
   type,
 }) => {
-  const { theme } = useAppSelector((state) => state.active);
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

@@ -2,11 +2,13 @@ import { forwardRef } from 'react';
 
 import { useAppSelector } from '@/types/hooks';
 
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
+
 import { clsx } from 'clsx';
 import style from './Checkbox.module.scss';
 
 const Checkbox = forwardRef<HTMLInputElement>(({ ...rest }, ref) => {
-  const theme = useAppSelector((state) => state.active.theme);
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
 
   return (
     <label className={style.container}>

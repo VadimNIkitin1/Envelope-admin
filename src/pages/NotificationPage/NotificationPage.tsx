@@ -4,7 +4,8 @@ import type { SubmitHandler } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 
 import { sendMessage, sendMessageMyself } from '@/store/mailSlice';
-import { ModalType, toggleModal } from '@/store/modalsSlice';
+import { ModalType, toggleModal, getAllModalsProperties } from '@/store/modalsSlice';
+import { getAllActiveProperties } from '@/store/activeSlice';
 
 import { ModalRecipient } from '@/widgets/Modals/ModalRecipient';
 import { InputFile } from '@/shared/InputFile';
@@ -25,9 +26,10 @@ export interface INotification {
 
 const NotificationPage = () => {
   const dispatch = useAppDispatch();
-  const { theme } = useAppSelector((state) => state.active);
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
+  const { modalRecipient } = useAppSelector((state) => getAllModalsProperties(state));
+
   const photo_url = useAppSelector((state) => state.mail.photo_url);
-  const modalRecipient = useAppSelector((state) => state.modals.modalRecipient);
   const { store_id } = useParams();
 
   const {

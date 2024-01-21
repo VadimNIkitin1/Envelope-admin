@@ -7,10 +7,11 @@ import { useAppSelector, useAppDispatch } from '@/types/hooks';
 
 import { PATHNAME } from '@/app/constants';
 
-import { saveCategory, toggleCheckboxCategory } from '@/store/categorySlice';
-import { saveProduct, toggleCheckboxProduct } from '@/store/productSlice';
+import { saveCategory, toggleCheckboxCategory } from '@/store/categorySlice/categorySlice';
+import { saveProduct, toggleCheckboxProduct } from '@/store/productSlice/productSlice';
 import { ModalType, toggleModal } from '@/store/modalsSlice';
-import { triggerRender } from '@/store/activeSlice';
+import { triggerRender } from '@/store/activeSlice/activeSlice';
+import { getAllActiveProperties } from '@/store/activeSlice/selectors';
 
 import { TableCheckbox } from '@/shared/TableCheckbox';
 import { Button } from '@/shared/Button';
@@ -30,7 +31,8 @@ interface Props {
 const TableRow: FC<Props> = ({ cell, tableHeader }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const theme = useAppSelector((state) => state.active.theme);
+
+  const { theme } = useAppSelector((state) => getAllActiveProperties(state));
 
   const handleEdit = (data: TDataForTable) => {
     if (location.pathname.includes(PATHNAME.PRODUCTS)) {

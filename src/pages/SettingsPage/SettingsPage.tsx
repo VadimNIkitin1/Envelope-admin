@@ -15,9 +15,9 @@ import {
   TABLE_TYPE_ORDER,
 } from './data';
 
-import { editActivityStore, getOneStore } from '@/store/storeSlice';
-import { triggerRender } from '@/store/activeSlice';
-import { ModalType } from '@/store/modalsSlice';
+import { editActivityStore, getAllStoresProperties, getOneStore } from '@/store/storeSlice';
+import { triggerRender, getAllActiveProperties } from '@/store/activeSlice';
+import { ModalType, getAllModalsProperties } from '@/store/modalsSlice';
 
 import { SettingsTable } from '@/widgets/SettingsTable';
 import { ModalLegalInfo } from '@/widgets/Modals/ModalLegalInfo';
@@ -31,11 +31,13 @@ import { clsx } from 'clsx';
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();
-  const { theme, render } = useAppSelector((state) => state.active);
+
+  const { store } = useAppSelector((state) => getAllStoresProperties(state));
+  const { theme, render } = useAppSelector((state) => getAllActiveProperties(state));
   const { modalLegalInfo, modalChats, modalPayments, modalTokenBot, modalInfo } = useAppSelector(
-    (state) => state.modals
+    (state) => getAllModalsProperties(state)
   );
-  const { store } = useAppSelector((state) => state.store);
+
   const { store_id } = useParams();
 
   useEffect(() => {
